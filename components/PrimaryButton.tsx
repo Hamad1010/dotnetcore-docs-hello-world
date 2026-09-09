@@ -6,17 +6,22 @@ import { useColorScheme } from '@/components/useColorScheme';
 type Props = {
   label: string;
   onPress: () => void;
+  disabled?: boolean;
 };
 
-export default function PrimaryButton({ label, onPress }: Props) {
+export default function PrimaryButton({ label, onPress, disabled }: Props) {
   const colorScheme = useColorScheme();
 
   return (
     <Pressable
       onPress={onPress}
+      disabled={disabled}
       style={({ pressed }) => [
         styles.button,
-        { backgroundColor: Colors[colorScheme].tint, opacity: pressed ? 0.8 : 1 },
+        {
+          backgroundColor: Colors[colorScheme].tint,
+          opacity: disabled ? 0.4 : pressed ? 0.8 : 1,
+        },
       ]}>
       <Text style={styles.label}>{label}</Text>
     </Pressable>

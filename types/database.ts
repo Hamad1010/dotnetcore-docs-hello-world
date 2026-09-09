@@ -18,6 +18,7 @@ export interface Database {
         };
         Insert: Partial<Database['public']['Tables']['courses']['Row']> & { title: string };
         Update: Partial<Database['public']['Tables']['courses']['Row']>;
+        Relationships: [];
       };
       units: {
         Row: {
@@ -31,6 +32,7 @@ export interface Database {
           title: string;
         };
         Update: Partial<Database['public']['Tables']['units']['Row']>;
+        Relationships: [];
       };
       lessons: {
         Row: {
@@ -44,6 +46,7 @@ export interface Database {
           title: string;
         };
         Update: Partial<Database['public']['Tables']['lessons']['Row']>;
+        Relationships: [];
       };
       questions: {
         Row: {
@@ -65,6 +68,7 @@ export interface Database {
           correct_answer: unknown;
         };
         Update: Partial<Database['public']['Tables']['questions']['Row']>;
+        Relationships: [];
       };
       profiles: {
         Row: {
@@ -80,6 +84,7 @@ export interface Database {
         };
         Insert: Partial<Database['public']['Tables']['profiles']['Row']> & { id: string };
         Update: Partial<Database['public']['Tables']['profiles']['Row']>;
+        Relationships: [];
       };
       user_progress: {
         Row: {
@@ -95,6 +100,7 @@ export interface Database {
           lesson_id: string;
         };
         Update: Partial<Database['public']['Tables']['user_progress']['Row']>;
+        Relationships: [];
       };
       user_answer_log: {
         Row: {
@@ -110,6 +116,7 @@ export interface Database {
           was_correct: boolean;
         };
         Update: Partial<Database['public']['Tables']['user_answer_log']['Row']>;
+        Relationships: [];
       };
       streak_records: {
         Row: {
@@ -124,6 +131,7 @@ export interface Database {
           date: string;
         };
         Update: Partial<Database['public']['Tables']['streak_records']['Row']>;
+        Relationships: [];
       };
       review_queue_items: {
         Row: {
@@ -138,6 +146,7 @@ export interface Database {
           question_id: string;
         };
         Update: Partial<Database['public']['Tables']['review_queue_items']['Row']>;
+        Relationships: [];
       };
       subscriptions: {
         Row: {
@@ -152,6 +161,7 @@ export interface Database {
           user_id: string;
         };
         Update: Partial<Database['public']['Tables']['subscriptions']['Row']>;
+        Relationships: [];
       };
       reminder_settings: {
         Row: {
@@ -165,6 +175,14 @@ export interface Database {
           user_id: string;
         };
         Update: Partial<Database['public']['Tables']['reminder_settings']['Row']>;
+        Relationships: [];
+      };
+    };
+    Views: Record<string, never>;
+    Functions: {
+      award_xp: {
+        Args: { xp_amount: number };
+        Returns: void;
       };
     };
   };

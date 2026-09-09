@@ -136,6 +136,22 @@ create trigger on_auth_user_created
   for each row execute procedure public.handle_new_user();
 
 -- ============================================================
+-- Award XP to the signed-in user only (never lets one user grant
+-- XP to another user's account).
+-- ============================================================
+
+create or replace function public.award_xp(xp_amount int)
+returns void as $$
+begin
+  update public.profiles
+  set total_xp = total_xp + xp_amount
+  where id = auth.uid();
+end;
+$$ language plpgsql security definer;
+
+grant execute on function public.award_xp(int) to authenticated;
+
+-- ============================================================
 -- Row Level Security: users can only ever touch their own rows.
 -- Content tables are readable by any signed-in user, writable by none
 -- (content gets added via the Supabase dashboard or an admin tool later).
