@@ -1,7 +1,19 @@
 import { Redirect } from 'expo-router';
+import { ActivityIndicator } from 'react-native';
 
-// Placeholder entry point. Once sign-in is wired up, this will check
-// whether the user is logged in and send them to (tabs) or (auth).
+import { View } from '@/components/Themed';
+import { useSession } from '@/lib/useSession';
+
 export default function Index() {
-  return <Redirect href="/(auth)/welcome" />;
+  const { session, loading } = useSession();
+
+  if (loading) {
+    return (
+      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        <ActivityIndicator />
+      </View>
+    );
+  }
+
+  return <Redirect href={session ? '/(tabs)/home' : '/(auth)/welcome'} />;
 }
