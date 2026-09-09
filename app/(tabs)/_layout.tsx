@@ -1,12 +1,24 @@
 import { SymbolView } from 'expo-symbols';
 import { Tabs } from 'expo-router';
+import { useEffect, useRef } from 'react';
 
 import Colors from '@/constants/Colors';
 import { useColorScheme } from '@/components/useColorScheme';
 import { useClientOnlyValue } from '@/components/useClientOnlyValue';
+import { checkDailyStreak } from '@/features/streak/checkDailyStreak';
+import { useSession } from '@/lib/useSession';
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
+  const { session } = useSession();
+  const checkedUserId = useRef<string | null>(null);
+
+  useEffect(() => {
+    if (session && checkedUserId.current !== session.user.id) {
+      checkedUserId.current = session.user.id;
+      checkDailyStreak(session.user.id);
+    }
+  }, [session]);
 
   return (
     <Tabs

@@ -1,4 +1,5 @@
 import { calculateLessonXp } from '@/features/quiz/scoring';
+import { recordLessonCompletion } from '@/features/streak/recordLessonCompletion';
 import { supabase } from '@/lib/supabase';
 
 export type AnsweredQuestion = {
@@ -57,6 +58,7 @@ export async function completeLesson({
   }
 
   await supabase.rpc('award_xp', { xp_amount: xpEarned });
+  await recordLessonCompletion(userId);
 
   return { correctCount, totalCount, xpEarned };
 }
