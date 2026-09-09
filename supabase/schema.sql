@@ -153,52 +153,73 @@ alter table review_queue_items enable row level security;
 alter table subscriptions enable row level security;
 alter table reminder_settings enable row level security;
 
+drop policy if exists "content is readable by signed-in users" on courses;
 create policy "content is readable by signed-in users" on courses
   for select to authenticated using (true);
+drop policy if exists "content is readable by signed-in users" on units;
 create policy "content is readable by signed-in users" on units
   for select to authenticated using (true);
+drop policy if exists "content is readable by signed-in users" on lessons;
 create policy "content is readable by signed-in users" on lessons
   for select to authenticated using (true);
+drop policy if exists "content is readable by signed-in users" on questions;
 create policy "content is readable by signed-in users" on questions
   for select to authenticated using (true);
 
+drop policy if exists "users can view own profile" on profiles;
 create policy "users can view own profile" on profiles
   for select to authenticated using (auth.uid() = id);
+drop policy if exists "users can update own profile" on profiles;
 create policy "users can update own profile" on profiles
   for update to authenticated using (auth.uid() = id);
 
+drop policy if exists "users can view own progress" on user_progress;
 create policy "users can view own progress" on user_progress
   for select to authenticated using (auth.uid() = user_id);
+drop policy if exists "users can write own progress" on user_progress;
 create policy "users can write own progress" on user_progress
   for insert to authenticated with check (auth.uid() = user_id);
+drop policy if exists "users can update own progress" on user_progress;
 create policy "users can update own progress" on user_progress
   for update to authenticated using (auth.uid() = user_id);
 
+drop policy if exists "users can view own answer log" on user_answer_log;
 create policy "users can view own answer log" on user_answer_log
   for select to authenticated using (auth.uid() = user_id);
+drop policy if exists "users can write own answer log" on user_answer_log;
 create policy "users can write own answer log" on user_answer_log
   for insert to authenticated with check (auth.uid() = user_id);
 
+drop policy if exists "users can view own streak records" on streak_records;
 create policy "users can view own streak records" on streak_records
   for select to authenticated using (auth.uid() = user_id);
+drop policy if exists "users can write own streak records" on streak_records;
 create policy "users can write own streak records" on streak_records
   for insert to authenticated with check (auth.uid() = user_id);
+drop policy if exists "users can update own streak records" on streak_records;
 create policy "users can update own streak records" on streak_records
   for update to authenticated using (auth.uid() = user_id);
 
+drop policy if exists "users can view own review queue" on review_queue_items;
 create policy "users can view own review queue" on review_queue_items
   for select to authenticated using (auth.uid() = user_id);
+drop policy if exists "users can write own review queue" on review_queue_items;
 create policy "users can write own review queue" on review_queue_items
   for insert to authenticated with check (auth.uid() = user_id);
+drop policy if exists "users can update own review queue" on review_queue_items;
 create policy "users can update own review queue" on review_queue_items
   for update to authenticated using (auth.uid() = user_id);
 
+drop policy if exists "users can view own subscription" on subscriptions;
 create policy "users can view own subscription" on subscriptions
   for select to authenticated using (auth.uid() = user_id);
+drop policy if exists "users can update own subscription" on subscriptions;
 create policy "users can update own subscription" on subscriptions
   for update to authenticated using (auth.uid() = user_id);
 
+drop policy if exists "users can view own reminder settings" on reminder_settings;
 create policy "users can view own reminder settings" on reminder_settings
   for select to authenticated using (auth.uid() = user_id);
+drop policy if exists "users can update own reminder settings" on reminder_settings;
 create policy "users can update own reminder settings" on reminder_settings
   for update to authenticated using (auth.uid() = user_id);
