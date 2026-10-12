@@ -54,7 +54,7 @@ story order so the strongest stories sit at positions 1, 3 and the last.
 
 ## 5. Shorts: the discovery engine
 
-Make **3 Shorts per episode** (≤60 s, 9:16), each standing alone:
+Make **3 Shorts per episode** (9:16; aim for 30–60 s even though YouTube allows up to 3 min), each standing alone. The studio renders them: `npm run render -- EP00N --shorts`.
 1. **Hook + best story:** the strongest number in the first 2 seconds.
 2. **"Did you know?" story:** another country, a fast visual.
 3. **The exercise or test:** "جرّبها اليوم وقل لي وش صار".

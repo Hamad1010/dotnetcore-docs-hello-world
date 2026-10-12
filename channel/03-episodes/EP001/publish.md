@@ -48,7 +48,7 @@
 - [ ] Altered/synthetic content: **No** if you recorded the voice yourself · **Yes** if the narration is an AI or cloned voice
 - [ ] Publish Mon 26 Oct, 8–9 pm KSA
 
-## 3 Shorts (≤60 s each)
+## 3 Shorts (rendered: `out/short-1-hook-lesson.mp4` 62 s · `out/short-2-s4.mp4` · `out/short-3-s3.mp4`)
 1. **"0.1 ثانية"**: «في عُشر ثانية… الناس قرّروا عنك. وش أول شي يدوّرون عليه؟» → the 2-question card → «الرحمة قبل القوة» → "the full lesson + 8 stories on the channel".
 2. **"خسر السباق وكسب العالم"**: the Anaya & Mutai story from start to finish (≈40 s) + takeaway.
 3. **"حضن وصل لبرج خليفة"**: the Ardern story → Burj Khalifa "سلام" moment (very shareable in the Gulf).
