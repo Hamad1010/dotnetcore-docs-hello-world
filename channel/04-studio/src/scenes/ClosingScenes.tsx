@@ -2,7 +2,7 @@ import React from 'react';
 import {interpolate, useCurrentFrame} from 'remotion';
 import {ACCENTS, C} from '../theme';
 import type {EndCardScene, OutroScene, PracticeScene, RecapScene} from '../types';
-import {Backdrop, Brand, Captions, Card, Chip, Icon, SceneFrame, fadeUp, useIn, usePop} from '../components/ui';
+import {Backdrop, Brand, Captions, Card, Chip, Icon, SceneFrame, fadeUp, useIn, usePop, usePortrait} from '../components/ui';
 import {at, TopBar, type SceneProps} from './common';
 
 // ------------------------------------------------------------------ RECAP
@@ -12,13 +12,14 @@ export const Recap: React.FC<SceneProps<RecapScene> & {showCaptions: boolean}> =
   const head = useIn(4, 18);
   const n = scene.people.length;
   const rule = usePop(at(plan, 0.8), 12);
+  const portrait = usePortrait();
   return (
     <SceneFrame frames={plan.frames}>
       <Backdrop tint={C.yellow} />
       <TopBar episode={props.episode} brand={props.brand} />
-      <div style={{position: 'absolute', top: 150, left: 0, right: 0, display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-        <div style={{fontSize: 58, fontWeight: 700, ...fadeUp(head, 24)}}>وش الشي المشترك بينهم؟</div>
-        <div style={{display: 'grid', gridTemplateColumns: 'repeat(4, 380px)', gap: 22, marginTop: 40, direction: 'rtl'}}>
+      <div style={{position: 'absolute', top: portrait ? 300 : 150, left: 0, right: 0, display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+        <div style={{fontSize: portrait ? 52 : 58, fontWeight: 700, ...fadeUp(head, 24)}}>وش الشي المشترك بينهم؟</div>
+        <div style={{display: 'grid', gridTemplateColumns: portrait ? 'repeat(2, 450px)' : 'repeat(4, 380px)', gap: portrait ? 16 : 22, marginTop: portrait ? 30 : 40, direction: 'rtl'}}>
           {scene.people.map((p, i) => {
             const t = at(plan, 0.05 + (0.5 * i) / Math.max(1, n - 1));
             const o = interpolate(f, [t, t + 10], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
@@ -36,12 +37,12 @@ export const Recap: React.FC<SceneProps<RecapScene> & {showCaptions: boolean}> =
         </div>
         <div
           style={{
-            marginTop: 54,
+            marginTop: portrait ? 36 : 54,
             background: C.blue,
             color: '#fff',
             borderRadius: 34,
-            padding: '24px 64px',
-            fontSize: 72,
+            padding: portrait ? '20px 44px' : '24px 64px',
+            fontSize: portrait ? 58 : 72,
             fontWeight: 700,
             opacity: rule,
             transform: `scale(${0.8 + 0.2 * rule})`,
@@ -64,12 +65,13 @@ export const Practice: React.FC<SceneProps<PracticeScene> & {showCaptions: boole
   const f = useCurrentFrame();
   const card = useIn(6, 20);
   const times = [0.12, 0.42, 0.7].map((x) => at(plan, x));
+  const portrait = usePortrait();
   return (
     <SceneFrame frames={plan.frames}>
       <Backdrop tint={C.green} />
       <TopBar episode={props.episode} brand={props.brand} />
       <div style={{position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-        <Card style={{width: 1180, padding: '50px 64px', ...fadeUp(card, 40)}}>
+        <Card style={{width: portrait ? 960 : 1180, padding: portrait ? '40px 44px' : '50px 64px', ...fadeUp(card, 40)}}>
           <div style={{display: 'flex', alignItems: 'center', gap: 20}}>
             <Chip size={34} bg={C.green} color="#fff">
               تمرين اليوم
@@ -96,7 +98,7 @@ export const Practice: React.FC<SceneProps<PracticeScene> & {showCaptions: boole
                   >
                     {done > 0.5 ? <Icon name="check" size={40} color="#fff" /> : null}
                   </div>
-                  <div style={{fontSize: 46, fontWeight: 600}}>{s}</div>
+                  <div style={{fontSize: portrait ? 40 : 46, fontWeight: 600}}>{s}</div>
                 </div>
               );
             })}
@@ -115,13 +117,14 @@ export const Outro: React.FC<SceneProps<OutroScene> & {showCaptions: boolean}> =
   const next = useIn(at(plan, 0.25), 20);
   const sub = usePop(at(plan, 0.75), 11);
   const glow = (Math.sin(f / 8) + 1) / 2;
+  const portrait = usePortrait();
   return (
     <SceneFrame frames={plan.frames}>
       <Backdrop tint={C.blue} />
       <div style={{position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 50}}>
         <Brand name={brand.name} size={54} />
         {episode.next ? (
-          <Card style={{width: 1100, padding: '40px 54px', ...fadeUp(next, 40)}}>
+          <Card style={{width: portrait ? 960 : 1100, padding: '40px 54px', ...fadeUp(next, 40)}}>
             <Chip size={30} bg={C.blueSoft} color={C.blue}>
               <Icon name="play" size={26} color={C.blue} /> الدرس الجاي
             </Chip>
