@@ -19,12 +19,12 @@ skip ahead. Each step builds the habit the next one needs.
 
 **Step 3 · Three decisions (30 min)**
 - Channel name + handle (`01-channel-blueprint.md` §2)
-- Voice: your own voice / your clone / AI voice (§5)
+- Voice: your own voice / your clone / AI voice (`10-voice-guide.md`)
 - Upload days and time (default Mon + Thu 8–9 pm KSA)
 
 **Step 4 · Setup (45 min, once)** → `09-setup-guide.md`. Includes creating a private repo for this project.
 
-**Step 5 · Permission** → send the request to the course owner (`05-templates/permission-request.md`).
+**Step 5 · Voice trial (one Short, ~40 s)** → record the trial story or pick Polly/ElevenLabs (`10-voice-guide.md` §6). Claude renders the trial Short; you approve the voice before any long video is voiced.
 
 ## Week 1: Make episodes 2–4 (build the buffer)
 

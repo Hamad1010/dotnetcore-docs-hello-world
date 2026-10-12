@@ -12,9 +12,9 @@ chapters automatically. Expect about 30–45 minutes of your time per video once
 
 ## Your next 3 actions
 
-1. **Watch the Lesson 1 test video**, its 3 Shorts and the thumbnail (sent to you in this session; re-render anytime into `03-episodes/EP001/out/`). Note anything you'd change: colors, pace, wording, music.
-2. **Pick the channel name and voice**: read [`01-plan/01-channel-blueprint.md`](01-plan/01-channel-blueprint.md) §2 and §5.
-3. **Set up your computer once** (≈45 min): [`01-plan/09-setup-guide.md`](01-plan/09-setup-guide.md).
+1. **Pick the channel name** from the 20 in [`01-plan/01-channel-blueprint.md`](01-plan/01-channel-blueprint.md) §2, after checking the handle is free.
+2. **Voice trial:** one Short (~40 s) in the voice you choose, before any long video. How: [`01-plan/10-voice-guide.md`](01-plan/10-voice-guide.md) §9.
+3. **Move to a private repository** (Claude can do it with your OK): [`01-plan/09-setup-guide.md`](01-plan/09-setup-guide.md) §6.
 
 Then follow the week-by-week coaching plan: [`01-plan/08-coaching-roadmap.md`](01-plan/08-coaching-roadmap.md).
 
@@ -32,8 +32,9 @@ Then follow the week-by-week coaching plan: [`01-plan/08-coaching-roadmap.md`](0
 | 01 | [`01-plan/06-monetization-policy-legal.md`](01-plan/06-monetization-policy-legal.md) | YouTube rules, AI disclosure, copyright, Mawthooq license, US tax |
 | 01 | [`01-plan/07-things-you-forgot.md`](01-plan/07-things-you-forgot.md) | Extra ideas that make the channel stronger |
 | 01 | [`01-plan/08-coaching-roadmap.md`](01-plan/08-coaching-roadmap.md) | Step-by-step plan for the first 90 days |
-| 01 | [`01-plan/09-setup-guide.md`](01-plan/09-setup-guide.md) | Installing everything on your Mac/PC |
-| 02 | [`02-lessons/LESSONS.md`](02-lessons/LESSONS.md) | All **330 lessons** in publishing order (11 seasons) |
+| 01 | [`01-plan/09-setup-guide.md`](01-plan/09-setup-guide.md) | Installing on your Mac/PC, the private repo, the background-sound switch |
+| 01 | [`01-plan/10-voice-guide.md`](01-plan/10-voice-guide.md) | Your voice vs your clone vs Polly, the AI label, how to record, the trial Short |
+| 02 | [`02-lessons/LESSONS.md`](02-lessons/LESSONS.md) | All **330 lessons** in publishing order (15 seasons) |
 | 02 | [`02-lessons/lessons.csv`](02-lessons/lessons.csv) | The tracker (open in Excel/Google Sheets) |
 | 03 | [`03-episodes/EP001/`](03-episodes/EP001/) | Lesson 1: `script.md`, `sources.md`, `publish.md`, `episode.json` |
 | 04 | [`04-studio/`](04-studio/) | The video engine (Remotion). You rarely need to open it |
@@ -53,6 +54,6 @@ Then follow the week-by-week coaching plan: [`01-plan/08-coaching-roadmap.md`](0
 ## How to work with Claude on this
 
 - **New video:** "Run `/new-episode`" (or "make the next episode"). Claude picks the next `todo` lesson from the tracker.
-- **Change something:** "In EP002 make story 3 shorter", "Use a calmer music volume", "Thumbnail line should say …".
+- **Change something:** "In EP002 make story 3 shorter", "Switch the background to humming", "Thumbnail line should say …".
 - **Weekly review:** paste your YouTube Studio numbers and say "run `/weekly-review`".
 - The rules Claude follows are in [`../CLAUDE.md`](../CLAUDE.md).

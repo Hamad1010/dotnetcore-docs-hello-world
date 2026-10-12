@@ -81,9 +81,9 @@ system already prevents it**. When we skip one of these in a real episode, Claud
 - *What happened:* YouTube renamed "repetitious content" to **"inauthentic content"** (July 2025). Reports say a January 2026 enforcement wave terminated 16 faceless channels that together had 4.7 billion views, all built on synthetic voices, templated scripts and volume.
 - *Our system:* original research and scripts, a human owner who reviews every episode, a real (or cloned own) voice, a distinct teaching format and an exercise, rather than a slideshow of reused text.
 
-**18. Copying other creators or the source courses.**
+**18. Copying other creators or our reference courses.**
 - *Why:* reused-content rules and copyright strikes. Three strikes means the channel is deleted.
-- *Our system:* the courses are a syllabus only; scripts are original; stories come from public facts.
+- *Our system:* our own lesson names, order and seasons; the reference courses are a private syllabus only (never their sentences, examples or lists); scripts are original; stories come from public facts.
 
 **19. Copyrighted music.**
 - *Why:* Content ID claims send your ad money to the music owner, or block the video.

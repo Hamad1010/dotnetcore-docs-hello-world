@@ -70,7 +70,7 @@ Shorts views **don't** count toward watch hours, but Shorts bring the subscriber
 
 - Every long video becomes 3 YouTube Shorts, then the same clips go to TikTok, Snapchat Spotlight and Instagram Reels (same week, no watermark).
 - X: a thread per episode (the 8 stories with numbers + link).
-- LinkedIn: the work/leadership lessons (season 9) as short posts for managers and HR.
+- LinkedIn: the work/leadership lessons (seasons 12–13) as short posts for managers and HR.
 - WhatsApp channel: one lesson card per week. It's an audience we own if a platform changes its rules.
 
 ## 6. Scaling revenue (don't depend on ads alone)
@@ -85,14 +85,13 @@ disagree). 100k views/month ≈ $150–600. So we stack income:
 | ~10k subs | Digital products | Printable workbook per season (exercises from the videos) |
 | ~25k subs | Workshops for companies/schools | EI and communication for teams. Biggest income per hour |
 | Later | English-dubbed channel or audio track | Same videos, global audience, higher ad rates |
-| With permission | Partnership with the source course owner | Co-branded series or promoting his full courses |
 
 ## 7. Risks and how we're protected
 
 | Risk | Protection |
 |---|---|
 | YouTube AI/"inauthentic content" enforcement | Original research, human review, own voice, distinctive format, sources in description |
-| Copyright claims | Own music; facts not footage; no copied text; permission from the course owner |
+| Copyright claims | Own music; facts not footage; no copied text; our own lesson names, order and scripts |
 | Monetization rules tighten again (they did in 2026) | Diversified income + owned WhatsApp audience |
 | A video spreads with a factual error | `sources.md`, correction pinned in comments, fix and re-upload if serious |
 | Burnout | 2-week buffer, batching, the voice clone |

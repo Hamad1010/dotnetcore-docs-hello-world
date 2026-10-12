@@ -39,21 +39,26 @@ for a real person, place or event. YouTube's own examples include making a real 
 they didn't, and **synthetically generating a person's voice to narrate a video**. Our animated graphics don't
 need it. For the voice:
 
-| Narration | Tick "altered or synthetic"? |
-|---|---|
-| Your own recorded voice | No |
-| AI clone of your voice (or anyone's) | **Yes**, to be safe (it is a realistic synthetic voice of a real person) |
-| Generic AI library voice | Recommended **Yes**: costs nothing in reach, removes all risk |
+| Narration | Tick "altered or synthetic"? | Still monetized? |
+|---|---|---|
+| Your own recorded voice | **No** | Yes |
+| A clone of **your own** voice reading a script you wrote and approved | **Yes, recommended.** Some 2026 guides say your own clone doesn't need the label, but YouTube's own examples name "synthetically generating a person's voice to narrate a video". One click removes the doubt | Yes |
+| Stock AI voice (Polly, a library voice) | **Yes, recommended** | Yes, if the channel passes the "inauthentic content" review (§2) |
+| A clone of **someone else's** voice | Never use one | — |
 
-Since May 2026 YouTube shows these labels more prominently and also detects undisclosed AI content itself, so
-honesty is the safe route.
+What the label does: it adds a note (usually in the description; on the player only for sensitive topics such
+as news, elections, health or finance). According to YouTube's guidance as reported by 2026 creator guides, the
+label itself doesn't remove ads or monetization. What gets punished is **not** disclosing when it was required:
+YouTube can add the label itself, remove content, or suspend YPP. Since May 2026 YouTube shows these labels more
+prominently and detects undisclosed AI content itself, so honesty is the safe route. Full voice comparison:
+`10-voice-guide.md`.
 
 ## 4. Copyright and permissions
 
 | Item | Rule for us |
 |---|---|
-| **Source courses** (the course owner's lecture transcripts) | Ideas can't be owned, but wording and structure can be. We write original scripts with our own stories, and don't copy sentences or name attendees. **Strongly recommended:** written permission from the course owner and credit to him, ideally a collaboration. This protects you if the channel becomes big. |
-| The raw transcripts | Never upload or commit them publicly (copyright + attendees' personal details). Kept in a git-ignored folder. |
+| **Lesson ideas** (private reference courses) | Ideas and topics can't be owned; wording, examples and a course's structure can. Our lesson names, order and seasons are our own, and every script, story and exercise is original. We never copy sentences, examples or numbered lists, never name the trainer or attendees, and never present the channel as linked to anyone. If we ever quote a trainer or use one of his signature frameworks, we credit it (or ask first). |
+| The raw transcripts and the private lesson map | Never upload or commit them (copyright + attendees' personal details). They stay in the git-ignored `02-lessons/sources/` folder and on your computer. |
 | Stories | Facts aren't copyrighted; we retell them in our words and cite sources. No copied footage, photos or news articles. |
 | Music | Self-generated (`npm run music`) or the YouTube Audio Library only. |
 | Fonts | Readex Pro (Open Font License, commercial use allowed). |

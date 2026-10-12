@@ -49,17 +49,37 @@ npm run studio                                 # optional: live preview in the b
 Render time on a normal laptop: ~10–20 min for a 6-min video.
 
 ### 6. Move to a private repository (important)
-This project was created inside a **public fork** (`dotnetcore-docs-hello-world`). GitHub doesn't allow making a
-public fork private, so:
-1. GitHub → **New repository** → name it (e.g. `sawalif-channel`) → **Private** → Create.
-2. In a terminal inside the old project folder:
-   ```bash
-   git remote add private https://github.com/<you>/sawalif-channel.git
-   git push private claude/gifted-cori-62rsoj:main
-   ```
-3. Use the private repo from now on (Claude Code web: attach the new repo). Optionally delete the public fork.
+This project lives inside a **public fork** (`dotnetcore-docs-hello-world`): anyone can read it. GitHub never
+lets a fork become private, so "making it private" means creating a **new private repository** (not a fork)
+and moving the project there. The old commits mention the reference course names, so the move uses a **fresh
+history** (one starting commit) and the public fork is deleted afterwards. The transcripts were never in git.
 
-Or simply ask Claude: "create a private repo and move the channel there". It can do that for you with your approval.
+**Easiest: Claude does it** (say "create the private repo"; you approve each step):
+1. Claude creates a private repo in your account (e.g. `athar-channel`) and pushes a clean copy: channel files
+   only, a fresh history, no transcripts, no course names.
+2. You open it once to check: github.com → your profile picture → **Your repositories** → the new repo. Only you
+   (and anyone you invite) can see it.
+3. You delete the old fork: open `dotnetcore-docs-hello-world` → **Settings** → bottom of the page
+   (**Danger Zone**) → **Delete this repository** → type its name to confirm.
+4. From then on, start Claude Code sessions on the new repo (claude.ai/code → pick it from the repository list).
+
+**By hand, on your computer** (only if you prefer):
+```bash
+git clone --depth 1 -b claude/gifted-cori-62rsoj https://github.com/<you>/dotnetcore-docs-hello-world.git channel-project
+cd channel-project && rm -rf .git && git init -b main && git add -A && git commit -m "Channel project"
+git remote add origin https://github.com/<you>/<new-private-repo>.git && git push -u origin main
+```
+(create the empty private repo first: GitHub → **New repository** → **Private** → Create, without a README).
+
+### Background sound (one word)
+Saudi viewers often prefer no music, so videos start with **no background**: voice + soft transition sounds only.
+To change it, edit `03-episodes/channel.json` → `"background"`:
+- `"none"`: voice only (default)
+- `"humming"`: soft human-like humming, no instruments (`03-episodes/_assets/music/humming-sample.mp3` to listen)
+- `"calm"`: the soft instrumental pad
+
+Save, then render again. On GitHub you can edit the file in the browser (open it → pencil icon → change the word
+→ **Commit changes**); the next render uses it.
 
 ### 7. YouTube channel
 - Create a **Brand Account** channel, enable 2-step verification, add a backup manager.

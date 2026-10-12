@@ -4,8 +4,8 @@ Ranked by impact. ✅ = already built into this system.
 
 ## Must-do before launch
 
-1. **Ask the course owner for permission (and a collaboration).** It's the biggest legal *and* growth lever you have. Template message: `05-templates/permission-request.md`.
-2. **Move the project to a private repository.** The current GitHub repo is a public fork, so anyone can read your plans and scripts.
+1. **Move the project to a private repository.** The current GitHub repo is a public fork, so anyone can read your plans and scripts. Steps: `09-setup-guide.md` §6.
+2. **Back up the private reference folder** (`02-lessons/sources/`: transcripts + private lesson map) on your own computer. It never goes to GitHub, so a new cloud session starts without it.
 3. **Brand account + 2-step verification + backup owner.** Hacked channels are common, usually via fake sponsor emails.
 4. **Upload defaults** (YouTube Studio → Settings → Upload defaults): category *Education*, language *Arabic*, a description template with your links/WhatsApp channel, "not made for kids", comments "hold potentially inappropriate for review". This saves time on every upload.
 5. **Channel trailer (45 s)** for non-subscribers: the promise, 3 fast story clips, "a new lesson every Monday and Thursday". Claude can render it from EP001's scenes.
@@ -22,7 +22,7 @@ Ranked by impact. ✅ = already built into this system.
 
 ## Growth multipliers
 
-13. **Interactive tests** (season-1 finale: "اختبر ذكاءك الاجتماعي في 16 سؤال"). Quizzes get massive comments and shares; later, a free web version of the test that links back to the videos.
+13. **Interactive tests** (season-1 finale: «كم ذكاؤك الاجتماعي؟ اختبار سريع», with our own questions). Quizzes get massive comments and shares; later, a free web version of the test that links back to the videos.
 14. **Season compilations** (one long video per finished season). Big watch-hour boost for monetization.
 15. **"Reply to comment" Shorts:** answer a viewer's real situation using the lesson. It shows you listen and creates endless ideas.
 16. **Community polls:** "Which lesson next?" Viewers who vote come back to see the result.

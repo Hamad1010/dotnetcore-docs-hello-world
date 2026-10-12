@@ -11,7 +11,7 @@ we use, with 2026 platform features.
 | Number + secret | سر 0.1 ثانية اللي يحدد انطباع الناس عنك |
 | "Stop doing X" | لا ترد على الاستفزاز بهالطريقة |
 | Smart reply / situation | إذا أحد قال لك "ليش ما تزوجت؟"… رد كذا |
-| Test yourself | اختبر ذكاءك الاجتماعي في 16 سؤال |
+| Test yourself | كم ذكاؤك الاجتماعي؟ اختبار سريع |
 | Story promise | 8 قصص حقيقية تثبت إن الرحمة أقوى من القوة |
 
 Rules: put the searchable words (الكاريزما، الذكاء العاطفي، فن التعامل، الثقة بالنفس) in the first half. Avoid
@@ -90,7 +90,7 @@ People share content that makes **them** look good: wise, kind, funny. Each epis
 | Date (approx.) | Moment | Content angle |
 |---|---|---|
 | **13 Nov** | World Kindness Day | Promote EP001 (compassion) with a Short |
-| Dec–Jan | Exams & new year resolutions | Focus, goals, fear lessons (seasons 3/8) |
+| Dec–Jan | Exams & new year resolutions | Fear, goals and focus lessons (seasons 9–10) |
 | **22 Feb** | Saudi Founding Day | Stories of Saudi generosity/hospitality |
 | **~8 Feb – 8 Mar 2027** | **Ramadan 1448** (expected start 8 Feb per Umm al-Qura) | Daily Shorts "درس قبل الفطور", family/patience/forgiveness lessons; viewing peaks after taraweeh |
 | ~9 Mar 2027 | Eid al-Fitr | Family relationships, reconnecting, apologies |

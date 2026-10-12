@@ -17,20 +17,46 @@ Why this works:
 
 ## 2. Name, handle, tagline
 
-Current placeholder: **سوالف ذكية** (*Smart Sawalif*). Change it in one place: `03-episodes/channel.json`.
+Current placeholder: **سوالف ذكية** (rejected: it sounds like chat, not lessons). Change it in one place:
+`03-episodes/channel.json` (`name`, `nameEn`, `handle`); every video, Short and thumbnail picks it up.
 
-| Option | Why it's good | Risk |
-|---|---|---|
-| **سوالف ذكية** ✅ recommended | "سوالف" is Saudi for stories/conversations: says *Saudi + stories* in two words, friendly, easy to say and search | Check the handle is free |
-| ذكاء القلوب | Clear emotional-intelligence meaning | Sounds formal; harder to own in search |
-| فن الناس | Short, broad ("the art of people") | Generic; likely taken |
-| عُشر ثانية | Memorable, tied to first impressions | Too narrow for 330 lessons |
-| قلب وعقل | Balance of EI and reason | Generic |
+**What makes a name stick for years:** one or two words, a meaning bigger than any single topic (it must fit
+330 lessons: charisma, family, work, self-worth…), easy for a 12-year-old to say and spell, not a person's name,
+and a handle you can own on every platform.
 
-**Before deciding (10 minutes):** search the name on YouTube, TikTok, Snapchat, Instagram and X; check the
-handle (e.g. `@sawalifthakiya`) is free everywhere. Same handle everywhere = easier to find you.
+| # | Name | Meaning | Why it sticks | Watch out |
+|---|---|---|---|---|
+| 1 | **أثر** ⭐ | impact, the trace you leave | Every lesson and every story is about the mark a person leaves on others. Short, timeless, premium. Built-in sign-off: «خلّ لك أثر» | Common word: pick a distinctive handle (e.g. `@athar.stories`) |
+| 2 | **فِراسة** ⭐ | the Arab art of reading people | Exactly the skill the channel teaches, rooted in Arab heritage, rare as a channel name | Some link it to face-reading; we define it as «فهم الناس» |
+| 3 | **ذوق** ⭐ | Saudi everyday word for tact («فلان ذوق») | Warm, very Saudi, one syllable, positive | Also means "taste" (food, fashion), so search is noisy |
+| 4 | لَباقة | tact, social grace | Right on topic, elegant | Slightly formal |
+| 5 | بصيرة | insight | Timeless and wise | Used by several organizations |
+| 6 | سَنَع | Najdi/Gulf word for proper manners | Deeply Saudi, unique | Less known outside the Gulf |
+| 7 | حضور | presence | Fits charisma and respect | Generic |
+| 8 | جسور | bridges between people | Relationship-focused, positive | Common organization name |
+| 9 | إنسانيات | human matters | Fits real human stories from everywhere | Long word |
+| 10 | رِفق | gentleness | Echoes the well-known saying on gentleness; matches lesson 1 | Narrower meaning |
+| 11 | مِرآة | mirror: see yourself in other people's stories | Poetic | Spelled several ways in search (مرآة / مراه) |
+| 12 | بوصلة | compass for dealing with people | Clear metaphor | Many brands use it |
+| 13 | ألباب | minds (as in أولو الألباب) | Classical, distinctive | Formal for young viewers |
+| 14 | فهيم | Saudi for "someone who gets it" | Friendly, conversational | Also a personal name |
+| 15 | عُمق | depth | Premium feel | Doesn't say what the channel is about |
+| 16 | ذكاء القلوب | intelligence of hearts | Clear emotional-intelligence meaning | Long and formal |
+| 17 | فن الناس | the art of people | Clear | Generic, probably taken |
+| 18 | وعي | awareness | Popular theme | Very crowded on YouTube |
+| 19 | نبض الناس | people's pulse | Warm | Sounds like a news or talk show |
+| 20 | ناس | people | Ultra short | Almost surely taken; too generic |
 
-**Tagline:** دروس الذكاء الاجتماعي والعاطفي… بقصص حقيقية
+Avoided on purpose: personal names (وجدان، سكينة، لطف، رشد، نهى) because viewers think it's someone's name;
+**فطنة** (its Latin spelling reads as "Fitna"); **حلم** (read as "dream" instead of "forbearance").
+
+**Recommendation:** **أثر** first, **فِراسة** second, **ذوق** third.
+
+**Before deciding (10 minutes):** search the name on YouTube, TikTok, Snapchat, Instagram and X, and check that
+one handle is free on all of them. Same handle everywhere makes you easy to find. If you plan workshops or
+products later, also search the Saudi trademark register (SAIP) so nobody else owns the name.
+
+**Tagline (works with any name):** دروس الذكاء الاجتماعي والعاطفي… بقصص حقيقية
 
 ## 3. Audience
 
@@ -61,17 +87,17 @@ progress dots at the top ("story 3 of 8") make people stay to finish the set.
 
 ## 5. The voice: decide this first
 
-| Option | Quality | Cost | Speed | Monetization safety | Verdict |
+| Option | Quality | Cost | Your time | Monetization | Verdict |
 |---|---|---|---|---|---|
-| **Your own voice** (phone + quiet room) | Most authentic, real Saudi dialect | Free | +20 min/episode | Best: human presence | ✅ Best long-term |
-| **Your cloned voice** (ElevenLabs Professional Voice Clone) | Very close to you | ~$22/mo (Creator plan) | Fastest | Good: it's your voice, you wrote the script | ✅ Best for a busy owner |
-| Library AI voice (ElevenLabs Saudi/Khaleeji voice) | Good | $5–22/mo | Fastest | Medium: many channels use the same voices | OK for testing |
-| Amazon Polly "Zayd"/"Hala" (Gulf Arabic neural) | Decent, slightly robotic | Pennies | Fastest | Medium | Backup |
-| Free Microsoft "Hamed" voice (edge-tts) | MSA accent, robotic in dialect | Free | Fastest | Weak | Testing only |
+| **Your own voice** (phone + quiet room) | Most authentic, real Saudi dialect | Free | ~25 min per episode | Best: human presence, no AI label | ✅ Best long-term |
+| **A clone of your voice** (ElevenLabs) | Close to you; better with a longer sample | ~$5–22/month | Review only | Good: your own voice; tick the AI label | ✅ Best for a busy owner |
+| Amazon Polly "Zayd"/"Hala" (Gulf Arabic) | Clear but flat, a stock voice | ~$0.10 per episode | None | Allowed, weaker: anyone can use the same voice | Tests and backup |
+| ElevenLabs library voice | Good | $5–22/month | None | Medium: many channels share the same voices | Tests |
 
-**Recommendation:** record the first 3 episodes with your own voice (it sets the personality and costs nothing),
-then clone your voice and switch to the clone so you only *review* scripts. The studio supports all options
-with one flag (`--provider=recorded|elevenlabs|polly|google|edge`).
+**Recommendation:** record the trial Short and the first episodes with your own voice (it sets the personality
+and costs nothing), then clone your voice and switch to the clone so you only *review* scripts. The studio
+supports all options with one flag (`--provider=recorded|elevenlabs|polly|google|edge`). Step-by-step guide,
+differences and the YouTube rules: [`10-voice-guide.md`](10-voice-guide.md).
 
 ## 6. Story rules
 
@@ -103,8 +129,8 @@ with one flag (`--provider=recorded|elevenlabs|polly|google|edge`).
 ## 9. Series (seasons)
 
 Season 1 is **the 20 strongest lessons across all topics**. It tests which themes the audience loves, then we
-double down. Seasons 2–11 go deep by theme (charisma, emotional intelligence, self-worth, social intelligence,
-presence, persuasion, mindset, work, parenting, bonus). Full list: [`../02-lessons/LESSONS.md`](../02-lessons/LESSONS.md).
+double down. Seasons 2–15 go deep by theme (charisma, understanding people, smart replies, emotions,
+self-worth, presence, persuasion, fear and healing, habits, mindset, work, career, family, bonus). Full list: [`../02-lessons/LESSONS.md`](../02-lessons/LESSONS.md).
 
 ## 10. Cadence
 

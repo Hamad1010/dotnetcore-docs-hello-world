@@ -18,7 +18,7 @@
 | **Snapchat** | Spotlight (the Shorts) + a Story on publish days | 1/day + 2/week | Saudi reach, heavy daily usage |
 | **Instagram Reels** | Same cuts + a carousel "8 stories in 8 slides" | 3–4/week | Shareable saves |
 | **X (Twitter)** | Thread: the lesson + 8 stories with numbers + link | 2/week | Conversation, Saudi opinion makers |
-| **LinkedIn** | Work/leadership lessons (season 9) for managers & HR | 1/week | B2B workshops later |
+| **LinkedIn** | Work/leadership lessons (seasons 12–13) for managers & HR | 1/week | B2B workshops later |
 | **WhatsApp channel** | One lesson card + link per week | 1/week | Owned audience; shared into family groups |
 
 One recording, many formats: Claude writes the X thread, the LinkedIn post and the captions from the same
@@ -36,14 +36,10 @@ One recording, many formats: Claude writes the X thread, the LinkedIn post and t
 
 ## Collaborations (the fastest honest growth)
 
-1. **The source course owner** (the trainer whose courses the lesson list comes from). Ask for permission to build on his course structure and
-   propose a collaboration: a guest appearance, a co-branded season, or promoting his full courses in our
-   descriptions. His audience is exactly ours. Do this **before** the channel grows, because an early "yes" is
-   worth more than anything else here.
-2. **Saudi trainers, coaches and psychologists** on Snapchat/X: "Duet" style Shorts, guest stories, live Q&A.
-3. **University student clubs** (communication/leadership clubs): free workshop + share the series with members.
-4. **HR departments and schools:** the parenting (season 10) and work (season 9) lessons as ready-made training clips.
-5. **Arabic education creators** in adjacent niches (psychology, productivity, history): story swaps. Their
+1. **Saudi trainers, coaches and psychologists** on Snapchat/X: "Duet" style Shorts, guest stories, live Q&A.
+2. **University student clubs** (communication/leadership clubs): free workshop + share the series with members.
+3. **HR departments and schools:** the family (season 14) and work (seasons 12–13) lessons as ready-made training clips.
+4. **Arabic education creators** in adjacent niches (psychology, productivity, history): story swaps. Their
    historic story becomes our lesson story, credited both ways.
 
 ## Search (free, compounding traffic)
@@ -88,20 +84,20 @@ One recording, many formats: Claude writes the X thread, the LinkedIn post and t
 | Ep | Date | Lesson |
 |---|---|---|
 | EP001 | Mon 26 Oct | الكاريزما تبدأ من الرحمة |
-| EP002 | Mon 26 Oct | مشاعرك تحت إدارة أفكارك |
-| EP003 | Thu 29 Oct | 3 ردود فعل خاطئة عند الاستفزاز |
-| EP004 | Mon 2 Nov | حرارة اللقاء وحرارة الوداع |
-| EP005 | Thu 5 Nov | الصمت الذكي |
-| EP006 | Mon 9 Nov | فن التغافل |
-| EP007 | Thu 12 Nov | قانون رد الجميل |
-| EP008 | Mon 16 Nov | نادِ الناس بأحب الأسماء إليهم |
-| EP009 | Thu 19 Nov | اخفض سقف توقعاتك من الناس |
-| EP010 | Mon 23 Nov | الخياران المهذبان |
-| EP011 | Thu 26 Nov | استبدل الاعتذار بالامتنان |
-| EP012 | Mon 30 Nov | الحدود الشخصية |
-| EP013 | Thu 3 Dec | فن الإنصات |
-| EP014 | Mon 7 Dec | الأهدأ هو الأقوى |
-| EP015 | Thu 10 Dec | لغات الحب |
-| EP016 | Mon 14 Dec | من ظنّ بك سوءًا فهذا فلتره |
+| EP002 | Mon 26 Oct | أفكارك تتحكم بمشاعرك |
+| EP003 | Thu 29 Oct | ردود الفعل اللي تضعفك قدام المستفز |
+| EP004 | Mon 2 Nov | أول دقيقة وآخر دقيقة: هي اللي يتذكرها الناس |
+| EP005 | Thu 5 Nov | متى تسكت… ومتى تتكلم |
+| EP006 | Mon 9 Nov | مو كل شي يستاهل تنتبه له |
+| EP007 | Thu 12 Nov | ليش نحس إننا لازم نرد الجميل؟ |
+| EP008 | Mon 16 Nov | أحلى كلمة يسمعها الإنسان: اسمه |
+| EP009 | Thu 19 Nov | خفّف توقعاتك من الناس… ترتاح |
+| EP010 | Mon 23 Nov | إذا سألك أحد سؤال محرج… رد كذا |
+| EP011 | Thu 26 Nov | قل شكرًا بدل آسف |
+| EP012 | Mon 30 Nov | ارسم حدودك بدون ما تخسر الناس |
+| EP013 | Thu 3 Dec | فن الإنصات: الهدية اللي يحبها الكل |
+| EP014 | Mon 7 Dec | اللي يهدأ… يكسب |
+| EP015 | Thu 10 Dec | كل واحد يحب بلغته |
+| EP016 | Mon 14 Dec | اللي يظن فيك سوء… هذي مشكلته |
 
 (EP017–EP020 finish Season 1 in mid-December; then the review picks Season 2's theme.)
