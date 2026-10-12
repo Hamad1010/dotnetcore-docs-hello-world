@@ -8,6 +8,7 @@
 //   node scripts/render.mjs EP001 --preview    fast 720p check
 //   node scripts/render.mjs EP001 --thumb-only
 //   node scripts/render.mjs EP001 --shorts     vertical Shorts listed in episode.json "shorts" → out/short-N.mp4
+//   node scripts/render.mjs EP001 --short=2    only Short number 2
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
@@ -24,7 +25,9 @@ const args = process.argv.slice(2);
 const episodeId = args.find((a) => !a.startsWith('--')) || 'EP001';
 const preview = args.includes('--preview');
 const thumbOnly = args.includes('--thumb-only');
-const shortsOnly = args.includes('--shorts');
+const shortArg = args.find((a) => a.startsWith('--short='));
+const onlyShort = shortArg ? Number(shortArg.split('=')[1]) : null;
+const shortsOnly = args.includes('--shorts') || onlyShort !== null;
 const outDir = path.join(episodes, episodeId, 'out');
 fs.mkdirSync(outDir, {recursive: true});
 
@@ -61,6 +64,7 @@ if (shortsOnly) {
   const ep = JSON.parse(fs.readFileSync(path.join(episodes, episodeId, 'episode.json'), 'utf8'));
   const list = ep.shorts && ep.shorts.length ? ep.shorts : ep.scenes.filter((s) => s.type === 'story').slice(0, 3).map((s) => [s.id]);
   for (const [i, sceneIds] of list.entries()) {
+    if (onlyShort !== null && i + 1 !== onlyShort) continue;
     const props = {episodeId, sceneIds};
     const short = await selectComposition({serveUrl, id: 'Short', inputProps: props, browserExecutable});
     const out = path.join(outDir, `short-${i + 1}-${sceneIds.join('-')}.mp4`);
