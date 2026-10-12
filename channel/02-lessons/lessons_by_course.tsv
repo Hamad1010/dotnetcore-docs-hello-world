@@ -1,0 +1,331 @@
+course	n	title_ar	title_en	idea	ref
+C01	0	مقياس الكاريزما: 7 علامات تكشف هل أنت شخص كاريزمي	The charisma scale: 7 signs you're charismatic	Self-check: people notice you, you influence moods/opinions, you lead groups, you smile often, you connect with anyone incl. difficult people, you adapt to any situation	intro scale
+C01	1	الكاريزما تبدأ من الرحمة والإنسانية	Charisma starts with compassion	People are instinctively drawn to those who show mercy to the weak, the poor and workers	secret 1
+C01	2	لغة الجسد: نصف رسالتك بدون كلام	Body language speaks before you do	Smile, open posture, appropriate touch (not with strangers, not with people who dislike touch)	secret 2
+C01	3	أسعد غيرك تكسب قلبه	Make people happy and they'll love you	Kind words, mentioning their strengths, being a mediator of good	secret 3
+C01	4	الثقة بالنفس: لا كاريزما بدونها	No charisma without self-confidence	Influential people are almost always self-assured; build it deliberately	secret 4
+C01	5	قيمك الثابتة تصنع احترامك	Firm values earn respect	Values and convictions you never trade (honesty, loyalty) make you magnetic	secret 5
+C01	6	تكلّم باحتراف: الأمثلة ونبرة الصوت	Speak like a pro: examples and voice	Use examples to simplify, vary voice tone, be informed	secret 6
+C01	7	تحمّل المسؤولية والتزم بكلمتك	Own your responsibility, keep your word	Admit mistakes and face them confidently — you grow in people's eyes	secret 7
+C01	8	ارفع همّة غيرك	Lift others up	Motivating discouraged people makes you their hero	secret 8
+C01	9	لاحظ التفاصيل الجميلة وامدحها	Notice and praise the small details	Specific compliments (outfit, effort, change) build attraction	secret 9
+C01	10	الشجاعة اللطيفة	Gentle courage	Courage = expressing opinions and defending rights politely, not aggression	secret 10
+C01	11	فن الإنصات	The art of listening	Give full attention and value to what people say — they will love you for it	secret 11
+C01	12	مهارات التواصل العالية	High-level communication skills	Accept different personalities; communication is a learnable life skill	secret 12
+C01	13	المبادرة	Take the initiative	Offer help, ideas and solutions before being asked	secret 13
+C01	14	مظهرك رسالة	Your appearance is a message	First impressions rely heavily on appearance; take care of body and look	secret 14
+C01	15	الذكاء العاطفي سر الجاذبية	Emotional intelligence makes you attractive	Control your emotions; don't let others control them	secret 15
+C01	16	الثقافة الواسعة	Be well-read	Informed people can join any conversation and attract attention	secret 16
+C01	17	تميّز في شيء واحد	Be excellent at one thing	Mastery in any field raises your value and attraction	secret 17
+C01	18	كتمان الأسرار والوفاء	Keep secrets, be loyal	Whoever tells you others' secrets will tell yours; be one-faced and loyal	secret 18
+C01	19	الكرم بالمشاعر والعطاء	Generosity of heart	Generous people (feelings, gifts, help) are loved; giving never goes to waste	secret 19
+C01	20	حس الفكاهة	A sense of humor	Light, non-hurtful humor and stories make people enjoy your company	secret 20
+C01	21	المرونة مع التغيير	Adapt instead of complaining	Adaptable people attract; constant complainers repel	secret 21
+C01	22	نادِ الناس بأحب الأسماء إليهم	Call people by the names they love	People love hearing their preferred name/title	secret 22a
+C01	23	التواصل البصري	Eye contact	Look people in the eyes when greeting/talking; the eye triangle technique	secret 22b
+C01	24	الكفاءة تصنع الاحترام	Competence earns respect	Qualifications and skill support charisma	secret 23
+C01	25	التواضع والاحترام	Humility and respect	Humble people are loved; stay respectful even with arrogant people	secret 24
+C01	26	اختر أصدقاءك بعناية	Choose your friends carefully	You become like your close friends; pick supportive, successful people	secret 25
+C01	27	حرارة اللقاء وحرارة الوداع	Warm welcomes and warm goodbyes	People remember most how you received and farewelled them	secret 26
+C01	28	حقّق إنجازات	Build achievements	Achievements you value raise your standing and influence	secret 27
+C01	29	تجنّب النقد الجارح	Avoid hurtful criticism	Harsh criticism never improves people or makes them love you	secret 28
+C01	30	افهم الشخصيات الصعبة	Understand difficult personalities	Understanding toxic types lets you stay calm and unprovoked	secret 29
+C01	31	إدارة المسافات في العلاقات	Manage distance in relationships	Less blame, no possessiveness; give people space	secret 30
+C01	32	اقتل فراغك	Kill your empty time	Idle people create problems and cling to busy people	secret 31
+C01	33	اعتمد على نفسك	Be self-reliant	Don't make people feel they've done you favors; do your own tasks	secret 32
+C02	1	3 ردود فعل خاطئة عند الاستفزاز: الثور والثلج والمحامي	3 wrong reactions to provocation: bull, ice, lawyer	Bull = explode; Ice = cold ignoring; Lawyer = over-justifying until you look weak	styles
+C02	2	متى لا تستخدم قوتك في الحوار	When NOT to use your power in an argument	Never "win" against someone who has done you favors, someone with authority over you…; use strength only to defend	law 1 of power
+C02	3	قانون السؤال الدافئ: رد على الإساءة بسؤال اهتمام	Answer a rude remark with a caring question	"Is something bothering you today?" + calm tone + end with a human acknowledgment	win hearts law 1
+C02	4	الهدية اللفظية	The verbal gift	Give a sincere kind phrase that disarms tension	win hearts law 2
+C02	5	قانون المصطلح المشترك	Use their own words	Notice the words people repeat — they reveal the core of the conflict; speak in their terms	win hearts law 3
+C02	6	تحويل الزاوية: غيّر مجرى الحوار المحرج	Shift the angle of an awkward conversation	Redirect the focus of an embarrassing question instead of defending	smart replies law 1
+C02	7	الخياران المهذبان	Offer two polite interpretations	"Either you care about me or you want to encourage me" — gracefully closes nosy questions	smart replies law 2
+C02	8	المزحة البيضاء	The white joke	A clean joke rescues you from embarrassment without hurting anyone	smart replies law 3
+C02	9	افصل النبرة عن الفكرة	Separate the tone from the idea	Re-hear the words without the provocative tone, then reply to the idea only	dominance law 1
+C02	10	السؤال المقنَّن	The calibrated question	Answer provocation with a measured question; can involve the audience	dominance law 2
+C02	11	قلب الطاولة: سمِّ التكتيك	Name the tactic	Calmly expose the intent behind a bully's remark (mockery, embarrassment…)	turn the tables 1
+C02	12	الإعادة الباردة	The cold repeat	Repeat the provocative sentence back in a neutral tone — it loses its power	turn the tables 2
+C02	13	من العلن إلى الخاص	Move it from public to private	Take sensitive confrontations out of the audience's view	turn the tables 3
+C02	14	الصمت الموزون والانسحاب المهيب	Measured silence and dignified exit	Silence, a wise line ("God guide you"), or a dignified withdrawal when everyone is against you	scary laws
+C02	15	كيف تتعامل مع بيئة عمل سامة	Surviving a toxic workplace	Practical strategies from Q&A: boundaries, headphones, not reacting, documenting	Q&A
+C03	1	تخلَّ عن الصدام وإثبات الذات مع مديرك	Drop the urge to clash with your boss	Fake pride and constant self-proving with a manager destroys your career	law to drop
+C03	2	الطاعة الذكية مع الحفاظ على الكرامة	Smart obedience with dignity	Confident tone + "consider it done": executing well while keeping self-respect builds trust	law 1
+C03	3	تحمّل المسؤولية يجعل مديرك يحتاجك	Take responsibility and become indispensable	Owning tasks increases experience and makes leaders depend on you	rule 1
+C03	4	لا تُظهر تفوقك على مديرك	Never outshine your manager	Showing superiority triggers jealousy; accept his ideas, value his notes	rule 2
+C03	5	تطوّر أمام عيني مديرك	Grow in front of your manager	Learn new skills and let him see them (except with insecure managers)	rule 3
+C03	6	دوِّن كل ما يقوله مديرك	Write down what your manager says	Visible note-taking signals respect and reliability	tip
+C03	7	التعامل مع المدير المزاجي والمدير النرجسي	Handling the moody and the narcissistic manager	Understand hidden causes of moodiness; with narcissists: praise, never wound their ego	difficult managers
+C03	8	النفوذ أقوى من السلطة	Influence beats authority	Authority stays with the position; influence moves with you everywhere	influence
+C03	9	اعرف نمط مديرك (4 أنماط)	Know your manager's style (4 types)	Task-driven, humane, mixed…; adapt your approach to each	secret 1
+C03	10	تقبّل رتبتك دون كِبر	Accept your rank without arrogance	Healthy self-worth = balance, not fighting for dignity in every situation	self-esteem
+C04	1	لماذا يؤلمنا الفقد؟ 3 أسباب خفية	Why loss hurts: 3 hidden reasons	Lost feelings, lost needs (strength, emotional support), and the sense that there is no alternative	causes
+C04	2	اكتب مشاعرك على الورق	Write your feelings down	Golden rule: writing and interpreting feelings on paper organizes the mind	golden rule 3
+C04	3	مراحل الفقد الثماني	The 8 stages of loss	Denial → checking/bargaining → sadness → confusion → organizing → acceptance → remembering → planning	stages
+C04	4	اعتنِ بنفسك وقت الحزن	Self-care when you're down	Hygiene, grooming, neat clothes, fresh air: small acts that resist depression	self-care
+C04	5	لا تحكم على الناس من خريفهم	Don't judge people by their autumn	People have seasons; accept your bad season and others' too	seasons
+C04	6	فرِّغ مشاعرك ولا تكبتها	Release emotions, don't bury them	Accept the loss, allow yourself to cry, recall memories for energy and lessons (Worden's tasks)	step 1
+C04	7	تحقّق من دقة مشاعرك	Check if your feelings are accurate	After grieving, weigh what's exaggerated in your thoughts	step 2
+C04	8	أنت متعلق بالشعور لا بالشخص	You're attached to the feeling, not the person	Awareness surprises: nothing lasts forever; we miss what people gave us	step 3
+C04	9	لا تقاوم… تقبّل وابدأ نمطًا جديدًا	Don't resist — accept and build a new routine	New routine, new thoughts, coexist with the new reality	step 4
+C04	10	لذة الإنجاز والعطاء تشفي	Achievement and giving heal	Accomplishments, humanitarian work, health and learning speed recovery	step 4b
+C04	11	كل حدث يحمل لك رسالة	Every event carries a message	Ask what this experience is teaching you	step 5
+C04	12	ما تكرره لنفسك يصنع مصيرك	What you repeat to yourself shapes your destiny	Thoughts → feelings → actions → destiny	golden rule 7
+C05	1	ما هو الذكاء العاطفي فعلًا؟	What emotional intelligence really is	Not romance: the ability to recognize and manage all your emotions and impulses	law 0
+C05	2	مشاعرك تحت إدارة أفكارك	Your thoughts run your feelings	Lose control of your thoughts and you lose control of your emotions	golden rule 1
+C05	3	لماذا لنجاح بعض الناس سقف؟	Why some successful people hit a ceiling	Talent and money plateau without emotional intelligence	ceiling
+C05	4	أنواع الذكاء: لست غبيًا، ذكاؤك مختلف	Types of intelligence	Linguistic, social, logical… everyone has a different strong intelligence	multiple intelligences
+C05	5	لا تقطع حبال الود حتى مع من تختلف معه	Keep the bond even when you disagree	Disagree on ideas without cutting the relationship	bonds
+C05	6	عبّر عن مشاعرك الجميلة	Express your warm feelings	Tell people you thought of them, prayed for them, and name what you love in them	expression
+C05	7	الوعي الذاتي: اعرف شعورك قبل قرارك	Self-awareness before decisions	Check your emotional state before any big decision or word	law 1
+C05	8	الفعل الواعي لا ردة الفعل	Respond consciously, don't react	Act on purpose (e.g., discipline to teach) instead of venting anger	conscious action
+C05	9	أنت من يحدد كيف يعاملك الناس	You set how people treat you	Calm, de-escalating responses lower the other person's intensity	control
+C05	10	3 خطوات لإدارة أي شعور	3 steps to manage any emotion	Understand the feeling (size, exaggeration) → choose a response → practise until it's a habit	steps
+C05	11	غيّر أفكارك تتغير مشاعرك	Change your thoughts, change your feelings	Think in solutions not consequences; reframe the past as a lesson	rule 2a
+C05	12	غيّر سلوكك تتغير مشاعرك	Change your behavior, change your feelings	Moving, acting and changing your situation shifts emotions	rule 2b
+C05	13	لا تترك المشكلات تتراكم	Don't let problems pile up	Schedule time to solve, live with the unsolvable, ask for help; define and research the problem	rule 3
+C05	14	الحكمة: أعلى درجات الذكاء العاطفي	Wisdom	Reflect on events and look for the best response	rule 4
+C05	15	تقبّل الاختلاف	Accept differences	Everyone sees from their own angle and has different motivators; don't rush to judge	rule 5
+C05	16	اخفض سقف توقعاتك من الناس	Lower your expectations of people	"He'd never let me down" sets you up for pain	expectations
+C05	17	التوازن: 4 جوانب تحميك	Balance: the 4 pillars	Faith, mental growth, emotional stability, physical health	balance
+C05	18	كظم الغيظ والعفو: ذكاء عاطفي راقٍ	Restraining anger and forgiving	"Those who restrain anger and pardon people" — emotional intelligence in practice	trait
+C05	19	كيف تتعامل مع الشخص الحساس	Dealing with a sensitive person	Show your good intentions clearly and consistently	sensitive people
+C06	1	القائد الملهم يبدأ بقيادة نفسه	Inspiring leaders lead themselves first	Self-leadership: courage, consistent values, self-discipline, emotional control, self-belief	strategy 1
+C06	2	الوعي بالذات: اعرف ما يستفزك	Know what triggers you	Leaders know their strengths, weaknesses and triggers	trait 1
+C06	3	التركيز تحت الضغط	Focus under pressure	Great leaders don't scatter under threat or stress	trait
+C06	4	شجاعة مواجهة الشخص الصعب	The courage to confront difficult people	Avoiding hard conversations is a classic leadership mistake	mistake 3
+C06	5	فن إدارة الانطباعات	Impression management	Build a leadership identity: skills, responsibility, presence, social intelligence	strategy 2
+C06	6	بناء فريق ملهم	Building an inspired team	Mutual trust, mutual respect, motivation through meaning, celebrating together	strategy 3
+C06	7	القدوة: ألهم بأفعالك	Inspire by example	Influence starts with being the role model you ask others to be	strategy 4
+C06	8	من الحلم إلى الهدف	From dream to goal	Vision → written goal → plan for yourself and your team	vision
+C06	9	التحسين المستمر (كايزن)	Continuous improvement (Kaizen)	Small daily improvements; stay ahead in your field	strategy 5
+C06	10	الأولويات والتعلم من الخطأ	Priorities and learning from mistakes	Don't drown in trivia; never repeat mistakes and blame luck	strategy 5b
+C06	11	الإرث: ماذا سيبقى بعدك؟	Your leadership legacy	What people and teams carry after you leave	strategy 6
+C07	1	الأداء غير الكفاءة	Performance is not competence	Performance = doing tasks well; competence = the capabilities that make you promotable	axis 1
+C07	2	5 مسارات مهنية: في أي مسار أنت؟	The 5 career paths	Routine, specialist, strategic planner, consultant/trainer, leader — each fits a personality	axis 1b
+C07	3	5 عادات ترفع أداءك فورًا	5 habits that lift performance now	Speed with accuracy, punctuality, fewer errors, managing time and priorities, mastery	performance
+C07	4	لاحظ من يترقى واسأل: لماذا؟	Study who gets promoted	Stop blaming "connections"; learn what decision-makers actually reward	axis 2
+C07	5	اعرف ما تكافئه مؤسستك	Know what your organization rewards	Every company/sector rewards a different path	axis 2b
+C07	6	لماذا لا تتحول خبرتك إلى فرص؟	Why experience doesn't become opportunity	Market yourself: visibility, LinkedIn, conferences, showcasing skills	axis 3
+C07	7	قانون الاحتكاك المهني	The law of professional friction	Growth happens under pressure and real challenges	axis 4
+C07	8	من موظف منفّذ إلى موظف مؤثر	From executor to influencer	Own outcomes, not just tasks	axis 5
+C07	9	كن الحاضر وقت الأزمات	Show up in crises	Calming situations and solving problems in hard moments makes you indispensable	axis 5b
+C08	1	قلّل كلامك وتحدث فيما تتقن	Talk less, speak about what you master	People who talk about everything win affection but lose presence	haiba rule 1-2
+C08	2	تجنّب كل ما يقلل من قدرك	Avoid what lowers your standing	E.g., slapstick stories in first meetings	haiba rule 3
+C08	3	استبدل الاعتذار بالامتنان	Swap "sorry" for "thank you"	"Thanks for waiting" leaves a stronger impression than "sorry I'm late"	haiba rule 4
+C08	4	الهدوء وعدم التسرع	Calm, never rushed	People with presence understand fully before reacting	extra rule
+C08	5	علامات ضعف الثقة بالنفس	Signs of low self-confidence	Comparing your weaknesses to others' strengths; hating your looks/voice	confidence scale
+C08	6	واجه وعبّر عن رأيك… لكن اختر المكان	Speak up — but choose where	Strong personality = able to confront clearly and deciding when it's worth it	strong personality 1
+C08	7	تصرّف بما يتطلبه الموقف لا بما يفرّغ غضبك	Act on what's needed, not to vent anger	Respond to the situation's needs, not your impulse	strong personality 2
+C08	8	قناعاتك تصنع ثقتك	Your beliefs build your confidence	Confidence starts from convictions you choose to believe	confidence rule 1
+C08	9	أنت من يحدد نظرة الناس لك	You decide how people see you	Posture, words and reactions teach people how to see you	confidence rule 2
+C08	10	الانطباع الأول يبدأ من طريقة كلامك	First impressions start with how you speak	"Some speech is magic": speaking well opens hearts	impression law 1
+C08	11	التواضع يرفعك	Humility raises you	The higher your position, the more humility makes you loved	impression 2
+C08	12	الصمت الذكي	Smart silence	Analytical, reflective and preventive silence — "Yusuf kept it to himself"	haiba law 1
+C08	13	الغموض الانتقائي	Selective mystery	Don't expose everything; keep some areas of life private	haiba law 2
+C08	14	اكشف ما يحسّن صورتك فقط	Reveal only what supports your image	Share stories of good deeds (e.g., kindness to parents), keep the rest	law 2 secret 1
+C08	15	ملامح هادئة لا تفضح انفعالك	A calm face that doesn't leak emotions	Control body language and facial expressions under pressure	law 2 strategy
+C08	16	وازن بين الحذر والثقة	Balance caution and trust	Too much visible caution reduces presence; be kind without being naive	haiba law 3
+C08	17	الثقة المتدرجة	Gradual trust	Trust people in stages; test with small things first	law 3 strategy 1
+C08	18	احذر من يبالغ في المدح والوعود	Beware of excessive praise and promises	Positive caution: over-praise and over-promising are red flags	law 3 strategy 2
+C08	19	اعرف متى تنسحب	Know when to walk away	Read the scene, exit gracefully without over-explaining, after real attempts fail	haiba law 4
+C08	20	لا تكشف كل أوراقك (التغافل الواعي)	Don't show all your cards	Wise "not noticing": the leader of a people is the one who overlooks	haiba law 5
+C08	21	السؤال المستدرج	The guiding question	Instead of showing off knowledge, ask questions that let others explain it	law 5 strategy 2
+C08	22	لماذا لا يدعمك بعض المقربين؟	Why some close people don't support you	They doubt your abilities, or fear you'll surpass them	law 5 note
+C08	23	افهم دوافع الناس لا كلماتهم	Read motives, not just words	Neutral observer; judge patterns, not one incident; ask what they really mean	haiba law 6
+C08	24	الحصانة النفسية	Psychological immunity	Don't absorb repeated accusations; separate their words from your worth	law 6 strategy 4
+C08	25	لا تتعاطف بسرعة ولا تحكم بسرعة	Don't empathize fast, don't judge fast	Perceptual distance keeps your analysis clear	law 6 strategy 5
+C08	26	لا تبالغ في أي شعور	Don't exaggerate any emotion	Calibrate expression, pause before responding, balance heart and mind	haiba law 7
+C08	27	ادعم الناس بذكاء	Support people intelligently	Read hidden signals, support quietly, pick the right timing, link to solutions	haiba law 8
+C08	28	الحدود: هل أنت مستعد لخسارة المستغلين؟	Boundaries and losing exploiters	New boundaries will upset people who benefited from your weakness	boundaries law 1
+C08	29	الهيبة شيء والعلاقات الاجتماعية شيء آخر	Presence vs. popularity	Different rules for building respect and building friendships	Q&A
+C08	30	الحسد: كيف تتعامل معه	Dealing with envy	Recognize envy and protect yourself without becoming bitter	Q&A
+C08	31	الثقة بالنفس أم الغرور؟	Confidence vs. arrogance	How to be confident without looking arrogant	Q&A
+C09	1	استبدل "لا" بالتحفيز	Replace "don't" with encouragement	Kids often skip the "no" and hear the action; describe what TO do	build rule 1
+C09	2	خذ رأي طفلك دائمًا	Always ask your child's opinion	Even if you don't follow it, asking builds confidence	build rule 2
+C09	3	اهتم بطفلك ولا تكن حارسه الشخصي	Care, don't hover	Over-protection weakens personality	build rule 3
+C09	4	علّم طفلك الاعتماد على نفسه	Teach self-reliance	Stop doing everything for them	build rule 4
+C09	5	حاور طفلك كأنه كبير	Talk to your child like an adult	Respectful dialogue builds a mature mind	build rule 5
+C09	6	القيم تُزرع بالقدوة	Values are taught by example	"Don't lie" means nothing if they see you lie	build rule 6
+C09	7	أعطِ طفلك مسؤولية حقيقية	Give your child real responsibility	A plant to water, a pet to feed	build rule 7
+C09	8	لا تفضّل طفلًا على طفل	Never favor one child	Yusuf's brothers: visible favoritism breeds hostility	destroyer 1
+C09	9	المقارنة المدمّرة	Destructive comparison	"Be like so-and-so" kills self-worth	destroyer 2
+C09	10	لا تختر عنه كل شيء	Don't choose everything for them	Answering and deciding on their behalf erases their voice	destroyer 3
+C09	11	لا تذكر عيوبه أمام الناس	Don't list their flaws in public	Public criticism wounds identity	destroyer 4
+C09	12	القصص المرعبة تبني خوفًا دائمًا	Scary stories build lasting fear	Threatening with monsters creates anxious personalities	destroyer 5
+C09	13	تجاهل الطفل وتهميشه	Ignoring a child	Unanswered calls teach them they don't matter	destroyer 6
+C09	14	لا تعاقبه حين يعترف	Don't punish confessions	Scolding honesty teaches lying	destroyer 7
+C09	15	3 طرق لاتخاذ القرارات المصيرية	3 ways to make big decisions	The "trap" method, pros & cons, SWOT-style analysis	Q&A decisions
+C10	1	الهوية الشخصية (البيرسونال براند) في 5 خطوات	Personal brand in 5 steps	Master a skill → spread it → make access easy → price right → keep improving	personal brand
+C10	2	أتقن مهارة واحدة حتى الاحتراف	Master one skill	1 hour a day = 360 hours a year	point 1
+C10	3	ابنِ حضورك على الإنترنت	Build your online presence	Platforms, logo, a clear message to the right audience	step 1
+C10	4	القيمة المقترحة: لماذا يشتري الناس منك؟	Your value proposition	Why people should choose you	BMC 1
+C10	5	اعرف عميلك: 4 أنواع للأسواق	Know your market (4 types)	Mass, niche, segmented, diversified	BMC 2
+C10	6	رحلة العميل والقنوات	Customer journey and channels	Awareness, evaluation, purchase, delivery, after-sale	BMC 3
+C10	7	كيف تحافظ على عملائك وتزيد مبيعاتك	Keep customers and grow sales	Acquire, retain, upsell	BMC 4
+C10	8	مصادر الدخل للمشروع	Revenue streams	Asset sale, usage fees, subscriptions, commissions…	BMC 5
+C10	9	الموارد والأنشطة الأساسية	Key resources and activities	Physical, human, intellectual, financial; production/solutions/platforms	BMC 6-7
+C10	10	لا تندفع في أي مشروع	Don't jump into projects impulsively	Test before you invest	mistake 1
+C10	11	اختر شريكك بعناية	Choose your partner carefully	Never partner with someone who has nothing to lose	mistake 2
+C10	12	فرص رؤية 2030 للمشاريع الصغيرة	Vision 2030 opportunities	"Made in Saudi", payment platforms and local manufacturing	secrets
+C11	1	3 أنواع في تقدير الذات: أين أنت؟	3 levels of self-worth: where are you?	Under-valuing (every kindness feels "too much"), balanced, and inflated entitlement	3 stages
+C11	2	التقدير المتوازن: كيف تصل له وتحافظ عليه	Balanced self-esteem that lasts	The core aim: steady self-worth that doesn't swing	balance
+C11	3	3 أنواع من الناس حولك	3 kinds of people around you	Respectful people (respect you regardless), mirrors (treat you as you treat yourself), and exploiters	people types
+C11	4	جواهر حياتك: عدّ نعمك	Count the jewels in your life	Relationships you love, a spiritual space, health… awareness of what you have lifts self-worth	5 jewels
+C11	5	حتى تُطاع اطلب المستطاع	Ask for what's reasonable	Over-asking causes constant rejection; ask nicely; ask for what you truly deserve	3 secrets of asking
+C11	6	الاستحقاق الحقيقي لا الوهمي	Real vs. fake entitlement	"I deserve it" without effort is an illusion	entitlement
+C11	7	من ظنّ بك سوءًا فهذا فلتره	Their suspicion is their filter	Whoever thinks badly of you reveals their own lens — you don't need them	greatest rule
+C11	8	لماذا يتكبر بعض الناس؟ 3 أسباب	Why people become arrogant	They believed their own lie, they cover a deficiency, or misunderstand self-esteem	arrogance
+C11	9	لا تصف أحدًا بالنرجسي من موقف واحد	Don't label people narcissists from one act	Narcissism has types; one show-off moment isn't a diagnosis	narcissism
+C11	10	لا تسلّم مفاتيح قيمتك لأحد	Never hand anyone the keys to your worth	Listen to criticism and learn — but no one defines your value	golden law
+C11	11	كن لطيفًا… لا أكثر من اللازم	Kind, but not overly	Don't rush to apologize after setting a fair boundary	boundaries
+C11	12	القانون المركزي لتقدير الذات	The central law of self-esteem	Your worth is fixed (God honored you), your confidence grows with effort, humility prevents inflation	central law
+C11	13	أنماط التعلق: لماذا تهرب ممن تحب؟	Attachment styles	Avoidant attachment: pulling away when love gets close	attachment
+C11	14	كلما ركزت على مشكلتك كبرت	The more you focus on a problem, the bigger it gets	Give problems their true size and notice surrounding blessings	focus
+C11	15	خطة 30 يومًا لرفع تقدير الذات	A 30-day self-esteem plan	Progress = less comparison and better boundaries	30 days
+C12	1	هدف الحاجة أقوى من هدف الرغبة	Need-goals beat want-goals	Urgent needs get done; desire goals need anti-procrastination systems	2 reasons
+C12	2	الأهداف الذكية SMART	SMART goals	Specific, measurable, achievable, relevant, time-bound	theory 1
+C12	3	الهدف الصعب الواقعي يحرّكك	Hard-but-realistic goals drive you	Challenge triggers effort (goal-setting theory)	theory 2
+C12	4	نظرية WOOP: تمنَّ ثم توقّع العائق	WOOP: wish, outcome, obstacle, plan	Mental contrasting from NYU research	theory 3
+C12	5	قاعدة "إذا… فإن" لبناء العادات	If–then plans	Tie actions to existing routines; say or write your intention daily	theory 4
+C12	6	مستويات الدافعية: من أين يأتي حماسك؟	The levels of motivation	From no motivation → external → pressured → aligned → intrinsic	theory 5
+C12	7	لا تعتمد على المكافآت المادية وحدها	Don't rely only on material rewards	External rewards fade; meaning lasts	mistake
+C12	8	تصميم السلوك: دافع + سهولة + محفز	Behavior design	Motivation + ability + prompt = behavior	theory 7
+C12	9	ابحث عن الداعمين	Find your supporters	Mentors, officials and programs can unlock what you can't alone	secret 2
+C12	10	ما لا يُقاس لا يُدار	What isn't measured isn't managed	Track progress to improve	measure
+C13	1	من أين تأتي الهشاشة النفسية؟ 3 أسباب	Where fragility comes from: 3 causes	Over-protection or harsh criticism in childhood, life circumstances that planted beliefs, and refusing to accept loss	3 causes
+C13	2	الحماية الزائدة تصنع طفلًا هشًّا	Over-protection creates fragile kids	Let children struggle a little and fall safely	cause 1
+C13	3	تقبّل الخسارة… اعتبرها درسًا	Accept loss as a lesson	Fear of losing people, money and things feeds fragility	cause 3 + fix
+C13	4	السجن الذي صار خلوة	Turning a prison into a retreat	Stories of people who transformed confinement into growth (night prayer, reading)	stories
+C13	5	دائرة التوتر: كيف يضخم عقلك الخطر	The stress loop	Situation → catastrophic thinking → body alarm → avoidance; intervene by asking "what are the solutions?"	stress steps
+C13	6	الخوف منبّه لا عدو	Fear is an alarm, not an enemy	God-given protection; only the exaggeration hurts you	golden rule
+C13	7	واجه أم اهرب أم تجمّد؟	Fight, flight or freeze	Understand your automatic fear response and train it	fight/flight
+C13	8	فكّك خوفك	Deconstruct your fear	Ask why you fear it until it loses its power (death, rejection…)	deconstruct
+C13	9	الناقد الداخلي	Your inner critic	Silence the harsh voice inside with support sources	part 2
+C13	10	اطفُ فوق مشاعرك ولا تغرق	Float on your emotions	Accepting a feeling lets you float; fighting it drowns you	acceptance
+C13	11	ألا بذكر الله تطمئن القلوب	Remembrance brings calm	Spiritual anchors create stability	dhikr
+C13	12	القوة في التركيز على ما تريد	Focus erases what you ignore	What you focus on grows; the rest fades	focus
+C14	1	اعرف ماذا تريد ولماذا	Know what you want and why	You can't convince anyone of what you don't believe	skill 1
+C14	2	حقّق رغباتهم تحقق رغبتك	Fulfil their desires	Persuasion works when they see their own wish in your request	rule 2
+C14	3	التوقيت المناسب نصف الإقناع	Timing is half of persuasion	The same request fails at the wrong time	rule 4
+C14	4	المفاجأة والفضول والاختصار	Surprise, curiosity, brevity	Open with something unexpected, spark curiosity, explain briefly	presentation
+C14	5	استخدم المشاعر بلا ابتزاز عاطفي	Use emotions without blackmail	Emotion persuades more than logic — use it ethically	rule 10
+C14	6	لا تنفعل ولا تتبنَّ قضية ليست قضيتك	Never get emotional	Provocation makes you lose the deal	point
+C14	7	احترم من تريد إقناعه	Respect the person you persuade	No one is convinced by someone who belittles them — even children	respect
+C14	8	جهّز البدائل وحدك الأدنى	Prepare alternatives and a minimum	Know your walk-away point before negotiating	rule 19
+C14	9	اعرف متى تنسحب من الصفقة	Know when to walk away	A bad deal is worse than no deal	last point
+C14	10	قانون رد الجميل	Reciprocity	People feel driven to repay favors	Cialdini 1
+C14	11	الالتزام والاتساق	Commitment and consistency	Small yeses lead to bigger ones	Cialdini 2
+C14	12	الدليل الاجتماعي	Social proof	People do what they believe most others do	Cialdini 3
+C14	13	جسر الألفة: نتأثر بمن يشبهنا	Liking and similarity	We say yes to people we like and who resemble us	Cialdini 4
+C14	14	السلطة والخبرة	Authority and expertise	Real achievements make people listen	Cialdini 5
+C14	15	الندرة: فوات الأوان	Scarcity	"Only 24 hours" — limited availability raises desire	Cialdini 6
+C14	16	مبدأ التباين	The contrast principle	Cold then warm water: what you see first changes how you judge the next	contrast
+C14	17	افصل الأشخاص عن المشكلة	Separate people from the problem	Attack the issue, not the person (Getting to Yes)	book 2 law 1
+C14	18	التعاطف التكتيكي	Tactical empathy	Understand their feelings and say them out loud to earn trust	book 3 law 1
+C14	19	تسمية المشاعر: "يبدو أنك…"	Labeling emotions	"It seems you're exhausted" calms hidden fears	book 3 law 2
+C14	20	الأسئلة المعايرة: كيف؟ وماذا؟	Calibrated questions	Open "how/what" questions defuse attacks	law 15
+C14	21	الأهدأ هو الأقوى	The calmest person wins	When everyone loses balance, the calmest steers the decision	law 18
+C14	22	لا تمنح الاستفزاز سلطة عليك	Don't give provocation power	Control your face, pace and reaction	law 19
+C14	23	الاقتصاد المعرفي: لا تُكثر الكلام	Cognitive economy	Too many words scatter attention — be brief	law 24
+C14	24	القرار المريح	Make "yes" easy	The simpler and clearer the decision, the likelier the agreement	law 30
+C14	25	المفاوض الحكيم يعرف متى يقول لا	The wise negotiator knows when to say no	No limits = weak negotiation	law 37
+C14	26	تقبّل الرفض	Accept rejection	Not everything succeeds; rejection is part of persuasion	rejection
+C15	1	التركيز يزيد بالتمرين	Focus grows with practice	It feels hard at first, like a muscle	golden rule 1
+C15	2	التركيز صديق العادة وعدو العشوائية	Focus loves routine, hates randomness	Fixed daily habits raise concentration	golden rule 2
+C15	3	ركّز مع الشخص الذي أمامك	Focus on the person in front of you	Taking calls mid-conversation tells people they don't matter	social focus
+C15	4	4 أسباب تسرق تركيزك	4 thieves of your focus	Uninteresting task, negative emotions, stress, interruptions	causes
+C15	5	بيئتك تصنع تركيزك	Your environment shapes your focus	Lighting, noise, a clear desk	environment
+C15	6	لا تزيد مهامك اليومية عن 5	No more than 5 tasks a day	Time-boxing, a task board and limits boost concentration	20 ways
+C15	7	التركيز يحسّن علاقاتك	Focus improves relationships	Attention is a form of love and respect	benefit
+C15	8	3 مفاتيح للإلقاء بثقة	3 keys to confident public speaking	Confidence, preparation, voice techniques	Q&A
+C15	9	كيف تتكلم مع كل مجموعة بما يناسبها	Talk to each group in their language	Travel, cars, fashion — match the room's interests or listen	Q&A
+C16	1	اختبر ذكاءك الاجتماعي (16 سؤالًا)	Test your social intelligence (16 questions)	Self-scoring scale: influence, calm with difficult people, reading others…	scale
+C16	2	7 أنواع من الذكاء: ما نوع ذكائك؟	7 types of intelligence	Abstract, social, professional, emotional, linguistic, psychological, kinesthetic	types
+C16	3	الذكاء الاجتماعي مقابل الذكاء العاطفي	Social vs. emotional intelligence	EI manages your emotions; SI manages your relationships with others	SI vs EI
+C16	4	الناس لا يعرفون أنك تحبهم إن لم تقل	People don't know you love them unless you show it	Say it and act it	step 2
+C16	5	وعي العلاقات: أنواع العلاقات في حياتك	Relationship awareness	Family, friends, colleagues, acquaintances — each has its own rules	law 1
+C16	6	العلاقة المستنزفة: علاماتها	Signs of a draining relationship	You give much more than you receive and leave exhausted	toxic signs
+C16	7	قلّل وقتك وزد ذكاءك العاطفي	Less time, more emotional intelligence	When you can't leave a toxic person, limit exposure and manage yourself	step 2
+C16	8	أحيانا أنت من يُخرج أسوأ ما فيه	Sometimes you bring out their worst	Constant criticism and embarrassment can turn people toxic	cause 2
+C16	9	أشفق على الشخص الصعب	Pity the difficult person	Not everyone has your awareness or tolerance	rule 1
+C16	10	صارح وواجه بذكاء	Be frank — wisely	A calm, loving conversation about what hurts you	rule 2
+C16	11	فن التغافل: لا تكن حساسًا	The art of overlooking	Over-sensitive people interpret everything as an attack and push others away	art 1
+C16	12	فن الاعتذار	The art of apologizing	Great people apologize when wrong — it raises your status	art 2
+C16	13	فن الأدوار: اعرف دورك	Know your role	Many conflicts come from playing a role that isn't yours	art 3
+C16	14	فن الإيجابية	The art of positivity	People love those who make them feel life is good	art 5
+C16	15	فن الامتنان	The art of gratitude	Thank people for the smallest things and they'll give more	art 6
+C16	16	لا تعطِ حلولًا… أعطِ اهتمامًا	Don't rush to solutions	When someone complains: show care, empathize, contain feelings first	support
+C16	17	لغات الحب: افهم لغة من تحب	Love languages	Giving, words, time, touch, service — misunderstandings come from different languages	love languages
+C16	18	احذر الكريم إذا أُهين واللئيم إذا أُكرم	Know whom to fear	The noble when humiliated, the vile when empowered, the wise when embarrassed	proverb
+C16	19	حل الخلافات	Conflict resolution	Conflicts have rules: understand roots, separate emotion, agree on solutions	conflict
+C17	1	لماذا تحتاج أن تكون مُبهرًا؟	Why "wow" matters	Impressing earns trust, respect, professional and social elevation, and better treatment	benefits
+C17	2	في التخلّي تجلّي	Non-neediness impresses	Not appearing attached or needy raises your value	confidence
+C17	3	الإبهار النبوي: حسن الخلق في كل موقف	Prophetic charisma: character in every situation	"You are of a great moral character" — the Bedouin who pulled his cloak	prophetic law 1-2
+C17	4	البِشر والابتسامة	The power of a cheerful face	"He never saw me without smiling" (Jarir)	prophetic law 4
+C17	5	الإبهار عند ابن مسكويه	Ibn Miskawayh's refinement	Classical Arab ethics of character that impresses	law 2
+C17	6	قواعد ابن المقفّع: اختر صحبة تدعم صورتك	Ibn al-Muqaffa': choose company that supports your image	"Don't ask about a person, ask about his companion"	rule 4
+C17	7	الإبهار الياباني: قوة القرب والأمان	Japanese charisma: the power of closeness	People are drawn to whoever makes them feel safe and accepted	Japanese law 1
+C17	8	الضيافة المؤثرة (أوموتيناشي)	Impactful hospitality	Attention to tiny details people didn't ask for	Japanese law 3
+C17	9	الإبهار الأمريكي: الحماس العالي	American charisma: high enthusiasm	Energy and passion are contagious	American law 1
+C17	10	التواصل العاطفي الرمزي	Symbolic emotional connection	Share small human moments; understand people's needs while talking	American rules 2-3
+C17	11	الإبهار البريطاني: الهدوء والهوية الجمعية	British charisma: composure and shared identity	Embody the group's identity; stay composed in chaos	British law
+C17	12	الإبهار الصيني: حكمة الهدوء	Chinese charisma: the wisdom of calm	Ancient wisdom on restraint and presence	Chinese law
+C17	13	لماذا لا تُبهر رغم احترافك؟	Why you don't impress despite your skill	Either not professional enough yet, or you don't know how to show it	diagnosis
+C17	14	ردود أفعالك تصنع انطباعك	Your reactions create your impression	Calm, wise, informed reactions impress more than words	reactions
+C17	15	3 أنواع من الأعداء وكيف تتعامل معهم	3 types of enemies	Ignore harmless talkers; handle real threats wisely	enemies
+C18	1	النية الصافية تسبق الأثر	Pure intention comes first	Sincere intention gives achievements depth and lasting impact	idea 1
+C18	2	كل شيء فانٍ: لا تتعلّق بل توازن	Everything passes — balance, don't cling	Attachment blinds you to alternatives and drains your energy	idea 2
+C18	3	العلم بلا تطبيق يُثقلك	Knowledge without action weighs you down	A full mind without application exhausts its owner	idea 3
+C18	4	الموهبة وحدها لا تكفي	Talent alone isn't enough	A steady Camry can beat a lazy Ferrari	idea 4
+C18	5	الاندفاع يهدم ما بنته الأيام	Impulsiveness destroys what years built	Every impulsive moment has a heavy price; calm is control, not weakness	idea 5
+C18	6	الذكاء بلا رُشد لا يُثمر	Intelligence without wisdom bears no fruit	Smart timing beats a smart idea	idea 6
+C18	7	المشاعر مستشار لا قائد	Emotions are advisors, not leaders	Do what serves the situation, not what pleases your feelings	idea 7
+C18	8	الفرص لا تنتهي لمن هو مستعد	Opportunities never end for the prepared	Prepare like a soldier before the battle	idea 8
+C18	9	ماضيك لا يحدد مستقبلك	Your past doesn't decide your future	Memory is a reference, not a courtroom; one honest decision can cancel years of drift	idea 9
+C18	10	الفرصة تأتي متنكرة في صورة تعب	Opportunity comes disguised as hardship	If you pray for success, prepare for the hard road	idea 10
+C18	11	الزواج عقل قبل العاطفة	Marriage needs reason before emotion	Choosing a partner wisely	idea 11
+C18	12	المحبة لا تعني الصواب دائمًا	Love doesn't always mean being right	Love sees the heart; wisdom sees the road	idea 12
+C18	13	الانضباط سر العبور	Discipline is the bridge to big goals	Discipline is freedom from distraction	idea 13
+C18	14	أنت مشروعك الأعظم	You are your greatest project	Invest part of your income in your mind	idea 14
+C18	15	ليس كل حب يبني علاقة ناجحة	Not all love builds a healthy relationship	Love can hurt through suspicion, possessiveness, harsh silence; be a support	idea 15
+C18	16	الناس يسمعون لمن يفهمهم	People listen to those who understand them	Understanding opens hearts more than persuasion	idea 16
+C18	17	الذكر الطيب يرفعك	Speak well of people	Talk about others as you'd like them to talk about you; gossip drops you	idea 17
+C18	18	غيابك يختبر أثر وجودك	Your absence tests your impact	You're not the center of the universe — but your impact is remembered	idea 18
+C18	19	قيمتك لا تقاس بعيون الناس	Your worth isn't measured by others' eyes	Your scale: does it please God, your conscience, and harm no one?	idea 19
+C18	20	سعادتك مسؤوليتك	Your happiness is your responsibility	Create small daily rituals that bring joy	idea 20
+C18	21	اعرف شيئًا عن كل شيء وكل شيء عن شيء	Breadth plus depth	Combine wide culture with deep specialization	idea 21
+C18	22	العقلية تُغني لا الراتب	Mindset, not salary, makes you rich	How you think about money matters more than how much you have	idea 22
+C18	23	لا تُضِع نورك على من لا يريد أن يرى	Don't waste your light	The ignorant is the one who refuses to learn — save your advice	idea 23
+C18	24	التوازن سر النجاح المستمر	Balance is the secret of lasting success	Weekly self-review, not an exhausting race	idea 25
+C19	1	احذر كثير الوعود	Beware of people who over-promise	Many promises signal low reliability	part 1
+C19	2	اختبر النية قبل أن تعطي قلبك	Test intentions before you trust	Don't give your heart to someone who hasn't shown responsibility for your feelings	intent test
+C19	3	هدوؤك وثباتك قيمتك المضافة	Your calm is your added value	However strong or fierce people around you are, steadiness sets you apart	law 1
+C19	4	تحمّل المسؤولية = قوة شخصية	Responsibility = strength	Nobody can call a responsible person weak	law 2
+C19	5	عقلية الضحية: علاماتها	The victim mindset	Always wronged, never responsible, blaming everyone	signs
+C19	6	ليس كل خلاف يستحق الرد	Not every argument deserves a reply	Ask: will this discussion change anything? Is it worth my energy?	rule 1
+C19	7	الحدود الشخصية: ما هي وكيف تضعها	Personal boundaries	Rules that define what you accept and refuse — you can accept part and refuse part	boundaries
+C19	8	لماذا تُرهق نفسك ثم تغضب من الناس؟	Why you say yes, burn out, then get angry	The problem isn't people — it's the missing boundary	case study
+C19	9	اصنع سعادتك ولا تربطها بالناس	Create your own happiness	Strong personalities build their own atmosphere instead of depending on others	sigma idea
+C19	10	الحزم مع الفضوليين	Firmness with nosy people	Kind but firm: "Sorry, I don't like to talk about that"	Q&A firmness
+C20	1	الذكاء العاطفي ونجاحك المهني	Emotional intelligence and career success	Research links EI strongly to job and leadership success (check claims)	EI at work
+C20	2	ماذا سيحدث لو توقفت عن النمو؟	The risk of not growing	The company moves faster than you; new tools and new hires replace you	risks
+C20	3	حياتك مجموعة عادات	Your life is a set of habits	What angers you, pleases you, and how you treat people are habits	step 4
+C20	4	همّش ما يحزنك	Shrink what saddens you	Let go of the past and of careless words	stability 1
+C20	5	تستمع أم تنصت أم تصغي؟	Hearing, listening or truly attending?	Three levels of listening	presentation 2
+C20	6	الناس بصريون وسمعيون: خاطب الاثنين	Visual vs. auditory people	Some need images, others need numbers, details and evidence	audience types
+C20	7	حين يقاطعك أحد… اشكره	When interrupted, thank them	Grace under interruption builds respect	presentation 4
+C20	8	القيادة الموقفية	Situational leadership	Adapt your leadership style to each person and situation	leadership
+C20	9	ابدأ اليوم لا غدًا	Start today	Procrastination scores zero	start
+C20	10	مصفوفة الأولويات: المهم والعاجل	The priority matrix	Urgent/important: do, delegate, schedule, drop	priorities
+C21	1	اكتشف أهم أهداف جهتك	Discover your organization's top goals	Align your work with what leadership measures	rule 1
+C21	2	طوّر مهارة التحدث والإلقاء	Develop speaking skills	Rarely does someone climb the ladder without persuasive speech	rule 2
+C21	3	تميّز بمهارة خاصة	Have a special skill	Unique skills make you irreplaceable	secret 3
+C21	4	تخطَّ التوقعات	Exceed expectations	Finish a one-week task in four days	secret 4
+C21	5	ابذل جهدك قبل أن تطلب المساعدة	Try hard before asking for help	Managers respect effort first	win manager 1
+C21	6	لا تكرر أخطاءك	Don't repeat mistakes	Mistakes are human; repetition isn't	win manager 2
+C21	7	اقترح على مديرك في السر لا أمام الناس	Suggest privately, never publicly	Public correction makes your manager an enemy	suggestions
+C21	8	شارك زملاءك أفراحهم	Share colleagues' joys	Celebrate births, promotions and wins	relationships
+C21	9	كيف تكون أسوأ موظف (حتى تتجنبه)	How to be the worst employee	Be unreachable, complain about everything, never admit mistakes	reverse lesson
+C21	10	لا تشخصن الملاحظات	Don't take feedback personally	Criticism of your work is not criticism of you	rule
+C21	11	كيف تقابل مسؤولًا كبيرًا	How to meet a senior official	Know their achievement, introduce yourself, ask briefly with confidence	VIP meeting
+C21	12	ماذا يحتاج فريقك منك؟ التقدير والتكريم	What your team needs: appreciation and recognition	Praise and simple certificates are powerful tools	team needs

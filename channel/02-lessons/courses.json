@@ -1,0 +1,212 @@
+[
+ {
+  "id": "C01",
+  "ar": "أسرار الكاريزما والجاذبية الشخصية",
+  "en": "Secrets of Charisma & Personal Attraction",
+  "src": "A",
+  "lines": [
+   1,
+   6
+  ]
+ },
+ {
+  "id": "C02",
+  "ar": "مهارات التواصل الفعّال",
+  "en": "Effective Communication Skills",
+  "src": "A",
+  "lines": [
+   7,
+   155
+  ]
+ },
+ {
+  "id": "C03",
+  "ar": "كيف تدير مديرك",
+  "en": "How to Manage Your Manager",
+  "src": "A",
+  "lines": [
+   156,
+   157
+  ]
+ },
+ {
+  "id": "C04",
+  "ar": "التعافي بعد الفقد",
+  "en": "Recovering After Loss",
+  "src": "A",
+  "lines": [
+   158,
+   161
+  ]
+ },
+ {
+  "id": "C05",
+  "ar": "الذكاء العاطفي وفنون إدارة الانفعالات",
+  "en": "Emotional Intelligence & Managing Emotions",
+  "src": "A",
+  "lines": [
+   162,
+   163
+  ]
+ },
+ {
+  "id": "C06",
+  "ar": "القيادة بالإلهام وبناء الشخصية القيادية",
+  "en": "Inspirational Leadership",
+  "src": "A",
+  "lines": [
+   164,
+   165
+  ]
+ },
+ {
+  "id": "C07",
+  "ar": "رفع الكفاءة المهنية",
+  "en": "Raising Professional Competence",
+  "src": "A",
+  "lines": [
+   166,
+   174
+  ]
+ },
+ {
+  "id": "C08",
+  "ar": "فن الهيبة وقوة الشخصية",
+  "en": "The Art of Presence (Haiba) & Strong Personality",
+  "src": "A",
+  "lines": [
+   175,
+   384
+  ]
+ },
+ {
+  "id": "C09",
+  "ar": "التربية وبناء شخصية الطفل",
+  "en": "Parenting & Building a Child's Personality",
+  "src": "A",
+  "lines": [
+   385,
+   534
+  ]
+ },
+ {
+  "id": "C10",
+  "ar": "مبادئ تأسيس ونجاح المشاريع",
+  "en": "Principles of Starting & Growing a Business",
+  "src": "A",
+  "lines": [
+   535,
+   668
+  ]
+ },
+ {
+  "id": "C11",
+  "ar": "رفع تقدير الذات والثقة بالنفس",
+  "en": "Self-Esteem & Self-Confidence",
+  "src": "A",
+  "lines": [
+   669,
+   702
+  ]
+ },
+ {
+  "id": "C12",
+  "ar": "تحقيق الأهداف بذكاء",
+  "en": "Achieving Goals Smartly",
+  "src": "B",
+  "lines": [
+   1,
+   152
+  ]
+ },
+ {
+  "id": "C13",
+  "ar": "التحرر من الخوف والهشاشة",
+  "en": "Freedom from Fear & Fragility",
+  "src": "B",
+  "lines": [
+   153,
+   213
+  ]
+ },
+ {
+  "id": "C14",
+  "ar": "مهارة التفاوض والإقناع",
+  "en": "Negotiation & Persuasion",
+  "src": "B",
+  "lines": [
+   214,
+   329
+  ]
+ },
+ {
+  "id": "C15",
+  "ar": "قوة التركيز وتنظيم الشتات الفكري",
+  "en": "The Power of Focus",
+  "src": "B",
+  "lines": [
+   330,
+   369
+  ]
+ },
+ {
+  "id": "C16",
+  "ar": "التعامل مع مختلف أنواع الشخصيات",
+  "en": "Dealing with Different Personalities",
+  "src": "B",
+  "lines": [
+   370,
+   411
+  ]
+ },
+ {
+  "id": "C17",
+  "ar": "قوة الإبهار",
+  "en": "The Power of Impressing (Wow Factor)",
+  "src": "B",
+  "lines": [
+   412,
+   431
+  ]
+ },
+ {
+  "id": "C18",
+  "ar": "قوة الأفكار الملهمة",
+  "en": "The Power of Inspiring Ideas",
+  "src": "B",
+  "lines": [
+   453,
+   467
+  ]
+ },
+ {
+  "id": "C19",
+  "ar": "قوة الشخصية",
+  "en": "Strength of Personality",
+  "src": "B",
+  "lines": [
+   484,
+   604
+  ]
+ },
+ {
+  "id": "C20",
+  "ar": "التحفيز وإدارة الأولويات",
+  "en": "Self-Motivation & Priorities",
+  "src": "B",
+  "lines": [
+   605,
+   611
+  ]
+ },
+ {
+  "id": "C21",
+  "ar": "أسرار الارتقاء الوظيفي",
+  "en": "Secrets of Career Advancement",
+  "src": "B",
+  "lines": [
+   612,
+   700
+  ]
+ }
+]

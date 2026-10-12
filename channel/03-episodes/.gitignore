@@ -1,0 +1,3 @@
+# Rendered videos/previews are big: keep them out of git (they can always be re-rendered).
+*/out/
+*/audio/_raw/
