@@ -73,4 +73,4 @@ export type Episode = {
   scenes: Scene[];
 };
 
-export type Brand = {name: string; nameEn: string; handle: string; tagline: string};
+export type Brand = {name: string; nameEn: string; handle: string; tagline: string; background?: 'none' | 'humming' | 'calm'};

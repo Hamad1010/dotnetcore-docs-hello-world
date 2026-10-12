@@ -3,5 +3,7 @@
   "nameEn": "Smart Sawalif",
   "handle": "@sawalif.smart",
   "tagline": "دروس الذكاء الاجتماعي والعاطفي… بقصص حقيقية",
-  "note": "Placeholder brand. Change name/handle here once you pick the final channel name; every video and thumbnail picks it up automatically."
+  "note": "Placeholder brand. Change name/handle here once you pick the final channel name; every video and thumbnail picks it up automatically.",
+  "background": "none",
+  "backgroundOptions": "none = voice + soft transition sounds only · humming = voice-only humming (no instruments) · calm = soft instrumental pad"
 }

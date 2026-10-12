@@ -28,7 +28,9 @@ const loadEpisode = async (episodeId: string): Promise<EpisodeData> => {
     timings = await fetch(staticFile(`${episodeId}/audio/timings.json`)).then((r) => r.json());
   }
   const plan = buildPlan(episode, timings, FPS);
-  const music = (await exists('_assets/music/calm-pad.mp3')) ? '_assets/music/calm-pad.mp3' : null;
+  // Background sound is a channel-wide setting in 03-episodes/channel.json → "background": none | humming | calm
+  const file = {humming: '_assets/music/humming.mp3', calm: '_assets/music/calm-pad.mp3', none: null}[brand.background ?? 'none'] ?? null;
+  const music = file && (await exists(file)) ? file : null;
   const sfx = await exists('_assets/sfx/whoosh.mp3');
   return {episode, plan, brand, music, sfx};
 };
