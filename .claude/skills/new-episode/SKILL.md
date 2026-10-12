@@ -10,9 +10,11 @@ Follow `CLAUDE.md` (repo root) rules exactly. Work in `channel/`.
 ## 1. Pick the lesson
 - If the owner named a lesson/episode, use it. Otherwise take the **first row with `status=todo`** in `channel/02-lessons/lessons.csv`.
 - Episode id = lesson number: `L007` → `EP007`. Folder: `channel/03-episodes/EP007/`.
-- Read the row (`title_ar`, `idea`, `course`, `source_ref`). If `channel/02-lessons/sources/courses/` exists, run
+- Read the row (`title_ar`, `idea`). Optional, only if the private folder exists (it's git-ignored and may be missing):
+  find the lesson in `channel/02-lessons/sources/lesson-map.csv` (`course`, `ref`), run
   `python3 channel/06-tools/transcripts/skel2.py channel/02-lessons/sources/courses/<course>.txt 220` and read only the
-  passage for this lesson (≤3,000 chars) for nuance. Never copy its sentences.
+  passage for this lesson (≤3,000 chars) for nuance. Never copy its sentences, examples or list structure, and never
+  write course names, course ids or refs into any committed file.
 - The `next` field = the following lesson in the tracker.
 
 ## 2. Research (WebSearch)
@@ -54,7 +56,7 @@ Fix any overflow/wrapping by shortening text (not by shrinking fonts).
 ## 7. Bookkeeping
 - `lessons.csv`: `status` → `scripted` (or `rendered`/`voiced`), `episode` → `EP00N`, `notes` → anything to review.
 - `story-bank.csv`: append new stories (id SBxxx, sources, lessons it can teach) and update `used_in`.
-- `python3 channel/06-tools/build_catalog.py` (keeps tracker progress).
+- `python3 channel/06-tools/build_catalog.py` (checks the tracker and refreshes `LESSONS.md`).
 - Commit: `EP00N: <Arabic title> (script, sources, publish kit)` and push to the working branch.
 
 ## 8. Report to the owner (short)

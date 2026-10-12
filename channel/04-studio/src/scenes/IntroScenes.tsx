@@ -6,7 +6,7 @@ import {Backdrop, Brand, Captions, Card, Chip, Icon, SceneFrame, fadeUp, useIn, 
 import {at, lessonNumber, TopBar, type SceneProps} from './common';
 
 // ------------------------------------------------------------------ HOOK
-export const Hook: React.FC<SceneProps<HookScene> & {showCaptions: boolean}> = ({scene, plan, showCaptions}) => {
+export const Hook: React.FC<SceneProps<HookScene> & {showCaptions: boolean}> = ({scene, episode, plan, showCaptions}) => {
   const f = useCurrentFrame();
   const ring = interpolate(f, [6, 40], [0, 1], {easing: EASE_OUT, extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
   const big = usePop(14, 12);
@@ -101,7 +101,7 @@ export const Hook: React.FC<SceneProps<HookScene> & {showCaptions: boolean}> = (
         </Card>
         <div style={{display: 'flex', flexWrap: 'wrap', justifyContent: portrait ? 'center' : 'flex-start', gap: 16, opacity: outro, transform: `scale(${0.9 + 0.1 * outro})`, transformOrigin: portrait ? 'center' : 'right center'}}>
           <Chip size={34} bg={C.blue} color="#fff">
-            السر الأول للكاريزما
+            {episode.kicker}
           </Chip>
           <Chip size={34} bg={C.yellowSoft} color={C.ink}>
             <Icon name="globe" size={32} /> قصص حقيقية بالأرقام

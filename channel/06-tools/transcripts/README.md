@@ -22,5 +22,7 @@ mkdir -p channel/02-lessons/sources
 bash channel/06-tools/transcripts/prepare.sh
 python3 channel/06-tools/transcripts/skel2.py channel/02-lessons/sources/courses/C01.txt 200
 ```
-The lesson list itself (`02-lessons/lessons_by_course.tsv`) is already extracted, so you only need this when
-you want the course's original explanation of a lesson.
+The course list (`sources/courses.json`) and the private lesson map (`sources/lesson-map.csv`, which links each
+public lesson number to its course and position) also live in the git-ignored folder. Keep a copy of the whole
+`sources/` folder on your computer: a cloud session starts empty and only has it after you upload it again.
+You only need these when you want the original explanation of a lesson; the public catalog doesn't depend on them.

@@ -1,18 +1,18 @@
 # EP001 · Publish kit
 
 ## Titles (Test & Compare: upload all 3)
-1. ليش نحب بعض الناس من أول لقاء؟ | السر الأول للكاريزما
+1. ليش نحب بعض الناس من أول لقاء؟ | أساس الكاريزما
 2. الناس تحكم عليك في 0.1 ثانية… وش يشوفون؟
 3. 8 قصص حقيقية تثبت إن الرحمة أقوى من القوة
 
 ## Thumbnails (Test & Compare: upload all 3)
-1. **A (rendered):** ring "0.1 ثانية" + «وش يشوفون فيك؟» + badge «السر الأول للكاريزما»
+1. **A (rendered):** ring "0.1 ثانية" + «وش يشوفون فيك؟» + badge «أساس الكاريزما»
 2. **B:** same layout, text «الرحمة > القوة» (edit `thumbnail.line1` in `episode.json`, then `npm run render -- EP001 --thumb-only`)
-3. **C:** globe layout (remove `thumbnail.big`), text «سر الكاريزما الأول»
+3. **C:** globe layout (remove `thumbnail.big`), text «سر الكاريزما»
 
 ## Description (paste)
 ```
-ليش بعض الناس نحبهم من أول لقاء… وغيرهم لا؟ في هذا الدرس نكتشف السر الأول للكاريزما، بـ8 قصص حقيقية من حول العالم، وبالأرقام.
+ليش بعض الناس نحبهم من أول لقاء… وغيرهم لا؟ في هذا الدرس نكتشف وش أساس الكاريزما، بـ8 قصص حقيقية من حول العالم، وبالأرقام.
 
 ⏱️ الفصول
 [الصق محتوى out/chapters.txt هنا]
@@ -24,7 +24,7 @@
 
 ✍️ تمرين اليوم: اختر شخص ما أحد ينتبه له، وقل له كلمة طيبة باسمه… واكتب لنا وش صار.
 
-📺 الدرس الجاي: مشاعرك تحت إدارة أفكارك
+📺 الدرس الجاي: أفكارك تتحكم بمشاعرك
 ▶️ قائمة الموسم الأول: [رابط القائمة]
 📲 قناتنا على واتساب: [الرابط]
 
@@ -45,7 +45,7 @@
 - [ ] Subtitles: upload `out/subtitles.ar.srt` (Arabic)
 - [ ] End screen: "Next video" → EP002 (when published) + Subscribe
 - [ ] Playlist: «الموسم 1: الأساسيات»
-- [ ] Altered/synthetic content: **No** if you recorded the voice yourself · **Yes** if the narration is an AI or cloned voice
+- [ ] Altered/synthetic content: **No** if you recorded the voice yourself or used a clone of your own voice · **Yes** if a stock AI voice (Polly, a library voice) narrates. Details: `01-plan/06-monetization-policy-legal.md` §3
 - [ ] Publish Mon 26 Oct, 8–9 pm KSA
 
 ## 3 Shorts (rendered: `out/short-1-hook-lesson.mp4` 62 s · `out/short-2-s4.mp4` · `out/short-3-s3.mp4`)

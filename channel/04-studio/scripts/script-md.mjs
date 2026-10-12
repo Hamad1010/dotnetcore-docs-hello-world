@@ -17,7 +17,7 @@ const mmss = (f) => `${Math.floor(f / 30 / 60)}:${String(Math.floor((f / 30) % 6
 const out = [
   `# ${ep.id} · ${ep.title}`,
   '',
-  `- **Lesson:** ${ep.lesson} · season ${ep.season} · source ${ep.sourceRef || ''}`,
+  `- **Lesson:** ${ep.lesson} · season ${ep.season}`,
   `- **YouTube title:** ${ep.youtubeTitle || ''}`,
   `- **Length:** ${mmss(plan.total)} (${timings ? 'real voice timing' : 'estimated from text; real voice may differ by ±10%'})`,
   `- **Words:** ${ep.scenes.reduce((a, s) => a + display(s.narration).split(' ').length, 0)}`,
