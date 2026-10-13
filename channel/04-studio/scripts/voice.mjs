@@ -1,7 +1,9 @@
 // Creates the narration audio for an episode: one MP3 per scene + audio/timings.json.
 // The video then times every scene to the real voice automatically.
 //
-//   node scripts/voice.mjs EP001 --provider=elevenlabs   (best Saudi voice; needs ELEVENLABS_API_KEY + ELEVENLABS_VOICE_ID)
+//   node scripts/voice.mjs EP001 --provider=elevenlabs   (best Saudi voice; voice id in 03-episodes/channel.json or ELEVENLABS_VOICE_ID;
+//                                                         key in ELEVENLABS_API_KEY, or a cloud "network secret" for api.elevenlabs.io)
+//   node scripts/voice.mjs EP001 --provider=elevenlabs --model=eleven_v3   (try another ElevenLabs model)
 //   node scripts/voice.mjs EP001 --provider=google       (Google Cloud TTS free tier; needs GOOGLE_TTS_API_KEY)
 //   node scripts/voice.mjs EP001 --provider=polly        (Amazon Polly Gulf Arabic "Zayd"/"Hala"; needs the AWS CLI logged in)
 //   node scripts/voice.mjs EP001 --provider=edge         (free test voice; needs `pip install edge-tts`)
@@ -11,9 +13,15 @@
 // Keys can live in channel/04-studio/.env (never commit it). See .env.example.
 import fs from 'node:fs';
 import path from 'node:path';
-import {execFileSync} from 'node:child_process';
+import {execFileSync, spawnSync} from 'node:child_process';
 import {fileURLToPath} from 'node:url';
 import {spoken} from '../src/lib/plan.js';
+
+// Behind an HTTPS proxy (cloud sessions), Node's built-in fetch only uses it when NODE_USE_ENV_PROXY=1 is set at start.
+if (process.env.HTTPS_PROXY && !process.env.NODE_USE_ENV_PROXY) {
+  const r = spawnSync(process.execPath, process.argv.slice(1), {stdio: 'inherit', env: {...process.env, NODE_USE_ENV_PROXY: '1'}});
+  process.exit(r.status ?? 1);
+}
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const studio = path.resolve(here, '..');
@@ -29,6 +37,7 @@ const epDir = path.resolve(studio, '../03-episodes', episodeId);
 const audioDir = path.join(epDir, 'audio');
 fs.mkdirSync(audioDir, {recursive: true});
 const episode = JSON.parse(fs.readFileSync(path.join(epDir, 'episode.json'), 'utf8'));
+const channel = JSON.parse(fs.readFileSync(path.resolve(studio, '../03-episodes/channel.json'), 'utf8'));
 const timingsPath = path.join(audioDir, 'timings.json');
 const timings = fs.existsSync(timingsPath) ? JSON.parse(fs.readFileSync(timingsPath, 'utf8')) : {};
 
@@ -78,15 +87,19 @@ function polish(input, output) {
 }
 
 async function synthElevenLabs(text, out) {
+  // No key here is fine in a cloud session with a network secret: the proxy adds the xi-api-key header itself.
   const key = process.env.ELEVENLABS_API_KEY;
-  const voice = process.env.ELEVENLABS_VOICE_ID;
-  if (!key || !voice) throw new Error('Set ELEVENLABS_API_KEY and ELEVENLABS_VOICE_ID in 04-studio/.env');
-  const model = process.env.ELEVENLABS_MODEL || 'eleven_multilingual_v2';
+  const voice = process.env.ELEVENLABS_VOICE_ID || channel.voice?.elevenlabsVoiceId;
+  if (!voice) throw new Error('No ElevenLabs voice id: set "voice.elevenlabsVoiceId" in 03-episodes/channel.json');
+  const model = opt('model', process.env.ELEVENLABS_MODEL || channel.voice?.elevenlabsModel || 'eleven_multilingual_v2');
+  // eleven_v3 takes only stability (0 creative, 0.5 natural, 1 robust); older models take the full set.
+  const settings = model.startsWith('eleven_v3') ? {stability: 0.5} : {stability: 0.45, similarity_boost: 0.8, style: 0.2, use_speaker_boost: true};
   const r = await fetch(`https://api.elevenlabs.io/v1/text-to-speech/${voice}?output_format=mp3_44100_128`, {
     method: 'POST',
-    headers: {'xi-api-key': key, 'content-type': 'application/json'},
-    body: JSON.stringify({text, model_id: model, voice_settings: {stability: 0.45, similarity_boost: 0.8, style: 0.2, use_speaker_boost: true}}),
+    headers: {...(key ? {'xi-api-key': key} : {}), 'content-type': 'application/json'},
+    body: JSON.stringify({text, model_id: model, voice_settings: settings}),
   });
+  if (r.status === 401) throw new Error(`ElevenLabs refused the key (401): check ELEVENLABS_API_KEY or the network secret's header (name xi-api-key, no prefix). ${await r.text()}`);
   if (!r.ok) throw new Error(`ElevenLabs ${r.status}: ${await r.text()}`);
   fs.writeFileSync(out, Buffer.from(await r.arrayBuffer()));
 }

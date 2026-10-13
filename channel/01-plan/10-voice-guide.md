@@ -80,23 +80,35 @@ Time: about 20–30 minutes per long episode, 2 minutes per Short.
 2. Record the sample script in §8 the same way as §5 (one file, 1–2 minutes, natural tone).
 3. In ElevenLabs: **Voices → Add a new voice → Instant Voice Clone** → upload the file → name it (e.g.
    "Channel voice") → confirm it's your voice → save. Copy its **Voice ID**.
-4. Create an **API key** (Developers / API Keys). If it lets you limit permissions, allow Text to Speech only.
-5. Give the key to Claude **without pasting it in the chat**:
-   - Own computer: put it in `channel/04-studio/.env` as `ELEVENLABS_API_KEY=` and `ELEVENLABS_VOICE_ID=`.
-   - Cloud session: add both as environment variables in the environment settings (see §7).
-6. Claude runs `npm run voice -- EP00N --provider=elevenlabs`. Model: `eleven_multilingual_v2` (steady) or
-   `eleven_v3` (more expressive). We test both on the trial Short and keep the better one.
+4. **Make a secret key** (it works like a password that lets Claude use your voice; never paste it in the chat):
+   elevenlabs.io → bottom-left **Developers** (or your name/picture → **API Keys**) → **API Keys** tab →
+   **+ Create Key** → name it `Claude` → leave **Restrict key** off → **Create** → **Copy**. ElevenLabs shows it
+   only once.
+5. **Put the key in a safe box Claude can't open** (a *network secret*; the key never enters the session, the
+   network adds it to each ElevenLabs request). On a computer, open claude.ai/code:
+   1. Click the small **cloud icon** with your environment's name (usually **Default**) next to the message box.
+   2. Click **Cloud**, move the mouse over **Default**, click the **gear** icon on the right.
+   3. In **Edit environment**, go to **Network secrets** → **Add secret**:
+      - **Name:** `ElevenLabs` · **Credential type:** leave **Bearer** · **Allowed websites:** `api.elevenlabs.io`
+      - **Custom headers:** change **Name** `Authorization` → `xi-api-key`, delete `Bearer` from **Prefix**,
+        paste the key as **Value**
+   4. Click **Connect**. "ElevenLabs" appears in the list. Nothing else to change.
+6. **Send Claude your Voice ID in the chat** (it's not a secret, just the name of your voice). Claude saves it in
+   `03-episodes/channel.json` and runs `npm run voice -- EP00N --provider=elevenlabs`. Models:
+   `eleven_multilingual_v2` (steady) or `eleven_v3` (more expressive); the trial Short tests both.
 
-## 7. Option 3 · Amazon Polly, and what the cloud session needs
+On your own computer instead: put `ELEVENLABS_API_KEY=` in `channel/04-studio/.env` (never commit it).
 
-**Polly:** create an AWS account → an access key that only allows Polly → Claude runs
-`npm run voice -- EP00N --provider=polly` (voice `Zayd`, or `POLLY_VOICE=Hala` for the female voice).
+## 7. Option 3 · Amazon Polly
 
-**Cloud session settings** (title bar → the cloud environment menu → **Edit**):
-- **Network access:** add `api.elevenlabs.io` under *Allowed domains* (keep *Allow package managers* ticked).
-  Steps: <https://code.claude.com/docs/en/cloud-environments#network-access>
-- **Keys:** add `ELEVENLABS_API_KEY` and `ELEVENLABS_VOICE_ID` (or your AWS keys) as environment variables.
-  A new session picks them up.
+Create an AWS account → an access key that only allows Polly → Claude runs
+`npm run voice -- EP00N --provider=polly` (voice `Zayd`, or `POLLY_VOICE=Hala` for the female voice). In a
+cloud session, store the AWS keys as a network secret or environment variables (same window as §6.5).
+
+No "Network secrets" section (Team/Enterprise plans)? Use the same window: **Network access** → **Custom** →
+add `api.elevenlabs.io` (tick *Also include default list of common package managers*), and put
+`ELEVENLABS_API_KEY=your-key` in **Environment variables**. Steps:
+<https://code.claude.com/docs/en/cloud-environments>
 
 ## 8. Script for your clone sample (read it in 1.5–2 minutes)
 
