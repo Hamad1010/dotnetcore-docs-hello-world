@@ -41,7 +41,8 @@ const episodeMeta: CalculateMetadataFunction<EpisodeProps> = async ({props}) => 
 };
 
 type ShortProps = EpisodeProps & {sceneIds: string[]};
-const ShortVideo: React.FC<ShortProps> = (props) => <EpisodeVideo {...props} />;
+// Shorts always burn in captions (many people watch on mute); long videos get the SRT file instead.
+const ShortVideo: React.FC<ShortProps> = (props) => <EpisodeVideo {...props} showCaptions={props.showCaptions ?? true} />;
 
 // A vertical Short cut from an episode: the chosen scenes + a 3-second "full lesson on the channel" card.
 const shortMeta: CalculateMetadataFunction<ShortProps> = async ({props}) => {
