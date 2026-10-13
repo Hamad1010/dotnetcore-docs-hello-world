@@ -9,7 +9,7 @@
   "voice": {
     "provider": "elevenlabs",
     "elevenlabsVoiceId": "WZctAbm7wfypbq0wYRLa",
-    "elevenlabsModel": "eleven_multilingual_v2",
+    "elevenlabsModel": "eleven_v3",
     "note": "Voice id is not a secret. The ElevenLabs key lives in the cloud environment as a network secret (or in 04-studio/.env on your own computer)."
   }
 }

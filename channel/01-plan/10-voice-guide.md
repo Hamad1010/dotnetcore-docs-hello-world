@@ -57,6 +57,16 @@ extra step. What gets punished is *not* ticking it when it was required. Details
 
 ## 5. Option 1 · Record your own voice (free, best)
 
+**You never have to match any timing.** The video follows your voice: every part of it gets longer or shorter
+to fit how you speak.
+
+**Easiest way:** open the **Recording Booth** on your phone (<https://claude.ai/artifact/6ygwHYvcEr24DeRoZysEgt>,
+private to you). It shows one part at a time in big letters, with a 3-second quiet countdown between parts. Record
+everything in one go with your phone's voice app (breaks are fine: start a new recording from where you stopped)
+and send the file(s) in the chat. Claude updates the Booth with each new episode's text.
+
+The manual way, one file per part, still works:
+
 **Gear:** your phone. **Room:** a small room with soft things (a closet full of clothes is perfect); no AC
 noise. **Phone:** airplane mode, Voice Memos (iPhone) or Recorder (Android), 15–20 cm from your mouth, slightly
 to the side so your breath doesn't hit it.
