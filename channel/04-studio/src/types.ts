@@ -6,6 +6,8 @@ export type Place = {lat: number; lon: number; label?: string};
 type Base = {
   id: string;
   narration: string;
+  /** Used instead of `narration` when this scene is cut into a Short (a stand-alone opening). Its audio is `<id>-short`. */
+  shortNarration?: string;
   chapter?: string;
   minSeconds?: number;
 };

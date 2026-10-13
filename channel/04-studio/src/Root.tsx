@@ -47,7 +47,9 @@ const ShortVideo: React.FC<ShortProps> = (props) => <EpisodeVideo {...props} sho
 // A vertical Short cut from an episode: the chosen scenes + a 3-second "full lesson on the channel" card.
 const shortMeta: CalculateMetadataFunction<ShortProps> = async ({props}) => {
   const full = await loadEpisode(props.episodeId);
-  const scenes = full.episode.scenes.filter((s) => props.sceneIds.includes(s.id));
+  const scenes = full.episode.scenes
+    .filter((s) => props.sceneIds.includes(s.id))
+    .map((s) => (s.shortNarration ? {...s, id: `${s.id}-short`, narration: s.shortNarration} : s));
   const episode: Episode = {...full.episode, scenes: [...scenes, {id: 'end', type: 'endcard', narration: '', minSeconds: 3}]};
   let timings: Timings | null = null;
   if (await exists(`${props.episodeId}/audio/timings.json`)) {

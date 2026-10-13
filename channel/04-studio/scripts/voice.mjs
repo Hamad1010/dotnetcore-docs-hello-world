@@ -132,7 +132,9 @@ function synthEdge(text, out) {
 
 const raw = path.join(audioDir, '_raw');
 fs.mkdirSync(raw, {recursive: true});
-for (const scene of episode.scenes) {
+// A scene with a Short-only text gets a second audio file, <id>-short (e.g. --only=s4-short).
+const scenes = episode.scenes.flatMap((s) => (s.shortNarration ? [s, {...s, id: `${s.id}-short`, narration: s.shortNarration}] : [s]));
+for (const scene of scenes) {
   if (only && scene.id !== only) continue;
   const final = path.join(audioDir, `${scene.id}.mp3`);
   let source;
