@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Photo swapper | The Power of Us</title>
+<meta name="robots" content="noindex">
+<!--
+  PHOTO SWAPPER: a helper for the two pages in this folder. Open it in any browser (double-click).
+  It changes a photo or picture inside index.html or social-media-blueprint.html and gives you the updated file back.
+  Everything happens on your computer; nothing is uploaded. See EDITING-GUIDE.html for the steps.
+-->
+<style>
+:root{--bg:#07101F;--card:#0E1D38;--line:rgba(231,216,178,.22);--text:#EEF0F5;--muted:#B4BED0;--gold:#EBD08A;--gold-deep:#C9A24B;--ok:#8FD6A5;--err:#FF9A8B}
+*{box-sizing:border-box}
+html{color-scheme:dark}
+body{margin:0;background:radial-gradient(900px 500px at 15% -10%,#14305C 0,transparent 60%),var(--bg);color:var(--text);font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+main{max-width:860px;margin:0 auto;padding:clamp(20px,4vw,48px) 16px 64px}
+h1{font:600 clamp(1.8rem,1.2rem + 2vw,2.6rem)/1.15 Georgia,"Times New Roman",serif;margin:0 0 8px}
+h1 em{color:var(--gold);font-style:italic}
+.lead{color:var(--muted);margin:0 0 28px;max-width:60ch}
+section{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:clamp(16px,3vw,26px);margin:0 0 18px}
+h2{display:flex;align-items:center;gap:12px;margin:0 0 10px;font-size:1.15rem}
+h2 b{display:grid;place-items:center;flex:none;width:32px;height:32px;border-radius:50%;background:linear-gradient(180deg,#F1DDA0,#C99A3C);color:#1A1305;font-size:.95rem}
+p{margin:.4em 0}
+.note{color:var(--muted);font-size:.92rem}
+input[type=file]{display:block;max-width:100%;color:var(--text);margin:10px 0}
+input[type=file]::file-selector-button{margin-right:14px;padding:.7em 1.3em;border-radius:999px;border:0;background:linear-gradient(180deg,#F1DDA0,#D2AC55);color:#1A1305;font:600 .95rem system-ui,sans-serif;cursor:pointer}
+input[type=text]{width:min(260px,100%);padding:.65em .9em;border-radius:12px;border:1px solid var(--line);background:#091730;color:var(--text);font:inherit}
+button{font:600 1rem system-ui,sans-serif;padding:.8em 1.5em;border-radius:999px;border:1px solid var(--line);background:transparent;color:var(--text);cursor:pointer}
+button.primary{border:0;background:linear-gradient(180deg,#F1DDA0,#D2AC55);color:#1A1305}
+button:disabled{opacity:.45;cursor:not-allowed}
+:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+.group-title{margin:16px 0 8px;color:var(--gold);font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;font-weight:600}
+.items{display:grid;grid-template-columns:repeat(auto-fill,minmax(118px,1fr));gap:12px}
+.item{position:relative;display:grid;gap:8px;justify-items:center;padding:10px;border:1px solid var(--line);border-radius:14px;cursor:pointer;text-align:center;font-size:.85rem;background:#0A1830}
+.item input{position:absolute;opacity:0;inset:0;cursor:pointer}
+.item img{width:84px;height:84px;object-fit:cover;border-radius:10px;background:#223}
+.item img.round{border-radius:50%}
+.item:has(input:checked){border-color:var(--gold);box-shadow:0 0 0 2px var(--gold) inset}
+.item:has(input:focus-visible){outline:3px solid var(--gold);outline-offset:2px}
+.editor{display:grid;grid-template-columns:minmax(0,340px) minmax(0,1fr);gap:20px;align-items:start;margin-top:12px}
+.stage{position:relative;width:100%;max-width:340px;background:#111;border-radius:12px;overflow:hidden}
+.stage canvas{display:block;width:100%;height:auto}
+.stage .guide{position:absolute;inset:0;border-radius:50%;box-shadow:0 0 0 999px rgba(5,11,24,.62);pointer-events:none;border:2px solid var(--gold)}
+.stage .guide[hidden]{display:none}
+.controls{display:grid;gap:12px}
+.controls label{display:grid;gap:4px;font-size:.92rem}
+.controls input[type=range]{width:100%;accent-color:var(--gold-deep)}
+.check{display:flex!important;align-items:center;gap:10px}
+.ok{color:var(--ok)}.err{color:var(--err)}
+ul.changes{margin:8px 0 14px;padding-left:1.2em}
+.row{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-top:12px}
+@media (max-width:640px){.editor{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<main>
+  <h1>Photo <em>swapper</em></h1>
+  <p class="lead">Change a photo or picture inside your page without touching any code. Everything happens on your computer; nothing is uploaded anywhere.</p>
+
+  <section id="s1" aria-labelledby="h1a">
+    <h2 id="h1a"><b>1</b> Choose your page</h2>
+    <p>Pick <strong>index.html</strong> (the website) or <strong>social-media-blueprint.html</strong>. Keep a copy of the original file first, just in case.</p>
+    <input type="file" id="pageFile" accept=".html,text/html" aria-label="Choose the page file">
+    <p id="pageInfo" role="status" class="note"></p>
+  </section>
+
+  <section id="s2" aria-labelledby="h2a" hidden>
+    <h2 id="h2a"><b>2</b> What do you want to change?</h2>
+    <p class="note">Tap the picture you want to replace.</p>
+    <div id="items"></div>
+    <div class="group-title">Or add a new person</div>
+    <div class="row" style="margin-top:0">
+      <label for="newName" class="note">Name for the photo (letters only, for example <em>sara</em>)</label>
+      <input type="text" id="newName" maxlength="24" autocomplete="off" inputmode="text">
+      <button type="button" id="addPerson">Add this person</button>
+    </div>
+    <p class="note" id="newNote">After that, write the same name next to <code>photo:</code> in that person’s block in the TEAM PROFILES (see the guide).</p>
+  </section>
+
+  <section id="s3" aria-labelledby="h3a" hidden>
+    <h2 id="h3a"><b>3</b> Choose the new picture</h2>
+    <p id="target" class="note"></p>
+    <input type="file" id="imgFile" accept="image/*" aria-label="Choose the new picture">
+    <div class="editor" id="editor" hidden>
+      <div class="stage"><canvas id="preview" aria-label="Preview of the new picture"></canvas><div class="guide" id="guide" hidden></div></div>
+      <div class="controls">
+        <div id="personControls">
+          <label>Zoom <input type="range" id="zoom" min="1" max="3" step="0.01" value="1"></label>
+          <label>Move left / right <input type="range" id="ox" min="0" max="100" step="1" value="50"></label>
+          <label>Move up / down <input type="range" id="oy" min="0" max="100" step="1" value="15"></label>
+          <label class="check"><input type="checkbox" id="bw" checked> Black and white (matches the other photos)</label>
+          <p class="note">The website shows people in a circle. Keep the face inside the bright circle.</p>
+        </div>
+        <p id="pictureNote" class="note" hidden></p>
+        <div class="row"><button type="button" class="primary" id="apply">Use this picture</button></div>
+        <p id="applyMsg" role="status" class="ok"></p>
+      </div>
+    </div>
+  </section>
+
+  <section id="s4" aria-labelledby="h4a" hidden>
+    <h2 id="h4a"><b>4</b> Save the updated page</h2>
+    <p>Changes made so far:</p>
+    <ul class="changes" id="changes"></ul>
+    <div class="row"><button type="button" class="primary" id="download">Download the updated page</button></div>
+    <p class="note">Your browser saves the file in its Downloads folder. Replace the old file with it (keep the same name), then open it in your browser to check. You can change more pictures first; the download always contains all your changes.</p>
+  </section>
+</main>
+
+<script>
+(() => {
+  'use strict';
+  const $ = (s) => document.querySelector(s);
+  const state = { text: '', name: 'index.html', begin: 0, end: 0, varName: '', assets: null, sel: null, img: null, changes: [] };
+  const FRIENDLY = { avatar: 'Logo / profile picture', li: 'LinkedIn cover banner', x: 'X header banner', yt: 'YouTube banner', film: 'Film thumbnail' };
+  const friendly = (group, key) => (group === 'photos' ? key : (FRIENDLY[key] || (/^p\d+$/.test(key) ? 'Post template ' + key.slice(1) : key)));
+  const GROUPS = [['photos', 'People'], ['img', 'Pictures']];
+
+  /* ── find and read the embedded pictures ─────────────────────────────── */
+  function parsePage(text) {
+    const B = '/*ASSETS-BEGIN*/', E = '/*ASSETS-END*/', b = text.indexOf(B), e = text.indexOf(E);
+    if (b < 0 || e < b) return null;
+    const m = text.slice(b + B.length, e).trim().match(/^window\.([A-Z_]+)=([\s\S]*);$/);
+    if (!m) return null;
+    try { return { begin: b + B.length, end: e, varName: m[1], assets: JSON.parse(m[2]) }; } catch (err) { return null; }
+  }
+  const setMsg = (el, text, cls) => { el.textContent = text; el.className = 'note ' + (cls || ''); };
+
+  $('#pageFile').addEventListener('change', async (ev) => {
+    const f = ev.target.files[0]; if (!f) return;
+    const info = $('#pageInfo'), parsed = parsePage(await f.text().catch(() => ''));
+    ['s2', 's3', 's4'].forEach((id) => { $('#' + id).hidden = true; });
+    if (!parsed || !parsed.assets || (!parsed.assets.photos && !parsed.assets.img)) { setMsg(info, 'This does not look like one of the project pages (no embedded pictures found). Please choose index.html or social-media-blueprint.html.', 'err'); return; }
+    state.text = await f.text(); Object.assign(state, parsed, { name: f.name, sel: null, img: null, changes: [] });
+    const n = ['photos', 'img'].reduce((s, g) => s + Object.keys(parsed.assets[g] || {}).length, 0);
+    setMsg(info, `Loaded “${f.name}”: ${n} pictures found.`, 'ok');
+    renderItems(); $('#s2').hidden = false; $('#changes').innerHTML = '';
+  });
+
+  function renderItems() {
+    const host = $('#items'); host.innerHTML = '';
+    GROUPS.forEach(([group, title]) => {
+      const obj = state.assets[group]; if (!obj || !Object.keys(obj).length) return;
+      const h = document.createElement('div'); h.className = 'group-title'; h.textContent = title; host.appendChild(h);
+      const grid = document.createElement('div'); grid.className = 'items'; grid.setAttribute('role', 'radiogroup'); grid.setAttribute('aria-label', title);
+      Object.keys(obj).forEach((key) => {
+        const l = document.createElement('label'); l.className = 'item';
+        const r = document.createElement('input'); r.type = 'radio'; r.name = 'item'; r.value = group + ':' + key;
+        r.checked = !!state.sel && state.sel.group === group && state.sel.key === key;
+        const im = document.createElement('img'); im.alt = ''; im.src = obj[key]; if (group === 'photos') im.className = 'round';
+        const sp = document.createElement('span'); sp.textContent = friendly(group, key);
+        l.append(r, im, sp); grid.appendChild(l);
+        r.addEventListener('change', () => choose(group, key, false));
+      });
+      host.appendChild(grid);
+    });
+  }
+
+  function choose(group, key, isNew) {
+    state.sel = { group, key, isNew }; state.img = null;
+    $('#s3').hidden = false; $('#editor').hidden = true; $('#applyMsg').textContent = ''; $('#imgFile').value = '';
+    $('#target').textContent = isNew ? `You are adding a new person: “${key}”.` : `You are replacing: ${friendly(group, key)}.`;
+    $('#personControls').hidden = group !== 'photos';
+    $('#guide').hidden = group !== 'photos';
+    $('#s3').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+  $('#addPerson').addEventListener('click', () => {
+    const key = $('#newName').value.toLowerCase().replace(/[^a-z0-9]/g, '');
+    if (!key) { $('#newName').focus(); return; }
+    if (!state.assets.photos) state.assets.photos = {};
+    choose('photos', key, !(key in state.assets.photos));
+  });
+
+  /* ── load the new picture and draw it ────────────────────────────────── */
+  $('#imgFile').addEventListener('change', (ev) => {
+    const f = ev.target.files[0]; if (!f || !state.sel) return;
+    const url = URL.createObjectURL(f), im = new Image();
+    im.onload = async () => {
+      state.img = im; $('#editor').hidden = false; $('#applyMsg').textContent = '';
+      if (state.sel.group === 'photos') { $('#oy').value = im.naturalHeight > im.naturalWidth ? 15 : 50; $('#ox').value = 50; $('#zoom').value = 1; }
+      else {
+        const cur = state.assets[state.sel.group][state.sel.key], old = new Image(); old.src = cur; await old.decode().catch(() => {});
+        state.targetW = old.naturalWidth || 600; state.oldRatio = old.naturalWidth ? old.naturalWidth / old.naturalHeight : 0;
+        const ratio = im.naturalWidth / im.naturalHeight, off = state.oldRatio && Math.abs(ratio - state.oldRatio) / state.oldRatio > 0.06;
+        const note = $('#pictureNote'); note.hidden = !off; note.textContent = off ? `The new picture has a different shape (${ratio.toFixed(2)} wide for every 1 high; the old one was ${state.oldRatio.toFixed(2)}). It will be used as it is, so check how it looks on the page.` : '';
+      }
+      draw();
+    };
+    im.onerror = () => { $('#applyMsg').textContent = 'That file could not be read as a picture.'; $('#applyMsg').className = 'err'; };
+    im.src = url;
+  });
+  ['zoom', 'ox', 'oy', 'bw'].forEach((id) => $('#' + id).addEventListener('input', draw));
+
+  function draw() {
+    const im = state.img, c = $('#preview'), ctx = c.getContext('2d'); if (!im || !state.sel) return;
+    if (state.sel.group === 'photos') {
+      const S = 330; c.width = c.height = S;
+      const zoom = +$('#zoom').value, ox = +$('#ox').value / 100, oy = +$('#oy').value / 100;
+      const size = Math.min(im.naturalWidth, im.naturalHeight) / zoom, sx = (im.naturalWidth - size) * ox, sy = (im.naturalHeight - size) * oy;
+      ctx.fillStyle = '#f3f3f3'; ctx.fillRect(0, 0, S, S); ctx.drawImage(im, sx, sy, size, size, 0, 0, S, S);
+      if ($('#bw').checked) { const d = ctx.getImageData(0, 0, S, S), p = d.data; for (let i = 0; i < p.length; i += 4) { const v = p[i] * 0.299 + p[i + 1] * 0.587 + p[i + 2] * 0.114; p[i] = p[i + 1] = p[i + 2] = v; } ctx.putImageData(d, 0, 0); }
+    } else {
+      const W = state.targetW || 600, H = Math.round(W * im.naturalHeight / im.naturalWidth); c.width = W; c.height = H;
+      ctx.fillStyle = '#ffffff'; ctx.fillRect(0, 0, W, H); ctx.drawImage(im, 0, 0, W, H);
+    }
+  }
+
+  /* ── use it, then download ───────────────────────────────────────────── */
+  $('#apply').addEventListener('click', () => {
+    if (!state.img || !state.sel) return;
+    const { group, key } = state.sel;
+    state.assets[group][key] = $('#preview').toDataURL('image/jpeg', group === 'photos' ? 0.88 : 0.82);
+    state.changes.push((state.sel.isNew ? 'Added the photo “' + key + '”' : 'Replaced ' + friendly(group, key)));
+    state.sel.isNew = false;
+    const m = $('#applyMsg'); m.textContent = 'Done. Pick another picture to change, or go to the next step.'; m.className = 'ok';
+    renderItems(); $('#changes').innerHTML = state.changes.map((c) => `<li>${c.replace(/[&<>]/g, (x) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[x]))}</li>`).join('');
+    $('#s4').hidden = false; $('#s4').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  });
+
+  $('#download').addEventListener('click', () => {
+    const out = state.text.slice(0, state.begin) + 'window.' + state.varName + '=' + JSON.stringify(state.assets) + ';' + state.text.slice(state.end);
+    const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([out], { type: 'text/html;charset=utf-8' })); a.download = state.name;
+    document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 5000);
+  });
+})();
+</script>
+</body>
+</html>

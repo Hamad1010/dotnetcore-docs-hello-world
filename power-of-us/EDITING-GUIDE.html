@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How to edit your pages | The Power of Us</title>
+<meta name="robots" content="noindex">
+<style>
+:root{--bg:#07101F;--card:#0E1D38;--card2:#0A1830;--line:rgba(231,216,178,.22);--text:#EEF0F5;--muted:#B9C3D6;--gold:#EBD08A;--gold-deep:#C9A24B;--ok:#8FD6A5;--warn:#FFC27A}
+*{box-sizing:border-box}
+html{color-scheme:dark;scroll-behavior:smooth;scroll-padding-top:20px}
+body{margin:0;background:radial-gradient(1000px 520px at 12% -8%,#14305C 0,transparent 60%),var(--bg);color:var(--text);font:17px/1.65 system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+a{color:var(--gold)}
+header,main,footer{max-width:900px;margin:0 auto;padding-inline:16px}
+header{padding-top:clamp(28px,5vw,64px)}
+h1{font:600 clamp(2rem,1.3rem + 2.6vw,3.1rem)/1.12 Georgia,"Times New Roman",serif;margin:0 0 12px}
+h1 em{color:var(--gold)}
+.lead{color:var(--muted);max-width:62ch;margin:0 0 22px;font-size:1.08rem}
+nav.jump{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 30px;padding:0;list-style:none}
+nav.jump a{display:inline-block;padding:.45em .95em;border:1px solid var(--line);border-radius:999px;text-decoration:none;font-size:.92rem;color:var(--text);background:var(--card2)}
+nav.jump a:hover{border-color:var(--gold)}
+section.recipe,section.box{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:clamp(18px,3vw,30px);margin:0 0 18px}
+h2{margin:0 0 6px;font:600 1.35rem/1.25 Georgia,"Times New Roman",serif}
+h2 .n{display:inline-grid;place-items:center;width:34px;height:34px;margin-right:10px;border-radius:50%;background:linear-gradient(180deg,#F1DDA0,#C99A3C);color:#1A1305;font:700 .95rem system-ui,sans-serif;vertical-align:2px}
+h3{margin:20px 0 6px;color:var(--gold);font-size:.8rem;letter-spacing:.14em;text-transform:uppercase}
+p{margin:.55em 0}
+ol,ul{padding-left:1.3em;margin:.5em 0}
+li{margin:.35em 0}
+code{font:.9em ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;background:rgba(255,255,255,.09);padding:.1em .4em;border-radius:6px;color:#F6E7BC}
+kbd{font:600 .85em ui-monospace,Menlo,Consolas,monospace;border:1px solid var(--line);border-bottom-width:2px;border-radius:6px;padding:.05em .45em;background:var(--card2)}
+.code{position:relative;margin:.8em 0}
+.code pre{margin:0;white-space:pre-wrap;overflow-wrap:anywhere;padding-right:76px;background:#06101F;border:1px solid var(--line);border-radius:12px;padding:14px 16px;font:.86rem/1.55 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:#EDEFF5}
+.code pre code{background:none;padding:0;border-radius:0;color:inherit;font-size:inherit}
+.code button{position:absolute;top:8px;right:8px;font:600 .8rem system-ui,sans-serif;padding:.35em .9em;border-radius:999px;border:1px solid var(--line);background:var(--card);color:var(--text);cursor:pointer}
+.code button.done{color:var(--ok);border-color:var(--ok)}
+.tip,.careful{margin:14px 0;padding:12px 16px;border-radius:12px;border:1px solid var(--line);background:var(--card2)}
+.tip{border-left:4px solid var(--ok)}
+.careful{border-left:4px solid var(--warn)}
+.tip b,.careful b{display:block;font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;margin-bottom:2px}
+.tip b{color:var(--ok)}.careful b{color:var(--warn)}
+table{width:100%;border-collapse:collapse;margin:.6em 0;font-size:.95rem}
+th,td{text-align:left;padding:.55em .7em;border-bottom:1px solid var(--line);vertical-align:top}
+th{color:var(--gold);font-size:.78rem;letter-spacing:.12em;text-transform:uppercase}
+.scroll{overflow-x:auto}
+:focus-visible{outline:3px solid var(--gold);outline-offset:3px;border-radius:6px}
+footer{padding-block:20px 60px;color:var(--muted);font-size:.9rem}
+@media (max-width:560px){body{font-size:16px}h2 .n{display:flex;margin:0 0 8px}}
+@media print{body{background:#fff;color:#000}section.recipe,section.box{border-color:#999;background:#fff}code,.code pre{background:#eee;color:#000}.code button,nav.jump{display:none}}
+</style>
+</head>
+<body>
+<header>
+  <h1>How to edit your pages, <em>the easy way</em></h1>
+  <p class="lead">You do not need to be a developer. Almost everything you will ever want to change is plain text that you can find with the search box of your editor. This guide shows you where each thing is and exactly what to type.</p>
+  <nav class="jump" aria-label="Jump to a job">
+    <a href="#start">Start here</a><a href="#sentence">Change a sentence</a><a href="#settings">Email and links</a><a href="#team">Team members</a><a href="#photos">Photos</a><a href="#quiz">Check questions</a><a href="#faq">FAQ</a><a href="#look">Colours and title</a><a href="#blueprint">Social media plan</a><a href="#publish">Publish</a><a href="#trouble">If something breaks</a><a href="#before">Before you share</a>
+  </nav>
+</header>
+
+<main>
+
+<section class="recipe" id="start" aria-labelledby="t-start">
+  <h2 id="t-start"><span class="n">0</span>Start here</h2>
+  <h3>The three rules</h3>
+  <ol>
+    <li><strong>Make a copy first.</strong> Before you change a file, copy it and keep the original somewhere safe. If you ever get stuck, you go back to the copy.</li>
+    <li><strong>Use a real text editor</strong> on a computer. The free <a href="https://code.visualstudio.com/" rel="noopener">Visual Studio Code</a> is a good choice. Notepad (Windows) also works. On a Mac do not use TextEdit unless you choose <em>Format → Make Plain Text</em>. Word, Pages and Google Docs must <strong>not</strong> be used: they damage the file.</li>
+    <li><strong>Save, then look.</strong> After each change, save the file and open it in your browser (double-click it, or refresh the page). If it looks right, carry on. If it looks wrong, press undo (<kbd>Ctrl</kbd>+<kbd>Z</kbd>) and try again.</li>
+  </ol>
+  <h3>What is in the folder</h3>
+  <div class="scroll"><table>
+    <tr><th>File or folder</th><th>What it is</th></tr>
+    <tr><td><code>index.html</code></td><td>The website for your clients. One single file; it works on its own, even offline.</td></tr>
+    <tr><td><code>social-media-blueprint.html</code></td><td>The internal plan for social media. For your team, not for the public.</td></tr>
+    <tr><td><code>social-kit/</code></td><td>The ready-made images (logo, banners, post templates) used by the plan.</td></tr>
+    <tr><td><code>tools/photo-swapper.html</code></td><td>A helper to change photos without any code (see <a href="#photos">Photos</a>).</td></tr>
+    <tr><td><code>EDITING-GUIDE.html</code></td><td>This guide.</td></tr>
+  </table></div>
+  <h3>Your best friend: the search box</h3>
+  <p>In your editor press <kbd>Ctrl</kbd>+<kbd>F</kbd> (on a Mac <kbd>Cmd</kbd>+<kbd>F</kbd>) and type a few words. These special words jump straight to the right place:</p>
+  <div class="scroll"><table>
+    <tr><th>Search for</th><th>You land on</th></tr>
+    <tr><td><code>EDIT: SETTINGS</code></td><td>Your email, booking link and social media links (website)</td></tr>
+    <tr><td><code>EDIT: TEAM PROFILES</code></td><td>Every team member’s words (website)</td></tr>
+    <tr><td><code>EDIT: CHECK QUESTIONS</code></td><td>The questions of the 2-minute readiness check (website)</td></tr>
+    <tr><td><code>EDIT: MESSAGES</code></td><td>The texts the readiness check shows after the answers, and the button and form messages (website)</td></tr>
+    <tr><td><code>SECTION:</code></td><td>The start of each part of the page. Press <kbd>Enter</kbd> to go to the next one</td></tr>
+    <tr><td><code>EDIT: CONTENT STARTS HERE</code></td><td>All the words of the social media plan (blueprint)</td></tr>
+    <tr><td><code>--gold:</code></td><td>The colours</td></tr>
+    <tr><td>any sentence you see on the page</td><td>That sentence, ready to change</td></tr>
+  </table></div>
+  <div class="tip"><b>Tip</b>The long block of strange letters at the very end of each file is the embedded photos. Never edit it by hand; use the photo swapper.</div>
+</section>
+
+<section class="recipe" id="sentence" aria-labelledby="t-sentence">
+  <h2 id="t-sentence"><span class="n">1</span>Change any sentence on the website</h2>
+  <ol>
+    <li>Open <code>index.html</code> in your editor.</li>
+    <li>Press <kbd>Ctrl</kbd>+<kbd>F</kbd> and type a few words from the <em>middle</em> of the sentence, as you see it on the page.</li>
+    <li>Change the words. Save. Refresh the page in your browser.</li>
+  </ol>
+  <p>Some sentences have small markers around a word, for example <code>&lt;em&gt;change hands.&lt;/em&gt;</code>. The <code>&lt;em&gt;</code> makes those words gold and italic. Keep the markers (everything between <code>&lt;</code> and <code>&gt;</code>) and change only the words.</p>
+  <div class="careful"><b>Careful</b>Do not type the sign <code>&lt;</code> inside a sentence, and do not delete a <code>&lt;</code> or <code>&gt;</code> that belongs to a marker. The sign <code>&amp;</code> is fine.</div>
+</section>
+
+<section class="recipe" id="settings" aria-labelledby="t-settings">
+  <h2 id="t-settings"><span class="n">2</span>Add your email and links</h2>
+  <p>This is the one job you <strong>must</strong> do before the website goes live. Search for <code>EDIT: SETTINGS</code> in <code>index.html</code>. You will find this:</p>
+  <div class="code"><button type="button" data-copy>Copy</button><pre><code>const CONFIG = {
+    email: '',
+    formEndpoint: '',
+    bookingUrl: '',
+    social: { linkedin: '', youtube: '', instagram: '', x: '', whatsapp: '' }
+  };</code></pre></div>
+  <p>Type between the two small quote marks <code>' '</code>, like this:</p>
+  <div class="code"><button type="button" data-copy>Copy</button><pre><code>const CONFIG = {
+    email: 'hello@yourcompany.com',
+    formEndpoint: '',
+    bookingUrl: 'https://cal.com/your-name',
+    social: { linkedin: 'https://www.linkedin.com/company/your-page', youtube: '', instagram: '', x: '', whatsapp: '' }
+  };</code></pre></div>
+  <div class="scroll"><table>
+    <tr><th>Line</th><th>What it does</th></tr>
+    <tr><td><code>email</code></td><td>When a visitor sends the contact form, their email app opens with the message ready, addressed to you.</td></tr>
+    <tr><td><code>formEndpoint</code></td><td>Optional and better: the web address of a form service (for example Formspree) that delivers the message straight to your inbox. If you fill this in, it is used instead of <code>email</code>.</td></tr>
+    <tr><td><code>bookingUrl</code></td><td>Optional: a “Book a call” button appears when you add your calendar link.</td></tr>
+    <tr><td><code>social</code></td><td>Each network you fill in becomes a real link. The empty ones show a quiet “soon” label, so nothing looks broken.</td></tr>
+  </table></div>
+  <div class="tip"><b>Test it</b>Open the page, fill in the contact form and send it to yourself. Until <code>email</code> or <code>formEndpoint</code> is set, the form tells the visitor honestly that it is not connected yet. It never pretends to send.</div>
+  <div class="careful"><b>Careful</b>Keep the small quote marks and the comma at the end of each line. Always write a full web address, starting with <code>https://</code>.</div>
+</section>
+
+<section class="recipe" id="team" aria-labelledby="t-team">
+  <h2 id="t-team"><span class="n">3</span>Change a team member’s words (or add or remove someone)</h2>
+  <p>Search for <code>EDIT: TEAM PROFILES</code> in <code>index.html</code>. The team is plain text, one block per person. No commas, no brackets, no code. Here is one person:</p>
+  <div class="code"><button type="button" data-copy>Copy</button><pre><code>== Alhanouf Alghareeb
+photo: alhanouf
+short: Alhanouf
+styles: ant, dolphin
+type: Antphin
+role: Stakeholder Engagement
+place: Saudi Arabia
+tagline: Connecting people, ideas and impact for a better future.
+quote: I connect people, ideas and impact, so that every voice is heard and good ideas turn into real progress.
+keywords: Stakeholders, Trust, Empathy, Collaboration, Method, Media, Community
+how:
+- Start with people and purpose.
+- Listen first, then bring a clear frame.
+strengths:
+- Stakeholder trust
+- Media and voice
+proof:
+- 500+ media placements</code></pre></div>
+  <div class="scroll"><table>
+    <tr><th>Label</th><th>Where it shows</th></tr>
+    <tr><td><code>== Name</code></td><td>Starts a new person. This is the name shown on the card.</td></tr>
+    <tr><td><code>photo:</code></td><td>The <em>name</em> of the photo (not a file). See <a href="#photos">Photos</a>.</td></tr>
+    <tr><td><code>styles:</code></td><td>Two of <code>cheetah, dolphin, croc, ant</code>. The first one colours the card.</td></tr>
+    <tr><td><code>role:</code> <code>place:</code> <code>tagline:</code></td><td>Under the name on the card and in the profile.</td></tr>
+    <tr><td><code>quote:</code></td><td>The quote on the card. If you leave it out, the tagline is shown instead.</td></tr>
+    <tr><td><code>keywords:</code></td><td>One line, words separated by commas. Shown as “Key words”.</td></tr>
+    <tr><td><code>how:</code> <code>strengths:</code> <code>proof:</code></td><td>Lists: one line per item, each starting with <code>- </code>. Shown as “How to work with me”, “Strengths” and the badge under the photo.</td></tr>
+  </table></div>
+  <ul>
+    <li><strong>Hide something:</strong> delete its line. The page leaves it out without any gap.</li>
+    <li><strong>Add a person:</strong> copy a whole block (from <code>==</code> to its last line), paste it after the last person, change the words. A person without a photo shows their initials until you add one.</li>
+    <li><strong>Remove a person:</strong> delete their whole block.</li>
+    <li><strong>A note to yourself:</strong> start a line with <code>#</code>; the page ignores it.</li>
+  </ul>
+  <div class="tip"><b>Good to know</b>You can type apostrophes, quote marks and the sign <code>&amp;</code> freely in this block. That is why the team is written this way.</div>
+</section>
+
+<section class="recipe" id="photos" aria-labelledby="t-photos">
+  <h2 id="t-photos"><span class="n">4</span>Change a photo or add a new person’s photo</h2>
+  <p>The photos live inside the page file, so there is a small helper that does the hard part for you. It runs in your browser and never uploads anything.</p>
+  <ol>
+    <li>Double-click <code>tools/photo-swapper.html</code>.</li>
+    <li><strong>Step 1:</strong> choose your page (<code>index.html</code> or the blueprint).</li>
+    <li><strong>Step 2:</strong> tap the person (or picture) you want to change. To add a new person, type a short name in letters, for example <em>sara</em>, and press <em>Add this person</em>.</li>
+    <li><strong>Step 3:</strong> choose the new picture, move the sliders until the face sits inside the bright circle, then press <em>Use this picture</em>.</li>
+    <li><strong>Step 4:</strong> press <em>Download the updated page</em>. Replace your old file with the downloaded one (keep the same name). Open it to check.</li>
+  </ol>
+  <div class="tip"><b>New person?</b>After adding the photo, write the same short name next to <code>photo:</code> in that person’s block (<a href="#team">Team members</a>).</div>
+  <div class="tip"><b>Good photos</b>A clear photo of the face, taller or square, with the person looking at the camera. The other photos are black and white, so keep “Black and white” ticked to match.</div>
+</section>
+
+<section class="recipe" id="quiz" aria-labelledby="t-quiz">
+  <h2 id="t-quiz"><span class="n">5</span>Change the readiness-check questions</h2>
+  <p>Search for <code>EDIT: CHECK QUESTIONS</code>. There are four questions and four answers each, ordered from “most dependent on the owner” (first) to “fully ready” (last). Change only the words between the double quote marks:</p>
+  <div class="code"><button type="button" data-copy>Copy</button><pre><code>{ id: "owner", icon: "i-key", name: "Owner dependency", axis: "Owner independence",
+  q: "If you stepped away for three months, what would happen to the business?",
+  opts: [
+    "It would stall: most decisions and key relationships run through me.",
+    "It would struggle: the team could only cope with routine tasks.",
+    "It would slow down, but others could handle most decisions.",
+    "It would keep running: others decide and own the key relationships."
+  ] },</code></pre></div>
+  <div class="careful"><b>Careful</b>Keep every text inside its double quote marks, keep the comma after every answer except the last, and never type a straight <code>"</code> inside a text (use the curly <code>“ ”</code>). The result messages and tips that appear after the check are just above, under <code>EDIT: MESSAGES</code>.</div>
+</section>
+
+<section class="recipe" id="faq" aria-labelledby="t-faq">
+  <h2 id="t-faq"><span class="n">6</span>Add or change a question in the FAQ</h2>
+  <ol>
+    <li>Search for <code>SECTION: FAQ</code>.</li>
+    <li>You will see one block per question, starting with <code>&lt;details</code> and ending with <code>&lt;/details&gt;</code>. To change one, change the words of the question and of the answer.</li>
+    <li>To add one, copy a whole block and paste it right after another block. Then change the words. This is the empty block to copy:</li>
+  </ol>
+  <div class="code"><button type="button" data-copy>Copy</button><pre><code>&lt;details class="faq-item reveal"&gt;&lt;summary&gt;&lt;span&gt;Your question here?&lt;/span&gt;&lt;i class="faq-ic" aria-hidden="true"&gt;&lt;/i&gt;&lt;/summary&gt;&lt;div class="faq-a"&gt;&lt;p&gt;Your answer here.&lt;/p&gt;&lt;/div&gt;&lt;/details&gt;</code></pre></div>
+  <p>The same idea works for the choices of the contact form (“I am…”, “Handover I have in mind”, “Timing”): search for <code>&lt;option</code> and change only the words between <code>&gt;</code> and <code>&lt;</code>. Leave <code>value="…"</code> as it is.</p>
+</section>
+
+<section class="recipe" id="look" aria-labelledby="t-look">
+  <h2 id="t-look"><span class="n">7</span>Colours, page title and the preview when you share the link</h2>
+  <h3>Colours</h3>
+  <p>Search for <code>--gold:</code>. The colours are in one short list at the top. Change the code after the colon (for example <code>#C9A24B</code>). Any colour picker website gives you these codes.</p>
+  <h3>The name in the browser tab and in link previews</h3>
+  <p>At the very top of the file, search for <code>&lt;title&gt;</code>. Change the words between <code>&lt;title&gt;</code> and <code>&lt;/title&gt;</code>. Directly below you will find the short description used by search engines and chat apps: <code>&lt;meta name="description" content="…"&gt;</code>. Change only the words inside the quote marks after <code>content=</code>. The same text appears twice more in the lines that start with <code>&lt;meta property="og:</code>; change those too so previews match.</p>
+</section>
+
+<section class="recipe" id="blueprint" aria-labelledby="t-bp">
+  <h2 id="t-bp"><span class="n">8</span>The social media plan (blueprint)</h2>
+  <h3>Change the words</h3>
+  <p>Open <code>social-media-blueprint.html</code> and search for <code>EDIT: CONTENT STARTS HERE</code>. All the words of the plan follow, in numbered parts that match the sections of the page: <code>01 AUDIENCES</code>, <code>02 PLATFORMS</code>, <code>03 PROFILES</code> (the texts to paste into each profile), <code>04 CONTENT</code>, <code>05 THE FIRST 30 DAYS</code>, <code>06 SETUP</code> and <code>07 GUARDRAILS</code>. Change only the words between the double quote marks.</p>
+  <div class="code"><button type="button" data-copy>Copy</button><pre><code>post: ["Carousels (PDF) built on your numbers", "Short clips from the film", "A monthly newsletter"],</code></pre></div>
+  <div class="careful"><b>Careful</b>Keep each text in double quote marks, keep the commas between items, and use the curly <code>“ ”</code> if you need quote marks inside a text. An apostrophe is fine anywhere.</div>
+  <h3>Change an image</h3>
+  <ol>
+    <li>Replace the file in the <code>social-kit</code> folder with your new one. <strong>Keep the same file name.</strong> This is what people download.</li>
+    <li>The small preview inside the page is a copy. Update it with the photo swapper (<a href="#photos">Photos</a>): choose the blueprint, tap the picture, add your image.</li>
+  </ol>
+</section>
+
+<section class="recipe" id="publish" aria-labelledby="t-pub">
+  <h2 id="t-pub"><span class="n">9</span>Publish and share</h2>
+  <ul>
+    <li><strong>Send the file.</strong> Attach <code>index.html</code> to an email or a chat. The person double-clicks it and the website opens. It needs no internet connection.</li>
+    <li><strong>Put it online.</strong> Any website host works, because the website is just one file. Upload <code>index.html</code> and name it exactly <code>index.html</code> so the address needs no file name. Most hosts have an “upload your site” button; many are free for a page like this.</li>
+    <li><strong>GitHub Pages</strong> (if your repository allows it): <em>Repository → Settings → Pages → Deploy from a branch</em>, choose the branch and the <em>/ (root)</em> folder, then save. The website appears at <code>https://&lt;your-user&gt;.github.io/&lt;repository&gt;/power-of-us/</code>.</li>
+  </ul>
+  <div class="careful"><b>Keep the plan private</b>The social media blueprint and the tools are for your team. Upload only <code>index.html</code> to a public site, and share the rest directly with your team (zip the folder).</div>
+</section>
+
+<section class="recipe" id="trouble" aria-labelledby="t-trouble">
+  <h2 id="t-trouble"><span class="n">10</span>If something looks wrong</h2>
+  <ol>
+    <li><strong>Undo.</strong> Press <kbd>Ctrl</kbd>+<kbd>Z</kbd> in your editor until the page is right again, or put back your copy of the file.</li>
+    <li><strong>Look for the usual slips.</strong> A missing quote mark or comma in the settings or the check questions, a deleted <code>&lt;</code> or <code>&gt;</code> in a sentence, a straight <code>"</code> typed inside a text, or a <code>-</code> line in the team block without a space after it.</li>
+    <li><strong>Ask the browser.</strong> Press <kbd>F12</kbd>, open <em>Console</em>. A red line tells you what went wrong, usually with the line number.</li>
+  </ol>
+  <div class="tip"><b>Safety net</b>If the script on the website ever fails, the page falls back to a plain, readable version instead of going blank. So a small slip never breaks everything.</div>
+</section>
+
+<section class="recipe" id="before" aria-labelledby="t-before">
+  <h2 id="t-before"><span class="n">11</span>Before you share it with clients</h2>
+  <ol>
+    <li>Send yourself a test message through the contact form and check that it arrives.</li>
+    <li>Click every social link and the booking button.</li>
+    <li>Each person has approved their photo, name, role and words.</li>
+    <li>Read the statements that were written for you to approve:
+      <ul>
+        <li>the line under the first button: <em>“Early-stage project, now opening first pilot conversations with owner-led SMEs.”</em></li>
+        <li>the privacy line in the contact section: <em>“We use your details only to reply to you.”</em></li>
+        <li>the sentences saying this is an independent project and not an official HEC Paris service</li>
+        <li>Alhanouf’s quote, key words, “how to work with me” and strengths. Her slide in the deck repeated another member’s text, so these were written from her role and the words on her own slide. Please replace them with her own words.</li>
+      </ul>
+    </li>
+    <li>Look at the website on a phone and on a computer, and check the spelling.</li>
+  </ol>
+</section>
+
+</main>
+<footer>The Power of Us · editing guide. Keep this file next to the pages.</footer>
+
+<script>
+(() => {
+  document.querySelectorAll('[data-copy]').forEach((b) => b.addEventListener('click', async () => {
+    const text = b.parentElement.querySelector('code').textContent;
+    try { if (navigator.clipboard && window.isSecureContext) await navigator.clipboard.writeText(text); else { const t = document.createElement('textarea'); t.value = text; t.style.cssText = 'position:fixed;opacity:0'; document.body.appendChild(t); t.select(); document.execCommand('copy'); t.remove(); } b.textContent = 'Copied'; b.classList.add('done'); }
+    catch (e) { b.textContent = 'Select and copy'; }
+    setTimeout(() => { b.textContent = 'Copy'; b.classList.remove('done'); }, 1600);
+  }));
+})();
+</script>
+</body>
+</html>
