@@ -12,25 +12,22 @@ import sys
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 LESSONS_DIR = os.path.join(ROOT, '02-lessons')
 
-# (season no, Arabic title, English title, niche fit)
+# (season no, Arabic title, English title, niche fit) — business channel «غرفة الفرص»
 SEASONS = [
-    (1, 'الأساسيات: أقوى 20 درس', 'Foundations: the 20 strongest lessons', 'core'),
-    (2, 'الجاذبية والانطباع الأول', 'Charisma & first impressions', 'core'),
-    (3, 'فهم الناس والشخصيات الصعبة', 'Understanding people & difficult personalities', 'core'),
-    (4, 'فن الكلام والردود الذكية', 'Talking & smart replies', 'core'),
-    (5, 'إدارة المشاعر', 'Managing your emotions', 'core'),
-    (6, 'الثقة وتقدير الذات', 'Confidence & self-worth', 'core'),
-    (7, 'الحضور والاحترام', 'Presence & respect', 'core'),
-    (8, 'الإقناع بدون ضغط', 'Persuasion without pressure', 'core'),
-    (9, 'الخوف والحزن والتعافي', 'Fear, grief & healing', 'core'),
-    (10, 'الأهداف والعادات والتركيز', 'Goals, habits & focus', 'adjacent'),
-    (11, 'العقلية والحكمة', 'Mindset & wisdom', 'adjacent'),
-    (12, 'مع مديرك وزملائك', 'With your boss & colleagues', 'adjacent'),
-    (13, 'الترقية والقيادة', 'Career growth & leadership', 'adjacent'),
-    (14, 'الأسرة والعلاقات القريبة', 'Family & close relationships', 'adjacent'),
-    (15, 'ملحق: مشروعك واسمك', 'Bonus: your project & personal brand', 'off-niche'),
+    (1, 'البداية: أقوى 20 فكرة', 'The start: the 20 strongest ideas', 'core'),
+    (2, 'موهبتك المخفية', 'Find your hidden talent', 'core'),
+    (3, 'من الموهبة إلى دخل', 'Turn talent into income', 'core'),
+    (4, 'تموضعك وعلامتك', 'Positioning & personal brand', 'core'),
+    (5, 'الثقة عملة', 'Trust: emotional intelligence for business', 'core'),
+    (6, 'فن الإقناع والصفقة', 'Persuasion, sales & negotiation', 'core'),
+    (7, 'شبكتك ثروتك', 'Networking & connections that pay off', 'core'),
+    (8, 'الرافعة والتوسع', 'Leverage, systems & scaling', 'core'),
+    (9, 'القيادة والفريق', 'Leadership & teams', 'core'),
+    (10, 'من الوظيفة إلى المشروع', 'From job to business', 'adjacent'),
+    (11, 'وقتك ومالك', 'Time, focus & money habits', 'adjacent'),
+    (12, 'الثبات تحت الضغط', 'Steady under pressure', 'adjacent'),
 ]
-STATUSES = {'todo', 'scripted', 'test-render', 'voiced', 'rendered', 'scheduled', 'published', 'skip'}
+STATUSES = {'todo', 'scripted', 'test-30s', 'test-render', 'voiced', 'rendered', 'scheduled', 'published', 'skip'}
 
 
 def main():
@@ -61,7 +58,7 @@ def main():
         '',
         '- Tracker (status, dates, results): [`lessons.csv`](lessons.csv), which opens in Excel or Google Sheets',
         '- `lessons.csv` is the source of truth. Edit titles or order there, then run `python3 06-tools/build_catalog.py` to refresh this page',
-        '- `fit`: **core** = social/emotional intelligence; **adjacent** = useful and related; **off-niche** = keep for later or a second channel',
+        '- `fit`: **core** = the main business promise; **adjacent** = useful and related; **off-niche** = keep for later',
         '',
         '## Seasons',
         '',
@@ -74,10 +71,10 @@ def main():
             lines.append(f"| {s[0]} | {s[1]} ({s[2]}) | {items[0]['lesson']}–{items[-1]['lesson']} ({len(items)}) | {s[3]} |")
     for s in SEASONS:
         items = [r for r in rows if int(r['season']) == s[0]]
-        lines += ['', f'## Season {s[0]}: {s[1]}', f'*{s[2]}*', '', '| # | الدرس | Lesson | Core idea | Status |', '|---|---|---|---|---|']
+        lines += ['', f'## Season {s[0]}: {s[1]}', f'*{s[2]}*', '', '| # | الدرس | Lesson | Core idea | Business angle | Status |', '|---|---|---|---|---|---|']
         for r in items:
             status = r['status'] + (f" · {r['episode']}" if r['episode'] else '')
-            lines.append(f"| {r['lesson']} | {r['title_ar']} | {r['title_en']} | {r['idea']} | {status} |")
+            lines.append(f"| {r['lesson']} | {r['title_ar']} | {r['title_en']} | {r['idea']} | {r.get('business_angle', '')} | {status} |")
     with open(os.path.join(LESSONS_DIR, 'LESSONS.md'), 'w', encoding='utf-8') as f:
         f.write('\n'.join(lines) + '\n')
 

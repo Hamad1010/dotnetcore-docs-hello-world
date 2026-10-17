@@ -59,7 +59,35 @@ export type PracticeScene = Base & {type: 'practice'; steps: string[]};
 export type OutroScene = Base & {type: 'outro'};
 export type EndCardScene = Base & {type: 'endcard'};
 
-export type Scene = HookScene | TitleScene | LessonScene | StoryScene | RecapScene | PracticeScene | OutroScene | EndCardScene;
+/** neg = a loss or a "no", pos = a win, accent = the key number, gold = money. */
+export type Tone = 'neg' | 'pos' | 'accent' | 'gold';
+/** One moment of a short story. `cue` = a word from the (spoken) narration: the card appears when it is said. */
+export type Beat = {cue?: string; year?: string; value?: string; unit?: string; label: string; tone?: Tone; gapLabel?: string};
+
+/** Business format, part 1: the "stop scrolling" short story told as a timeline of numbers over silhouettes. */
+export type StoryHookScene = Base & {type: 'storyhook'; place?: string; beats: Beat[]; phoneCue?: string};
+
+/** Business format, part 2: the smart transition. A before/after comparison, the topic, and what's coming. */
+export type OverviewScene = Base & {
+  type: 'overview';
+  compare?: {from: {value: string; label: string; count: number; cue?: string}; to: {value: string; label: string; cue?: string}};
+  topic: string;
+  topicSub?: string;
+  roadmap: string[];
+  roadmapCue?: string;
+};
+
+export type Scene =
+  | HookScene
+  | TitleScene
+  | LessonScene
+  | StoryScene
+  | RecapScene
+  | PracticeScene
+  | OutroScene
+  | EndCardScene
+  | StoryHookScene
+  | OverviewScene;
 
 export type Episode = {
   id: string;

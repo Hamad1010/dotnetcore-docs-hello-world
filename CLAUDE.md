@@ -1,8 +1,11 @@
-# CLAUDE.md: YouTube channel production system
+# CLAUDE.md: «غرفة الفرص» (Opportunity Room) YouTube production system
 
-This repository hosts the production system for an Arabic (Saudi dialect) YouTube channel teaching
-**social & emotional intelligence through real global stories**. Everything lives in [`channel/`](channel/).
-(The .NET sample files at the repo root are unrelated leftovers from the original fork. Ignore them.)
+This repository hosts the production system for an Arabic (Saudi dialect) **business** YouTube channel. Its promise:
+anyone, with a talent they know or one they haven't discovered yet, gets the mindset and the skills to start a
+business and scale it, through **real stories, numbers and statistics**. Emotional intelligence and social skills
+are taught as business tools: every idea ends in a business result (trust, deals, money, customers, followers).
+Everything lives in [`channel/`](channel/). (The .NET sample files at the repo root are leftovers from the original
+fork. Ignore them.)
 
 Read [`channel/00-START-HERE.md`](channel/00-START-HERE.md) first. It is the map.
 
@@ -10,36 +13,37 @@ Read [`channel/00-START-HERE.md`](channel/00-START-HERE.md) first. It is the map
 
 | Folder | What it holds |
 |---|---|
-| `channel/01-plan/` | Strategy: blueprint, mistakes to avoid, viral playbook, growth, marketing, policy/legal, coaching roadmap, setup |
-| `channel/02-lessons/` | The 330-lesson catalog (`LESSONS.md`) and the tracker (`lessons.csv`), one row per video |
-| `channel/03-episodes/EPxxx/` | One folder per video: `episode.json` (single source of truth), `script.md`, `sources.md`, `publish.md`, `audio/`, `out/` (renders, git-ignored) |
+| `channel/01-plan/` | Strategy: blueprint, mistakes to avoid, viral playbook, growth, marketing, policy/legal, coaching roadmap, setup, voice |
+| `channel/02-lessons/` | The tracker (`lessons.csv`, one row per video) and its readable catalog; `_archive-ei/` = the earlier emotional-intelligence catalog |
+| `channel/03-episodes/EPxxx/` | One folder per video: `episode.json` (single source of truth), `script.md`, `sources.md`, `publish.md`, `audio/` and `out/` (both git-ignored) |
 | `channel/04-studio/` | Remotion project that turns `episode.json` into the video, thumbnail, subtitles and chapters |
-| `channel/05-templates/` | Templates and checklists (episode, story research, pre-publish, weekly review) |
+| `channel/05-templates/` | Templates and checklists |
 | `channel/06-tools/` | Scripts: catalog builder, transcript tools |
 
 ## Non-negotiable rules
 
-1. **Every story is real and verified.** Each story needs ≥1 reputable source in `sources.md` (news outlet, official site, paper, Wikipedia + its primary citation). Numbers must match the source. If a fact is disputed, use the safer wording ("about 10 meters") or drop it. Never invent people, quotes or numbers. A "near-real" story must be labeled on screen as an illustration (مثال توضيحي).
-2. **Original wording only.** The lesson ideas are a *syllabus*, not a script. Our lesson names, order and seasons are our own. Never copy sentences, examples or list structures from the private reference transcripts, never name their trainer or attendees, and never commit anything from `channel/02-lessons/sources/` (git-ignored: transcripts, course list, private lesson map). No course names, course ids or refs in committed files.
-3. **Language:** narration in simple **Saudi white dialect** a 12-year-old understands: short sentences, everyday words (وش، ليش، كذا، عشان، لين، يبي). No academic vocabulary without an immediate simple explanation. Numbers in narration use `{display|spoken}` (e.g. `{1987|ألف وتسعمية وسبعة وثمانين}`) so captions show digits and the voice reads words.
-4. **One lesson per video, repeated through every story.** Each story ends with a `takeaway` line that restates the lesson in different words.
-5. **Format:** hook (≤25 s, a surprising number) → title → lesson in plain words (+1 scientific anchor) → 5–10 stories (different countries, cultures, topics; each with numbers) → recap → today's exercise → next-lesson teaser. **Minimum 5:00, target 6–8 min.**
-6. **Diversity per episode:** at least 4 continents or 5 countries, at least 4 different topics (health, sport, business, history, science, family, school, tech…), and at least one Arab/Muslim-world story when a good verified one exists.
-7. **Design:** our own palette and font in `04-studio/src/theme.ts` (material-like, not Google's exact colors or logos, no Google Sans). Don't add other brands' logos.
-8. **No politics, sectarian topics or medical claims.** Grief/mental-health lessons get a gentle "if it's heavy, talk to a specialist" line.
-9. **Keep the tracker true:** update `channel/02-lessons/lessons.csv` (`status`, `episode`, dates, results) whenever an episode changes state.
-10. **Cost discipline:** no paid API calls unless the owner configured a key in `channel/04-studio/.env`. Preview with `npm run preview` before a full render.
+1. **Every story and number is real and verified.** Each needs ≥1 reputable source in `sources.md` (news outlet, official site, paper, Wikipedia + its primary citation). Numbers must match the source. If a fact is disputed, use the safer wording ("أقل من خمس سنين") or drop it. Never invent people, quotes or numbers. A "near-real" example must be labeled on screen as an illustration (مثال توضيحي).
+2. **Private sources stay private.** The trainers' transcripts and everything derived from them (lesson extracts, course lists, lesson maps) live only in git-ignored `channel/02-lessons/sources/` and on the owner's computer. Never commit, upload, quote or publish them. Never name the trainers or their attendees in anything public. The lesson ideas are a syllabus: our titles, order, stories, examples, exercises and wording are original. Never copy sentences, examples or numbered lists from them. No course names, ids or refs in committed files.
+3. **Language and delivery:** simple Saudi white dialect a 12-year-old understands, written for the owner to say *to people in front of him* with conviction (إبهار): short punchy sentences, real questions, pauses (…), concrete numbers. No academic words without an instant simple explanation. Numbers in narration use `{display|spoken}` (e.g. `{2009|ألفين وتسعة}`) so captions show digits and the voice reads words.
+4. **One lesson per video, always tied to business.** Every point ends in a business result. Include at least one "small move, big impact" detail (a word, a habit, a gesture people overlook). Where it fits, use the owner's favourite angles: leverage (10x, 25x), scaling and alignment with other people and things, comparing people or things to find golden opportunities, connections that pay off years later, and the 1% a day that compounds.
+5. **Format, in this order:** (1) a "stop scrolling" hook: a short true story with a striking number (≤25 s); (2) a smart transition to the topic overview; (3) the problem: how big it is, with numbers and statistics; (4) a self-check of 6–10 yes/no questions so viewers know if they have the problem; (5) tools and strategies; (6) exercises for daily life; (7) a summary that sticks; (8) at most 3 actions, then ask viewers to write their results or feedback in the comments. **Minimum 5:00, target 6–8 min.** Stories depend on the topic (no fixed count); vary countries and industries, and include an Arab/Gulf example when a verified one exists.
+6. **No cringe, no fluff, no hype.** Never ask viewers to subscribe or like (the owner will say when). No guaranteed-income or get-rich promises, no investment, trading or stock tips: numbers are examples, never promises (YouTube policy and Saudi financial-promotion rules). No politics or sectarian topics. Stress/mental-health points get a gentle "if it's heavy, talk to a specialist" line.
+7. **Design:** our palette and font in `04-studio/src/theme.ts`. Depth comes from our own silhouettes ("shadows") of places, people and things (`src/components/Silhouettes.tsx`): no stock photos without a license, no other brands' logos (company names as text are fine).
+8. **Voice:** the owner records his own voice for published videos (no AI voice). Claude writes the script → the owner records it in the Recording Booth → Claude cleans it and links it to the video (`npm run voice -- EP00N --provider=recorded`).
+9. **Test before you build long:** when the format or style changes, render the first 30 seconds for the owner's approval before making the full episode.
+10. **Keep the tracker true:** update `channel/02-lessons/lessons.csv` (`status`, `episode`, dates, results) whenever an episode changes state.
+11. **Cost discipline:** no paid API calls unless the owner configured a key. Preview with `npm run preview` before a full render.
 
 ## Producing an episode (the `/new-episode` skill automates this)
 
 ```bash
 cd channel/04-studio
 npm install                                # first time only
-npm run music                              # first time only: generates our own music + whoosh
-# 1) write channel/03-episodes/EP00N/episode.json (copy 05-templates/episode.template.json)
-npm run script -- EP00N                    # readable script.md
-npm run voice -- EP00N --provider=elevenlabs   # or google | polly | edge | recorded
+# 1) write channel/03-episodes/EP00N/episode.json (business scenes: storyhook, overview, … see src/types.ts)
+npm run script -- EP00N                    # readable script.md for the owner to record
 npm run preview -- EP00N                   # still frames in out/preview/ → look at them
+# 2) owner records; put the files in 03-episodes/EP00N/audio/ named after the scene ids
+npm run voice -- EP00N --provider=recorded # trims, levels and times the owner's recording
 npm run render -- EP00N                    # mp4 + thumbnail + subtitles.ar.srt + chapters.txt
 npm run render -- EP00N --shorts           # 9:16 Shorts from the scenes listed in episode.json "shorts"
 ```
@@ -51,6 +55,7 @@ In a cloud session set `REMOTION_BROWSER=/opt/pw-browsers/chromium_headless_shel
 
 - All animation is driven by `useCurrentFrame()` + `interpolate`/`spring`. Never CSS animations or `setTimeout`.
 - Scene timing comes only from `src/lib/plan.js` (`buildPlan`). When audio exists, `audio/timings.json` drives it.
+- Visuals that must land on a word use a `cue` (a word from the spoken narration) via `cueAt()` in `src/scenes/common.tsx`.
 - Static files are served from `channel/03-episodes` (public dir). Reference them with `staticFile('EP001/...')`.
 - Layout is RTL (`direction: rtl`); wrap numbers that must read LTR in `direction: 'ltr', unicodeBidi: 'isolate'`.
 - Type-check with `npm run check` after code changes.

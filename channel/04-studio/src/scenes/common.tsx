@@ -1,6 +1,6 @@
 import React from 'react';
 import {C} from '../theme';
-import type {ScenePlan} from '../lib/plan';
+import {spoken, type ScenePlan} from '../lib/plan';
 import type {Brand, Episode} from '../types';
 import {BrandMark, Chip, useIn, usePortrait} from '../components/ui';
 
@@ -17,6 +17,16 @@ export type SceneProps<T> = {
 
 /** Frame (relative to scene start) at a given fraction of the narration. */
 export const at = (plan: ScenePlan, fraction: number) => Math.round(plan.speechStart + plan.speechFrames * fraction);
+
+/** Frame at which a cue word is spoken, estimated from its position in the narration (else `fallback`). */
+export const cueAt = (plan: ScenePlan, narration: string, cue: string | undefined, fallback: number) => {
+  if (cue) {
+    const text = spoken(narration);
+    const i = text.indexOf(cue);
+    if (i >= 0) return at(plan, i / Math.max(1, text.length));
+  }
+  return at(plan, fallback);
+};
 
 export const lessonNumber = (episode: Episode) => parseInt(episode.lesson.replace(/\D/g, ''), 10);
 

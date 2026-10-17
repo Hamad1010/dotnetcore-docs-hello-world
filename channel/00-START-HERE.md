@@ -1,20 +1,20 @@
 # Start here
 
-**The channel:** short, story-driven lessons in **social & emotional intelligence**, narrated in simple
-**Saudi dialect**. Each video teaches **one lesson** and repeats it through **5–10 real stories from
-around the world, each with numbers**.
+**The channel:** «غرفة الفرص» (Opportunity Room): business lessons in simple **Saudi dialect** for anyone who wants
+to find their talent, start a business and scale it. Each video teaches **one idea** with a true story, real
+numbers, a quick self-test, tools, exercises and at most three actions. Emotional intelligence and social skills are
+always tied to business results.
 
-**The system:** you pick a lesson from the tracker, Claude writes and fact-checks the script, the
-voice is generated (or you record it), and the studio renders the video, thumbnail, subtitles and
-chapters automatically. Expect about 30–45 minutes of your time per video once you're set up.
+**The system:** you pick a lesson from the tracker, Claude writes and fact-checks the script, you record it in the
+Recording Booth, and the studio links your voice and renders the video, thumbnail, subtitles and chapters.
 
 ---
 
 ## Your next 3 actions
 
-1. **Pick the channel name** from the 20 in [`01-plan/01-channel-blueprint.md`](01-plan/01-channel-blueprint.md) §2, after checking the handle is free.
-2. **Voice trial:** one Short (~40 s) in the voice you choose, before any long video. How: [`01-plan/10-voice-guide.md`](01-plan/10-voice-guide.md) §9.
-3. **Move to a private repository** (Claude can do it with your OK): [`01-plan/09-setup-guide.md`](01-plan/09-setup-guide.md) §6.
+1. **Approve the first 30 seconds** of Lesson 1 «الرافعة» (`03-episodes/EP001/out/EP001.mp4`), or say what to change.
+2. **Record those 30 seconds** in the Recording Booth (https://claude.ai/artifact/6ygwHYvcEr24DeRoZysEgt) and send the file in the chat.
+3. **Pick the handle** for «غرفة الفرص» (blueprint §2) and move to a private repository ([`01-plan/09-setup-guide.md`](01-plan/09-setup-guide.md) §6).
 
 Then follow the week-by-week coaching plan: [`01-plan/08-coaching-roadmap.md`](01-plan/08-coaching-roadmap.md).
 
@@ -34,9 +34,9 @@ Then follow the week-by-week coaching plan: [`01-plan/08-coaching-roadmap.md`](0
 | 01 | [`01-plan/08-coaching-roadmap.md`](01-plan/08-coaching-roadmap.md) | Step-by-step plan for the first 90 days |
 | 01 | [`01-plan/09-setup-guide.md`](01-plan/09-setup-guide.md) | Installing on your Mac/PC, the private repo, the background-sound switch |
 | 01 | [`01-plan/10-voice-guide.md`](01-plan/10-voice-guide.md) | Your voice vs your clone vs Polly, the AI label, how to record, the trial Short |
-| 02 | [`02-lessons/LESSONS.md`](02-lessons/LESSONS.md) | All **330 lessons** in publishing order (15 seasons) |
+| 02 | [`02-lessons/LESSONS.md`](02-lessons/LESSONS.md) | The business lesson catalog in publishing order (the earlier catalog is in `02-lessons/_archive-ei/`) |
 | 02 | [`02-lessons/lessons.csv`](02-lessons/lessons.csv) | The tracker (open in Excel/Google Sheets) |
-| 03 | [`03-episodes/EP001/`](03-episodes/EP001/) | Lesson 1: `script.md`, `sources.md`, `publish.md`, `episode.json` |
+| 03 | [`03-episodes/EP001/`](03-episodes/EP001/) | Lesson 1 «الرافعة»: `script.md`, `sources.md`, `episode.json` |
 | 04 | [`04-studio/`](04-studio/) | The video engine (Remotion). You rarely need to open it |
 | 05 | [`05-templates/`](05-templates/) | Checklists + episode template |
 

@@ -148,7 +148,7 @@ export const Outro: React.FC<SceneProps<OutroScene> & {showCaptions: boolean}> =
             boxShadow: `0 0 0 ${10 + 14 * glow}px rgba(59,125,246,${0.18 - 0.1 * glow})`,
           }}
         >
-          <Icon name="bell" size={52} color="#fff" /> اشترك وفعّل الجرس
+          <Icon name="comment" size={52} color="#fff" /> اكتب نتيجتك في التعليقات
         </div>
       </div>
       {showCaptions ? <Captions captions={plan.captions} /> : null}

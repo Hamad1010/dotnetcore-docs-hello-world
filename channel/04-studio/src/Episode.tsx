@@ -6,6 +6,7 @@ import type {Brand, Episode} from './types';
 import {Hook, Lesson, Title} from './scenes/IntroScenes';
 import {StoryScene} from './scenes/StoryScene';
 import {EndCard, Outro, Practice, Recap} from './scenes/ClosingScenes';
+import {Overview, StoryHook} from './scenes/BizScenes';
 
 export type EpisodeData = {episode: Episode; plan: Plan; brand: Brand; music: string | null; sfx: boolean};
 export type EpisodeProps = {episodeId: string; showCaptions?: boolean; data?: EpisodeData};
@@ -63,6 +64,12 @@ export const EpisodeVideo: React.FC<EpisodeProps> = ({episodeId, showCaptions, d
           case 'endcard':
             el = <EndCard scene={scene} {...common} />;
             break;
+          case 'storyhook':
+            el = <StoryHook scene={scene} {...common} />;
+            break;
+          case 'overview':
+            el = <Overview scene={scene} {...common} />;
+            break;
         }
         return (
           <Sequence key={scene.id} from={sp.from} durationInFrames={sp.frames} name={`${scene.id} · ${scene.type}`}>
@@ -72,7 +79,7 @@ export const EpisodeVideo: React.FC<EpisodeProps> = ({episodeId, showCaptions, d
                 <Html5Audio src={staticFile(`${episodeId}/audio/${sp.audio}`)} />
               </Sequence>
             ) : null}
-            {sfx && i > 0 && (scene.type === 'story' || scene.type === 'title' || scene.type === 'recap') ? (
+            {sfx && i > 0 && (scene.type === 'story' || scene.type === 'title' || scene.type === 'recap' || scene.type === 'overview') ? (
               <Html5Audio src={staticFile('_assets/sfx/whoosh.mp3')} volume={0.22} />
             ) : null}
           </Sequence>

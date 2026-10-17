@@ -1,15 +1,9 @@
 {
-  "name": "",
-  "nameEn": "",
+  "name": "غرفة الفرص",
+  "nameEn": "Opportunity Room",
   "handle": "",
-  "tagline": "دروس الذكاء الاجتماعي والعاطفي… بقصص حقيقية",
-  "note": "No name yet: videos show only the logo until the owner picks one (01-plan/01-channel-blueprint.md §2). Change name/handle here; every video and thumbnail picks it up automatically.",
+  "tagline": "اكتشف موهبتك… وحوّلها لمشروع يكبر، بالأرقام",
+  "note": "Business channel. Handle not chosen yet: check the same handle is free on YouTube, TikTok, Snapchat, Instagram and X.",
   "background": "none",
-  "backgroundOptions": "none = voice + soft transition sounds only · humming = voice-only humming (no instruments) · calm = soft instrumental pad",
-  "voice": {
-    "provider": "elevenlabs",
-    "elevenlabsVoiceId": "WZctAbm7wfypbq0wYRLa",
-    "elevenlabsModel": "eleven_v3",
-    "note": "Voice id is not a secret. The ElevenLabs key lives in the cloud environment as a network secret (or in 04-studio/.env on your own computer)."
-  }
+  "backgroundOptions": "none = voice + soft transition sounds only · humming = voice-only humming (no instruments) · calm = soft instrumental pad"
 }

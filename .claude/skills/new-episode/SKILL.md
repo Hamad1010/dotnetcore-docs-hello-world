@@ -1,6 +1,6 @@
 ---
 name: new-episode
-description: Produce the next YouTube episode end-to-end for the channel in channel/ — pick the next lesson from the tracker, research and verify 6–8 real global stories with numbers, write episode.json in simple Saudi dialect, sources.md and publish.md, preview frames, voice/render if configured, update the tracker and story bank. Use when the owner says "new episode", "next episode", "make EP00N" or "/new-episode".
+description: Produce the next YouTube episode end-to-end for the business channel «غرفة الفرص» in channel/ — pick the next lesson from the tracker, research and verify real stories and statistics, write episode.json in the 8-part business format (Saudi dialect, spoken with conviction), sources.md and publish.md, preview frames, prepare the owner's recording, link the voice and render, update the tracker. Use when the owner says "new episode", "next episode", "make EP00N" or "/new-episode".
 ---
 
 # /new-episode
@@ -10,55 +10,60 @@ Follow `CLAUDE.md` (repo root) rules exactly. Work in `channel/`.
 ## 1. Pick the lesson
 - If the owner named a lesson/episode, use it. Otherwise take the **first row with `status=todo`** in `channel/02-lessons/lessons.csv`.
 - Episode id = lesson number: `L007` → `EP007`. Folder: `channel/03-episodes/EP007/`.
-- Read the row (`title_ar`, `idea`). Optional, only if the private folder exists (it's git-ignored and may be missing):
-  find the lesson in `channel/02-lessons/sources/lesson-map.csv` (`course`, `ref`), run
-  `python3 channel/06-tools/transcripts/skel2.py channel/02-lessons/sources/courses/<course>.txt 220` and read only the
-  passage for this lesson (≤3,000 chars) for nuance. Never copy its sentences, examples or list structure, and never
-  write course names, course ids or refs into any committed file.
-- The `next` field = the following lesson in the tracker.
+- Read the row (`title_ar`, `idea`, `business_angle`). Optional, only if the private folder exists (it's git-ignored and
+  may be missing): the private map in `channel/02-lessons/sources/business/` points to the source rows for nuance.
+  Never copy sentences, examples or numbered lists from private material, and never write trainer names, course
+  names or refs into any committed file.
 
 ## 2. Research (WebSearch)
-- One **hook anchor**: a study or striking number about the lesson (prefer university/peer-reviewed sources).
-- **8–10 candidate stories**, keep the best **6–8** that pass `channel/05-templates/story-research.md`:
-  real + sourced, has a year and ≥1 striking number, ≥5 countries, ≥3 continents, ≥4 topics, one Arab/Muslim-world story if a verified one exists.
+- **Hook story:** one short true story with a striking number that makes people stop scrolling (a twist works best:
+  rejected → bought, tiny team → huge result, small move → big deal).
+- **The problem in numbers:** 2–4 statistics from reputable sources (surveys, official data, research, major outlets).
+- **Stories for the tools part:** as many as the topic needs (no fixed count), varied countries and industries, an
+  Arab/Gulf example when a verified one exists. Prefer stories that show leverage, scaling, comparisons that reveal
+  opportunities, connections that paid off years later, or the 1% a day.
 - Check `channel/02-lessons/story-bank.csv`: don't reuse a story used in the last 20 episodes.
 - Note every disagreement between sources; use the safer wording.
 
-## 3. Write `episode.json` (copy `channel/05-templates/episode.template.json`)
-- Narration: simple Saudi white dialect a 12-year-old understands; sentences ≤20 words; warm, curious tone.
-- Numbers: `{display|spoken}` e.g. `{2019|ألفين وتسعطعش}`, `{51|واحد وخمسين}`, `{10%|عشرة بالمية}`.
-- Hook ≤ 330 chars, opens with the number; promises the story count.
-- Each story ≈ 400–480 chars: where+when → situation → action → numbers → result → takeaway sentence.
-- Fit-on-screen limits: `headline` ≤ 26 chars · `beats` 3 × ≤ 36 chars · `stats` 3 × (value ≤ 6 chars, unit ≤ 8, label ≤ 28) · `takeaway` ≤ 30 · recap `name` ≤ 16.
-- Globe: `isoNumeric` = ISO 3166-1 numeric as a 3-digit string (Saudi Arabia `682`, Egypt `818`, UAE `784`, USA `840`, UK `826`, Japan `392`, India `356`, Brazil `076`, Germany `276`, France `250`, Turkey `792`, Kenya `404`, China `156`). `lat`/`lon` of the city. Use `arcFrom` (origin → place) or `arcTo` (place → where the impact went) when the story travels.
-- Target total narration 4,600–5,600 characters (≈6–7 min). Never under 5:00 (`npm run script` prints the length).
-- `thumbnail`: `big` + `bigUnit` (a number from the hook) + `line1` (≤4 words) + `badge`.
+## 3. Write `episode.json` in the 8-part format
+1. `storyhook`: the stop-scrolling story as 2–4 `beats` (year, value, unit, label, tone, `cue` word), ≤ 25 s.
+2. `overview`: the smart transition: the comparison that names the topic, then what's coming (`roadmap`).
+3. The problem and its size, with numbers. 4. A self-check of 6–10 yes/no questions.
+5. Tools and strategies. 6. Exercises for daily life. 7. A summary that sticks. 8. At most 3 actions + ask for
+   results in the comments (never ask to subscribe or like).
+- Parts 3–8 use the scene types defined in `04-studio/src/types.ts`; if a part has no scene type yet, add it in
+  `src/scenes/BizScenes.tsx` (cues, silhouettes, our palette) and type-check.
+- Narration: simple Saudi white dialect, spoken to people in front of you with conviction; sentences ≤ 20 words;
+  no fluff, no hype, no promises of money. Each point ends in a business result, with one "small move, big impact".
+- Numbers: `{display|spoken}` e.g. `{2009|ألفين وتسعة}`, `{55|خمسة وخمسين}`, `{10%|عشرة بالمية}`.
+- Target total narration 4,600–5,600 characters (≈ 6–7 min). Never under 5:00 (`npm run script` prints the length).
+- When the format changes, render only the first 30 seconds first and wait for the owner's approval.
 
 ## 4. Write `sources.md` and `publish.md`
-Use EP001 as the model: sources with links per story + "Disputed" notes; publish kit with 3 titles (≤60 chars,
-keyword early), 3 thumbnail variants, description (with chapters placeholder and sources), ≤8 tags, a
-choice-question pinned comment, upload settings, 3 Shorts, X thread, WhatsApp card.
+Sources with links per story and statistic + "Disputed" notes. Publish kit: 3 titles (≤ 60 chars, keyword early),
+3 thumbnail variants, description (chapters placeholder + sources), ≤ 8 tags, a pinned comment asking for results,
+upload settings, 3 Shorts, X thread, WhatsApp card. Altered content: **No** (the owner's real voice).
 
 ## 5. Build and check
 ```bash
 cd channel/04-studio && (test -d node_modules || npm install)
-test -f ../03-episodes/_assets/music/calm-pad.mp3 || npm run music
 export REMOTION_BROWSER=${REMOTION_BROWSER:-$(find /opt/pw-browsers -name headless_shell -type f 2>/dev/null | head -1)}
 npm run script -- EP00N
-npm run preview -- EP00N      # then LOOK at 3–4 frames: the longest headline, a stats tile, recap, thumbnail
+npm run preview -- EP00N      # then LOOK at 3–4 frames: the hook cards, the comparison, a stats scene, the thumbnail
 ```
 Fix any overflow/wrapping by shortening text (not by shrinking fonts).
 
-## 6. Voice and render
-- If `channel/04-studio/.env` has a provider → `npm run voice -- EP00N`, then `npm run render -- EP00N`.
-- If not, render only when the owner asks (silent preview with captions), and tell the owner which voice step is pending.
+## 6. The owner's voice
+- Put the episode's parts into the Recording Booth (one part per scene) and tell the owner it's ready.
+- When the recording arrives: save it in `03-episodes/EP00N/audio/`, cut it into scenes (by the 3-second pauses),
+  remove retakes and long silences, then `npm run voice -- EP00N --provider=recorded` and `npm run render -- EP00N`.
 
 ## 7. Bookkeeping
-- `lessons.csv`: `status` → `scripted` (or `rendered`/`voiced`), `episode` → `EP00N`, `notes` → anything to review.
+- `lessons.csv`: `status` → `scripted` / `voiced` / `rendered`, `episode` → `EP00N`, `notes` → anything to review.
 - `story-bank.csv`: append new stories (id SBxxx, sources, lessons it can teach) and update `used_in`.
 - `python3 channel/06-tools/build_catalog.py` (checks the tracker and refreshes `LESSONS.md`).
 - Commit: `EP00N: <Arabic title> (script, sources, publish kit)` and push to the working branch.
 
 ## 8. Report to the owner (short)
-Title, length, the stories (country · year · one-line each), anything disputed or uncertain, and their next
-action (review `script.md`, record voice, or upload).
+Title, length, the hook story and the key numbers, anything disputed or uncertain, and their next action
+(record in the Booth, review, or upload).

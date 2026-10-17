@@ -171,7 +171,7 @@ export const Captions: React.FC<{captions: {text: string; start: number; end: nu
 };
 
 /** Tiny line icons (drawn for this project, no external icon set needed). */
-export const Icon: React.FC<{name: 'doc' | 'globe' | 'heart' | 'check' | 'bell' | 'play'; size?: number; color?: string}> = ({
+export const Icon: React.FC<{name: 'doc' | 'globe' | 'heart' | 'check' | 'bell' | 'play' | 'comment'; size?: number; color?: string}> = ({
   name,
   size = 30,
   color = 'currentColor',
@@ -200,6 +200,7 @@ export const Icon: React.FC<{name: 'doc' | 'globe' | 'heart' | 'check' | 'bell' 
         </>
       ) : null}
       {name === 'play' ? <path d="M8 5l11 7-11 7z" fill={color} /> : null}
+      {name === 'comment' ? <path d="M4 5h16v10H10l-5 4v-4H4z" {...common} /> : null}
     </svg>
   );
 };
