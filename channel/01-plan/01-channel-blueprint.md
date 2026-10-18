@@ -40,21 +40,12 @@ Core geography: Saudi Arabia and the Gulf, then the wider Arab world (white Saud
 **Language level:** a 12-year-old must understand every sentence. The *audience* is adults: in YouTube Studio
 always set **"No, it's not made for kids"**.
 
-## 4. The episode format (the owner's 8 parts)
+## 4. The episode format
 
-| # | Part | Length | Purpose |
-|---|---|---|---|
-| 1 | Stop-scrolling story | ≤ 25 s | A short true story with a twist and a striking number |
-| 2 | Smart transition | 10–15 s | The comparison that names the topic + what's coming |
-| 3 | The problem | 45–60 s | How big it is, with statistics |
-| 4 | Self-check | 45–60 s | 6–10 yes/no questions: do you have this problem? |
-| 5 | Tools and strategies | 2–3 min | What works, each with a real example and numbers |
-| 6 | Exercises | 30–45 s | How to practise it in daily life |
-| 7 | Summary that sticks | 15–20 s | One line people remember and repeat |
-| 8 | Three actions | 15–20 s | At most 3 actions + "write your result in the comments" |
-
-Target **6–8 minutes**, never under 5:00. No "subscribe" or "like" requests. Visual depth from our silhouettes of
-places, people and things. When the format changes, the first 30 seconds are rendered for approval first.
+The structure of every long video lives in one place: [`11-video-framework.md`](11-video-framework.md), versioned
+with a changelog (currently v2). Change it there only. Target **6–8 minutes**, never under 5:00. No "subscribe" or
+"like" requests. Visual depth from our silhouettes of places, people and things. When the format changes, the first
+30 seconds are rendered for approval first.
 
 ## 5. The voice: decide this first
 

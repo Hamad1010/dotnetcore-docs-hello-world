@@ -12,8 +12,10 @@ Recording Booth, and the studio links your voice and renders the video, thumbnai
 
 ## Your next 3 actions
 
-1. **Approve the first 30 seconds** of Lesson 1 «الرافعة» (`03-episodes/EP001/out/EP001.mp4`), or say what to change.
-2. **Record those 30 seconds** in the Recording Booth (https://claude.ai/artifact/6ygwHYvcEr24DeRoZysEgt) and send the file in the chat.
+1. **Read the 5 script drafts** (`03-episodes/EP001/script-draft.md` … `EP005/script-draft.md`) and approve them or
+   say what to change. They follow the video framework v2 ([`01-plan/11-video-framework.md`](01-plan/11-video-framework.md)).
+2. **After approval, record EP001** in the Recording Booth (https://claude.ai/artifact/6ygwHYvcEr24DeRoZysEgt). Claude
+   loads the full text first, so don't record the old 30 seconds.
 3. **Pick the handle** for «غرفة الفرص» (blueprint §2) and move to a private repository ([`01-plan/09-setup-guide.md`](01-plan/09-setup-guide.md) §6).
 
 Then follow the week-by-week coaching plan: [`01-plan/08-coaching-roadmap.md`](01-plan/08-coaching-roadmap.md).
@@ -34,9 +36,10 @@ Then follow the week-by-week coaching plan: [`01-plan/08-coaching-roadmap.md`](0
 | 01 | [`01-plan/08-coaching-roadmap.md`](01-plan/08-coaching-roadmap.md) | Step-by-step plan for the first 90 days |
 | 01 | [`01-plan/09-setup-guide.md`](01-plan/09-setup-guide.md) | Installing on your Mac/PC, the private repo, the background-sound switch |
 | 01 | [`01-plan/10-voice-guide.md`](01-plan/10-voice-guide.md) | Your voice vs your clone vs Polly, the AI label, how to record, the trial Short |
+| 01 | [`01-plan/11-video-framework.md`](01-plan/11-video-framework.md) | How every long video is built (versioned): the parts, storytelling, touchable numbers, loops, quotes, risks |
 | 02 | [`02-lessons/LESSONS.md`](02-lessons/LESSONS.md) | The business lesson catalog in publishing order (the earlier catalog is in `02-lessons/_archive-ei/`) |
 | 02 | [`02-lessons/lessons.csv`](02-lessons/lessons.csv) | The tracker (open in Excel/Google Sheets) |
-| 03 | [`03-episodes/EP001/`](03-episodes/EP001/) | Lesson 1 «الرافعة»: `script.md`, `sources.md`, `episode.json` |
+| 03 | [`03-episodes/EP001/`](03-episodes/EP001/) … `EP005/` | Lessons 1–5: `script-draft.md` (for your approval) and `sources.md`; EP001 also has the 30-second test |
 | 04 | [`04-studio/`](04-studio/) | The video engine (Remotion). You rarely need to open it |
 | 05 | [`05-templates/`](05-templates/) | Checklists + episode template |
 
@@ -54,6 +57,7 @@ Then follow the week-by-week coaching plan: [`01-plan/08-coaching-roadmap.md`](0
 ## How to work with Claude on this
 
 - **New video:** "Run `/new-episode`" (or "make the next episode"). Claude picks the next `todo` lesson from the tracker.
+- **Change the format:** "Add … to the framework" → Claude updates `01-plan/11-video-framework.md` (new version, changelog).
 - **Change something:** "In EP002 make story 3 shorter", "Switch the background to humming", "Thumbnail line should say …".
 - **Weekly review:** paste your YouTube Studio numbers and say "run `/weekly-review`".
 - The rules Claude follows are in [`../CLAUDE.md`](../CLAUDE.md).

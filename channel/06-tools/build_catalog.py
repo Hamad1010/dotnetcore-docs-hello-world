@@ -27,7 +27,7 @@ SEASONS = [
     (11, 'وقتك ومالك', 'Time, focus & money habits', 'adjacent'),
     (12, 'الثبات تحت الضغط', 'Steady under pressure', 'adjacent'),
 ]
-STATUSES = {'todo', 'scripted', 'test-30s', 'test-render', 'voiced', 'rendered', 'scheduled', 'published', 'skip'}
+STATUSES = {'todo', 'draft', 'scripted', 'test-30s', 'test-render', 'voiced', 'rendered', 'scheduled', 'published', 'skip'}
 
 
 def main():
