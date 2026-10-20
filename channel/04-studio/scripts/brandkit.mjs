@@ -1,5 +1,6 @@
-// Renders the logo and thumbnail concepts (src/Brandkit.tsx) into 03-episodes/_brand/out/:
-//   logo-sheet.png (all 5 logos side by side), logo-1.png … logo-5.png (800 × 800), thumb-A/B/C.png (1280 × 720)
+// Renders the logo concepts (src/Brandkit.tsx) into 03-episodes/_brand/out/:
+//   logo-sheet.png (all 5 logos side by side), logo-1.png … logo-5.png (800 × 800)
+// (An episode's thumbnails: scripts/thumbs.mjs.)
 //
 //   node scripts/brandkit.mjs
 import fs from 'node:fs';
@@ -25,4 +26,3 @@ const still = async (id, inputProps, file) => {
 
 await still('LogoSheet', {}, 'logo-sheet.png');
 for (let n = 1; n <= 5; n++) await still('Logo', {n}, `logo-${n}.png`);
-for (const [i, variant] of ['numbers', 'rejected', 'lever'].entries()) await still('ThumbConcept', {variant}, `thumb-${'ABC'[i]}.png`);

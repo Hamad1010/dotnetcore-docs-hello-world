@@ -15,7 +15,7 @@ Read [`channel/00-START-HERE.md`](channel/00-START-HERE.md) first. It is the map
 |---|---|
 | `channel/01-plan/` | Strategy: blueprint, mistakes to avoid, viral playbook, growth, marketing, policy/legal, coaching roadmap, setup, voice, **video framework** |
 | `channel/02-lessons/` | The tracker (`lessons.csv`, one row per video) and its readable catalog; `_archive-ei/` = the earlier emotional-intelligence catalog |
-| `channel/03-episodes/EPxxx/` | One folder per video: `script-draft.md` (what the owner approves), then `episode.json` (the single source of truth after approval), `script.md`, `sources.md`, `publish.md`, `audio/` and `out/` (both git-ignored) |
+| `channel/03-episodes/EPxxx/` | One folder per video: `script-draft.md` (what the owner approves), then `episode.json` (the single source of truth after approval), `script.md`, `sources.md`, the publish kit (`publish.md`, `thumbs.json`), `audio/` and `out/` (both git-ignored) |
 | `channel/04-studio/` | Remotion project that turns `episode.json` into the video, thumbnail, subtitles and chapters |
 | `channel/05-templates/` | Templates and checklists |
 | `channel/06-tools/` | Scripts: catalog builder, draft length check, transcript tools |
@@ -41,6 +41,7 @@ cd channel/04-studio
 npm install                                # first time only
 # 0) write channel/03-episodes/EP00N/script-draft.md + sources.md (video framework) → the owner approves
 python3 ../06-tools/draft_length.py EP00N    # length of each part
+npm run thumbs -- EP00N                    # the publish kit's 3 thumbnails (from thumbs.json) → out/thumb-1..3.png
 # 1) after approval: build channel/03-episodes/EP00N/episode.json from the draft (scenes: framework §5, src/types.ts)
 npm run script -- EP00N                    # readable script.md for the owner to record
 npm run preview -- EP00N                   # still frames in out/preview/ → look at them

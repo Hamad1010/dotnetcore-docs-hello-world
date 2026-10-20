@@ -12,10 +12,11 @@ Recording Booth, and the studio links your voice and renders the video, thumbnai
 
 ## Your next 3 actions
 
-1. **Read EP001's new script** (`03-episodes/EP001/script-draft.md`, framework v3) and approve it or say what to change.
+1. **Read EP001's full script** (`03-episodes/EP001/script-draft.md`, framework v4) and its publish kit
+   (`publish.md`: 3 titles, 2 descriptions; 3 thumbnails), and approve them or say what to change.
 2. **Record part A** (the first 2 minutes) in the Recording Booth (https://claude.ai/artifact/6ygwHYvcEr24DeRoZysEgt)
    and send the file. Claude renders those 2 minutes with the journey map for your approval, then you record the rest.
-3. **Pick a direction** from the logo and thumbnail concepts, and pick the handle (blueprint §2).
+3. **Pick a logo direction** (`03-episodes/_brand/out/logo-sheet.png`, render with `npm run brandkit`) and the handle.
 
 Then follow the week-by-week coaching plan: [`01-plan/08-coaching-roadmap.md`](01-plan/08-coaching-roadmap.md).
 

@@ -1,9 +1,9 @@
-// Concepts for the channel logo and the EP001 thumbnail, drawn from our palette, font and silhouettes
+// Concepts for the channel logo, drawn from our palette, font and silhouettes
 // (no photos, no other brands' logos). Rendered by scripts/brandkit.mjs into 03-episodes/_brand/out/.
 import React from 'react';
 import {AbsoluteFill} from 'remotion';
 import {C, FONT} from './theme';
-import {Crowd, Lever, PeopleGrid, Person, Phone} from './components/Silhouettes';
+import {Lever} from './components/Silhouettes';
 
 export const LOGOS = [
   {name: 'الباب المفتوح', idea: 'غرفة… ومن بابها يطلع نور الفرصة'},
@@ -94,82 +94,3 @@ export const LogoSingle: React.FC<{n: number}> = ({n}) => (
     <LogoMark n={n} size={800} />
   </AbsoluteFill>
 );
-
-// ---------------------------------------------------------------- thumbnails (1280 × 720)
-const FileBadge: React.FC = () => (
-  <div style={{position: 'absolute', right: 48, top: 40, background: C.ink, color: '#fff', fontSize: 34, fontWeight: 700, padding: '8px 26px', borderRadius: 999}}>الملف 01</div>
-);
-
-export const THUMBS = ['numbers', 'rejected', 'lever'] as const;
-export type ThumbVariant = (typeof THUMBS)[number];
-
-export const ThumbConcept: React.FC<{variant: ThumbVariant}> = ({variant}) => {
-  const page: React.CSSProperties = {background: '#fff', fontFamily: FONT, direction: 'rtl', overflow: 'hidden'};
-  if (variant === 'numbers') {
-    return (
-      <AbsoluteFill style={page}>
-        <div style={{position: 'absolute', left: 0, top: 0, bottom: 0, width: 600, background: C.ink}} />
-        <div style={{position: 'absolute', left: 30, top: 70, opacity: 0.55}}>
-          <Crowd id="th1" width={540} height={600} color="#8EA0C0" />
-        </div>
-        <div style={{position: 'absolute', left: 190, top: 150, filter: 'drop-shadow(0 20px 30px rgba(0,0,0,0.45))', transform: 'rotate(-8deg)'}}>
-          <Phone size={420} color={C.green} bubbles={3} />
-        </div>
-        <FileBadge />
-        <div style={{position: 'absolute', right: 56, top: 112, width: 600}}>
-          <div style={{display: 'flex', alignItems: 'baseline', gap: 18, color: C.blue}}>
-            <span style={{fontSize: 210, fontWeight: 700, lineHeight: 0.95}}>55</span>
-            <span style={{fontSize: 74, fontWeight: 700}}>موظف</span>
-          </div>
-          <div style={{fontSize: 66, fontWeight: 700, color: C.ink, lineHeight: 1.25, marginTop: 14}}>خدموا 450 مليون</div>
-          <div style={{marginTop: 22}}>
-            <PeopleGrid count={55} cols={11} cell={36} color={C.blue} />
-          </div>
-        </div>
-      </AbsoluteFill>
-    );
-  }
-  if (variant === 'rejected') {
-    return (
-      <AbsoluteFill style={page}>
-        <div style={{position: 'absolute', left: -120, top: -60, width: 760, height: 840, borderRadius: '50%', background: C.redSoft}} />
-        <div style={{position: 'absolute', left: 110, bottom: -10, filter: 'drop-shadow(0 24px 30px rgba(28,35,51,0.30))'}}>
-          <Person size={560} color={C.ink} />
-        </div>
-        <div style={{position: 'absolute', left: 60, top: 430, transform: 'rotate(-12deg)', border: `12px solid ${C.red}`, borderRadius: 26, padding: '4px 34px', color: C.red, fontSize: 104, fontWeight: 700, background: '#fff'}}>
-          مرفوض
-        </div>
-        <FileBadge />
-        <div style={{position: 'absolute', right: 56, top: 140, width: 640}}>
-          <div style={{fontSize: 124, fontWeight: 700, color: C.red, lineHeight: 1.12}}>رفضوه…</div>
-          <div style={{fontSize: 84, fontWeight: 700, color: C.ink, lineHeight: 1.25}}>ثم اشتروا شركته</div>
-          <div style={{display: 'inline-flex', marginTop: 34, background: C.green, color: '#fff', fontSize: 74, fontWeight: 700, padding: '10px 34px', borderRadius: 24}}>
-            <span style={{direction: 'ltr', unicodeBidi: 'isolate'}}>19</span>&nbsp;مليار $
-          </div>
-        </div>
-      </AbsoluteFill>
-    );
-  }
-  return (
-    <AbsoluteFill style={page}>
-      <div style={{position: 'absolute', left: -140, top: -120, width: 820, height: 820, borderRadius: '50%', background: C.yellowSoft}} />
-      <div style={{position: 'absolute', left: 20, top: 240, filter: 'drop-shadow(0 22px 26px rgba(28,35,51,0.25))'}}>
-        <Lever width={620} tilt={1} color={C.ink} accent={C.blue} />
-      </div>
-      <div style={{position: 'absolute', left: 60, top: 168, background: C.green, color: '#fff', fontSize: 40, fontWeight: 700, padding: '6px 18px', borderRadius: 14, transform: 'rotate(-10deg)'}}>
-        <span style={{direction: 'ltr', unicodeBidi: 'isolate'}}>19</span> مليار $
-      </div>
-      <div style={{position: 'absolute', left: 520, top: 300, transform: 'scaleX(-1)'}}>
-        <Person size={170} color={C.blue} />
-      </div>
-      <FileBadge />
-      <div style={{position: 'absolute', right: 56, top: 150, width: 560}}>
-        <div style={{fontSize: 150, fontWeight: 700, color: C.blue, lineHeight: 1.05}}>الرافعة</div>
-        <div style={{fontSize: 84, fontWeight: 700, color: C.ink, lineHeight: 1.2, marginTop: 14}}>شغلك يشتغل عنك</div>
-        <div style={{display: 'inline-flex', marginTop: 30, background: C.yellow, color: C.ink, fontSize: 50, fontWeight: 700, padding: '10px 30px', borderRadius: 22}}>
-          55 شخص · 19 مليار
-        </div>
-      </div>
-    </AbsoluteFill>
-  );
-};

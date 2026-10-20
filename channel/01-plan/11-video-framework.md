@@ -1,6 +1,6 @@
 # 11 · Video framework: how every long video is built
 
-**Current version: v3** (20 Oct 2026). This file is the only place where the structure of a long video is defined.
+**Current version: v4** (20 Oct 2026). This file is the only place where the structure of a long video is defined.
 `CLAUDE.md`, the `/new-episode` skill and the blueprint point here instead of repeating it, so a change made here
 reaches everything at once.
 
@@ -76,6 +76,9 @@ draft is short, add a story, an example or a clearer explanation, not filler.
   what it is in plain words and give 1–2 achievements with numbers ("فيسبوك… اللي كان يستخدمها وقتها أكثر من 250
   مليون إنسان"; "ياهو… من أشهر مواقع الإنترنت وقتها").
 - Fewer names, introduced well, beat many names said in passing.
+- Company examples don't have to be famous brands. Any well-documented company works, including the world's largest
+  (Forbes Global 2000, Fortune Global 500): introduce it with its rank or one big number ("مايكروسوفت… من أكبر 10
+  شركات في قائمة فوربس لأكبر 2000 شركة في العالم").
 
 ### 3.5 Opening and closing loops
 - **Opening loop** (part 2): one specific promise that makes people stay. Specific, honest, always paid off.
@@ -104,9 +107,7 @@ Each trap goes through five steps, so it is clear and not just a warning:
 - Each episode is a case file: «الملف 01 · لغز الـ55». The lesson is the clue that solves the case.
 - **Callbacks:** at least one small detail from an earlier file (a number, a name), with a YouTube card to it at that
   moment. New viewers get curious and watch the older files; that adds watch hours.
-- **The previous puzzle's answer** opens part 2 of the next file (≤ 15 s), naming the first solvers.
-- **Season mystery:** each puzzle's answer is also a clue (a number or a word). The season finale's puzzle needs all
-  of them, so collectors watch every file.
+- **The previous puzzle's answer** opens part 2 of the next file (≤ 15 s), told by the owner.
 - **Cliffhanger** at the end + an end screen to the next file; one playlist per season, in order ("ابدأ من الملف 01").
 
 ### 3.10 What keeps people watching (the healthy kind of "dopamine triggers")
@@ -114,19 +115,18 @@ Each trap goes through five steps, so it is clear and not just a warning:
 - Progress you can see: the marker on the map, "باقي محطتين".
 - A surprising fact every 60–90 seconds, at a moment they don't expect.
 - Something changes on screen every few seconds (a card, a number, a silhouette, the map); a sound at each station.
-- Personal stakes (their self-check score), quick wins (an exercise that works today), recognition (their name as a
-  puzzle solver).
+- Personal stakes (their self-check score), quick wins (an exercise that works today), and the owner's replies in the
+  comments.
 - **Never:** a promise that isn't paid off, fake urgency, fear, misleading titles or thumbnails, or prizes that work
   like gambling. They break trust (our whole brand) and YouTube's policies.
 
 ### 3.11 The episode's puzzle (لغز الحلقة, new in v3)
 - One puzzle tied to the lesson, with one exact answer (a number or a word) that needs details from the episode.
   Best when the answer itself means something (EP001: 168 = the hours in a week).
-- Answers go in the comments. Before publishing, add the answer to YouTube Studio → Settings → Community →
-  Blocked words: matching comments are held for review, so nobody can copy them. Approve them after the reveal.
-- The answer and the first solvers are revealed in the next file (part 2).
-- Rewards: free to enter, decided by correct answers (never a random draw), no "subscribe/like to enter". Start with
-  non-cash rewards; cash prizes only after checking the licence rules (`06-monetization-policy-legal.md` §9).
+- Viewers answer in the comments. The owner reveals the answer at the start of the next file (part 2, ≤ 15 s) and
+  can reply in the comments.
+- **No prizes and no winners** (the owner's decision, v4). If prizes ever come back, read
+  `06-monetization-policy-legal.md` §9 first.
 
 ### 3.12 Kept from earlier versions
 - One lesson per video, tied to business results; one "small move, big impact" detail; the owner's angles
@@ -135,9 +135,25 @@ Each trap goes through five steps, so it is clear and not just a warning:
 - No subscribe/like requests, no money promises, a gentle "talk to a specialist" line when stress comes up.
 - A near-real example is marked **[مثال توضيحي]** in the script and labelled on screen.
 
+### 3.13 The publish kit (new in v4)
+Every full script comes with `publish.md` and three thumbnail images, so the owner judges the whole package:
+- **3 video titles:** ≤ 60 characters, the searched words in the first half, a number or a twist, and a question the
+  video truly answers. One story title, one numbers title, one "how to" title.
+- **3 thumbnails (text + image):** at most 4 words, one big number or one strong word, one silhouette visual, high
+  contrast, the file badge. Each matches a title and what the viewer sees in the first 30 seconds. The texts live in
+  `thumbs.json`; `npm run thumbs -- EP00N` renders `out/thumb-1.png` … `thumb-3.png`.
+- **2 descriptions:** the first two lines carry the hook and the main search words (they show before "more"); then
+  what the viewer will learn, the chapters, the sources, and at most 3 hashtags.
+- **The words people search:** before publishing, check YouTube Studio → Analytics → Research (searches across
+  YouTube) and Google Trends for Saudi Arabia. Prefer phrases our viewers type (مشروع، فكرة مشروع، دخل إضافي، بدون
+  رأس مال، من الجوال، الذكاء الاصطناعي) when the video really covers them.
+- **Never:** words the video doesn't deliver, money promises ("اربح…"), fake urgency, other brands' logos. YouTube
+  treats misleading titles and thumbnails as spam, and they cost trust.
+
 ## 4. From draft to video
 
-1. Claude writes `03-episodes/EP00N/script-draft.md` (this framework, numbers as plain digits) and `sources.md`.
+1. Claude writes `03-episodes/EP00N/script-draft.md` (this framework, numbers as plain digits), `sources.md` and the
+   publish kit (§3.13): `publish.md`, `thumbs.json` and the three thumbnail images.
    Draft header: title, case file, `Framework vN`, the journey (start → stations → destination), where the opening
    loop is paid off, the small move, the puzzle and its answer, the teaser, and where part A ends.
 2. The owner reads the draft and approves it or says what to change.
@@ -156,6 +172,7 @@ Each trap goes through five steps, so it is clear and not just a warning:
 - [ ] Every trap follows the five steps; every tool step has a first move that costs nothing.
 - [ ] The self-check says how to count and ends with 3 bands.
 - [ ] Opening loop paid off; a callback (from EP002 on); the puzzle has one exact answer; the teaser matches the tracker.
+- [ ] The publish kit: 3 titles, 3 thumbnails (text + image), 2 descriptions (§3.13).
 - [ ] A small move with big impact; every point ends in a business result.
 - [ ] No subscribe/like, no promises, no investing tips; the specialist line if stress comes up.
 - [ ] Nothing from private sources (`CLAUDE.md` rule 2).
@@ -178,6 +195,10 @@ Each trap goes through five steps, so it is clear and not just a warning:
 
 ## 7. Changelog
 
+- **v4 · 20 Oct 2026.** From the owner's feedback on EP001 v3: the puzzle stays, with no prizes or winners (the owner
+  answers it in the next file); company examples can come from the world's largest companies (Forbes Global 2000,
+  Fortune Global 500), introduced with rank or numbers; every full script comes with a publish kit (3 titles, 3
+  thumbnails with images, 2 descriptions) built on the words people search.
 - **v3 · 20 Oct 2026.** From the owner's feedback on the five v2 drafts: at least 8 minutes (mid-roll ads); every
   video is a journey on a map; every name introduced with numbers; traps told as five-step mini-stories; a clearer
   self-check (how to count, examples, 3 bands); the series as a detective show (case files, callbacks, the previous

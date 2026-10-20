@@ -65,6 +65,13 @@
 - The ILO: founded 1919, 187 member states: [Wikipedia](https://en.wikipedia.org/wiki/International_Labour_Organization)
 - WhatsApp Business app: more than 200 million monthly users (Meta, June 2023):
   [Seeking Alpha](https://seekingalpha.com/news/3983047-whatsapp-business-crosses-200m-users-ads-without-fb-account-to-start-soon)
+- Microsoft: in the top 10 of the Forbes Global 2000 (2025): [Forbes Colombia](https://forbes.co/2025/06/12/editors-picks/esta-es-la-23a-lista-global-2000-de-las-empresas-mas-grandes-del-mundo-en-2025/) ·
+  [Wikipedia](https://en.wikipedia.org/wiki/Forbes_Global_2000). Windows 10 and 11 on about 1.4 billion monthly active
+  devices (Microsoft, January 2022 earnings call): [Windows Central](https://windowscentral.com/more-14-billion-devices-now-run-windows-11-or-10) ·
+  [Thurrott](https://www.thurrott.com/windows/261800/1-4-billion). World population 2022 ≈ 8 billion: 8 ÷ 1.4 ≈ 5.7 →
+  "جهاز لكل 6 أشخاص تقريبًا". The exact 2025 rank isn't confirmed, so we say "من أكبر 10".
+- AI tools among Saudi Arabia's trending searches in 2025 (Gemini, Hailuo AI): [Google, Year in Search MENA 2025](https://blog.google/intl/en-mena/company-news/inside-google/year-in-search-mena-2025-ai-education-sports/).
+  "Trending" means the fastest rising, so we say "من أكثر الأشياء اللي زاد البحث عنها".
 - Uber: 202 million monthly active platform consumers in Q4 2025 (FY2025 10-K):
   [SEC](https://www.sec.gov/Archives/edgar/data/1543151/000154315126000015/uber-20251231.htm)
 - Hawaii: 1,455,271 people (2020 census): [US Census QuickFacts](https://www.census.gov/quickfacts/fact/table/HI/POP010220)

@@ -29,7 +29,10 @@ Follow `CLAUDE.md` (repo root) rules exactly, and the **current version** of the
 - **Quotes:** only with a traceable source, plus the person's achievements in numbers (framework §3.6).
 - **Touchable comparisons** for every big number, with the arithmetic (framework §3.3).
 - **Traps:** a real case for each, told in the five steps of framework §3.7.
-- **The puzzle:** one exact answer that needs details from the episode (framework §3.11).
+- **The puzzle:** one exact answer that needs details from the episode (framework §3.11). No prizes.
+- **Company examples** don't have to be famous brands: the world's largest companies (Forbes Global 2000, Fortune
+  Global 500) work too, introduced with their rank or one number (framework §3.4).
+- **Search words:** what our viewers type for this topic (framework §3.13), for the titles and descriptions.
 - Check `channel/02-lessons/story-bank.csv`: don't reuse a story used in the last 20 episodes (a 1–2 sentence
   callback is fine).
 - Note every disagreement between sources; use the safer wording.
@@ -41,6 +44,8 @@ Follow `CLAUDE.md` (repo root) rules exactly, and the **current version** of the
 - Narration: simple Saudi white dialect, told as a story to people in front of you, with conviction; short
   sentences; no fluff, no hype, no promises of money. Each point ends in a business result, with one "small move,
   big impact". Every step has a first move that costs nothing.
+- Write the publish kit with the draft (framework §3.13): `publish.md` (3 titles, 2 descriptions, tags, the pinned
+  comment with the puzzle) and `thumbs.json`; run `npm run thumbs -- EP00N` in `04-studio` and look at the 3 images.
 - Run `python3 06-tools/draft_length.py EP00N` (it warns below the framework's minimum) and the framework checklist (§5).
 - Send the draft to the owner and **wait for approval**. When the format or the look changes, the owner records
   part A (the first ~2 minutes) first and you render only that for approval.
@@ -50,8 +55,7 @@ Follow `CLAUDE.md` (repo root) rules exactly, and the **current version** of the
   `04-studio/src/types.ts`). If a part has no scene type yet, add it in `src/scenes/BizScenes.tsx` (cues,
   silhouettes, our palette), list it in framework §5, and type-check.
 - Numbers: `{display|spoken}` e.g. `{2009|ألفين وتسعة}`, `{55|خمسة وخمسين}`, `{10%|عشرة بالمية}`.
-- Publish kit: 3 titles (≤ 60 chars, keyword early), 3 thumbnail variants, description (chapters placeholder +
-  sources), ≤ 8 tags, a pinned comment asking for results, upload settings, 3 Shorts, X thread, WhatsApp card.
+- Finish the publish kit: real chapter times from `out/chapters.txt`, 3 Shorts, an X thread, a WhatsApp card.
   Altered content: **No** (the owner's real voice).
 
 ## 5. Build and check
