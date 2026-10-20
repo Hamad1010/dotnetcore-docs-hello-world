@@ -7,6 +7,7 @@ Run from the channel/ folder:  python3 06-tools/build_catalog.py
 """
 import csv
 import os
+import re
 import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -37,9 +38,12 @@ def main():
 
     seasons = {s[0]: s for s in SEASONS}
     errors = []
+    seen = set()
     for i, r in enumerate(rows, 1):
-        if r['lesson'] != f'L{i:03d}':
-            errors.append(f"row {i}: lesson is {r['lesson']}, expected L{i:03d}")
+        # Rows are in planned order and a timely lesson may move up, so ids need not be sequential, only unique.
+        if not re.fullmatch(r'L\d{3}', r['lesson']) or r['lesson'] in seen:
+            errors.append(f"row {i}: lesson id '{r['lesson']}' must look like L001 and be unique")
+        seen.add(r['lesson'])
         s = seasons.get(int(r['season']))
         if not s:
             errors.append(f"{r['lesson']}: unknown season {r['season']}")
@@ -54,7 +58,7 @@ def main():
     lines = [
         '# كتالوج الدروس · Lesson Catalog',
         '',
-        f'**{len(rows)} lessons** in **{len(SEASONS)} seasons**. One lesson = one video. The lesson number is the episode number.',
+        f'**{len(rows)} lessons** in **{len(SEASONS)} seasons**. One lesson = one video, in planned order. A timely lesson can move up: its id never changes, and its episode number is given when it is produced.',
         '',
         '- Tracker (status, dates, results): [`lessons.csv`](lessons.csv), which opens in Excel or Google Sheets',
         '- `lessons.csv` is the source of truth. Edit titles or order there, then run `python3 06-tools/build_catalog.py` to refresh this page',

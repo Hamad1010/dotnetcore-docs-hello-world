@@ -5,5 +5,7 @@
   "tagline": "اكتشف موهبتك… وحوّلها لمشروع يكبر، بالأرقام",
   "note": "Business channel. Handle not chosen yet: check the same handle is free on YouTube, TikTok, Snapchat, Instagram and X.",
   "background": "none",
-  "backgroundOptions": "none = voice + soft transition sounds only · humming = voice-only humming (no instruments) · calm = soft instrumental pad"
+  "backgroundOptions": "none = voice + soft transition sounds only · humming = voice-only humming (no instruments) · calm = soft instrumental pad",
+  "episodeLabel": "الملف",
+  "episodeLabelNote": "Shown on screen before the episode number (\"الملف 01\"), from framework v3 §3.9. Change it here only."
 }

@@ -3,7 +3,7 @@ import {interpolate, useCurrentFrame} from 'remotion';
 import {ACCENTS, C} from '../theme';
 import type {EndCardScene, OutroScene, PracticeScene, RecapScene} from '../types';
 import {Backdrop, Brand, Captions, Card, Chip, Icon, SceneFrame, fadeUp, useIn, usePop, usePortrait} from '../components/ui';
-import {at, TopBar, type SceneProps} from './common';
+import {at, episodeTag, TopBar, type SceneProps} from './common';
 
 // ------------------------------------------------------------------ RECAP
 export const Recap: React.FC<SceneProps<RecapScene> & {showCaptions: boolean}> = (props) => {
@@ -169,7 +169,7 @@ export const EndCard: React.FC<SceneProps<EndCardScene> & {showCaptions: boolean
         </div>
         <div style={{fontSize: 64, fontWeight: 700, lineHeight: 1.3, ...fadeUp(b, 30)}}>الدرس كامل على القناة</div>
         <Chip size={40} bg={C.blue} color="#fff" style={{opacity: b}}>
-          <Icon name="play" size={34} color="#fff" /> الدرس {parseInt(episode.lesson.replace(/\D/g, ''), 10)} · {episode.title}
+          <Icon name="play" size={34} color="#fff" /> {episodeTag(episode, brand)} · {episode.title}
         </Chip>
       </div>
     </SceneFrame>

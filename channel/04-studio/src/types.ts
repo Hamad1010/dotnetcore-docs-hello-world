@@ -62,7 +62,9 @@ export type EndCardScene = Base & {type: 'endcard'};
 /** neg = a loss or a "no", pos = a win, accent = the key number, gold = money. */
 export type Tone = 'neg' | 'pos' | 'accent' | 'gold';
 /** One moment of a short story. `cue` = a word from the (spoken) narration: the card appears when it is said. */
-export type Beat = {cue?: string; year?: string; value?: string; unit?: string; label: string; tone?: Tone; gapLabel?: string};
+export type Beat = {cue?: string; year?: string; value?: string; unit?: string; label: string; tone?: Tone; gapLabel?: string;
+  /** a touchable comparison shown under the card when `noteCue` is spoken */
+  note?: string; noteCue?: string};
 
 /** Business format, part 1: the "stop scrolling" short story told as a timeline of numbers over silhouettes. */
 export type StoryHookScene = Base & {type: 'storyhook'; place?: string; beats: Beat[]; phoneCue?: string};
@@ -73,8 +75,31 @@ export type OverviewScene = Base & {
   compare?: {from: {value: string; label: string; count: number; cue?: string}; to: {value: string; label: string; cue?: string}};
   topic: string;
   topicSub?: string;
-  roadmap: string[];
+  roadmap?: string[];
   roadmapCue?: string;
+  /** the case file, e.g. "الملف 01 · لغز الـ55", shown when `fileCue` is spoken */
+  file?: string;
+  fileCue?: string;
+};
+
+/** One stop on the journey map. `cue` = the spoken word that makes it appear. */
+export type JourneyStop = {label: string; cue?: string; mark?: 'loop' | 'puzzle'};
+
+/** Framework v3 §1: the journey map. Shown whole in the bridge, then at each station with the traveller moving on. */
+export type JourneyScene = Base & {
+  type: 'journey';
+  title?: string;
+  start: JourneyStop;
+  stations: JourneyStop[];
+  destination: JourneyStop;
+  /** where the traveller stands: 0 = start, 1…n = stations, n + 1 = destination */
+  at?: number;
+  /** where the traveller walks from (a station change); default = `at`, which draws the road as it is told */
+  from?: number;
+  /** the word that makes the opening-loop badge ("؟") pulse */
+  loopCue?: string;
+  /** the word that shows the puzzle badge */
+  puzzleCue?: string;
 };
 
 export type Scene =
@@ -87,7 +112,8 @@ export type Scene =
   | OutroScene
   | EndCardScene
   | StoryHookScene
-  | OverviewScene;
+  | OverviewScene
+  | JourneyScene;
 
 export type Episode = {
   id: string;
@@ -103,4 +129,12 @@ export type Episode = {
   scenes: Scene[];
 };
 
-export type Brand = {name: string; nameEn: string; handle: string; tagline: string; background?: 'none' | 'humming' | 'calm'};
+export type Brand = {
+  name: string;
+  nameEn: string;
+  handle: string;
+  tagline: string;
+  background?: 'none' | 'humming' | 'calm';
+  /** shown before the episode number, e.g. "الملف" → "الملف 01" */
+  episodeLabel?: string;
+};

@@ -92,3 +92,32 @@ prominently and detects undisclosed AI content itself, so honesty is the safe ro
 2. Add a second trusted owner/manager email for recovery.
 3. Never open attachments or "sponsor" files from unknown senders. This is the #1 way channels get hijacked.
 4. Keep `channel/` in a **private** Git repository as the backup of all scripts, sources and settings. The repo it was created in (`dotnetcore-docs-hello-world`) is a **public fork**, and GitHub doesn't let you make a public fork private, so create a new private repo and push this branch there (`09-setup-guide.md` §6).
+
+## 9. Puzzles and prizes (the episode puzzle, framework §3.11)
+
+- **YouTube's contest rules** ([policy](https://support.google.com/youtube/answer/1620498)): you are fully responsible;
+  follow local law; entry is free; publish official rules (who can enter, dates, how winners are chosen, the prize, a
+  link to the Community Guidelines); never require subscribing, liking or any other metric; don't tie YouTube's name
+  to the contest.
+- **Saudi Arabia:** the Ministry of Commerce requires a licence before a prize competition is run or advertised,
+  forbids requiring a purchase, and has sent businesses that ran unlicensed competitions to the public prosecution
+  ([MoC](https://mc.gov.sa/ar/mediacenter/News/Pages/06-03-24-01.aspx) ·
+  [MoC](https://mc.gov.sa/ar/mediacenter/News/Pages/26-03-24-01.aspx)). The media regulator asks for the Mawthooq
+  licence when a competition promotes a business or product ([Alwatan](https://www.alwatan.com.sa/article/1123258)).
+  Whether a skill quiz on a personal channel with a cash prize needs a licence is not spelled out in what we found:
+  **ask the Ministry (or a lawyer) before announcing any cash prize.**
+- **A skill game, not luck:** winners are chosen by correct answers and explanations, never by a random draw (a draw
+  can count as gambling, which is banned in Saudi Arabia).
+- **Season 1 plan:** non-cash rewards first: the solvers' names in the next file, a "detective of the season" title,
+  a 30-minute call with the owner, the winner's project analysed in an episode (with their consent). Cash only after
+  the licence question is answered.
+- **Hide the answers:** Studio → Settings → Community → Blocked words. Add the answer before publishing; matching
+  comments are held for review for up to 60 days ([YouTube Help](https://support.google.com/youtube/answer/9483359)).
+  Approve them after the reveal.
+
+## 10. Video length and mid-roll ads
+
+Monetised videos of **8 minutes or more** can show mid-roll ads, the ones that play in the middle
+([YouTube Help](https://support.google.com/youtube/answer/6175006); the limit was 10 minutes until 2020). Since May
+2025 YouTube prefers natural breaks, so keep automatic placement on and avoid breaks mid-sentence. Shorter videos are
+still monetised (other ad formats); the 8 minutes is about mid-rolls. That's why the framework's minimum is 8:00.

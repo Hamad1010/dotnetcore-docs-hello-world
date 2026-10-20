@@ -9,8 +9,10 @@ Follow `CLAUDE.md` (repo root) rules exactly, and the **current version** of the
 `channel/01-plan/11-video-framework.md` (the parts, their order, the techniques and the checklist). Work in `channel/`.
 
 ## 1. Pick the lesson
-- If the owner named a lesson/episode, use it. Otherwise take the **first row with `status=todo`** in `channel/02-lessons/lessons.csv`.
-- Episode id = lesson number: `L007` → `EP007`. Folder: `channel/03-episodes/EP007/`.
+- If the owner named a lesson/episode, use it. Otherwise take the **first row with `status=todo`** in `channel/02-lessons/lessons.csv`
+  (the row order is the plan; a timely lesson may have been moved up: framework §0).
+- Episode number = the next free one in publication order (`EP006`, `EP007`…), whatever the lesson id. Write it in the
+  tracker's `episode` column. Folder: `channel/03-episodes/EP00N/`.
 - Read the row (`title_ar`, `idea`, `business_angle`, `small_move`, `story_lead`). Optional, only if the private
   folder exists (it's git-ignored and may be missing): the private map in `channel/02-lessons/sources/business/`
   points to the source rows for nuance. Never copy sentences, examples or numbered lists from private material, and
@@ -23,9 +25,11 @@ Follow `CLAUDE.md` (repo root) rules exactly, and the **current version** of the
 - **Stories for the tools part:** as many as the topic needs (no fixed count), varied countries and industries, an
   Arab/Gulf example when a verified one exists. Prefer stories that show leverage, scaling, comparisons that reveal
   opportunities, connections that paid off years later, or the 1% a day.
-- **Quotes:** only with a traceable source, plus the person's achievements in numbers (framework §2.5).
-- **Touchable comparisons** for every big number, with the arithmetic (framework §2.3).
-- **Risks:** a small real example for each (framework §2.6).
+- **Every name** (person, company, organisation): what it is and 1–2 achievements with numbers (framework §3.4).
+- **Quotes:** only with a traceable source, plus the person's achievements in numbers (framework §3.6).
+- **Touchable comparisons** for every big number, with the arithmetic (framework §3.3).
+- **Traps:** a real case for each, told in the five steps of framework §3.7.
+- **The puzzle:** one exact answer that needs details from the episode (framework §3.11).
 - Check `channel/02-lessons/story-bank.csv`: don't reuse a story used in the last 20 episodes (a 1–2 sentence
   callback is fine).
 - Note every disagreement between sources; use the safer wording.
@@ -37,9 +41,9 @@ Follow `CLAUDE.md` (repo root) rules exactly, and the **current version** of the
 - Narration: simple Saudi white dialect, told as a story to people in front of you, with conviction; short
   sentences; no fluff, no hype, no promises of money. Each point ends in a business result, with one "small move,
   big impact". Every step has a first move that costs nothing.
-- Run `python3 06-tools/draft_length.py EP00N` (6–8 min, never under 5:00) and the framework checklist (§4).
-- Send the draft to the owner and **wait for approval**. When the format or the look changes, render only the
-  first 30 seconds first.
+- Run `python3 06-tools/draft_length.py EP00N` (it warns below the framework's minimum) and the framework checklist (§5).
+- Send the draft to the owner and **wait for approval**. When the format or the look changes, the owner records
+  part A (the first ~2 minutes) first and you render only that for approval.
 
 ## 4. After approval: `episode.json` and `publish.md`
 - The draft is now frozen. Build `episode.json` from it, one scene per part (scene types: framework §5 and

@@ -3,7 +3,7 @@ import {AbsoluteFill} from 'remotion';
 import {C, FONT} from './theme';
 import type {EpisodeData} from './Episode';
 import {Globe} from './components/Globe';
-import {lessonNumber} from './scenes/common';
+import {episodeTag} from './scenes/common';
 
 export type ThumbProps = {episodeId: string; data?: EpisodeData};
 
@@ -11,7 +11,7 @@ export type ThumbProps = {episodeId: string; data?: EpisodeData};
 // (recognizable series), and it must match what the video shows in its first seconds.
 export const Thumbnail: React.FC<ThumbProps> = ({data}) => {
   if (!data) return <AbsoluteFill style={{background: C.bg}} />;
-  const {episode} = data;
+  const {episode, brand} = data;
   const th = episode.thumbnail ?? {};
   const story = episode.scenes.find((s) => s.type === 'story');
   const storyCount = episode.scenes.filter((s) => s.type === 'story').length;
@@ -45,7 +45,7 @@ export const Thumbnail: React.FC<ThumbProps> = ({data}) => {
       <div style={{position: 'absolute', left: -170, top: -90, width: 860, height: 860, borderRadius: '50%', background: C.blueSoft}} />
       {visual}
       <div style={{position: 'absolute', right: 60, top: 58}}>
-        <div style={{background: C.ink, color: '#fff', fontSize: 36, fontWeight: 700, padding: '8px 26px', borderRadius: 999}}>الدرس {lessonNumber(episode)}</div>
+        <div style={{background: C.ink, color: '#fff', fontSize: 36, fontWeight: 700, padding: '8px 26px', borderRadius: 999}}>{episodeTag(episode, brand)}</div>
       </div>
       <div style={{position: 'absolute', right: 60, top: 175, width: 640}}>
         <div style={{fontSize: 104, fontWeight: 700, color: C.ink, lineHeight: 1.18}}>{line1}</div>

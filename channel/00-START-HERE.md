@@ -12,11 +12,10 @@ Recording Booth, and the studio links your voice and renders the video, thumbnai
 
 ## Your next 3 actions
 
-1. **Read the 5 script drafts** (`03-episodes/EP001/script-draft.md` … `EP005/script-draft.md`) and approve them or
-   say what to change. They follow the video framework v2 ([`01-plan/11-video-framework.md`](01-plan/11-video-framework.md)).
-2. **After approval, record EP001** in the Recording Booth (https://claude.ai/artifact/6ygwHYvcEr24DeRoZysEgt). Claude
-   loads the full text first, so don't record the old 30 seconds.
-3. **Pick the handle** for «غرفة الفرص» (blueprint §2) and move to a private repository ([`01-plan/09-setup-guide.md`](01-plan/09-setup-guide.md) §6).
+1. **Read EP001's new script** (`03-episodes/EP001/script-draft.md`, framework v3) and approve it or say what to change.
+2. **Record part A** (the first 2 minutes) in the Recording Booth (https://claude.ai/artifact/6ygwHYvcEr24DeRoZysEgt)
+   and send the file. Claude renders those 2 minutes with the journey map for your approval, then you record the rest.
+3. **Pick a direction** from the logo and thumbnail concepts, and pick the handle (blueprint §2).
 
 Then follow the week-by-week coaching plan: [`01-plan/08-coaching-roadmap.md`](01-plan/08-coaching-roadmap.md).
 

@@ -1,4 +1,4 @@
-# EP001 · الرافعة · Sources
+# EP001 · الملف 01: لغز الـ55 · Sources
 
 ## Hook: Brian Acton, Facebook and WhatsApp (2009 → 2014)
 - Acton's tweet after Facebook turned down his job application, 3 August 2009 ("Facebook turned me down. It was a
@@ -41,6 +41,37 @@
   [DIYPhotography](https://www.diyphotography.net/kodak-instagram-tale-dollars-sense/)
 - We say "أكثر من 140 ألف". 13 = a football team (11) + 2 substitutes.
 
+
+## Introducing the names (framework v3 §3.4)
+- Brian Acton: joined Yahoo in 1996 and left in September 2007 (≈ 11 years); born February 1972 (37 in August 2009);
+  met Jan Koum at Yahoo in 1997: [Wikipedia](https://en.wikipedia.org/wiki/Brian_Acton) ·
+  [Britannica (Koum)](https://www.britannica.com/biography/Jan-Koum). Yahoo described as an internet pioneer (Britannica).
+- Facebook: 250 million people as of 15 July 2009 (one month before the rejection):
+  [Facebook developer blog](https://developers.facebook.com/blog/post/285/) ·
+  [TechCrunch](https://techcrunch.com/2009/08/27/a-look-at-facebooks-reach-worldwide/amp/)
+- WhatsApp today: more than 3 billion monthly users (Meta, Q1 2025 earnings call):
+  [TechCrunch](https://techcrunch.com/?p=3001817). World population ≈ 8.2 billion (UN World Population Prospects
+  2024): 3 ÷ 8.2 ≈ 37% → "أكثر من ثلث سكان الأرض".
+- Jan Koum: immigrated from Ukraine at 16, lived on food stamps with his mother; the Facebook deal was signed at the
+  door of the former welfare office where he had queued for food stamps (Forbes, Feb 2014):
+  [NBC News](https://www.nbcnews.com/tech/internet/whatsapp-founders-include-facebook-reject-ukrainian-immigrant-n34541) ·
+  [J. Weekly](https://jweekly.com/2014/02/28/from-ukrainian-village-to-silicon-valley-billionaire/) ·
+  [ACM (Forbes story)](https://cacmb4.acm.org/careers/172403-the-rags-to-riches-tale-of-how-jan-koum-built-whatsapp-into-facebooks-new-19-billion-baby)
+- Kodak: 85% of US camera sales in 1976 (The Economist, 2012, quoted by
+  [Fstoppers](https://media2.fstoppers.com/historical/birth-digital-camera-film-filmless-revolution-699530)).
+- Instagram: launched October 2010, bought April 2012 (≈ 18 months → "عمره سنة ونص"):
+  [Wikipedia](https://en.wikipedia.org/wiki/Instagram); 3 billion monthly users (September 2025):
+  [Proactive Investors](https://www.proactiveinvestors.com/companies/news/1079097/meta-s-instagram-hits-3bn-user-landmark-1079097.html)
+- The ILO: founded 1919, 187 member states: [Wikipedia](https://en.wikipedia.org/wiki/International_Labour_Organization)
+- WhatsApp Business app: more than 200 million monthly users (Meta, June 2023):
+  [Seeking Alpha](https://seekingalpha.com/news/3983047-whatsapp-business-crosses-200m-users-ads-without-fb-account-to-start-soon)
+- Uber: 202 million monthly active platform consumers in Q4 2025 (FY2025 10-K):
+  [SEC](https://www.sec.gov/Archives/edgar/data/1543151/000154315126000015/uber-20251231.htm)
+- Hawaii: 1,455,271 people (2020 census): [US Census QuickFacts](https://www.census.gov/quickfacts/fact/table/HI/POP010220)
+- LittleThings: nearly 60 million monthly unique visitors at its peak (comScore):
+  [Hilco Streambank](https://hilcoglobal.com/services/intellectual-property/for-sale/littlethings/); "one of the biggest
+  Facebook publishers" ([its 2015 release](https://www.businesswire.com/news/home/20150717005079/en/LittleThings-Buzzes-BuzzFeed-3rd-Biggest-Facebook-Publisher)).
+
 ## Tools
 - WhatsApp Business: quick replies (saved answers) and a catalog of products with photos and prices, free:
   [WhatsApp Business](https://whatsappbusiness.com/resources/success-stories/categories/small-business/) ·
@@ -65,4 +96,14 @@
   100 employees: [Nieman Lab](https://www.niemanlab.org/2018/02/for-social-publisher-littlethings-facebooks-prioritization-of-friends-family-content-over-publishers-was-the-last-straw/) ·
   [Digiday](https://digiday.com/media/live-algorithm-die-algorithm-littlethings-went-social-publishing-darling-shutting/)
   (a later account by the founder says 90%; we use the 75% reported at the time).
-- Debt: a general caution, no advice (CLAUDE.md rule 6).
+
+- Hawaii, more detail: the alert went out on Saturday 13 January 2018 at 8:07 a.m. ("BALLISTIC MISSILE THREAT INBOUND
+  TO HAWAII. SEEK IMMEDIATE SHELTER. THIS IS NOT A DRILL."); right after, the agency required two people for every
+  alert: [HI-EMA statement](https://dod.hawaii.gov/hiema/hawaii-emergency-management-agency-statement-on-missile-launch-false-alarm-january-13-2018/) ·
+  [TechCrunch](https://techcrunch.com/2018/01/13/inexcusable-false-ballistic-missile-alert-in-hawaii-was-caused-by-human-error/) ·
+  [WGBH/NPR](https://www.wgbh.org/news/2018-01-15/this-is-not-a-drill-a-false-ballistic-missile-alert-shakes-hawaii)
+- The shop owner sending 15 instead of 50, the stolen account and the AC technician are illustrations, labelled on screen.
+
+## The puzzle
+- (55 − 13) × 4 = 42 × 4 = 168 = 7 days × 24 hours, the hours in a week. 55 = WhatsApp's staff, 13 = Instagram's,
+  4 = the levers in station 3.

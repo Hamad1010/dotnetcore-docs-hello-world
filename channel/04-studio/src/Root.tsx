@@ -3,6 +3,7 @@ import {Composition, Still, staticFile, type CalculateMetadataFunction} from 're
 import {buildPlan, FPS, type Timings} from './lib/plan';
 import {EpisodeVideo, type EpisodeData, type EpisodeProps} from './Episode';
 import {Thumbnail, type ThumbProps} from './Thumbnail';
+import {LogoSheet, LogoSingle, ThumbConcept, type ThumbVariant} from './Brandkit';
 import {ensureFonts} from './fonts';
 import type {Brand, Episode} from './types';
 
@@ -87,5 +88,9 @@ export const Root: React.FC = () => (
       calculateMetadata={shortMeta}
     />
     <Still id="Thumbnail" component={Thumbnail} width={1280} height={720} defaultProps={{episodeId: 'EP001'} as ThumbProps} calculateMetadata={thumbMeta} />
+    {/* Logo and thumbnail concepts (scripts/brandkit.mjs) */}
+    <Still id="LogoSheet" component={LogoSheet} width={1920} height={1080} />
+    <Still id="Logo" component={LogoSingle} width={800} height={800} defaultProps={{n: 1}} />
+    <Still id="ThumbConcept" component={ThumbConcept} width={1280} height={720} defaultProps={{variant: 'numbers' as ThumbVariant}} />
   </>
 );

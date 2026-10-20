@@ -14,6 +14,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 RATE = 13.5   # spoken characters per second, the same rate as the studio (04-studio/src/lib/plan.js)
 PAUSE = 0.3   # extra seconds for each "…"
 WORDS_PER_DIGIT = 3
+MIN_SECONDS = 8 * 60  # keep in step with the framework's minimum length (11-video-framework.md §2)
 
 
 def spoken(line):
@@ -39,7 +40,7 @@ def report(path):
         print(f'  {int(t // 60)}:{int(t % 60):02d}  {chars:5d}  {name}')
         t += chars / RATE + pauses * PAUSE
         total += chars
-    warn = '   ⚠ under 5:00' if t < 300 else ''
+    warn = '   ⚠ under 8:00' if t < MIN_SECONDS else ''
     print(f'  total {total} characters ≈ {int(t // 60)}:{int(t % 60):02d}{warn}\n')
 
 

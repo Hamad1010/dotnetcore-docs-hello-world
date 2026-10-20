@@ -1,6 +1,6 @@
 # كتالوج الدروس · Lesson Catalog
 
-**6 lessons** in **12 seasons**. One lesson = one video. The lesson number is the episode number.
+**6 lessons** in **12 seasons**. One lesson = one video, in planned order. A timely lesson can move up: its id never changes, and its episode number is given when it is produced.
 
 - Tracker (status, dates, results): [`lessons.csv`](lessons.csv), which opens in Excel or Google Sheets
 - `lessons.csv` is the source of truth. Edit titles or order there, then run `python3 06-tools/build_catalog.py` to refresh this page

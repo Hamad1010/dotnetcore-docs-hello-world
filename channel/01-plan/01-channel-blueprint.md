@@ -43,7 +43,7 @@ always set **"No, it's not made for kids"**.
 ## 4. The episode format
 
 The structure of every long video lives in one place: [`11-video-framework.md`](11-video-framework.md), versioned
-with a changelog (currently v2). Change it there only. Target **6–8 minutes**, never under 5:00. No "subscribe" or
+with a changelog (currently v3). Change it there only. Length is set there too (at least 8 minutes since v3, for mid-roll ads). No "subscribe" or
 "like" requests. Visual depth from our silhouettes of places, people and things. When the format changes, the first
 30 seconds are rendered for approval first.
 

@@ -1,10 +1,11 @@
-// Scenes for the business format («غرفة الفرص»): the "stop scrolling" story and the smart transition.
+// Scenes for the business format («غرفة الفرص»): the "stop scrolling" story, the smart transition and the journey map.
 import React from 'react';
 import {interpolate, useCurrentFrame} from 'remotion';
-import {C, EASE_OUT} from '../theme';
-import type {Beat, OverviewScene, StoryHookScene, Tone} from '../types';
+import {C, EASE_IN_OUT, EASE_OUT} from '../theme';
+import type {Beat, JourneyScene, OverviewScene, StoryHookScene, Tone} from '../types';
 import {Backdrop, Captions, Chip, CountUp, SceneFrame, fadeUp, useIn, usePop, usePortrait} from '../components/ui';
 import {Crowd, Lever, PeopleGrid, Person, Phone, Skyline} from '../components/Silhouettes';
+import {JourneyMap} from '../components/JourneyMap';
 import {cueAt, TopBar, type SceneProps} from './common';
 
 const TONES: Record<Tone, {main: string; soft: string}> = {
@@ -24,9 +25,10 @@ const Arrow: React.FC<{vertical?: boolean; color: string}> = ({vertical, color})
   </svg>
 );
 
-const BeatCard: React.FC<{beat: Beat; shownAt: number; active: boolean; portrait: boolean}> = ({beat, shownAt, active, portrait}) => {
+const BeatCard: React.FC<{beat: Beat; shownAt: number; noteAt: number | null; active: boolean; portrait: boolean}> = ({beat, shownAt, noteAt, active, portrait}) => {
   const f = useCurrentFrame();
   const p = usePop(shownAt, 13);
+  const note = noteAt === null ? 0 : interpolate(f, [noteAt, noteAt + 14], [0, 1], clamp);
   const shown = f >= shownAt;
   const tone = TONES[beat.tone ?? 'accent'];
   const big = beat.value ?? '';
@@ -67,6 +69,11 @@ const BeatCard: React.FC<{beat: Beat; shownAt: number; active: boolean; portrait
             </div>
           ) : null}
           <div style={{fontSize: portrait ? 38 : 36, fontWeight: 500, color: C.ink2, lineHeight: 1.35}}>{beat.label}</div>
+          {beat.note && note > 0 ? (
+            <div style={{fontSize: portrait ? 30 : 27, fontWeight: 600, color: C.ink, background: C.yellowSoft, borderRadius: 18, padding: '8px 16px', lineHeight: 1.35, ...fadeUp(note, 14)}}>
+              {beat.note}
+            </div>
+          ) : null}
         </>
       ) : null}
     </div>
@@ -176,7 +183,7 @@ export const StoryHook: React.FC<SceneProps<StoryHookScene> & {showCaptions: boo
                   <Arrow vertical={portrait} color={C.ink3} />
                 </div>
               ) : null}
-              <BeatCard beat={b} shownAt={times[i]} active={i === active} portrait={portrait} />
+              <BeatCard beat={b} shownAt={times[i]} noteAt={b.noteCue ? cueAt(plan, scene.narration, b.noteCue, 0.6) : null} active={i === active} portrait={portrait} />
             </React.Fragment>
           );
         })}
@@ -196,6 +203,8 @@ export const Overview: React.FC<SceneProps<OverviewScene> & {showCaptions: boole
   const toAt = cmp ? cueAt(plan, scene.narration, cmp.to.cue, 0.15) : 0;
   const topicAt = cueAt(plan, scene.narration, scene.topic, 0.4);
   const mapAt = cueAt(plan, scene.narration, scene.roadmapCue, 0.55);
+  const fileAt = cueAt(plan, scene.narration, scene.fileCue, 0.85);
+  const file = usePop(fileAt, 12);
   const team = interpolate(f, [fromAt, fromAt + 34], [0, 1], clamp);
   const crowd = interpolate(f, [toAt, toAt + 44], [0, 1], {...clamp, easing: EASE_OUT});
   const tilt = interpolate(f, [toAt + 6, topicAt], [0, 1], {...clamp, easing: EASE_OUT});
@@ -248,8 +257,16 @@ export const Overview: React.FC<SceneProps<OverviewScene> & {showCaptions: boole
           {scene.topic}
         </div>
         {scene.topicSub ? <div style={{fontSize: portrait ? 44 : 46, fontWeight: 500, color: C.ink2, ...fadeUp(sub, 16)}}>{scene.topicSub}</div> : null}
+        {scene.file && f >= fileAt ? (
+          <div style={{marginTop: 18, opacity: file, transform: `scale(${0.8 + 0.2 * file})`}}>
+            <Chip size={portrait ? 40 : 38} bg={C.ink} color="#fff" style={{fontWeight: 700}}>
+              <svg width="30" height="30" viewBox="0 0 24 24"><path d="M3 6.5A1.5 1.5 0 0 1 4.5 5H10l2 2h7.5A1.5 1.5 0 0 1 21 8.5v9A1.5 1.5 0 0 1 19.5 19h-15A1.5 1.5 0 0 1 3 17.5z" fill={C.yellow} /></svg>
+              {scene.file}
+            </Chip>
+          </div>
+        ) : null}
         <div style={{display: 'flex', flexDirection: portrait ? 'column' : 'row', gap: 18, marginTop: portrait ? 40 : 30, alignItems: 'center'}}>
-          {scene.roadmap.map((r, i) => {
+          {(scene.roadmap ?? []).map((r, i) => {
             const p = interpolate(f, [mapAt + i * 14, mapAt + i * 14 + 14], [0, 1], {...clamp, easing: EASE_OUT});
             return (
               <div key={i} style={{...fadeUp(p, 18)}}>
@@ -277,6 +294,52 @@ export const Overview: React.FC<SceneProps<OverviewScene> & {showCaptions: boole
           })}
         </div>
       </div>
+      {showCaptions ? <Captions captions={plan.captions} /> : null}
+    </SceneFrame>
+  );
+};
+
+// ------------------------------------------------------------------ JOURNEY (the map, framework v3 §1)
+export const Journey: React.FC<SceneProps<JourneyScene> & {showCaptions: boolean}> = (props) => {
+  const {scene, plan, showCaptions} = props;
+  const f = useCurrentFrame();
+  const portrait = usePortrait();
+  const n = scene.stations.length;
+  const at = scene.at ?? 0;
+  const from = scene.from ?? at;
+  const walking = from !== at;
+  // Telling the road: each stop appears when it is named. Changing station: the road is known, the traveller walks.
+  const startAt = walking ? 0 : cueAt(plan, scene.narration, scene.start.cue, 0.02);
+  const times = scene.stations.map((s, i) => (walking ? 0 : cueAt(plan, scene.narration, s.cue, 0.15 + (0.45 * i) / Math.max(1, n))));
+  const destAt = walking ? 0 : cueAt(plan, scene.narration, scene.destination.cue, 0.65);
+  const pop = (t: number) => (walking ? 1 : interpolate(f, [t, t + 12], [0, 1], {...clamp, easing: EASE_OUT}));
+  const reveal = walking ? 1 : interpolate(f, [startAt, destAt + 12], [0.03, 1], {...clamp, easing: EASE_IN_OUT});
+  const traveller = interpolate(f, [plan.speechStart, plan.speechStart + 50], [from, at], {...clamp, easing: EASE_IN_OUT});
+  const loopAt = scene.loopCue ? cueAt(plan, scene.narration, scene.loopCue, 0.8) : null;
+  const loopPulse = loopAt === null ? 0 : Math.max(0, Math.sin(Math.max(0, f - loopAt) / 5)) * interpolate(f, [loopAt, loopAt + 6, loopAt + 70, loopAt + 90], [0, 1, 1, 0], clamp);
+  const puzzleAt = scene.puzzleCue ? cueAt(plan, scene.narration, scene.puzzleCue, 0.95) : null;
+  const mark = (stop: {mark?: 'loop' | 'puzzle'}, shown: number) => ({
+    mark: stop.mark,
+    markShown: stop.mark === 'puzzle' && puzzleAt !== null ? interpolate(f, [puzzleAt, puzzleAt + 12], [0, 1], clamp) : shown,
+    markPulse: stop.mark === 'loop' ? loopPulse : 0,
+  });
+  const title = useIn(0, 16);
+  return (
+    <SceneFrame frames={plan.frames}>
+      <Backdrop tint={C.blue} />
+      <TopBar episode={props.episode} brand={props.brand} />
+      <div style={{position: 'absolute', top: portrait ? 250 : 150, left: 0, right: 0, display: 'flex', justifyContent: 'center', ...fadeUp(title, 16)}}>
+        <div style={{fontSize: portrait ? 60 : 54, fontWeight: 700, color: C.ink}}>{scene.title ?? 'خريطة الرحلة'}</div>
+      </div>
+      <JourneyMap
+        portrait={portrait}
+        reveal={reveal}
+        traveller={traveller}
+        active={walking || at > 0 ? at : 0}
+        start={{label: scene.start.label, shown: pop(startAt), ...mark(scene.start, pop(startAt))}}
+        stations={scene.stations.map((s, i) => ({label: s.label, shown: pop(times[i]), ...mark(s, pop(times[i]))}))}
+        destination={{label: scene.destination.label, shown: pop(destAt), ...mark(scene.destination, pop(destAt))}}
+      />
       {showCaptions ? <Captions captions={plan.captions} /> : null}
     </SceneFrame>
   );

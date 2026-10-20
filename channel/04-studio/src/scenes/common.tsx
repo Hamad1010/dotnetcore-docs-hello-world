@@ -30,6 +30,10 @@ export const cueAt = (plan: ScenePlan, narration: string, cue: string | undefine
 
 export const lessonNumber = (episode: Episode) => parseInt(episode.lesson.replace(/\D/g, ''), 10);
 
+/** What viewers see: the episode number in publication order, e.g. "الملف 01" (lesson ids can be reordered). */
+export const episodeTag = (episode: Episode, brand: Brand) =>
+  `${brand.episodeLabel ?? 'الحلقة'} ${String(parseInt(episode.id.replace(/\D/g, ''), 10)).padStart(2, '0')}`;
+
 export const TopBar: React.FC<{episode: Episode; brand: Brand; storyIndex?: number; storyCount?: number; accent?: string}> = ({
   episode,
   brand,
@@ -47,7 +51,7 @@ export const TopBar: React.FC<{episode: Episode; brand: Brand; storyIndex?: numb
           <div style={{fontSize: 34, fontWeight: 700}}>{brand.name}</div>
         </div>
         <Chip size={28} color={C.ink2}>
-          الدرس {lessonNumber(episode)} · {episode.title}
+          {episodeTag(episode, brand)} · {episode.title}
         </Chip>
       </div>
     );
@@ -70,7 +74,7 @@ export const TopBar: React.FC<{episode: Episode; brand: Brand; storyIndex?: numb
         <BrandMark size={52} />
         <div style={{fontSize: 28, fontWeight: 700}}>{brand.name}</div>
         <Chip size={24} color={C.ink2}>
-          الدرس {lessonNumber(episode)} · {episode.title}
+          {episodeTag(episode, brand)} · {episode.title}
         </Chip>
       </div>
       {storyCount > 0 ? (
