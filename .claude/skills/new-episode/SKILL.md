@@ -69,8 +69,9 @@ Fix any overflow/wrapping by shortening text (not by shrinking fonts).
 
 ## 6. The owner's voice
 - Put the episode's parts into the Recording Booth (one part per scene) and tell the owner it's ready.
-- When the recording arrives: save it in `03-episodes/EP00N/audio/`, cut it into scenes (by the 3-second pauses),
-  remove retakes and long silences, then `npm run voice -- EP00N --provider=recorded` and `npm run render -- EP00N`.
+- When the recording arrives: `python3 06-tools/clean_recording.py EP00N <file>`. It splits the parts at the
+  Booth's pauses, drops retakes, repeats and stutters, tightens long pauses, cleans and levels the sound (-16 LUFS)
+  and writes word marks so cues and subtitles land on the word. Read its report, then `npm run render -- EP00N`.
 
 ## 7. Bookkeeping
 - `lessons.csv`: `status` → `draft` (sent for approval) / `scripted` (episode.json built) / `voiced` / `rendered`,

@@ -11,8 +11,8 @@ import re
 import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-RATE = 13.5   # spoken characters per second, the same rate as the studio (04-studio/src/lib/plan.js)
-PAUSE = 0.3   # extra seconds for each "…"
+RATE = 9.6    # the owner's real pace, pauses included (EP001 part A after clean_recording.py, 20 Oct 2026)
+PAUSE = 0.0   # extra seconds for each "…": already inside the measured pace
 WORDS_PER_DIGIT = 3
 MIN_SECONDS = 8 * 60  # keep in step with the framework's minimum length (11-video-framework.md §2)
 

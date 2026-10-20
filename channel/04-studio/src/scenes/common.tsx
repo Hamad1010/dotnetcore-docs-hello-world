@@ -18,11 +18,13 @@ export type SceneProps<T> = {
 /** Frame (relative to scene start) at a given fraction of the narration. */
 export const at = (plan: ScenePlan, fraction: number) => Math.round(plan.speechStart + plan.speechFrames * fraction);
 
-/** Frame at which a cue word is spoken, estimated from its position in the narration (else `fallback`). */
+/** Frame at which a cue word is spoken: from the aligned real voice when there is one, else estimated from its
+ * position in the narration (else `fallback`). */
 export const cueAt = (plan: ScenePlan, narration: string, cue: string | undefined, fallback: number) => {
   if (cue) {
     const text = spoken(narration);
     const i = text.indexOf(cue);
+    if (i >= 0 && plan.marks) return plan.marks[Math.min(plan.marks.length - 1, text.slice(0, i).split(' ').length - 1)];
     if (i >= 0) return at(plan, i / Math.max(1, text.length));
   }
   return at(plan, fallback);

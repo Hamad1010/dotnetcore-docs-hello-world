@@ -29,7 +29,7 @@ Read [`channel/00-START-HERE.md`](channel/00-START-HERE.md) first. It is the map
 5. **Format: the video framework.** Every long video follows the current version of [`channel/01-plan/11-video-framework.md`](channel/01-plan/11-video-framework.md): the parts and their order, how to tell the story, touchable numbers, opening and closing loops, quotes with credentials, risks and mitigations. It is the only place the structure is defined (versioned, with a changelog): read it before writing a script, and change the structure only there. **Length** is set there too (at least 8:00 since v3: YouTube allows mid-roll ads from 8 minutes). The lesson order can change as well: lesson ids stay, episode numbers follow publication order (framework §0). Stories depend on the topic (no fixed count); vary countries and industries, and include an Arab/Gulf example when a verified one exists.
 6. **No cringe, no fluff, no hype.** Never ask viewers to subscribe or like (the owner will say when). No guaranteed-income or get-rich promises, no investment, trading or stock tips: numbers are examples, never promises (YouTube policy and Saudi financial-promotion rules). No politics or sectarian topics. Stress/mental-health points get a gentle "if it's heavy, talk to a specialist" line.
 7. **Design:** our palette and font in `04-studio/src/theme.ts`. Depth comes from our own silhouettes ("shadows") of places, people and things (`src/components/Silhouettes.tsx`): no stock photos without a license, no other brands' logos (company names as text are fine).
-8. **Voice:** the owner records their own voice for published videos (no AI voice). Claude writes the script → the owner records it in the Recording Booth → Claude cleans it and links it to the video (`npm run voice -- EP00N --provider=recorded`).
+8. **Voice:** the owner records their own voice for published videos (no AI voice). Claude writes the script → the owner records it in the Recording Booth → Claude cleans it (retakes, stutters, long pauses, noise, EQ, loudness) and syncs it word by word (`python3 channel/06-tools/clean_recording.py EP00N <recording>`).
 9. **Test before you build long:** when the format or style changes, render the first 30 seconds for the owner's approval before making the full episode.
 10. **Keep the tracker true:** update `channel/02-lessons/lessons.csv` (`status`, `episode`, dates, results) whenever an episode changes state.
 11. **Cost discipline:** no paid API calls unless the owner configured a key. Preview with `npm run preview` before a full render.
@@ -45,8 +45,8 @@ npm run thumbs -- EP00N                    # the publish kit's 3 thumbnails (fro
 # 1) after approval: build channel/03-episodes/EP00N/episode.json from the draft (scenes: framework §5, src/types.ts)
 npm run script -- EP00N                    # readable script.md for the owner to record
 npm run preview -- EP00N                   # still frames in out/preview/ → look at them
-# 2) owner records; put the files in 03-episodes/EP00N/audio/ named after the scene ids
-npm run voice -- EP00N --provider=recorded # trims, levels and times the owner's recording
+# 2) owner records in the Booth and sends the file (one file for all parts is fine)
+python3 ../06-tools/clean_recording.py EP00N <recording>  # cuts, cleans, levels and syncs it word by word
 npm run render -- EP00N                    # mp4 + thumbnail + subtitles.ar.srt + chapters.txt
 npm run render -- EP00N --shorts           # 9:16 Shorts from the scenes listed in episode.json "shorts"
 ```

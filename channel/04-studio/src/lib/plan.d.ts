@@ -9,9 +9,11 @@ export type ScenePlan = {
   speechFrames: number;
   captions: Caption[];
   audio: string | null;
+  /** frame (from the scene start) at which each spoken word starts, when the real voice was aligned; else null */
+  marks: number[] | null;
 };
 export type Plan = {fps: number; total: number; scenes: ScenePlan[]};
-export type Timings = Record<string, {duration: number; file?: string}>;
+export type Timings = Record<string, {duration: number; file?: string; marks?: number[]}>;
 export function estimateSeconds(text: string): number;
 export function splitCaptions(text: string, maxLen?: number): string[];
 export function buildPlan(episode: {scenes: Array<{id: string; narration: string; minSeconds?: number}>}, timings: Timings | null, fps?: number): Plan;
@@ -19,3 +21,4 @@ export function toSrt(plan: Plan): string;
 export function toChapters(episode: {scenes: Array<{chapter?: string}>}, plan: Plan): string;
 export function spoken(text: string): string;
 export function display(text: string): string;
+export function displayToSpoken(text: string): number[];

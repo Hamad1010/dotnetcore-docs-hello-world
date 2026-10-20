@@ -18,6 +18,36 @@ const MARK = /\{([^|{}]*)\|([^{}]*)\}/g;
 export const spoken = (text) => clean(text.replace(MARK, '$2'));
 export const display = (text) => clean(text.replace(MARK, '$1'));
 
+// Words separated by spaces, keeping each {display|spoken} mark whole (its spoken side may hold several words).
+function tokens(text) {
+  const out = [];
+  let cur = '';
+  let depth = 0;
+  for (const ch of text) {
+    if (ch === '{') depth += 1;
+    if (ch === '}') depth = Math.max(0, depth - 1);
+    if (/\s/.test(ch) && depth === 0) {
+      if (cur) out.push(cur);
+      cur = '';
+    } else cur += ch;
+  }
+  if (cur) out.push(cur);
+  return out;
+}
+
+// For each word the captions show, the index of the first word the voice says: {55|خمسة وخمسين} is 1 shown, 2 said.
+export function displayToSpoken(text) {
+  const map = [];
+  let said = 0;
+  for (const tok of tokens(text)) {
+    const shown = display(tok).split(' ').filter(Boolean).length;
+    const n = spoken(tok).split(' ').filter(Boolean).length;
+    for (let k = 0; k < shown; k++) map.push(said + Math.min(k, Math.max(0, n - 1)));
+    said += n;
+  }
+  return map;
+}
+
 export function estimateSeconds(text) {
   return Math.max(1.2, spoken(text).length / CHARS_PER_SECOND);
 }
@@ -61,7 +91,8 @@ export function splitCaptions(text, maxLen = 64) {
 
 /**
  * @param {{scenes: Array<{id: string, narration: string, minSeconds?: number}>}} episode
- * @param {Record<string, {duration: number, file?: string}> | null} timings  from audio/timings.json
+ * @param {Record<string, {duration: number, file?: string, marks?: number[]}> | null} timings  from audio/timings.json.
+ *   `marks` (written by 06-tools/clean_recording.py) = the second each spoken word starts: captions and cues follow them.
  */
 export function buildPlan(episode, timings, fps = FPS) {
   const scenes = [];
@@ -75,15 +106,31 @@ export function buildPlan(episode, timings, fps = FPS) {
     const speechFrames = Math.round(speech * fps);
 
     const chunks = splitCaptions(s.narration);
-    const weights = chunks.map((c) => c.length + 6); // +6 ~ the pause after each phrase
-    const sum = weights.reduce((a, b) => a + b, 0);
-    let at = speechStart;
-    const captions = chunks.map((text, i) => {
-      const len = Math.round((speechFrames * weights[i]) / sum);
-      const cap = { text, start: at, end: Math.min(frames, at + len) };
-      at += len;
-      return cap;
-    });
+    const said = spoken(s.narration).split(' ').filter(Boolean).length;
+    const marks = t && Array.isArray(t.marks) && t.marks.length === said ? t.marks.map((m) => speechStart + Math.round(m * fps)) : null;
+    let captions;
+    if (marks) {
+      // The real voice: each caption starts on its first word and ends where the next one starts.
+      const map = displayToSpoken(s.narration);
+      let shown = 0;
+      captions = chunks.map((text) => {
+        const first = map[shown] ?? 0;
+        shown += text.split(' ').filter(Boolean).length;
+        const start = marks[first];
+        const end = shown < map.length ? marks[map[shown]] : speechStart + speechFrames;
+        return { text, start, end: Math.min(frames, Math.max(start + 6, end)) };
+      });
+    } else {
+      const weights = chunks.map((c) => c.length + 6); // +6 ~ the pause after each phrase
+      const sum = weights.reduce((a, b) => a + b, 0);
+      let at = speechStart;
+      captions = chunks.map((text, i) => {
+        const len = Math.round((speechFrames * weights[i]) / sum);
+        const cap = { text, start: at, end: Math.min(frames, at + len) };
+        at += len;
+        return cap;
+      });
+    }
 
     scenes.push({
       id: s.id,
@@ -93,6 +140,7 @@ export function buildPlan(episode, timings, fps = FPS) {
       speechFrames,
       captions,
       audio: t && t.file ? t.file : null,
+      marks,
     });
     cursor += frames;
   }

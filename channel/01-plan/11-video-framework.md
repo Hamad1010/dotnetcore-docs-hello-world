@@ -46,8 +46,8 @@ and destination; the station names are plain words, not part numbers.
 | 9 | 3 خطوات + لغز الحلقة | `actions` | ~40 s | At most 3 actions (today / this week / this month), the episode's puzzle (§3.11), answers in the comments |
 | 10 | الحلقة المقفلة · closing loop | `close` | ~25 s | Pay off the opening loop if not done yet, then a cliffhanger teaser for the next file |
 
-**Length: at least 8:00**, target 9–12 min, about 7,000–9,000 spoken characters (estimate; the owner's recorded
-pace of part A sets the real number). YouTube allows mid-roll ads only
+**Length: at least 8:00**, target 9–12 min, about 5,200–6,900 spoken characters at the owner's real pace (9.6
+characters per second including pauses, measured on EP001's part A). YouTube allows mid-roll ads only
 on videos of 8 minutes or more. `python3 channel/06-tools/draft_length.py EP00N` warns below 8:00. Never pad: when a
 draft is short, add a story, an example or a clearer explanation, not filler.
 
@@ -195,6 +195,8 @@ Every full script comes with `publish.md` and three thumbnail images, so the own
 
 ## 7. Changelog
 
+- **v4.1 · 20 Oct 2026.** Calibration, no structural change: the owner's measured pace (9.6 characters per second,
+  pauses included) replaces the 13.5 estimate, so the character targets drop to 5,200–6,900.
 - **v4 · 20 Oct 2026.** From the owner's feedback on EP001 v3: the puzzle stays, with no prizes or winners (the owner
   answers it in the next file); company examples can come from the world's largest companies (Forbes Global 2000,
   Fortune Global 500), introduced with rank or numbers; every full script comes with a publish kit (3 titles, 3
