@@ -12,12 +12,10 @@ Recording Booth, and the studio links your voice and renders the video, thumbnai
 
 ## Your next 3 actions
 
-1. **Watch part A again** (take 2, with the moving explanations, sound effects and the humming background) and
-   approve it or say what to change; pick humming A or B by ear.
-2. **Record the rest of EP001** (parts 3–10 of `03-episodes/EP001/script-draft.md`, framework v4.2) in the Recording
-   Booth (https://claude.ai/artifact/6ygwHYvcEr24DeRoZysEgt) once part A is approved. One file is fine; you can read
-   straight through.
-3. **Pick a logo direction** (`03-episodes/_brand/out/logo-sheet.png`, render with `npm run brandkit`) and the handle.
+1. **Watch the full EP001** (`03-episodes/EP001/out/EP001.mp4`, 12:59) and send the timestamps you'd change.
+2. **Choose the package** in `03-episodes/EP001/publish.md` (10 titles, 10 thumbnails, 5 descriptions; my pick is title 1 + thumbnail 1 + description 1) and the
+   channel look in `01-plan/14-brand-kit.md` (20 avatars, 5 banners; my pick is avatar `host-02` + `banner-2`), then pick the handle.
+3. **Launch on Monday 26 Oct, 8–9 pm** with the checklist in `01-plan/12-launch-and-monetization.md`, and record EP002 while the first numbers come in.
 
 Then follow the week-by-week coaching plan: [`01-plan/08-coaching-roadmap.md`](01-plan/08-coaching-roadmap.md).
 
@@ -38,6 +36,9 @@ Then follow the week-by-week coaching plan: [`01-plan/08-coaching-roadmap.md`](0
 | 01 | [`01-plan/09-setup-guide.md`](01-plan/09-setup-guide.md) | Installing on your Mac/PC, the private repo, the background-sound switch |
 | 01 | [`01-plan/10-voice-guide.md`](01-plan/10-voice-guide.md) | Your voice vs your clone vs Polly, the AI label, how to record, the trial Short |
 | 01 | [`01-plan/11-video-framework.md`](01-plan/11-video-framework.md) | How every long video is built (versioned): the parts, storytelling, touchable numbers, loops, quotes, risks |
+| 01 | [`01-plan/12-launch-and-monetization.md`](01-plan/12-launch-and-monetization.md) | After the render: the launch-day and first-week checklist, and the legal path to monetization in Saudi Arabia |
+| 01 | [`01-plan/13-audience-words-and-trends.md`](01-plan/13-audience-words-and-trends.md) | The words viewers use now, the evidence and its limits, what's trending, and how to check it in Studio |
+| 01 | [`01-plan/14-brand-kit.md`](01-plan/14-brand-kit.md) | The avatars and banners (specs, picks, the Google-like look done safely, how to upload) |
 | 02 | [`02-lessons/LESSONS.md`](02-lessons/LESSONS.md) | The business lesson catalog in publishing order (the earlier catalog is in `02-lessons/_archive-ei/`) |
 | 02 | [`02-lessons/lessons.csv`](02-lessons/lessons.csv) | The tracker (open in Excel/Google Sheets) |
 | 03 | [`03-episodes/EP001/`](03-episodes/EP001/) … `EP005/` | Lessons 1–5: `script-draft.md` (for your approval) and `sources.md`; EP001 also has the 30-second test |

@@ -4,6 +4,8 @@ import {buildPlan, FPS, type Timings} from './lib/plan';
 import {EpisodeVideo, type EpisodeData, type EpisodeProps} from './Episode';
 import {Thumbnail, type ThumbProps} from './Thumbnail';
 import {LogoSheet, LogoSingle} from './Brandkit';
+import {AvatarStill} from './Avatars';
+import {BannerStill} from './Banners';
 import {ThumbVariant, thumbVariantMeta, type ThumbVariantProps} from './ThumbVariants';
 import {ensureFonts} from './fonts';
 import type {Brand, Episode} from './types';
@@ -96,5 +98,8 @@ export const Root: React.FC = () => (
     <Still id="ThumbVariant" component={ThumbVariant} width={1280} height={720} defaultProps={{episodeId: 'EP001', index: 0} as ThumbVariantProps} calculateMetadata={thumbVariantMeta} />
     <Still id="LogoSheet" component={LogoSheet} width={1920} height={1080} />
     <Still id="Logo" component={LogoSingle} width={800} height={800} defaultProps={{n: 1}} />
+    {/* The launch kit (scripts/launchkit.mjs): channel avatars and banners */}
+    <Still id="Avatar" component={AvatarStill} width={800} height={800} defaultProps={{id: 'host-01'}} />
+    <Still id="Banner" component={BannerStill} width={2560} height={1440} defaultProps={{n: 1, guides: false}} />
   </>
 );

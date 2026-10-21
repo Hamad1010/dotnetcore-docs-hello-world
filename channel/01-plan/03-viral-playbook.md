@@ -3,6 +3,10 @@
 "Viral" isn't luck. It's **packaging × retention × shareability**, repeated every week. Here is the recipe
 we use, with 2026 platform features.
 
+> **Business-channel update (21 Oct 2026):** the examples below come from the earlier format. For the business channel, the words viewers use now are in
+> [`13-audience-words-and-trends.md`](13-audience-words-and-trends.md), a full worked package (10 titles, 10 thumbnails, 5 descriptions) is in
+> `03-episodes/EP001/publish.md`, and the launch-week checklist is [`12-launch-and-monetization.md`](12-launch-and-monetization.md).
+
 ## 1. Titles (≤60 characters, keyword early, a question in the viewer's head)
 
 | Formula | Example |

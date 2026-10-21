@@ -2,3 +2,4 @@
 **/out/
 # Narration audio (your voice) stays out of git: privacy + size. Final videos go to YouTube, not GitHub.
 **/audio/
+_brand/launch-kit/banners/*-guides.png

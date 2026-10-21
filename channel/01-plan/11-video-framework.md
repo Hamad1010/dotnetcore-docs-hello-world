@@ -143,7 +143,9 @@ Every full script comes with `publish.md` and three thumbnail images, so the own
   video truly answers. One story title, one numbers title, one "how to" title.
 - **3 thumbnails (text + image):** at most 4 words, one big number or one strong word, one silhouette visual, high
   contrast, the file badge. Each matches a title and what the viewer sees in the first 30 seconds. The texts live in
-  `thumbs.json`; `npm run thumbs -- EP00N` renders `out/thumb-1.png` … `thumb-3.png`.
+  `thumbs.json`; `npm run thumbs -- EP00N` renders `out/thumb-1.png` … `thumb-3.png`. (`"layout": "design"` picks one of the ten designs in
+  `04-studio/src/ThumbDesigns.tsx`; the text of a headline is fitted to its column automatically.) The owner can ask for more: EP001 has 10 titles,
+  10 thumbnails and 5 descriptions.
 - **2 descriptions:** the first two lines carry the hook and the main search words (they show before "more"); then
   what the viewer will learn, the chapters, the sources, and at most 3 hashtags.
 - **The words people search:** before publishing, check YouTube Studio → Analytics → Research (searches across
@@ -226,7 +228,8 @@ The owner's rule after part A: the screen must move with the voice. Nothing may 
 
 - **v4.4 · 21 Oct 2026.** Studio side only, no change for scripts: every part after the bridge is a `stage` scene
   filled with moments (§6); 14 new moment kinds and cues for a sentence's second half (§3.14), built for the full
-  EP001.
+  EP001. Publish kit tooling (§3.13): ten thumbnail designs, and `npm run launchkit` for the channel's avatars and banners
+  (`01-plan/14-brand-kit.md`).
 
 - **v4.3 · 21 Oct 2026.** The background: soft hums with no instruments, never sad, quiet under the voice (the
   owner's "Detective Backgrounds" style), picked by ear from options compared at three levels; `channel.json` names

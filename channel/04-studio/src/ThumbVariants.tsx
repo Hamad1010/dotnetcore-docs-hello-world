@@ -1,14 +1,17 @@
-// The three thumbnails that come with every full script (framework §3.13). Their texts live in
-// 03-episodes/EP00N/thumbs.json; `npm run thumbs -- EP00N` renders out/thumb-1.png … thumb-3.png.
-// Three layouts, all from our palette and silhouettes: a stamp on a person, a big number, an object (a lever).
+// The thumbnails that come with every full script (framework §3.13). Their texts live in
+// 03-episodes/EP00N/thumbs.json; `npm run thumbs -- EP00N` renders out/thumb-1.png … thumb-N.png.
+// `layout: "design"` = the ten designs in ThumbDesigns.tsx (story, scale, time, income, phone, repeat, versus, trap,
+// platform, puzzle); the three first layouts below (a stamp on a person, a big number, an object) are the earlier ones.
 import React from 'react';
 import {AbsoluteFill, staticFile, type CalculateMetadataFunction} from 'remotion';
 import {C, FONT} from './theme';
 import type {Brand, Episode} from './types';
 import {episodeTag} from './scenes/common';
 import {Crowd, Lever, PeopleGrid, Person, Phone} from './components/Silhouettes';
+import {ThumbDesign, type DesignSpec} from './ThumbDesigns';
 
 export type ThumbSpec =
+  | DesignSpec
   | {layout: 'stamp'; headline: string; line2?: string; tag?: string; stamp: string}
   | {layout: 'numbers'; big: string; unit?: string; line2?: string; grid?: number}
   | {layout: 'object'; headline: string; line2?: string; tag?: string; blockTag?: string; visual?: 'person' | 'phone'};
@@ -32,6 +35,7 @@ const Ltr: React.FC<{children: React.ReactNode}> = ({children}) => <span style={
 export const ThumbVariant: React.FC<ThumbVariantProps> = ({spec, badge = ''}) => {
   const page: React.CSSProperties = {background: '#fff', fontFamily: FONT, direction: 'rtl', overflow: 'hidden'};
   if (!spec) return <AbsoluteFill style={page} />;
+  if (spec.layout === 'design') return <ThumbDesign spec={spec} badge={badge} />;
   if (spec.layout === 'numbers') {
     return (
       <AbsoluteFill style={page}>
