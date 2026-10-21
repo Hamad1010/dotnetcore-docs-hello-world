@@ -15,6 +15,10 @@
 5. Writes audio/<sceneId>.mp3 and audio/timings.json for the studio, with `marks`: when each word of the
    narration starts, so captions, subtitles and on-screen cues land on the word.
 
+Mistakes the rules can't see (a slip like "من نفس الشركة", a half sentence said again later) go in
+audio/cuts.json after listening to the report: {"<scene id>": ["words to cut", {"find": "اشتغل في إحدى", "cut": "في"}]}.
+A word cut off mid-way ("وقب-", "سو--") is always dropped.
+
 Everything stays in the git-ignored audio/ folder: the owner's voice is never committed.
 """
 import json
@@ -138,16 +142,35 @@ def split_parts(words, scenes):
     return [flat[a:b] for a, b in zip(bounds, bounds[1:])]
 
 
-def plan_cuts(group, narration, x):
+def plan_cuts(group, narration, x, cuts=()):
     """Kept spans [(start, end)] in seconds for one scene, and a list of what was removed."""
-    script_text = ' ' + ' '.join(norm(w) for w in spoken_words(narration)) + ' '
+    said = [norm(w) for w in spoken_words(narration)]
+
+    def in_script(seq):  # the phrase is in the script (spelling may differ a little: وحدة / واحدة)
+        return any(all(same(said[i + k], seq[k]) >= 0.75 for k in range(len(seq))) for i in range(len(said) - len(seq) + 1))
+
     keep, removed = list(group), []
+    # A word cut off half-way ("وقب-", "سو--"): the owner stopped and said it again.
+    for w in [w for w in keep if re.search(r'[-–—]+$', w['text'].rstrip('،,.؟?!:'))]:
+        removed.append(('false start', w['start'], w['text']))
+        keep.remove(w)
+    # Cuts chosen after listening (audio/cuts.json): find the words in what was heard, drop the `cut` part.
+    for c in cuts:
+        find, cut = (c['find'], c['cut']) if isinstance(c, dict) else (c, c)
+        fw, cw = [norm(t) for t in find.split()], [norm(t) for t in cut.split()]
+        off = next((o for o in range(len(fw) - len(cw) + 1) if fw[o:o + len(cw)] == cw), 0)
+        at = next((i for i in range(len(keep) - len(fw) + 1) if all(same(fw[k], norm(keep[i + k]['text'])) >= 0.75 for k in range(len(fw)))), None)
+        if at is None:
+            print(f'  ! cut not found: «{find}»')
+            continue
+        removed.append(('cut', keep[at + off]['start'], ' '.join(w['text'] for w in keep[at + off:at + off + len(cw)])))
+        del keep[at + off:at + off + len(cw)]
     # A word (or 2-3 words) said twice by accident, not doubled in the script: drop the first one.
     for n in (3, 2, 1):
         i = 0
         while i + 2 * n <= len(keep):
             a = [norm(w['text']) for w in keep[i:i + n]]
-            if a == [norm(w['text']) for w in keep[i + n:i + 2 * n]] and f" {' '.join(a + a)} " not in script_text:
+            if a == [norm(w['text']) for w in keep[i + n:i + 2 * n]] and not in_script(a + a):
                 removed.append(('repeat', keep[i]['start'], ' '.join(w['text'] for w in keep[i:i + n])))
                 del keep[i:i + n]
             else:
@@ -216,7 +239,8 @@ def loudnorm(src, dst):
 
 # Names the speech-to-text may write in Latin letters, so they still match the Arabic script.
 LATIN = {'whatsapp': 'واتساب', 'facebook': 'فيسبوك', 'instagram': 'انستغرام', 'yahoo': 'ياهو', 'google': 'قوقل',
-         'microsoft': 'مايكروسوفت', 'windows': 'ويندوز', 'uber': 'اوبر', 'twitter': 'تويتر', 'linkedin': 'لينكدان'}
+         'microsoft': 'مايكروسوفت', 'windows': 'ويندوز', 'uber': 'اوبر', 'twitter': 'تويتر', 'linkedin': 'لينكدان',
+         'brian': 'براين', 'jan': 'يان', 'koum': 'كوم', 'forbes': 'فوربس', 'menu': 'منيو', 'kodak': 'كوداك'}
 
 
 def same(a, b):
@@ -322,8 +346,10 @@ def main():
     x = read_wav(studio)
 
     timings, report = {}, []
+    cuts_file = os.path.join(audio, 'cuts.json')
+    cuts = json.load(open(cuts_file, encoding='utf-8')) if os.path.exists(cuts_file) else {}
     for scene, group in zip(scenes, split_parts(words, scenes)):
-        spans, removed = plan_cuts(group, scene['narration'], x)
+        spans, removed = plan_cuts(group, scene['narration'], x, cuts.get(scene['id'], []))
         part = os.path.join(work, f"{scene['id']}.wav")
         write_wav(part, assemble(x, spans))
         final = os.path.join(audio, f"{scene['id']}.mp3")

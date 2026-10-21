@@ -6,7 +6,7 @@ import type {Brand, Episode} from './types';
 import {Hook, Lesson, Title} from './scenes/IntroScenes';
 import {StoryScene} from './scenes/StoryScene';
 import {EndCard, Outro, Practice, Recap} from './scenes/ClosingScenes';
-import {Journey, Overview, StoryHook} from './scenes/BizScenes';
+import {Journey, Overview, Stage, StoryHook} from './scenes/BizScenes';
 import {Sfx, SfxOn} from './components/Sfx';
 
 export type EpisodeData = {episode: Episode; plan: Plan; brand: Brand; music: string | null; sfx: boolean};
@@ -84,6 +84,9 @@ export const EpisodeVideo: React.FC<EpisodeProps> = ({episodeId, showCaptions, d
             break;
           case 'journey':
             el = <Journey scene={scene} {...common} />;
+            break;
+          case 'stage':
+            el = <Stage scene={scene} {...common} />;
             break;
         }
         return (

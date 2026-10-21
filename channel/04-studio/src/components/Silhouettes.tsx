@@ -18,17 +18,9 @@ export const Person: React.FC<Base & {size?: number}> = ({size = 300, color = C.
 
 /** A small team: `count` people in a grid that fills in from the right as `progress` goes 0 → 1.
  * `highlight` (0 → 1) lights up the first person and dims the rest ("each one of them…"). */
-export const PeopleGrid: React.FC<Base & {count: number; cols: number; cell?: number; progress?: number; highlight?: number; highlightColor?: string}> = ({
-  count,
-  cols,
-  cell = 30,
-  progress = 1,
-  highlight = 0,
-  highlightColor = C.yellow,
-  color = C.blue,
-  opacity = 1,
-  style,
-}) => {
+export const PeopleGrid: React.FC<
+  Base & {count: number; cols: number; cell?: number; progress?: number; highlight?: number; highlightColor?: string; subs?: number; fade?: number; fadeProgress?: number}
+> = ({count, cols, cell = 30, progress = 1, highlight = 0, highlightColor = C.yellow, subs = 0, fade = 0, fadeProgress = 0, color = C.blue, opacity = 1, style}) => {
   const rows = Math.ceil(count / cols);
   const shown = Math.round(count * progress);
   return (
@@ -37,12 +29,14 @@ export const PeopleGrid: React.FC<Base & {count: number; cols: number; cell?: nu
         const x = (cols - 1 - (i % cols)) * 72; // right to left, like Arabic reading
         const y = Math.floor(i / cols) * 90;
         const lit = i === 0 ? highlight : 0;
-        const fill = lit > 0.5 ? highlightColor : color;
+        const gone = i >= count - fade ? fadeProgress : 0;
+        const fill = lit > 0.5 ? highlightColor : i >= count - subs ? highlightColor : color;
         return (
-          <g key={i} transform={`translate(${x + 8 + 28} ${y + 4 + 39}) scale(${0.78 * (1 + 0.45 * lit)}) translate(-36 -50)`} opacity={(i < shown ? 1 : 0.12) * (i === 0 ? 1 : 1 - 0.7 * highlight)}>
+          <g key={i} transform={`translate(${x + 8 + 28} ${y + 4 + 39}) scale(${0.78 * (1 + 0.45 * lit)}) translate(-36 -50)`} opacity={(i < shown ? 1 : 0.12) * (i === 0 ? 1 : 1 - 0.7 * highlight) * (1 - 0.75 * gone)}>
             {lit > 0 ? <circle cx={36} cy={50} r={58} fill={highlightColor} opacity={0.25 * lit} /> : null}
             <circle {...HEAD} fill={fill} />
             <path d={BODY} fill={fill} />
+            {gone > 0 ? <path d={`M8 12 L${8 + 56 * gone} ${12 + 76 * gone} M64 12 L${64 - 56 * gone} ${12 + 76 * gone}`} stroke={C.red} strokeWidth={9} strokeLinecap="round" /> : null}
           </g>
         );
       })}

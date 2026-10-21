@@ -2,7 +2,7 @@
 import React from 'react';
 import {interpolate, useCurrentFrame} from 'remotion';
 import {C, EASE_IN_OUT, EASE_OUT} from '../theme';
-import type {Beat, JourneyScene, OverviewScene, StoryHookScene} from '../types';
+import type {Beat, JourneyScene, OverviewScene, StageScene, StoryHookScene} from '../types';
 import {Backdrop, Captions, Chip, CountUp, SceneFrame, fadeUp, useIn, usePop, usePortrait} from '../components/ui';
 import {Crowd, Lever, PeopleGrid, Person, Phone, Skyline} from '../components/Silhouettes';
 import {JourneyMap} from '../components/JourneyMap';
@@ -378,7 +378,10 @@ export const Journey: React.FC<SceneProps<JourneyScene> & {showCaptions: boolean
   const loopPulse = loopAt === null ? 0 : Math.max(0, Math.sin(Math.max(0, f - loopAt) / 5)) * interpolate(f, [loopAt, loopAt + 6, loopAt + 70, loopAt + 90], [0, 1, 1, 0], clamp);
   const puzzleAt = scene.puzzleCue ? cueAt(plan, scene.narration, scene.puzzleCue, 0.95) : null;
   const glowAt = scene.glowCue ? cueAt(plan, scene.narration, scene.glowCue, 0.7) : null;
-  const glow = glowAt !== null && f >= glowAt && f < glowAt + 70 ? interpolate(f, [glowAt, glowAt + 60], [0, n + 1], {...clamp, easing: EASE_IN_OUT}) : null;
+  const glowEnd = glowAt === null ? 0 : scene.glowEndCue ? Math.max(glowAt + 30, cueAt(plan, scene.narration, scene.glowEndCue, 0.8)) : glowAt + 60;
+  const glow = glowAt !== null && f >= glowAt && f < glowEnd + 10 ? interpolate(f, [glowAt, glowEnd], [0, n + 1], {...clamp, easing: EASE_IN_OUT}) : null;
+  const focusAt = scene.focusCue ? cueAt(plan, scene.narration, scene.focusCue, 0.6) : Infinity;
+  const mapFade = Number.isFinite(focusAt) ? interpolate(f, [focusAt, focusAt + 14], [1, 0.08], clamp) : 1;
   const mark = (stop: {mark?: 'loop' | 'puzzle'}, shown: number) => ({
     mark: stop.mark,
     markShown: stop.mark === 'puzzle' && puzzleAt !== null ? interpolate(f, [puzzleAt, puzzleAt + 12], [0, 1], clamp) : shown,
@@ -393,6 +396,7 @@ export const Journey: React.FC<SceneProps<JourneyScene> & {showCaptions: boolean
         <div style={{fontSize: portrait ? 60 : 54, fontWeight: 700, color: C.ink}}>{scene.title ?? 'خريطة الرحلة'}</div>
       </div>
       <Drift frames={plan.frames}>
+      <div style={{position: 'absolute', inset: 0, opacity: mapFade}}>
       <JourneyMap
         portrait={portrait}
         ghost={walking ? 0 : interpolate(f, [0, 12, destAt, destAt + 20], [0, 1, 1, 0], clamp)}
@@ -404,6 +408,7 @@ export const Journey: React.FC<SceneProps<JourneyScene> & {showCaptions: boolean
         stations={scene.stations.map((s, i) => ({label: s.label, shown: pop(times[i]), ...mark(s, pop(times[i]))}))}
         destination={{label: scene.destination.label, shown: pop(destAt), ...mark(scene.destination, pop(destAt))}}
       />
+      </div>
       <Moments moments={scene.moments} plan={plan} narration={scene.narration} />
       </Drift>
       {/* sounds: each stop pops in as it is named, the destination chimes, the loop asks, the puzzle sparkles */}
@@ -417,6 +422,42 @@ export const Journey: React.FC<SceneProps<JourneyScene> & {showCaptions: boolean
       {glowAt !== null ? <Sfx at={glowAt} name="whoosh" volume={0.8} /> : null}
       {loopAt !== null ? <Sfx at={loopAt} name="question" /> : null}
       {puzzleAt !== null ? <Sfx at={puzzleAt} name="shimmer" /> : null}
+      {showCaptions ? <Captions captions={plan.captions} /> : null}
+    </SceneFrame>
+  );
+};
+
+// ------------------------------------------------------------------ STAGE (a station told through explainer moments)
+const StationChip: React.FC<{label: string; station: number; total: number; p: number}> = ({label, station, total, p}) => (
+  <div style={{position: 'absolute', top: 116, right: 72, display: 'flex', alignItems: 'center', gap: 18, direction: 'rtl', opacity: p, transform: `translateY(${(1 - p) * -12}px)`}}>
+    <Chip size={28} color={C.ink} style={{fontWeight: 700}}>
+      {label}
+    </Chip>
+    {station > 0 ? (
+      <div style={{display: 'flex', alignItems: 'center', gap: 8}}>
+        {Array.from({length: total}, (_, i) => (
+          <div key={i} style={{width: i + 1 === station ? 30 : 12, height: 12, borderRadius: 99, background: i + 1 <= station ? C.blue : C.line, opacity: i + 1 < station ? 0.45 : 1}} />
+        ))}
+        <svg width={22} height={26} viewBox="0 0 22 26">
+          <rect x={2} y={2} width={3} height={22} rx={1.5} fill={C.ink3} />
+          <path d="M5 3 L20 8 L5 13 Z" fill={C.green} />
+        </svg>
+      </div>
+    ) : null}
+  </div>
+);
+
+export const Stage: React.FC<SceneProps<StageScene> & {showCaptions: boolean}> = (props) => {
+  const {scene, plan, showCaptions} = props;
+  const head = useIn(4, 16);
+  return (
+    <SceneFrame frames={plan.frames}>
+      <Backdrop tint={C.blue} />
+      <TopBar episode={props.episode} brand={props.brand} />
+      {scene.label ? <StationChip label={scene.label} station={scene.station ?? 0} total={5} p={head} /> : null}
+      <Drift frames={plan.frames}>
+        <Moments moments={scene.moments} plan={plan} narration={scene.narration} />
+      </Drift>
       {showCaptions ? <Captions captions={plan.captions} /> : null}
     </SceneFrame>
   );

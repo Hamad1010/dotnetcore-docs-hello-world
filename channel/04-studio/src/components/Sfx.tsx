@@ -21,7 +21,9 @@ export type SfxName =
   | 'ping'
   | 'coin'
   | 'thud'
-  | 'question';
+  | 'question'
+  | 'buzz'
+  | 'click';
 
 const SECONDS: Record<SfxName, number> = {
   pop: 0.21,
@@ -42,6 +44,8 @@ const SECONDS: Record<SfxName, number> = {
   coin: 0.5,
   thud: 0.34,
   question: 0.42,
+  buzz: 0.58,
+  click: 0.1,
 };
 
 // Default level of each sound under a voice at -16 LUFS.
@@ -64,6 +68,8 @@ const LEVEL: Record<SfxName, number> = {
   coin: 0.42,
   thud: 0.4,
   question: 0.2,
+  buzz: 0.4,
+  click: 0.45,
 };
 
 /** True when the sound effects exist (`npm run music -- sfx`); Episode.tsx provides it. */

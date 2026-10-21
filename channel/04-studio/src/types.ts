@@ -84,7 +84,16 @@ type MomentBase = {
   /** moves (and shrinks) to another slot when `moveCue` is said, making room for what comes next */
   moveTo?: MomentSlot;
   moveCue?: string;
+  /** a made-up example, not a real case: labelled «مثال توضيحي» on screen (CLAUDE.md rule 1) */
+  illustration?: boolean;
+  /** where a number comes from, in a small line under the moment */
+  source?: string;
+  /** seconds into the scene, for a scene with no narration (an end card); replaces `cue` */
+  at?: number;
 };
+
+/** One side of a comparison. */
+export type Side = {title: string; value: string; unit?: string; note?: string; /** the note waits for this word */ noteCue?: string; tone?: Tone; cue?: string};
 
 /** Explainer visuals that appear on the narrator's words, so every sentence is seen as well as heard. */
 export type Moment = MomentBase &
@@ -92,7 +101,7 @@ export type Moment = MomentBase &
     | {kind: 'date'; month?: string; year: string; to?: string; toCue?: string; note?: string; noteCue?: string}
     | {
         kind: 'profile';
-        icon?: 'person' | 'pair' | 'building' | 'chat';
+        icon?: 'person' | 'pair' | 'building' | 'chat' | 'camera';
         title: string;
         /** the title types in when this word is said (until then a blank bar: the name isn't known yet) */
         titleCue?: string;
@@ -101,13 +110,27 @@ export type Moment = MomentBase &
         tone?: Tone;
         fields?: {label: string; value: string; cue?: string; note?: string; noteCue?: string}[];
       }
-    | {kind: 'stamp'; text: string; tone?: Tone}
+    | {kind: 'stamp'; text: string; tone?: Tone; /** a smaller stamp, for the corner of a card */ small?: boolean}
     | {kind: 'quote'; who: string; meta?: string; text: string; textCue?: string; original?: string}
     | {kind: 'count'; value: string; unit?: string; label?: string; tone?: Tone}
     | {kind: 'question'; text?: string}
     | {kind: 'share'; shape: 'saudi' | 'world'; part: number; whole: number; title?: string; value?: string; label: string; fillCue?: string; tone?: Tone}
-    | {kind: 'chips'; title?: string; items: {text: string; cue?: string; crossed?: boolean}[]}
-    | {kind: 'people'; count: number; cols?: number; value?: string; label?: string; tone?: Tone}
+    | {kind: 'chips'; title?: string; items: {text: string; cue?: string; crossed?: boolean}[]; /** bigger chips, for a punchline on the stage */ big?: boolean}
+    | {
+        kind: 'people';
+        count: number;
+        cols?: number;
+        value?: string;
+        label?: string;
+        tone?: Tone;
+        /** the last `subs` people in another colour (the two reserves of a football team) */
+        subs?: number;
+        /** the last `fade` people fade and get crossed out when `fadeCue` is said (3 of 4 visitors lost) */
+        fade?: number;
+        fadeCue?: string;
+        /** the first person lights up when `highlightCue` is said ("one device for every 6 people") */
+        highlightCue?: string;
+      }
     | {
         kind: 'tally';
         /** "one riyal every second": coins drop each second from `startCue`, race from `fastCue`, `total` lands at `resultCue` */
@@ -122,8 +145,55 @@ export type Moment = MomentBase &
         note?: string;
       }
     | {kind: 'send'; item: string; from: MomentSlot; to: MomentSlot; tone?: Tone}
-    | {kind: 'mystery'; label?: string}
+    | {kind: 'mystery'; label?: string; /** the hidden thing is shown (a phone) when this word is said */ revealCue?: string}
+    /** a big title on the stage, with an optional number badge and a line under it */
+    | {kind: 'headline'; text: string; sub?: string; /** the sub line waits for this word */ subCue?: string; badge?: string; tone?: Tone}
+    /** a nut and a wrench: the hand tries (`tryCue`) and fails (`stuckCue`), the handle grows (`longCue`), the nut
+     * turns (`turnCue`) or the wrench slips (`slipCue`) */
+    | {kind: 'wrench'; tryCue?: string; stuckCue?: string; longCue?: string; turnCue?: string; slipCue?: string; label?: string; doneLabel?: string}
+    /** a day as a 24-hour dial that fills */
+    | {kind: 'clock'; hours?: number; label?: string; labelCue?: string}
+    /** many copies of one shape: "15 times the population of Saudi Arabia" */
+    | {kind: 'times'; count: number; shape: 'saudi' | 'person' | 'device' | 'door'; value?: string; label?: string; tone?: Tone; mark?: string; /** the marks land one by one from this word ("no… no… no") */ markCue?: string}
+    /** a self-check: one question at a time with progress dots, then the result bands */
+    | {
+        kind: 'quiz';
+        title?: string;
+        hint?: string;
+        items: {cue: string; text: string; sub?: string; subCue?: string}[];
+        /** the question that closes the self-check ("كم إصبع نزلت؟"), shown before the bands */
+        ask?: {cue: string; text: string};
+        bands?: {cue: string; range: string; text: string; tone?: Tone}[];
+      }
+    /** two things side by side */
+    | {kind: 'versus'; title?: string; a: Side; b: Side; mid?: string}
+    /** a phone with chat bubbles arriving on their words */
+    | {kind: 'chat'; title?: string; bubbles: {cue: string; text: string; me?: boolean}[]; badge?: string; badgeCue?: string}
+    /** a sum built term by term; `blank` terms stay empty boxes (a puzzle); `group` frames terms i..j (brackets) */
+    | {kind: 'math'; title?: string; terms: {text?: string; cue?: string; blank?: boolean; label?: string; op?: boolean}[]; group?: [number, number]; result?: {text: string; cue?: string; tone?: Tone}}
+    /** numbered steps, each on its word; the earlier ones get a tick */
+    | {kind: 'steps'; title?: string; items: {cue: string; text: string; sub?: string; subCue?: string}[]; tone?: Tone}
+    /** a phone's emergency alert, typed as it is read */
+    | {kind: 'alert'; title: string; text: string; textCue?: string; original?: string; time?: string; date?: string}
+    /** a big button pressed on a word */
+    | {kind: 'button'; text: string; pressCue?: string; tone?: Tone}
+    /** a globe that turns from Riyadh to a place and drops a pin */
+    | {kind: 'globe'; lat: number; lon: number; label: string; sub?: string; subCue?: string}
+    /** a search bar typing a query, with a rising trend line */
+    | {kind: 'search'; query: string; note?: string; noteCue?: string}
+    /** a case file: the next episode */
+    | {kind: 'file'; title: string; text: string; note?: string}
   );
+
+/** A station of the journey (or any part) told only through explainer moments, under a chip saying where we are. */
+export type StageScene = Base & {
+  type: 'stage';
+  /** e.g. "المحطة 3 · الرافعة 1" */
+  label?: string;
+  /** the journey's station (1-based) for the little progress row; 0 = none */
+  station?: number;
+  moments: Moment[];
+};
 
 /** Business format, part 1: the "stop scrolling" short story told as a timeline of numbers over silhouettes. */
 export type StoryHookScene = Base & {
@@ -170,8 +240,11 @@ export type JourneyScene = Base & {
   loopCue?: string;
   /** the word that shows the puzzle badge */
   puzzleCue?: string;
-  /** the word that sends a light along the whole road ("وخلك معي للآخر…") */
+  /** the word that sends a light along the whole road ("وخلك معي للآخر…"), and the word where it arrives */
   glowCue?: string;
+  glowEndCue?: string;
+  /** from this word the map steps back (fades) so the moments take the stage */
+  focusCue?: string;
   moments?: Moment[];
 };
 
@@ -186,7 +259,8 @@ export type Scene =
   | EndCardScene
   | StoryHookScene
   | OverviewScene
-  | JourneyScene;
+  | JourneyScene
+  | StageScene;
 
 export type Episode = {
   id: string;

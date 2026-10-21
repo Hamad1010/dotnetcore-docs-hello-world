@@ -371,6 +371,17 @@ const SFX = {
       return (Math.sin(ph) + 0.2 * Math.sin(2 * ph)) * Math.min(1, t / 0.015) * Math.exp(-Math.max(0, t - 0.2) * 14);
     }), {peak: 0.45});
   },
+  // a phone vibrating (two buzzes)
+  buzz: () => {
+    const body = (t) => (t < 0.2 || (t > 0.27 && t < 0.47) ? 1 : 0);
+    const x = make(0.55, (t) => Math.tanh(3 * Math.sin(2 * Math.PI * 150 * t)) * body(t) * (0.85 + 0.15 * noise()));
+    return finish(svf(x, 900, 0.7, 'low'), {peak: 0.6});
+  },
+  // a button pressed
+  click: () => {
+    const hi = svf(noiseBuf(sec(0.08)), 2500, 0.7, 'high');
+    return finish(make(0.08, (t, i) => hi[i] * (Math.exp(-t * 900) + 0.6 * (t > 0.022 ? Math.exp(-(t - 0.022) * 900) : 0)) + Math.sin(2 * Math.PI * 2600 * t) * Math.exp(-t * 250) * 0.3), {peak: 0.6});
+  },
   whoosh,
 };
 

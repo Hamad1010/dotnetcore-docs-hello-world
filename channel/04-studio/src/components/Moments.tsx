@@ -7,25 +7,16 @@ import {geoContains, geoEqualEarth, geoMercator, geoPath, type GeoPermissibleObj
 import {feature} from 'topojson-client';
 import world from 'world-atlas/countries-110m.json';
 import {C, EASE_IN_OUT, EASE_OUT, FONT} from '../theme';
-import type {Moment, MomentSlot, Tone} from '../types';
+import type {Moment, MomentSlot} from '../types';
 import type {ScenePlan} from '../lib/plan';
 import {cueAt, wordFrames} from '../scenes/common';
 import {usePortrait} from './ui';
-import {PeopleGrid, Person} from './Silhouettes';
+import {PeopleGrid} from './Silhouettes';
 import {Sfx, type SfxName} from './Sfx';
+import {Avatar, CARD, clamp, counted, DEEP, LTR, numDir, ramp, TONE, type Clock} from './moment-kit';
+import * as K from './MomentKinds';
 
-export const TONE: Record<Tone, {main: string; soft: string}> = {
-  neg: {main: C.red, soft: C.redSoft},
-  pos: {main: C.green, soft: C.greenSoft},
-  accent: {main: C.blue, soft: C.blueSoft},
-  gold: {main: '#C98A00', soft: C.yellowSoft},
-};
-const clamp = {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'} as const;
-const DEEP = '0 2px 6px rgba(28,35,51,0.08), 0 30px 60px rgba(28,35,51,0.18)';
-const CARD: React.CSSProperties = {background: C.surface, borderRadius: 32, boxShadow: DEEP, direction: 'rtl', fontFamily: FONT, color: C.ink};
-const LTR: React.CSSProperties = {direction: 'ltr', unicodeBidi: 'isolate'};
-/** 0 → 1 over `dur` frames from frame `at`; stays 0 when `at` never comes (Infinity). */
-const ramp = (f: number, at: number, dur: number, easing = EASE_OUT) => (Number.isFinite(at) ? interpolate(f, [at, at + dur], [0, 1], {...clamp, easing}) : 0);
+export {TONE};
 
 const SLOTS: Record<MomentSlot, [number, number]> = {
   'top-right': [1440, 280],
@@ -54,42 +45,6 @@ const SLOTS_PORTRAIT: Record<MomentSlot, [number, number]> = {
   floor: [540, 1640],
   stage: [540, 960],
 };
-
-type Clock = {f: number; inAt: number; at: (cue: string | undefined, fallback?: number) => number};
-
-/** The leading number of a value ("37 سنة", "250 مليون") counted up from 0 over `dur` frames. */
-const counted = (value: string, p: number) => {
-  const m = value.match(/^(\d+)(.*)$/s);
-  if (!m) return value;
-  const target = parseInt(m[1], 10);
-  const start = target > 1900 && target < 2100 ? target - 30 : 0;
-  return `${Math.round(start + (target - start) * p)}${m[2]}`;
-};
-
-const Avatar: React.FC<{icon: 'person' | 'pair' | 'building' | 'chat'; size: number; tone: {main: string; soft: string}}> = ({icon, size, tone}) => (
-  <div style={{width: size, height: size, borderRadius: 999, background: tone.soft, display: 'flex', alignItems: 'flex-end', justifyContent: 'center', overflow: 'hidden', flex: `0 0 ${size}px`}}>
-    {icon === 'person' ? <Person size={size * 0.86} color={C.ink} /> : null}
-    {icon === 'pair' ? (
-      <div style={{display: 'flex', alignItems: 'flex-end', marginBottom: -2}}>
-        <Person size={size * 0.62} color={C.ink} />
-        <Person size={size * 0.74} color={tone.main} style={{marginRight: -size * 0.18}} />
-      </div>
-    ) : null}
-    {icon === 'building' ? (
-      <svg width={size * 0.62} height={size * 0.62} viewBox="0 0 24 24" style={{marginBottom: size * 0.19}}>
-        <rect x="4" y="3" width="16" height="19" rx="2" fill={C.ink} />
-        {[0, 1, 2, 3].map((r) => [0, 1].map((c) => <rect key={`${r}${c}`} x={7.5 + c * 6} y={6 + r * 3.6} width="3" height="2" rx="0.5" fill="#fff" opacity={0.7} />))}
-        <rect x="10.5" y="18" width="3" height="4" fill={tone.main} />
-      </svg>
-    ) : null}
-    {icon === 'chat' ? (
-      <svg width={size * 0.6} height={size * 0.6} viewBox="0 0 24 24" style={{marginBottom: size * 0.2}}>
-        <path d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.7-1.2A9 9 0 1 0 12 3z" fill={tone.main} />
-        <path d="M8 10.5h8M8 13.5h5" stroke="#fff" strokeWidth="1.8" strokeLinecap="round" />
-      </svg>
-    ) : null}
-  </div>
-);
 
 // ------------------------------------------------------------------ date: a calendar page (and years flipping)
 const STEP = 7; // frames per year when the years flip
@@ -157,9 +112,9 @@ const ProfileCard: React.FC<{m: Extract<Moment, {kind: 'profile'}>; c: Clock}> =
         return (
           <div key={i} style={{borderTop: `2px solid ${C.line}`, paddingTop: 14, opacity: c.f < at ? 0.35 : 1}}>
             <div style={{display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', gap: 20}}>
-              <div style={{fontSize: 28, fontWeight: 500, color: C.ink3}}>{fd.label}</div>
+              <div style={{fontSize: 28, fontWeight: 500, color: C.ink3, minWidth: 0}}>{fd.label}</div>
               {c.f >= at ? (
-                <div style={{fontSize: 40, fontWeight: 700, color: tone.main, transform: `translateX(${(1 - p) * -30}px)`, opacity: p}}>{counted(fd.value, interpolate(c.f, [at, at + 18], [0, 1], clamp))}</div>
+                <div style={{fontSize: 40, fontWeight: 700, color: tone.main, whiteSpace: 'nowrap', flexShrink: 0, transform: `translateX(${(1 - p) * -30}px)`, opacity: p}}>{counted(fd.value, interpolate(c.f, [at, at + 18], [0, 1], clamp))}</div>
               ) : (
                 <div style={{width: 170, height: 24, borderRadius: 10, background: C.line}} />
               )}
@@ -187,12 +142,12 @@ const StampMark: React.FC<{m: Extract<Moment, {kind: 'stamp'}>; c: Clock}> = ({m
   return (
     <div
       style={{
-        border: `9px solid ${tone.main}`,
+        border: `${m.small ? 7 : 9}px solid ${tone.main}`,
         color: tone.main,
-        borderRadius: 22,
-        padding: '4px 40px 10px',
+        borderRadius: m.small ? 18 : 22,
+        padding: m.small ? '2px 28px 6px' : '4px 40px 10px',
         fontFamily: FONT,
-        fontSize: 92,
+        fontSize: m.small ? 60 : 92,
         fontWeight: 700,
         whiteSpace: 'nowrap',
         background: 'rgba(255,255,255,0.82)',
@@ -256,7 +211,7 @@ const CountCard: React.FC<{m: Extract<Moment, {kind: 'count'}>; c: Clock}> = ({m
   return (
     <div style={{...CARD, padding: '28px 44px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6}}>
       <div style={{display: 'flex', alignItems: 'baseline', gap: 14, color: tone.main}}>
-        <span style={{...LTR, fontSize: 110, fontWeight: 700, lineHeight: 1}}>{counted(m.value, p)}</span>
+        <span style={{...numDir(m.value), fontSize: 110, fontWeight: 700, lineHeight: 1}}>{counted(m.value, p)}</span>
         {m.unit ? <span style={{fontSize: 42, fontWeight: 700}}>{m.unit}</span> : null}
       </div>
       {m.label ? <div style={{fontSize: 32, color: C.ink2, fontWeight: 500}}>{m.label}</div> : null}
@@ -351,7 +306,7 @@ const ChipRow: React.FC<{m: Extract<Moment, {kind: 'chips'}>; c: Clock}> = ({m, 
       const p = interpolate(c.f, [at, at + 10], [0, 1], {...clamp, easing: EASE_OUT});
       const cross = it.crossed ? interpolate(c.f, [at + 8, at + 16], [0, 1], {...clamp, easing: EASE_OUT}) : 0;
       return (
-        <div key={i} style={{position: 'relative', fontSize: 38, fontWeight: 700, color: cross > 0.5 ? C.ink3 : C.ink, background: C.surface, borderRadius: 999, padding: '10px 32px', boxShadow: DEEP, whiteSpace: 'nowrap', opacity: p, transform: `scale(${0.8 + 0.2 * p})`}}>
+        <div key={i} style={{position: 'relative', fontSize: m.big ? 54 : 38, fontWeight: 700, color: cross > 0.5 ? C.ink3 : C.ink, background: C.surface, borderRadius: 999, padding: m.big ? '16px 46px' : '10px 32px', boxShadow: DEEP, whiteSpace: 'nowrap', opacity: p, transform: `scale(${0.8 + 0.2 * p})`}}>
           {it.text}
           {cross > 0 ? <div style={{position: 'absolute', right: 14, top: '52%', height: 7, width: `calc(${cross} * (100% - 28px))`, background: C.red, borderRadius: 4, transform: 'rotate(-6deg)'}} /> : null}
           <Sfx at={at} name="tick" />
@@ -367,17 +322,24 @@ const PeopleCard: React.FC<{m: Extract<Moment, {kind: 'people'}>; c: Clock}> = (
   const tone = TONE[m.tone ?? 'accent'];
   const p = interpolate(c.f, [c.inAt, c.inAt + 30], [0, 1], {...clamp, easing: EASE_OUT});
   const cols = m.cols ?? 11;
+  const fadeAt = m.fade ? c.at(m.fadeCue, 0.7) : Infinity;
+  const fade = ramp(c.f, fadeAt, 14);
+  const hiAt = m.highlightCue ? c.at(m.highlightCue, 0.5) : Infinity;
+  const hi = ramp(c.f, hiAt, 10);
   return (
     <div style={{...CARD, padding: '24px 40px', display: 'flex', alignItems: 'center', gap: 36}}>
       {m.value ? (
         <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-          <span style={{...LTR, fontSize: 104, fontWeight: 700, lineHeight: 1, color: tone.main}}>{counted(m.value, p)}</span>
+          <span style={{...numDir(m.value), fontSize: 104, fontWeight: 700, lineHeight: 1, color: tone.main}}>{counted(m.value, p)}</span>
           {m.label ? <span style={{fontSize: 34, fontWeight: 700, color: C.ink, whiteSpace: 'nowrap'}}>{m.label}</span> : null}
         </div>
       ) : null}
-      <PeopleGrid count={m.count} cols={cols} cell={32} progress={p} color={tone.main} />
+      <PeopleGrid count={m.count} cols={cols} cell={m.count <= 8 ? 70 : 32} progress={p} color={tone.main} highlight={hi}
+        subs={m.subs} fade={m.fade} fadeProgress={fade} />
       <Sfx at={c.inAt} name="pop" />
       <Sfx at={c.inAt + 3} name="roll" />
+      {Number.isFinite(fadeAt) ? <Sfx at={fadeAt} name="strike" /> : null}
+      {Number.isFinite(hiAt) ? <Sfx at={hiAt} name="ping" /> : null}
     </div>
   );
 };
@@ -485,25 +447,35 @@ const SendItem: React.FC<{m: Extract<Moment, {kind: 'send'}>; c: Clock; portrait
 // ------------------------------------------------------------------ mystery: something in your hand you haven't noticed
 const MysteryHand: React.FC<{m: Extract<Moment, {kind: 'mystery'}>; c: Clock}> = ({m, c}) => {
   const float = Math.sin((c.f - c.inAt) / 9) * 5;
-  const glow = 0.16 + 0.08 * Math.sin((c.f - c.inAt) / 6);
+  const revealAt = m.revealCue ? c.at(m.revealCue, 0.5) : Infinity;
+  const r = ramp(c.f, revealAt, 12);
+  const glow = 0.16 + 0.08 * Math.sin((c.f - c.inAt) / 6) + 0.25 * r;
   return (
     <div style={{display: 'flex', alignItems: 'center', gap: 26, fontFamily: FONT, direction: 'rtl'}}>
-      <svg width={190} height={165} viewBox="0 0 240 208" style={{overflow: 'visible', transform: `translateY(${float}px)`}}>
-        <circle cx={120} cy={84} r={86} fill={C.yellow} opacity={glow} />
-        <g style={{filter: 'blur(3.5px)'}}>
+      <svg width={190 + 70 * r} height={165 + 60 * r} viewBox="0 0 240 208" style={{overflow: 'visible', transform: `translateY(${float}px)`}}>
+        <circle cx={120} cy={84} r={86} fill={r > 0.5 ? C.green : C.yellow} opacity={glow} />
+        <g style={{filter: `blur(${3.5 * (1 - r)}px)`}}>
           <rect x={80} y={8} width={80} height={150} rx={16} fill={C.ink} />
-          <rect x={88} y={22} width={64} height={118} rx={7} fill={C.ink2} />
+          <rect x={88} y={22} width={64} height={118} rx={7} fill={r > 0 ? '#EAF1FF' : C.ink2} opacity={0.35 + 0.65 * r} />
+          {r > 0
+            ? [0, 1, 2, 3, 4, 5].map((k) => (
+                <rect key={k} x={96 + (k % 2) * 26} y={34 + Math.floor(k / 2) * 30} width={20} height={20} rx={5} fill={[C.blue, C.green, C.yellow, C.red, C.blue, C.green][k]} opacity={r} />
+              ))
+            : null}
         </g>
         <path d="M58 208 C56 168 70 140 98 132 L146 132 C174 140 188 168 186 208 Z" fill={C.ink2} />
         {[0, 1, 2, 3].map((k) => <rect key={k} x={56} y={70 + k * 20} width={46} height={18} rx={9} fill={C.ink2} stroke={C.bg} strokeWidth={2} />)}
         <rect x={140} y={92} width={50} height={20} rx={10} fill={C.ink2} stroke={C.bg} strokeWidth={2} transform="rotate(-38 165 102)" />
-        <circle cx={120} cy={74} r={32} fill={C.yellow} />
-        <text x={120} y={89} textAnchor="middle" fontFamily={FONT} fontWeight={700} fontSize={44} fill={C.ink}>
-          ؟
-        </text>
+        <g transform={`translate(${120 + 70 * r} ${74 - 80 * r})`}>
+          <circle r={32} fill={r > 0.5 ? C.green : C.yellow} />
+          <text y={15} textAnchor="middle" fontFamily={FONT} fontWeight={700} fontSize={44} fill={r > 0.5 ? '#fff' : C.ink}>
+            {r > 0.5 ? '!' : '؟'}
+          </text>
+        </g>
       </svg>
       {m.label ? <div style={{fontSize: 40, fontWeight: 700, color: C.ink, whiteSpace: 'nowrap'}}>{m.label}</div> : null}
       <Sfx at={c.inAt} name="shimmer" />
+      {Number.isFinite(revealAt) ? <Sfx at={revealAt} name="ping" /> : null}
     </div>
   );
 };
@@ -511,8 +483,8 @@ const MysteryHand: React.FC<{m: Extract<Moment, {kind: 'mystery'}>; c: Clock}> =
 // ------------------------------------------------------------------ the layer
 type Timed = {m: Moment; inAt: number; outAt: number; moveAt: number};
 
-const schedule = (moments: Moment[], plan: ScenePlan, narration: string): Timed[] => {
-  const inAt = moments.map((m, i) => cueAt(plan, narration, m.cue, (i + 0.5) / Math.max(1, moments.length)));
+const schedule = (moments: Moment[], plan: ScenePlan, narration: string, fps: number): Timed[] => {
+  const inAt = moments.map((m, i) => (m.at !== undefined ? Math.round(m.at * fps) : cueAt(plan, narration, m.cue, (i + 0.5) / Math.max(1, moments.length))));
   const until = moments.map((m) => (m.until ? cueAt(plan, narration, m.until, 1) : null));
   const slot = (m: Moment) => m.slot ?? 'stage';
   const out: number[] = moments.map((m, i) => {
@@ -538,7 +510,7 @@ export const Moments: React.FC<{moments?: Moment[]; plan: ScenePlan; narration: 
   const slots = portrait ? SLOTS_PORTRAIT : SLOTS;
   return (
     <>
-      {schedule(moments, plan, narration).map(({m, inAt, outAt, moveAt}, i) => {
+      {schedule(moments, plan, narration, fps).map(({m, inAt, outAt, moveAt}, i) => {
         const c: Clock = {f, inAt, at: (cue, fallback = 0.5) => cueAt(plan, narration, cue, fallback)};
         const shown = f >= inAt && f < outAt + 12;
         const sounds: SfxName | null = Number.isFinite(moveAt) ? 'swish' : null;
@@ -556,6 +528,20 @@ export const Moments: React.FC<{moments?: Moment[]; plan: ScenePlan; narration: 
           else if (m.kind === 'people') body = <PeopleCard m={m} c={c} />;
           else if (m.kind === 'tally') body = <TallyCard m={m} c={c} />;
           else if (m.kind === 'mystery') body = <MysteryHand m={m} c={c} />;
+          else if (m.kind === 'headline') body = <K.Headline m={m} c={c} />;
+          else if (m.kind === 'wrench') body = <K.Wrench m={m} c={c} />;
+          else if (m.kind === 'clock') body = <K.DayClock m={m} c={c} />;
+          else if (m.kind === 'times') body = <K.Times m={m} c={c} />;
+          else if (m.kind === 'quiz') body = <K.Quiz m={m} c={c} />;
+          else if (m.kind === 'versus') body = <K.Versus m={m} c={c} />;
+          else if (m.kind === 'chat') body = <K.Chat m={m} c={c} />;
+          else if (m.kind === 'math') body = <K.MathSum m={m} c={c} />;
+          else if (m.kind === 'steps') body = <K.Steps m={m} c={c} />;
+          else if (m.kind === 'alert') body = <K.Alert m={m} c={c} plan={plan} narration={narration} />;
+          else if (m.kind === 'button') body = <K.PressButton m={m} c={c} />;
+          else if (m.kind === 'globe') body = <K.PlaceGlobe m={m} c={c} />;
+          else if (m.kind === 'search') body = <K.SearchTrend m={m} c={c} />;
+          else if (m.kind === 'file') body = <K.CaseFile m={m} c={c} />;
         }
         const [sx, sy] = slots[m.slot ?? 'stage'];
         const [mx, my] = m.moveTo ? slots[m.moveTo] : [sx, sy];
@@ -577,6 +563,16 @@ export const Moments: React.FC<{moments?: Moment[]; plan: ScenePlan; narration: 
                 }}
               >
                 {body}
+                {m.illustration ? (
+                  <div style={{position: 'absolute', ...(m.kind === 'chat' ? {bottom: -22, left: '50%', transform: 'translateX(-50%)'} : {top: -22, left: 18}), fontFamily: FONT, fontSize: 24, fontWeight: 700, color: '#8A5E00', background: C.yellowSoft, border: `2px solid ${C.yellow}`, borderRadius: 999, padding: '4px 16px', whiteSpace: 'nowrap'}}>
+                    مثال توضيحي
+                  </div>
+                ) : null}
+                {m.source ? (
+                  <div style={{position: 'absolute', top: '100%', left: 0, right: 0, marginTop: 14, textAlign: 'center', fontFamily: FONT, direction: 'rtl', fontSize: 22, fontWeight: 500, color: C.ink3, whiteSpace: 'nowrap'}}>
+                    المصدر: {m.source}
+                  </div>
+                ) : null}
               </div>
             ) : null}
             {sounds && f < outAt ? <Sfx at={moveAt} name={sounds} /> : null}
