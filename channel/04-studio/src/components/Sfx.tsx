@@ -52,7 +52,7 @@ const LEVEL: Record<SfxName, number> = {
   type: 0.34,
   type2: 0.34,
   swish: 0.26,
-  whoosh: 0.22,
+  whoosh: 0.34,
   strike: 0.3,
   stamp: 0.5,
   impact: 0.42,
