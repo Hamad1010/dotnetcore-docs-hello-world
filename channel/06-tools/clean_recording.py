@@ -5,7 +5,8 @@
 
 1. Listens: transcribes the recording with word times (ElevenLabs speech-to-text. In a cloud session the key is
    the environment's network secret; on a computer, set ELEVENLABS_API_KEY).
-2. Cuts it into the episode's scenes at the Booth's quiet countdowns (pauses of 2.5 s or more). Drops what the
+2. Cuts it into the episode's scenes at the Booth's quiet countdowns (pauses of 2.5 s or more), or, when the owner
+   reads straight through, where the script says each scene starts. Drops what the
    viewer shouldn't hear: a sentence said again after a "Mistake" pause, a word said twice by accident
    ("شغل، شغل"), a stutter ("كا-كانت"). Repetitions that are in the script ("ريال ريال") stay.
 3. Tightens long pauses: up to 0.7 s after a question or a full stop, 0.45 s after a comma, 0.3 s mid-sentence.
@@ -49,6 +50,15 @@ def spoken_words(narration):
     return re.sub(r'\s+', ' ', MARK.sub(r'\2', narration)).strip().split(' ')
 
 
+def heard_forms(narration):
+    """For each spoken word, the digits the speech-to-text may write instead: «ألفين» of {2009|ألفين وتسعة} → 2009."""
+    forms = []
+    for chunk in re.findall(r'(?:\{[^{}]*\}|[^\s{}])+', narration):
+        n = len(MARK.sub(r'\2', chunk).split())
+        forms += [MARK.sub(r'\1', chunk) if '{' in chunk else None] + [None] * (n - 1)
+    return forms
+
+
 def ffmpeg(*args):
     subprocess.run(['ffmpeg', '-y', '-hide_banner', '-loglevel', 'error', *args], check=True)
 
@@ -80,8 +90,9 @@ def write_wav(path, x):
         w.writeframes((np.clip(x, -1, 1) * 32767).astype(np.int16).tobytes())
 
 
-def split_parts(words, n_scenes):
-    """Groups of words, one per scene. A long pause followed by words already said is a retake, not a new part."""
+def split_parts(words, scenes):
+    """Groups of words, one per scene. A long pause followed by words already said is a retake, not a new part.
+    When the owner reads straight through (no Booth pauses between parts), the script says where each part starts."""
     groups, cur = [], [words[0]]
     for prev, nxt_i in zip(words, range(1, len(words))):
         nxt = words[nxt_i]
@@ -98,11 +109,33 @@ def split_parts(words, n_scenes):
             groups.append(cur)
             cur = [nxt]
     groups.append(cur)
-    if len(groups) != n_scenes:
-        for g in groups:
-            print('  part:', ' '.join(w['text'] for w in g)[:90])
-        sys.exit(f'found {len(groups)} parts but the episode has {n_scenes} scenes')
-    return groups
+
+    def starts_right(group, scene):  # the part opens with (most of) its scene's first three words
+        said = [norm(w) for w in spoken_words(scene['narration'])[:3]]
+        return sum(same(a, norm(w['text'])) >= 0.6 for a, w in zip(said, group[:3])) >= 2
+
+    if len(groups) == len(scenes) and all(starts_right(g, sc) for g, sc in zip(groups, scenes)):
+        return groups
+    flat = [w for g in groups for w in g]
+    script, forms, first = [], [], []
+    for scene in scenes:
+        first.append(len(script))
+        script += spoken_words(scene['narration'])
+        forms += heard_forms(scene['narration'])
+    first.append(len(script))
+    hit = align(script, flat, forms)
+    cuts = []
+    for k in range(1, len(scenes)):
+        before = [j for j in hit[first[k - 1]:first[k]] if j is not None]
+        after = [j for j in hit[first[k]:first[k + 1]] if j is not None]
+        if not before or not after:
+            sys.exit(f"couldn't find where «{scenes[k]['id']}» starts in the recording")
+        lo, hi = max(before), min(after)
+        # cut at the longest pause between this part's last word and the next part's first word
+        cuts.append(max(range(lo + 1, hi + 1), key=lambda j: flat[j]['start'] - flat[j - 1]['end']) if hi > lo else hi)
+    print(f'  {len(groups)} pause-separated part(s) for {len(scenes)} scenes: split where the script says each scene starts')
+    bounds = [0, *cuts, len(flat)]
+    return [flat[a:b] for a, b in zip(bounds, bounds[1:])]
 
 
 def plan_cuts(group, narration, x):
@@ -192,31 +225,41 @@ def same(a, b):
     return 1.0 if a == b else SequenceMatcher(None, a, b).ratio()
 
 
-def marks_for(narration, words, duration):
-    """Seconds at which each spoken word of the narration starts, aligned (fuzzy, in order) to what was heard."""
-    script = spoken_words(narration)
+def align(script, words, forms=None):
+    """For each script word, the index of the heard word it matches (fuzzy Needleman-Wunsch, in order), or None.
+    `forms` are other ways a word may be heard (digits for a number)."""
     a, b = [norm(w) for w in script], [norm(w['text']) for w in words]
+    alt = [norm(f) if f else None for f in (forms or [None] * len(a))]
     n, m = len(a), len(b)
-    # Needleman-Wunsch: a similar word pair scores up to +2, a skipped word -0.6.
+    # a similar word pair scores up to +2, a skipped word -0.6
     score = [[0.0] * (m + 1) for _ in range(n + 1)]
     for i in range(1, n + 1):
         score[i][0] = -0.6 * i
     for j in range(1, m + 1):
         score[0][j] = -0.6 * j
+    sims = [[max(same(a[i], b[j]), same(alt[i], b[j]) if alt[i] else 0.0) for j in range(m)] for i in range(n)]
     for i in range(1, n + 1):
         for j in range(1, m + 1):
-            sim = same(a[i - 1], b[j - 1])
+            sim = sims[i - 1][j - 1]
             score[i][j] = max(score[i - 1][j - 1] + (2 * sim if sim >= 0.6 else -1), score[i - 1][j] - 0.6, score[i][j - 1] - 0.6)
-    times, i, j = [None] * n, n, m
+    hit, i, j = [None] * n, n, m
     while i > 0 and j > 0:
-        sim = same(a[i - 1], b[j - 1])
+        sim = sims[i - 1][j - 1]
         if sim >= 0.6 and abs(score[i][j] - (score[i - 1][j - 1] + 2 * sim)) < 1e-9:
-            times[i - 1] = words[j - 1]['start']
+            hit[i - 1] = j - 1
             i, j = i - 1, j - 1
         elif abs(score[i][j] - (score[i - 1][j] - 0.6)) < 1e-9:
             i -= 1
         else:
             j -= 1
+    return hit
+
+
+def marks_for(narration, words, duration):
+    """Seconds at which each spoken word of the narration starts, aligned to what was heard."""
+    hit = align(spoken_words(narration), words, heard_forms(narration))
+    n = len(hit)
+    times = [None if j is None else words[j]['start'] for j in hit]
     known = [k for k, t in enumerate(times) if t is not None]
     if not known:
         return [round(duration * k / n, 3) for k in range(n)]
@@ -279,7 +322,7 @@ def main():
     x = read_wav(studio)
 
     timings, report = {}, []
-    for scene, group in zip(scenes, split_parts(words, len(scenes))):
+    for scene, group in zip(scenes, split_parts(words, scenes)):
         spans, removed = plan_cuts(group, scene['narration'], x)
         part = os.path.join(work, f"{scene['id']}.wav")
         write_wav(part, assemble(x, spans))

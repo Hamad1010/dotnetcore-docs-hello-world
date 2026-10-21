@@ -33,7 +33,7 @@ const loadEpisode = async (episodeId: string): Promise<EpisodeData> => {
   // Background sound is a channel-wide setting in 03-episodes/channel.json → "background": none | humming | calm
   const file = {humming: '_assets/music/humming.mp3', calm: '_assets/music/calm-pad.mp3', none: null}[brand.background ?? 'none'] ?? null;
   const music = file && (await exists(file)) ? file : null;
-  const sfx = await exists('_assets/sfx/whoosh.mp3');
+  const sfx = await exists('_assets/sfx/pop.mp3');
   return {episode, plan, brand, music, sfx};
 };
 

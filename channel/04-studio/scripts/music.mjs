@@ -1,7 +1,9 @@
 // Generates our own background music and sound effects (no licensing risk, no Content ID claims).
-//   npm run music              ->  03-episodes/_assets/music/calm-pad.mp3 + humming.mp3 + sfx/whoosh.mp3
-//   npm run music -- humming   ->  only the voice-only humming background
-// Pure math: soft chord pads + gentle bells + a small reverb, then encoded to MP3 with ffmpeg.
+//   npm run music            ->  03-episodes/_assets/music/calm-pad.mp3 + every sound effect in _assets/sfx/
+//   npm run music -- sfx     ->  only the sound effects
+// Pure math: soft chord pads + gentle bells + a small reverb for the music; noise, filters and short sine bursts for
+// the effects (pops, clicks, swishes, thuds, paper, coins: nothing melodic). The humming background (human voices, no
+// instruments) is made from real hummed clips instead: 06-tools/humming_bed.py.
 import fs from 'node:fs';
 import path from 'node:path';
 import {execFileSync} from 'node:child_process';
@@ -155,104 +157,6 @@ function music() {
   return [outL, outR];
 }
 
-
-// Voice-only "humming choir" (no instruments): additive synthesis of several hummed voices
-// ("mmm"/"ooh" spectra) with natural vibrato, pitch drift, staggered breaths and a small room.
-function humming() {
-  const chords = [
-    [45, 52, 57, 60, 64],
-    [41, 48, 57, 60, 65],
-    [48, 55, 60, 64, 67],
-    [43, 50, 55, 59, 62],
-  ];
-  const CH = 8;
-  const LOOP = CH * chords.length * 2;
-  const total = (LOOP + CH) * SR;
-  const L = new Float32Array(total);
-  const R = new Float32Array(total);
-  let seed = 11;
-  const rand = () => ((seed = (seed * 16807) % 2147483647) / 2147483647);
-  // spectral envelope of a soft hum: nasal murmur (~280 Hz) + a little "ooh" colour (~800 Hz)
-  const env = (f, ooh) => {
-    const res = (fc, bw) => 1 / (1 + ((f - fc) / bw) ** 2);
-    const hum = res(280, 140) + 0.12 * res(2300, 400);
-    const oo = res(320, 120) + 0.45 * res(850, 160) + 0.06 * res(2400, 300);
-    return ((1 - ooh) * hum + ooh * oo) * Math.exp(-f / 2600);
-  };
-  for (let c = 0; c * CH < LOOP + CH; c++) {
-    const notes = chords[c % chords.length];
-    const start = c * CH * SR;
-    for (const [k, m] of notes.entries()) {
-      for (let singer = 0; singer < 2; singer++) {
-        const f0 = midiHz(m) * Math.pow(2, ((rand() - 0.5) * 8) / 1200); // ±4 cents between singers
-        const ooh = singer === 0 ? 0.25 : 0.4;
-        const vibRate = 4.6 + rand() * 1.2;
-        const vibPh = rand() * 6.28;
-        const lag = Math.round((0.15 + rand() * 0.5) * SR); // singers don't start together
-        const len = (CH + 2.2) * SR;
-        const pan = 0.25 + 0.5 * rand();
-        const amp = (k === 0 ? 0.075 : 0.05) / Math.sqrt(2);
-        const K = Math.max(1, Math.floor(3800 / f0));
-        const weights = Array.from({length: K}, (_, h) => env((h + 1) * f0, ooh) / Math.sqrt(h + 1));
-        let phase = rand() * 6.28;
-        let drift = 0;
-        let nLo = 0;
-        let nHi = 0;
-        for (let i = 0; i < len; i++) {
-          const n = start + lag + i;
-          if (n >= total) break;
-          const t = i / SR;
-          // breath-shaped phrase envelope: soft attack, long release
-          const a = Math.min(1, t / 0.9) * Math.min(1, Math.max(0, (CH + 2.2 - t) / 1.6));
-          if (a <= 0) continue;
-          drift += (rand() - 0.5) * 0.00002 - drift * 0.0005;
-          const vib = 1 + 0.0045 * Math.sin(2 * Math.PI * vibRate * t + vibPh) * Math.min(1, t / 1.2);
-          const scoop = t < 0.18 ? Math.pow(2, (-25 * (1 - t / 0.18)) / 1200) : 1; // slide up into the note
-          phase += (2 * Math.PI * f0 * vib * scoop * (1 + drift)) / SR;
-          // sum harmonics with the Chebyshev recurrence: sin(kφ) = 2cos(φ)·sin((k-1)φ) − sin((k-2)φ)
-          const c1 = 2 * Math.cos(phase);
-          let s2 = 0;
-          let s1 = Math.sin(phase);
-          let y = weights[0] * s1;
-          for (let h = 1; h < K; h++) {
-            const s0 = c1 * s1 - s2;
-            y += weights[h] * s0;
-            s2 = s1;
-            s1 = s0;
-          }
-          // soft breath: band-limited noise (~350 Hz–2.3 kHz), not hiss
-          const wn = rand() - 0.5;
-          nHi += 0.3 * (wn - nHi);
-          nLo += 0.05 * (wn - nLo);
-          const breath = (nHi - nLo) * 0.02;
-          const v = (y + breath) * amp * a;
-          L[n] += v * (1 - pan);
-          R[n] += v * pan;
-        }
-      }
-    }
-  }
-  const RL = reverb(L, 0.32);
-  const RR = reverb(R, 0.32);
-  const n = LOOP * SR;
-  const fade = CH * SR;
-  const outL = new Float32Array(n);
-  const outR = new Float32Array(n);
-  for (let i = 0; i < n; i++) {
-    const a = i < fade ? i / fade : 1;
-    outL[i] = i < fade ? RL[i] * a + RL[n + i] * (1 - a) : RL[i];
-    outR[i] = i < fade ? RR[i] * a + RR[n + i] * (1 - a) : RR[i];
-  }
-  let peak = 0;
-  for (let i = 0; i < n; i++) peak = Math.max(peak, Math.abs(outL[i]), Math.abs(outR[i]));
-  const g = 0.6 / peak;
-  for (let i = 0; i < n; i++) {
-    outL[i] *= g;
-    outR[i] *= g;
-  }
-  return [outL, outR];
-}
-
 function whoosh() {
   const dur = 0.7;
   const n = Math.round(dur * SR);
@@ -277,20 +181,212 @@ function whoosh() {
   return [L, R];
 }
 
+// ------------------------------------------------------------------ sound effects
+// Each one is short and non-melodic: it marks a thing appearing, moving, landing or counting on screen.
+const sec = (s) => Math.round(s * SR);
+let fxSeed = 11;
+const rand = () => ((fxSeed = (fxSeed * 16807) % 2147483647) / 2147483647);
+const noise = () => rand() * 2 - 1;
+const noiseBuf = (n) => Float32Array.from({length: n}, noise);
+
+/** State-variable filter; `cutoff` may be a function of time (seconds) for sweeps. */
+function svf(x, cutoff, q = 0.7, mode = 'band') {
+  const y = new Float32Array(x.length);
+  const damp = 1 / q;
+  let low = 0;
+  let band = 0;
+  for (let i = 0; i < x.length; i++) {
+    const fc = typeof cutoff === 'function' ? cutoff(i / SR) : cutoff;
+    const f = 2 * Math.sin((Math.PI * Math.min(fc, SR / 6.5)) / SR);
+    low += f * band;
+    const high = x[i] - low - damp * band;
+    band += f * high;
+    y[i] = mode === 'low' ? low : mode === 'high' ? high : band;
+  }
+  return y;
+}
+
+/** A mono sound from a per-sample function of time. */
+const make = (dur, fn) => Float32Array.from({length: sec(dur)}, (_, i) => fn(i / SR, i));
+
+/** Mono → stereo (optionally panned from right to left as it plays, like things moving in an RTL layout), normalised. */
+function finish(x, {peak = 0.7, pan = null, width = null} = {}) {
+  const n = x.length;
+  const L = new Float32Array(n);
+  const R = new Float32Array(n);
+  const other = width ? svf(noiseBuf(n), 2500, 0.7, 'band') : null;
+  for (let i = 0; i < n; i++) {
+    const u = i / n;
+    const gl = pan ? 0.55 + 0.45 * u : 1;
+    const gr = pan ? 1 - 0.45 * u : 1;
+    L[i] = x[i] * gl;
+    R[i] = x[i] * gr;
+    if (width) {
+      L[i] += width[i] * other[i];
+      R[i] -= width[i] * other[i];
+    }
+  }
+  let m = 0;
+  for (let i = 0; i < n; i++) m = Math.max(m, Math.abs(L[i]), Math.abs(R[i]));
+  const fade = sec(0.004);
+  for (let i = 0; i < n; i++) {
+    const g = (peak / (m || 1)) * Math.min(1, (n - 1 - i) / fade);
+    L[i] *= g;
+    R[i] *= g;
+  }
+  return [L, R];
+}
+
+/** Metallic or glassy strike: [frequency, level, decay per second] partials. */
+const partials = (t, list) => list.reduce((a, [f, lv, d]) => a + Math.sin(2 * Math.PI * f * t) * lv * Math.exp(-t * d), 0);
+
+function sweepTone(dur, freq, env) {
+  let ph = 0;
+  return make(dur, (t) => {
+    ph += (2 * Math.PI * freq(t)) / SR;
+    return Math.sin(ph) * env(t);
+  });
+}
+
+const SFX = {
+  // a card or chip appears
+  pop: () => {
+    const x = sweepTone(0.18, (t) => 260 + 640 * Math.exp(-t * 55), (t) => Math.min(1, t / 0.002) * Math.exp(-t * 30));
+    for (let i = 0; i < sec(0.003); i++) x[i] += noise() * 0.25 * (1 - i / sec(0.003));
+    return finish(x);
+  },
+  // a chat bubble or a small item
+  bubble: () => finish(sweepTone(0.12, (t) => 420 + 1100 * Math.exp(-t * 70), (t) => Math.min(1, t / 0.002) * Math.exp(-t * 40)), {peak: 0.6}),
+  // a list item, a field filled in
+  tick: () => {
+    const click = svf(make(0.05, (t) => noise() * Math.exp(-t * 600)), 3500, 1.5);
+    return finish(make(0.05, (t, i) => Math.sin(2 * Math.PI * 1900 * t) * Math.exp(-t * 140) * 0.6 + click[i] * 2), {peak: 0.55});
+  },
+  // a word typed (two variants so typing doesn't sound like a machine gun)
+  type: () => {
+    const click = svf(make(0.08, (t) => noise() * Math.exp(-t * 220)), 2600, 1.2);
+    return finish(make(0.08, (t, i) => Math.sin(2 * Math.PI * (170 + 40 * Math.exp(-t * 80)) * t) * Math.exp(-t * 70) * 0.5 + click[i] * 1.6), {peak: 0.5});
+  },
+  type2: () => {
+    const click = svf(make(0.08, (t) => noise() * Math.exp(-t * 260)), 3300, 1.2);
+    return finish(make(0.08, (t, i) => Math.sin(2 * Math.PI * (200 + 50 * Math.exp(-t * 90)) * t) * Math.exp(-t * 80) * 0.4 + click[i] * 1.6), {peak: 0.5});
+  },
+  // something slides in or flies across
+  swish: () => {
+    const dur = 0.35;
+    const x = svf(noiseBuf(sec(dur)), (t) => 700 * Math.pow(6, t / dur), 1.2);
+    return finish(Float32Array.from(x, (v, i) => v * Math.sin((Math.PI * i) / x.length) ** 2), {pan: true});
+  },
+  // a marker crosses something out
+  strike: () => {
+    const x = svf(noiseBuf(sec(0.16)), (t) => 4200 - 2700 * (t / 0.16), 1.4);
+    return finish(Float32Array.from(x, (v, i) => v * Math.min(1, i / sec(0.004)) * Math.exp((-i / SR) * 18)), {peak: 0.6});
+  },
+  // a rubber stamp hits the page
+  stamp: () => {
+    const body = svf(noiseBuf(sec(0.6)), 900, 0.7, 'low');
+    const snap = svf(noiseBuf(sec(0.6)), 2000, 0.7, 'high');
+    const room = svf(noiseBuf(sec(0.6)), 1200, 0.7, 'low');
+    const thump = sweepTone(0.6, (t) => 48 + 70 * Math.exp(-t * 28), (t) => Math.min(1, t / 0.001) * Math.exp(-t * 9));
+    return finish(make(0.6, (t, i) => Math.tanh(1.6 * (thump[i] + body[i] * 0.7 * Math.exp(-t * 35) + snap[i] * 0.6 * Math.exp(-t * 400) + room[i] * 0.06 * Math.exp(-t * 7)))), {peak: 0.8});
+  },
+  // the big reveal
+  impact: () => {
+    const sub = sweepTone(1.5, (t) => 34 + 46 * Math.exp(-t * 9), (t) => Math.min(1, t / 0.002) * Math.exp(-t * 2.8));
+    const burst = svf(noiseBuf(sec(1.5)), 500, 0.7, 'low');
+    const air = svf(noiseBuf(sec(1.5)), 3000, 0.8);
+    const x = make(1.5, (t, i) => Math.tanh(1.4 * (sub[i] + burst[i] * 0.8 * Math.exp(-t * 14))) + air[i] * 0.08 * Math.exp(-t * 3.5));
+    return finish(x, {peak: 0.8, width: Float32Array.from(x, (_, i) => 0.05 * Math.exp((-i / SR) * 3.5))});
+  },
+  // tension before a reveal (a rising hiss, no pitch)
+  riser: () => {
+    const dur = 1.6;
+    const x = svf(noiseBuf(sec(dur)), (t) => 250 * Math.pow(22, t / dur), 1.5);
+    const env = (i) => Math.pow(i / x.length, 2.2) * Math.min(1, (x.length - i) / sec(0.025));
+    return finish(Float32Array.from(x, (v, i) => v * env(i)), {peak: 0.6, width: Float32Array.from(x, (_, i) => 0.25 * env(i))});
+  },
+  // a hidden thing, a puzzle (tiny high sparkles)
+  shimmer: () => {
+    const dur = 1.0;
+    const L = new Float32Array(sec(dur));
+    const R = new Float32Array(sec(dur));
+    for (let g = 0; g < 45; g++) {
+      const t0 = dur * 0.85 * Math.pow(rand(), 1.6);
+      const len = sec(0.006 + rand() * 0.012);
+      const grain = svf(noiseBuf(len), 5000 + rand() * 4500, 4);
+      const amp = Math.exp(-t0 * 3) * (0.4 + 0.6 * rand());
+      const pan = rand();
+      const s0 = sec(t0);
+      for (let i = 0; i < len && s0 + i < L.length; i++) {
+        const v = grain[i] * amp * Math.sin((Math.PI * i) / len);
+        L[s0 + i] += v * (1 - pan);
+        R[s0 + i] += v * pan;
+      }
+    }
+    let m = 0;
+    for (let i = 0; i < L.length; i++) m = Math.max(m, Math.abs(L[i]), Math.abs(R[i]));
+    return [L.map((v) => (v * 0.6) / m), R.map((v) => (v * 0.6) / m)];
+  },
+  // a page turns (calendars, files)
+  paper: () => {
+    const hi = svf(noiseBuf(sec(0.32)), 1200, 0.7, 'high');
+    const mid = svf(noiseBuf(sec(0.32)), 3200, 0.8);
+    const burst = (t, at) => (t >= at && t < at + 0.12 ? Math.sin((Math.PI * (t - at)) / 0.12) ** 1.5 : 0);
+    return finish(make(0.32, (t, i) => (hi[i] * 0.6 + mid[i]) * (burst(t, 0) + 0.7 * burst(t, 0.11)) * (1 + 0.5 * Math.sin(2 * Math.PI * 35 * t))), {peak: 0.55, pan: true});
+  },
+  // a counter rolls and slows to a stop
+  roll: () => {
+    const dur = 0.95;
+    const x = new Float32Array(sec(dur));
+    for (let t0 = 0, gap = 0.03; t0 < 0.85; t0 += gap, gap *= 1.12) {
+      const u = t0 / 0.85;
+      const s0 = sec(t0);
+      for (let i = 0; i < sec(0.03) && s0 + i < x.length; i++) {
+        const t = i / SR;
+        x[s0 + i] += (Math.sin(2 * Math.PI * (1700 - 400 * u) * t) * Math.exp(-t * 180) + noise() * Math.exp(-t * 700) * 0.3) * (1 - 0.6 * u);
+      }
+    }
+    return finish(x, {peak: 0.45});
+  },
+  // a positive result lands (one glassy tap)
+  ping: () => finish(make(0.9, (t) => Math.min(1, t / 0.0015) * partials(t, [[1870, 1, 5.5], [4920, 0.35, 11], [7350, 0.12, 18]])), {peak: 0.45}),
+  // a coin drops (money, one riyal a second)
+  coin: () => {
+    const strike = (t) => partials(t, [[3150, 1, 22], [4620, 0.7, 30], [7130, 0.45, 40], [9010, 0.25, 55]]);
+    const bounce = (t) => partials(t, [[3213, 1, 26], [4712, 0.7, 34], [7273, 0.45, 44]]);
+    return finish(make(0.45, (t) => strike(t) + (t > 0.075 ? 0.45 * bounce(t - 0.075) : 0) + (t < 0.002 ? noise() * 0.3 : 0)), {peak: 0.5});
+  },
+  // something soft lands
+  thud: () => {
+    const body = svf(noiseBuf(sec(0.3)), 600, 0.7, 'low');
+    const tone = sweepTone(0.3, (t) => 60 + 80 * Math.exp(-t * 40), (t) => Math.min(1, t / 0.001) * Math.exp(-t * 16));
+    return finish(make(0.3, (t, i) => tone[i] + body[i] * 0.5 * Math.exp(-t * 60)), {peak: 0.7});
+  },
+  // a question to the viewer: a soft rising "hm?"
+  question: () => {
+    const smooth = (u) => u * u * (3 - 2 * u);
+    let ph = 0;
+    return finish(make(0.38, (t) => {
+      ph += (2 * Math.PI * (360 + 260 * smooth(Math.min(1, t / 0.25)) + 6 * Math.sin(2 * Math.PI * 7 * t))) / SR;
+      return (Math.sin(ph) + 0.2 * Math.sin(2 * ph)) * Math.min(1, t / 0.015) * Math.exp(-Math.max(0, t - 0.2) * 14);
+    }), {peak: 0.45});
+  },
+  whoosh,
+};
+
 fs.mkdirSync(path.join(assets, 'music'), {recursive: true});
 fs.mkdirSync(path.join(assets, 'sfx'), {recursive: true});
-const which = process.argv[2] || 'all'; // all | calm | humming | sfx
+const which = process.argv[2] || 'all'; // all | calm | sfx
 if (which === 'all' || which === 'calm') {
   const [ml, mr] = music();
   writeWav(path.join(assets, 'music/calm-pad.wav'), ml, mr);
   toMp3(path.join(assets, 'music/calm-pad.wav'), path.join(assets, 'music/calm-pad.mp3'));
 }
-if (which === 'all' || which === 'humming') {
-  const [hl, hr] = humming();
-  writeWav(path.join(assets, 'music/humming.wav'), hl, hr);
-  toMp3(path.join(assets, 'music/humming.wav'), path.join(assets, 'music/humming.mp3'));
+if (which === 'all' || which === 'sfx') {
+  for (const [name, fn] of Object.entries(SFX)) {
+    const [l, r] = fn();
+    writeWav(path.join(assets, `sfx/${name}.wav`), l, r);
+    toMp3(path.join(assets, `sfx/${name}.wav`), path.join(assets, `sfx/${name}.mp3`));
+  }
 }
-const [wl, wr] = whoosh();
-writeWav(path.join(assets, 'sfx/whoosh.wav'), wl, wr);
-toMp3(path.join(assets, 'sfx/whoosh.wav'), path.join(assets, 'sfx/whoosh.mp3'));
 console.log('music + sfx written to', path.relative(process.cwd(), assets));

@@ -1,5 +1,5 @@
 // Renders an episode and everything needed to publish it, into 03-episodes/<EP>/out/:
-//   <EP>.mp4            the video (1080p, or 720p with --preview)
+//   <EP>.mp4            the video (1080p, or 720p with --preview), mastered to -14 LUFS
 //   thumbnail.png/.jpg  YouTube thumbnail (1280×720, jpg < 2 MB)
 //   subtitles.ar.srt    Arabic captions to upload to YouTube (better SEO + accessibility)
 //   chapters.txt        timestamps to paste into the description
@@ -12,7 +12,7 @@
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
-import {execFileSync} from 'node:child_process';
+import {execFileSync, spawnSync} from 'node:child_process';
 import {fileURLToPath} from 'node:url';
 import {bundle} from '@remotion/bundler';
 import {renderMedia, renderStill, selectComposition} from '@remotion/renderer';
@@ -47,6 +47,27 @@ try {
 }
 console.log('✓ thumbnail');
 if (thumbOnly) process.exit(0);
+
+// ffmpeg from the system, else the one that ships with Remotion.
+const ffmpeg = (args) => {
+  const sys = spawnSync('ffmpeg', args, {encoding: 'utf8'});
+  if (!sys.error) return sys;
+  return spawnSync('npx', ['remotion', 'ffmpeg', ...args], {encoding: 'utf8', cwd: studio});
+};
+
+// Final loudness: YouTube plays everything at about -14 LUFS and never turns a quiet video up, so the finished mix is
+// brought to -14 LUFS with a limiter that keeps peaks under -1 dB. The picture is copied untouched.
+const master = (file) => {
+  const probe = ffmpeg(['-hide_banner', '-nostats', '-i', file, '-vn', '-af', 'ebur128', '-f', 'null', '-']).stderr || '';
+  const m = probe.slice(probe.lastIndexOf('Summary:')).match(/I:\s+(-?[\d.]+) LUFS/);
+  if (!m) return console.log('  (loudness not measured, left as rendered)');
+  const gain = -14 - parseFloat(m[1]);
+  const tmp = file.replace(/\.mp4$/, '.master.mp4');
+  const r = ffmpeg(['-y', '-loglevel', 'error', '-i', file, '-c:v', 'copy', '-af', `volume=${gain.toFixed(2)}dB,alimiter=limit=0.85:attack=5:release=60:level=false`, '-c:a', 'aac', '-b:a', '192k', tmp]);
+  if (r.status !== 0) return console.log('  (mastering failed, left as rendered)', r.stderr);
+  fs.renameSync(tmp, file);
+  console.log(`✓ loudness ${m[1]} → -14 LUFS (${gain >= 0 ? '+' : ''}${gain.toFixed(1)} dB), peaks under -1 dB`);
+};
 
 const progress = (label) => {
   const t0 = Date.now();
@@ -83,6 +104,7 @@ if (shortsOnly) {
       onProgress: progress(`short ${i + 1}`),
     });
     console.log(`✓ ${path.relative(process.cwd(), out)} (${(short.durationInFrames / short.fps).toFixed(1)} s)`);
+    master(out);
   }
   process.exit(0);
 }
@@ -123,3 +145,4 @@ await renderMedia({
 });
 const mins = (plan.total / plan.fps / 60).toFixed(2);
 console.log(`✓ ${path.relative(process.cwd(), output)}  (${mins} min video, rendered in ${Math.round((Date.now() - started) / 1000)}s)`);
+master(output);

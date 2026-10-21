@@ -16,12 +16,15 @@ export const Person: React.FC<Base & {size?: number}> = ({size = 300, color = C.
   </svg>
 );
 
-/** A small team: `count` people in a grid that fills in from the right as `progress` goes 0 → 1. */
-export const PeopleGrid: React.FC<Base & {count: number; cols: number; cell?: number; progress?: number}> = ({
+/** A small team: `count` people in a grid that fills in from the right as `progress` goes 0 → 1.
+ * `highlight` (0 → 1) lights up the first person and dims the rest ("each one of them…"). */
+export const PeopleGrid: React.FC<Base & {count: number; cols: number; cell?: number; progress?: number; highlight?: number; highlightColor?: string}> = ({
   count,
   cols,
   cell = 30,
   progress = 1,
+  highlight = 0,
+  highlightColor = C.yellow,
   color = C.blue,
   opacity = 1,
   style,
@@ -29,14 +32,17 @@ export const PeopleGrid: React.FC<Base & {count: number; cols: number; cell?: nu
   const rows = Math.ceil(count / cols);
   const shown = Math.round(count * progress);
   return (
-    <svg width={cols * cell} height={rows * cell * 1.25} viewBox={`0 0 ${cols * 72} ${rows * 90}`} style={{opacity, ...style}}>
+    <svg width={cols * cell} height={rows * cell * 1.25} viewBox={`0 0 ${cols * 72} ${rows * 90}`} style={{opacity, overflow: 'visible', ...style}}>
       {Array.from({length: count}, (_, i) => {
         const x = (cols - 1 - (i % cols)) * 72; // right to left, like Arabic reading
         const y = Math.floor(i / cols) * 90;
+        const lit = i === 0 ? highlight : 0;
+        const fill = lit > 0.5 ? highlightColor : color;
         return (
-          <g key={i} transform={`translate(${x + 8} ${y + 4}) scale(0.78)`} opacity={i < shown ? 1 : 0.12}>
-            <circle {...HEAD} fill={color} />
-            <path d={BODY} fill={color} />
+          <g key={i} transform={`translate(${x + 8 + 28} ${y + 4 + 39}) scale(${0.78 * (1 + 0.45 * lit)}) translate(-36 -50)`} opacity={(i < shown ? 1 : 0.12) * (i === 0 ? 1 : 1 - 0.7 * highlight)}>
+            {lit > 0 ? <circle cx={36} cy={50} r={58} fill={highlightColor} opacity={0.25 * lit} /> : null}
+            <circle {...HEAD} fill={fill} />
+            <path d={BODY} fill={fill} />
           </g>
         );
       })}

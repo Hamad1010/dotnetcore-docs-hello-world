@@ -3,7 +3,7 @@
   "lesson": "L001",
   "season": 1,
   "status": "test-part-a",
-  "framework": "v3",
+  "framework": "v4",
   "note": "Part A only (the first ~2 minutes) for the owner's approval. The full episode is built from script-draft.md after approval.",
   "title": "الرافعة",
   "kicker": "نتيجة أكبر… بنفس الجهد",
@@ -20,7 +20,6 @@
       "type": "storyhook",
       "chapter": "القصة",
       "place": "كاليفورنيا · أمريكا",
-      "phoneCue": "واتساب",
       "narration": "فيه شي شدّني ذاك اليوم… كان في أغسطس {2009|ألفين وتسعة}… كان فيه مهندس كمبيوتر اسمه براين أكتون… عمره {37|سبعة وثلاثين} سنة… اشتغل {11|إحدعش} سنة في «ياهو»… اللي كانت وقتها من أشهر مواقع الإنترنت في العالم. قدّم على وظيفة في فيسبوك… اللي كان يستخدمها وقتها أكثر من {250|ميتين وخمسين} مليون إنسان… ورفضوه الجماعة. طيب… وش سوّى؟ كتب تغريدة بسيطة جدًا… ما فيها زعل… قال: كانت فرصة حلوة أتعرّف فيها على ناس رائعين. وأبد… كمّل طريقه… ومشت السنين طبيعي. بعد أقل من خمس سنين بس… ايش صار؟ فيسبوك نفسها… ترجع له. تتوقعون كم دفعت؟ … {19|تسعطعش} مليار دولار. تبي تحس بالرقم؟ لو تعدّها ريال ريال… كل ثانية ريال… ليل ونهار… تحتاج أكثر من {2000|ألفين} سنة عشان تخلّص. كل هذا… عشان تشتري الشركة اللي أسسها مع صاحبه… اللي هي: واتساب. وتدري كم موظف كان فيها؟ {55|خمسة وخمسين}… بس.",
       "beats": [
         {
@@ -38,15 +37,168 @@
           "label": "فيسبوك تشتري واتساب",
           "tone": "pos",
           "gapLabel": "أقل من 5 سنين",
-          "note": "تعدّها ريال بالثانية؟ أكثر من 2000 سنة",
-          "noteCue": "تعدّها"
+          "askCue": "تتوقعون"
         },
         {
           "cue": "خمسة وخمسين",
           "value": "55",
           "unit": "موظف",
           "label": "كل موظفين الشركة وقت الصفقة",
-          "tone": "accent"
+          "tone": "accent",
+          "askCue": "وتدري"
+        }
+      ],
+      "timelineCue": "تتوقعون",
+      "moments": [
+        {
+          "kind": "date",
+          "cue": "أغسطس",
+          "slot": "stage",
+          "month": "أغسطس",
+          "year": "2009"
+        },
+        {
+          "kind": "profile",
+          "cue": "مهندس",
+          "slot": "stage",
+          "icon": "person",
+          "title": "براين أكتون",
+          "titleCue": "براين",
+          "subtitle": "مهندس كمبيوتر",
+          "tag": "أغسطس 2009",
+          "fields": [
+            {
+              "label": "العمر",
+              "value": "37 سنة",
+              "cue": "سبعة"
+            },
+            {
+              "label": "خبرته",
+              "value": "11 سنة في ياهو",
+              "cue": "إحدعش",
+              "note": "ياهو وقتها: من أشهر مواقع الإنترنت في العالم",
+              "noteCue": "أشهر"
+            }
+          ],
+          "moveTo": "right",
+          "moveCue": "قدّم",
+          "until": "طيب"
+        },
+        {
+          "kind": "profile",
+          "cue": "قدّم",
+          "slot": "left",
+          "icon": "building",
+          "title": "فيسبوك",
+          "titleCue": "فيسبوك",
+          "subtitle": "يقدّم على وظيفة فيها",
+          "fields": [
+            {
+              "label": "المستخدمين وقتها",
+              "value": "250 مليون+",
+              "cue": "ميتين"
+            }
+          ],
+          "until": "طيب"
+        },
+        {
+          "kind": "send",
+          "cue": "وظيفة",
+          "from": "right",
+          "to": "left",
+          "item": "طلب وظيفة",
+          "nudge": [
+            0,
+            210
+          ],
+          "until": "طيب"
+        },
+        {
+          "kind": "stamp",
+          "cue": "ورفضوه",
+          "slot": "left",
+          "over": true,
+          "text": "مرفوض",
+          "tone": "neg",
+          "nudge": [
+            0,
+            190
+          ],
+          "until": "طيب"
+        },
+        {
+          "kind": "question",
+          "cue": "وش سوّى",
+          "slot": "stage",
+          "text": "وش سوّى؟"
+        },
+        {
+          "kind": "quote",
+          "cue": "كتب تغريدة",
+          "slot": "stage",
+          "who": "براين أكتون",
+          "meta": "تغريدة · 3 أغسطس 2009",
+          "text": "كانت فرصة حلوة أتعرّف فيها على ناس رائعين.",
+          "textCue": "كانت فرصة",
+          "original": "“It was a great opportunity to connect with some fantastic people.”"
+        },
+        {
+          "kind": "date",
+          "cue": "ومشت",
+          "slot": "stage",
+          "month": "أغسطس",
+          "year": "2009",
+          "to": "2014",
+          "toCue": "السنين",
+          "note": "أقل من 5 سنين",
+          "noteCue": "أقل من",
+          "until": "تتوقعون"
+        },
+        {
+          "kind": "send",
+          "cue": "ترجع",
+          "from": "left",
+          "to": "right",
+          "item": "فيسبوك… ترجع له",
+          "nudge": [
+            0,
+            220
+          ],
+          "until": "تتوقعون"
+        },
+        {
+          "kind": "tally",
+          "cue": "تبي تحس",
+          "slot": "bottom",
+          "unit": "ريال",
+          "per": "كل ثانية",
+          "total": 71250000000,
+          "startCue": "ريال",
+          "fastCue": "ليل",
+          "resultCue": "ألفين@2",
+          "result": "2000+",
+          "resultUnit": "سنة",
+          "note": "19 مليار $ ≈ 71 مليار ريال",
+          "until": "كل هذا"
+        },
+        {
+          "kind": "profile",
+          "cue": "أسسها",
+          "slot": "bottom",
+          "icon": "pair",
+          "title": "واتساب",
+          "titleCue": "واتساب",
+          "subtitle": "الشركة اللي أسسها مع صاحبه",
+          "tone": "pos"
+        },
+        {
+          "kind": "people",
+          "cue": "خمسة وخمسين",
+          "slot": "bottom",
+          "count": 55,
+          "cols": 11,
+          "value": "55",
+          "label": "موظف… بس!"
         }
       ]
     },
@@ -60,7 +212,8 @@
           "value": "55",
           "label": "موظف",
           "count": 55,
-          "cue": "خمسة وخمسين"
+          "cue": "خمسة وخمسين",
+          "highlightCue": "كل موظف"
         },
         "to": {
           "value": "450+",
@@ -71,7 +224,42 @@
       "topic": "الرافعة",
       "topicSub": "نتيجة أكبر… بنفس الجهد",
       "file": "الملف 01 · لغز الـ55",
-      "fileCue": "ملفنا"
+      "fileCue": "ملفنا",
+      "moments": [
+        {
+          "kind": "share",
+          "cue": "ثمانية",
+          "slot": "bottom-right",
+          "shape": "saudi",
+          "part": 1,
+          "whole": 4,
+          "title": "كل موظف كأنه يخدم",
+          "value": "8 مليون+",
+          "label": "تقريبًا ربع سكان السعودية",
+          "fillCue": "ربع سكان",
+          "until": "الرافعة"
+        },
+        {
+          "kind": "share",
+          "cue": "ثلاثة",
+          "slot": "bottom-left",
+          "shape": "world",
+          "part": 3,
+          "whole": 8.2,
+          "title": "واتساب اليوم · كل شهر",
+          "value": "3 مليار+",
+          "label": "أكثر من ثلث سكان الأرض",
+          "fillCue": "ثلث",
+          "until": "الرافعة"
+        },
+        {
+          "kind": "question",
+          "cue": "كيف؟",
+          "slot": "bottom",
+          "text": "كيف؟",
+          "until": "الرافعة"
+        }
+      ]
     },
     {
       "id": "journey",
@@ -111,7 +299,43 @@
         "mark": "puzzle"
       },
       "loopCue": "رافعة ما تحتاج",
-      "puzzleCue": "لغز صغير"
+      "puzzleCue": "لغز صغير",
+      "moments": [
+        {
+          "kind": "chips",
+          "cue": "فلوس",
+          "slot": "floor",
+          "title": "رافعة ما تحتاج:",
+          "items": [
+            {
+              "text": "فلوس",
+              "cue": "فلوس",
+              "crossed": true
+            },
+            {
+              "text": "واسطة",
+              "cue": "واسطة",
+              "crossed": true
+            },
+            {
+              "text": "إذن من أحد",
+              "cue": "إذن",
+              "crossed": true
+            }
+          ]
+        },
+        {
+          "kind": "mystery",
+          "cue": "ماسكها",
+          "slot": "floor",
+          "label": "وأغلبنا ماسكها… وما يدري",
+          "nudge": [
+            0,
+            -20
+          ]
+        }
+      ],
+      "glowCue": "وخلك معي"
     }
   ]
 }

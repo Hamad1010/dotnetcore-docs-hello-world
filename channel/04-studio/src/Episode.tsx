@@ -7,6 +7,7 @@ import {Hook, Lesson, Title} from './scenes/IntroScenes';
 import {StoryScene} from './scenes/StoryScene';
 import {EndCard, Outro, Practice, Recap} from './scenes/ClosingScenes';
 import {Journey, Overview, StoryHook} from './scenes/BizScenes';
+import {Sfx, SfxOn} from './components/Sfx';
 
 export type EpisodeData = {episode: Episode; plan: Plan; brand: Brand; music: string | null; sfx: boolean};
 export type EpisodeProps = {episodeId: string; showCaptions?: boolean; data?: EpisodeData};
@@ -23,9 +24,19 @@ export const EpisodeVideo: React.FC<EpisodeProps> = ({episodeId, showCaptions, d
 
   let camera = HOME;
   let storyNo = 0;
-  const musicBase = hasVoice ? 0.07 : 0.2;
+  // The background sits far under the voice and swells a little in the pauses between scenes (ducking).
+  const under = hasVoice ? (brand.background === 'humming' ? 0.13 : 0.07) : 0.2;
+  const gap = hasVoice ? under * 1.9 : under;
+  const speaking = plan.scenes.map((sp) => [sp.from + sp.speechStart, sp.from + sp.speechStart + sp.speechFrames] as const);
+  const musicVolume = (f: number) => {
+    // distance (in frames) to the nearest stretch of speech: 0 while the voice is on
+    const away = Math.min(...speaking.map(([a, b]) => (f < a ? a - f : f > b ? f - b : 0)));
+    const level = interpolate(away, [0, 8, 18], [under, under, gap], {extrapolateRight: 'clamp'});
+    return level * interpolate(f, [0, 45, plan.total - 75, plan.total], [0, 1, 1, 0], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
+  };
 
   return (
+    <SfxOn.Provider value={sfx}>
     <AbsoluteFill style={{background: C.bg}}>
       {episode.scenes.map((scene, i) => {
         const sp = plan.scenes[i];
@@ -82,19 +93,12 @@ export const EpisodeVideo: React.FC<EpisodeProps> = ({episodeId, showCaptions, d
                 <Html5Audio src={staticFile(`${episodeId}/audio/${sp.audio}`)} />
               </Sequence>
             ) : null}
-            {sfx && i > 0 && (scene.type === 'story' || scene.type === 'title' || scene.type === 'recap' || scene.type === 'overview' || scene.type === 'journey') ? (
-              <Html5Audio src={staticFile('_assets/sfx/whoosh.mp3')} volume={0.22} />
-            ) : null}
+            {i > 0 ? <Sfx at={0} name="whoosh" /> : null}
           </Sequence>
         );
       })}
-      {music ? (
-        <Html5Audio
-          src={staticFile(music)}
-          loop
-          volume={(f) => interpolate(f, [0, 45, plan.total - 75, plan.total], [0, musicBase, musicBase, 0], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}
-        />
-      ) : null}
+      {music ? <Html5Audio src={staticFile(music)} loop volume={musicVolume} /> : null}
     </AbsoluteFill>
+    </SfxOn.Provider>
   );
 };

@@ -2,18 +2,20 @@
 import React from 'react';
 import {interpolate, useCurrentFrame} from 'remotion';
 import {C, EASE_IN_OUT, EASE_OUT} from '../theme';
-import type {Beat, JourneyScene, OverviewScene, StoryHookScene, Tone} from '../types';
+import type {Beat, JourneyScene, OverviewScene, StoryHookScene} from '../types';
 import {Backdrop, Captions, Chip, CountUp, SceneFrame, fadeUp, useIn, usePop, usePortrait} from '../components/ui';
 import {Crowd, Lever, PeopleGrid, Person, Phone, Skyline} from '../components/Silhouettes';
 import {JourneyMap} from '../components/JourneyMap';
+import {Moments, TONE as TONES} from '../components/Moments';
+import {Sfx} from '../components/Sfx';
 import {cueAt, TopBar, type SceneProps} from './common';
 
-const TONES: Record<Tone, {main: string; soft: string}> = {
-  neg: {main: C.red, soft: C.redSoft},
-  pos: {main: C.green, soft: C.greenSoft},
-  accent: {main: C.blue, soft: C.blueSoft},
-  gold: {main: '#C98A00', soft: C.yellowSoft},
+/** A slow push-in over the whole scene, so the frame is never perfectly still. */
+const Drift: React.FC<{frames: number; children: React.ReactNode}> = ({frames, children}) => {
+  const f = useCurrentFrame();
+  return <div style={{position: 'absolute', inset: 0, transform: `scale(${1 + 0.035 * Math.min(1, f / frames)})`}}>{children}</div>;
 };
+
 const clamp = {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'} as const;
 const DEEP = '0 2px 6px rgba(28,35,51,0.08), 0 30px 60px rgba(28,35,51,0.20)';
 const SOFT = '0 1px 3px rgba(28,35,51,0.06), 0 10px 26px rgba(28,35,51,0.08)';
@@ -25,9 +27,17 @@ const Arrow: React.FC<{vertical?: boolean; color: string}> = ({vertical, color})
   </svg>
 );
 
-const BeatCard: React.FC<{beat: Beat; shownAt: number; noteAt: number | null; active: boolean; portrait: boolean}> = ({beat, shownAt, noteAt, active, portrait}) => {
+const BeatCard: React.FC<{beat: Beat; shownAt: number; noteAt: number | null; askAt: number | null; active: boolean; portrait: boolean}> = ({
+  beat,
+  shownAt,
+  noteAt,
+  askAt,
+  active,
+  portrait,
+}) => {
   const f = useCurrentFrame();
   const p = usePop(shownAt, 13);
+  const asking = askAt !== null && f >= askAt && f < shownAt;
   const note = noteAt === null ? 0 : interpolate(f, [noteAt, noteAt + 14], [0, 1], clamp);
   const shown = f >= shownAt;
   const tone = TONES[beat.tone ?? 'accent'];
@@ -40,8 +50,8 @@ const BeatCard: React.FC<{beat: Beat; shownAt: number; noteAt: number | null; ac
         minHeight: portrait ? 250 : 330,
         borderRadius: 36,
         padding: portrait ? '26px 34px' : '30px 26px',
-        background: shown ? C.surface : 'rgba(255,255,255,0.35)',
-        border: shown ? 'none' : `3px dashed ${C.line}`,
+        background: shown ? C.surface : asking ? 'rgba(255,255,255,0.8)' : 'rgba(255,255,255,0.35)',
+        border: shown ? 'none' : `3px dashed ${asking ? C.yellow : C.line}`,
         boxShadow: shown ? (active ? DEEP : SOFT) : 'none',
         opacity: shown ? (active ? 1 : 0.82) : 0.5,
         transform: shown ? `translateY(${(1 - p) * 30}px) scale(${(0.88 + 0.12 * p) * (active ? 1.03 : 1)})` : 'none',
@@ -75,6 +85,8 @@ const BeatCard: React.FC<{beat: Beat; shownAt: number; noteAt: number | null; ac
             </div>
           ) : null}
         </>
+      ) : asking ? (
+        <div style={{alignSelf: 'center', fontSize: 150, fontWeight: 700, color: C.yellow, lineHeight: 1, transform: `scale(${1 + 0.08 * Math.sin((f - (askAt ?? 0)) / 4)})`}}>؟</div>
       ) : null}
     </div>
   );
@@ -86,7 +98,11 @@ export const StoryHook: React.FC<SceneProps<StoryHookScene> & {showCaptions: boo
   const portrait = usePortrait();
   const n = scene.beats.length;
   const times = scene.beats.map((b, i) => cueAt(plan, scene.narration, b.cue, (i + 0.15) / n));
+  const asks = scene.beats.map((b) => (b.askCue ? cueAt(plan, scene.narration, b.askCue, 0.5) : null));
   const active = times.reduce((a, t, i) => (f >= t ? i : a), -1);
+  // With explainer moments, the story is told first and the timeline of numbers comes in later (`timelineCue`).
+  const timelineAt = scene.timelineCue ? cueAt(plan, scene.narration, scene.timelineCue, 0.6) : 0;
+  const timeline = scene.timelineCue ? interpolate(f, [timelineAt, timelineAt + 16], [0, 1], {...clamp, easing: EASE_OUT}) : 1;
   const city = useIn(0, 30);
   const person = useIn(4, 26);
   const drift = interpolate(f, [0, plan.frames], [0, -24]);
@@ -97,97 +113,128 @@ export const StoryHook: React.FC<SceneProps<StoryHookScene> & {showCaptions: boo
   return (
     <SceneFrame frames={plan.frames}>
       <Backdrop tint={C.blue} />
-      {/* shadows of the place, the person and the thing */}
-      <div style={{position: 'absolute', left: 0, right: 0, bottom: 0, opacity: 0.09 * city}}>
-        <Skyline width={portrait ? 1080 : 1920} height={portrait ? 460 : 340} />
-      </div>
-      <div
-        style={{
-          position: 'absolute',
-          left: portrait ? 40 : 110,
-          bottom: 0,
-          opacity: 0.14 * person,
-          transform: `translateX(${(1 - person) * -40 + drift}px)`,
-          filter: 'drop-shadow(0 24px 30px rgba(28,35,51,0.35))',
-        }}
-      >
-        <Person size={portrait ? 520 : 600} />
-      </div>
-      {scene.phoneCue ? (
+      <Drift frames={plan.frames}>
+        {/* shadows of the place, the person and the thing */}
+        <div style={{position: 'absolute', left: 0, right: 0, bottom: 0, opacity: 0.09 * city}}>
+          <Skyline width={portrait ? 1080 : 1920} height={portrait ? 460 : 340} />
+        </div>
         <div
           style={{
             position: 'absolute',
-            left: portrait ? 330 : 470,
-            bottom: portrait ? 210 : 230,
-            opacity: phone,
-            transform: `translateY(${(1 - phone) * 30}px) rotate(-8deg)`,
-            filter: 'drop-shadow(0 18px 24px rgba(28,35,51,0.30))',
+            left: portrait ? 40 : 110,
+            bottom: 0,
+            opacity: 0.14 * person,
+            transform: `translateX(${(1 - person) * -40 + drift}px)`,
+            filter: 'drop-shadow(0 24px 30px rgba(28,35,51,0.35))',
           }}
         >
-          <Phone size={portrait ? 210 : 240} color={C.green} bubbles={bubbles} />
+          <Person size={portrait ? 520 : 600} />
         </div>
-      ) : null}
-      {scene.place ? (
-        <div style={{position: 'absolute', top: portrait ? 120 : 70, right: portrait ? 0 : 120, left: portrait ? 0 : undefined, display: 'flex', justifyContent: 'center', ...fadeUp(place, 14)}}>
-          <Chip size={32} color={C.ink2}>
-            {scene.place}
-          </Chip>
-        </div>
-      ) : null}
-      <div
-        style={{
-          position: 'absolute',
-          right: portrait ? 60 : 120,
-          left: portrait ? 60 : 540,
-          top: portrait ? 230 : 250,
-          display: 'flex',
-          flexDirection: portrait ? 'column' : 'row',
-          alignItems: 'stretch',
-          gap: 0,
-        }}
-      >
-        {scene.beats.map((b, i) => {
-          const gapIn = interpolate(f, [times[i] - 8, times[i] + 6], [0, 1], clamp);
-          return (
-            <React.Fragment key={i}>
-              {i > 0 ? (
-                <div
-                  style={{
-                    flex: '0 0 auto',
-                    width: portrait ? 'auto' : 92,
-                    height: portrait ? 86 : 'auto',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    gap: 10,
-                    position: 'relative',
-                    opacity: 0.35 + 0.65 * gapIn,
-                  }}
-                >
-                  {b.gapLabel ? (
+        {scene.phoneCue ? (
+          <div
+            style={{
+              position: 'absolute',
+              left: portrait ? 330 : 470,
+              bottom: portrait ? 210 : 230,
+              opacity: phone,
+              transform: `translateY(${(1 - phone) * 30}px) rotate(-8deg)`,
+              filter: 'drop-shadow(0 18px 24px rgba(28,35,51,0.30))',
+            }}
+          >
+            <Phone size={portrait ? 210 : 240} color={C.green} bubbles={bubbles} />
+          </div>
+        ) : null}
+        {scene.place ? (
+          <div style={{position: 'absolute', top: portrait ? 120 : 70, right: portrait ? 0 : 120, left: portrait ? 0 : undefined, display: 'flex', justifyContent: 'center', ...fadeUp(place, 14)}}>
+            <Chip size={32} color={C.ink2}>
+              {scene.place}
+            </Chip>
+          </div>
+        ) : null}
+        {timeline > 0 ? (
+          <div
+            style={{
+              position: 'absolute',
+              right: portrait ? 60 : 120,
+              left: portrait ? 60 : 540,
+              top: portrait ? 230 : 250,
+              display: 'flex',
+              flexDirection: portrait ? 'column' : 'row',
+              alignItems: 'stretch',
+              gap: 0,
+              opacity: timeline,
+              transform: `translateY(${(1 - timeline) * -40}px)`,
+            }}
+          >
+            {scene.beats.map((b, i) => {
+              const gapIn = interpolate(f, [times[i] - 8, times[i] + 6], [0, 1], clamp);
+              return (
+                <React.Fragment key={i}>
+                  {i > 0 ? (
                     <div
                       style={{
-                        position: 'absolute',
-                        ...(portrait ? {right: 'calc(50% + 50px)', top: '50%', transform: 'translateY(-50%)'} : {bottom: 'calc(100% + 14px)', left: '50%', transform: 'translateX(-50%)'}),
-                        fontSize: 28,
-                        fontWeight: 700,
-                        color: C.ink2,
-                        whiteSpace: 'nowrap',
-                        opacity: gapIn,
+                        flex: '0 0 auto',
+                        width: portrait ? 'auto' : 92,
+                        height: portrait ? 86 : 'auto',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        gap: 10,
+                        position: 'relative',
+                        opacity: 0.35 + 0.65 * gapIn,
                       }}
                     >
-                      {b.gapLabel}
+                      {b.gapLabel ? (
+                        <div
+                          style={{
+                            position: 'absolute',
+                            ...(portrait ? {right: 'calc(50% + 50px)', top: '50%', transform: 'translateY(-50%)'} : {bottom: 'calc(100% + 14px)', left: '50%', transform: 'translateX(-50%)'}),
+                            fontSize: 28,
+                            fontWeight: 700,
+                            color: C.ink2,
+                            whiteSpace: 'nowrap',
+                            opacity: gapIn,
+                          }}
+                        >
+                          {b.gapLabel}
+                        </div>
+                      ) : null}
+                      <Arrow vertical={portrait} color={C.ink3} />
                     </div>
                   ) : null}
-                  <Arrow vertical={portrait} color={C.ink3} />
-                </div>
-              ) : null}
-              <BeatCard beat={b} shownAt={times[i]} noteAt={b.noteCue ? cueAt(plan, scene.narration, b.noteCue, 0.6) : null} active={i === active} portrait={portrait} />
-            </React.Fragment>
-          );
-        })}
-      </div>
+                  <BeatCard
+                    beat={b}
+                    shownAt={times[i]}
+                    noteAt={b.noteCue ? cueAt(plan, scene.narration, b.noteCue, 0.6) : null}
+                    askAt={asks[i]}
+                    active={i === active}
+                    portrait={portrait}
+                  />
+                </React.Fragment>
+              );
+            })}
+          </div>
+        ) : null}
+        <Moments moments={scene.moments} plan={plan} narration={scene.narration} />
+      </Drift>
+      {/* sounds: the place, the timeline arriving, each reveal (a riser into a big win, a stamp on a "no") */}
+      {scene.place ? <Sfx at={6} name="tick" /> : null}
+      {scene.timelineCue ? <Sfx at={timelineAt} name="swish" /> : null}
+      {scene.beats.map((b, i) => {
+        if (times[i] < timelineAt) return null;
+        const big = b.tone === 'pos' || b.tone === 'gold';
+        const ask = asks[i];
+        const rise = big && ask !== null && times[i] - ask >= 30;
+        return (
+          <React.Fragment key={i}>
+            {rise ? <Sfx at={Math.max(ask, times[i] - 48)} name="riser" /> : null}
+            <Sfx at={times[i]} name={big ? 'impact' : b.tone === 'neg' ? 'stamp' : 'thud'} />
+            {ask !== null && !rise ? <Sfx at={ask} name="question" /> : null}
+          </React.Fragment>
+        );
+      })}
+      {phoneAt !== null ? <Sfx at={phoneAt + 10} name="bubble" /> : null}
       {showCaptions ? <Captions captions={plan.captions} /> : null}
     </SceneFrame>
   );
@@ -205,6 +252,9 @@ export const Overview: React.FC<SceneProps<OverviewScene> & {showCaptions: boole
   const mapAt = cueAt(plan, scene.narration, scene.roadmapCue, 0.55);
   const fileAt = cueAt(plan, scene.narration, scene.fileCue, 0.85);
   const file = usePop(fileAt, 12);
+  const highlightAt = cmp?.from.highlightCue ? cueAt(plan, scene.narration, cmp.from.highlightCue, 0.3) : null;
+  // the one person lights up, then the team comes back when the topic arrives
+  const highlight = highlightAt === null ? 0 : interpolate(f, [highlightAt, highlightAt + 10, topicAt - 10, topicAt], [0, 1, 1, 0], clamp);
   const team = interpolate(f, [fromAt, fromAt + 34], [0, 1], clamp);
   const crowd = interpolate(f, [toAt, toAt + 44], [0, 1], {...clamp, easing: EASE_OUT});
   const tilt = interpolate(f, [toAt + 6, topicAt], [0, 1], {...clamp, easing: EASE_OUT});
@@ -217,6 +267,7 @@ export const Overview: React.FC<SceneProps<OverviewScene> & {showCaptions: boole
     <SceneFrame frames={plan.frames}>
       <Backdrop tint={C.blue} />
       <TopBar episode={props.episode} brand={props.brand} />
+      <Drift frames={plan.frames}>
       {cmp ? (
         <div
           style={{
@@ -238,7 +289,7 @@ export const Overview: React.FC<SceneProps<OverviewScene> & {showCaptions: boole
               </span>
               <span style={{fontSize: 44, fontWeight: 700}}>{cmp.from.label}</span>
             </div>
-            <PeopleGrid count={cmp.from.count} cols={11} cell={portrait ? 40 : 34} progress={team} color={C.blue} />
+            <PeopleGrid count={cmp.from.count} cols={11} cell={portrait ? 40 : 34} progress={team} color={C.blue} highlight={highlight} />
           </div>
           <div style={{opacity: 0.25 + 0.75 * Math.min(1, tilt * 2), filter: 'drop-shadow(0 16px 22px rgba(28,35,51,0.22))'}}>
             <Lever width={portrait ? 420 : 440} tilt={tilt} accent={C.blue} />
@@ -294,6 +345,14 @@ export const Overview: React.FC<SceneProps<OverviewScene> & {showCaptions: boole
           })}
         </div>
       </div>
+      <Moments moments={scene.moments} plan={plan} narration={scene.narration} />
+      </Drift>
+      {/* sounds: the team fills in, the crowd sweeps in, one person lights up, the big word lands, the case file */}
+      {cmp ? <Sfx at={fromAt} name="roll" /> : null}
+      {cmp ? <Sfx at={toAt} name="swish" /> : null}
+      {highlightAt !== null ? <Sfx at={highlightAt} name="ping" /> : null}
+      <Sfx at={topicAt} name="impact" volume={0.8} />
+      {scene.file ? <Sfx at={fileAt} name="stamp" volume={0.7} /> : null}
       {showCaptions ? <Captions captions={plan.captions} /> : null}
     </SceneFrame>
   );
@@ -318,6 +377,8 @@ export const Journey: React.FC<SceneProps<JourneyScene> & {showCaptions: boolean
   const loopAt = scene.loopCue ? cueAt(plan, scene.narration, scene.loopCue, 0.8) : null;
   const loopPulse = loopAt === null ? 0 : Math.max(0, Math.sin(Math.max(0, f - loopAt) / 5)) * interpolate(f, [loopAt, loopAt + 6, loopAt + 70, loopAt + 90], [0, 1, 1, 0], clamp);
   const puzzleAt = scene.puzzleCue ? cueAt(plan, scene.narration, scene.puzzleCue, 0.95) : null;
+  const glowAt = scene.glowCue ? cueAt(plan, scene.narration, scene.glowCue, 0.7) : null;
+  const glow = glowAt !== null && f >= glowAt && f < glowAt + 70 ? interpolate(f, [glowAt, glowAt + 60], [0, n + 1], {...clamp, easing: EASE_IN_OUT}) : null;
   const mark = (stop: {mark?: 'loop' | 'puzzle'}, shown: number) => ({
     mark: stop.mark,
     markShown: stop.mark === 'puzzle' && puzzleAt !== null ? interpolate(f, [puzzleAt, puzzleAt + 12], [0, 1], clamp) : shown,
@@ -331,8 +392,11 @@ export const Journey: React.FC<SceneProps<JourneyScene> & {showCaptions: boolean
       <div style={{position: 'absolute', top: portrait ? 250 : 150, left: 0, right: 0, display: 'flex', justifyContent: 'center', ...fadeUp(title, 16)}}>
         <div style={{fontSize: portrait ? 60 : 54, fontWeight: 700, color: C.ink}}>{scene.title ?? 'خريطة الرحلة'}</div>
       </div>
+      <Drift frames={plan.frames}>
       <JourneyMap
         portrait={portrait}
+        ghost={walking ? 0 : interpolate(f, [0, 12, destAt, destAt + 20], [0, 1, 1, 0], clamp)}
+        glow={glow}
         reveal={reveal}
         traveller={traveller}
         active={walking || at > 0 ? at : 0}
@@ -340,6 +404,19 @@ export const Journey: React.FC<SceneProps<JourneyScene> & {showCaptions: boolean
         stations={scene.stations.map((s, i) => ({label: s.label, shown: pop(times[i]), ...mark(s, pop(times[i]))}))}
         destination={{label: scene.destination.label, shown: pop(destAt), ...mark(scene.destination, pop(destAt))}}
       />
+      <Moments moments={scene.moments} plan={plan} narration={scene.narration} />
+      </Drift>
+      {/* sounds: each stop pops in as it is named, the destination chimes, the loop asks, the puzzle sparkles */}
+      {walking ? null : (
+        <>
+          <Sfx at={startAt} name="pop" />
+          {times.map((t, i) => <Sfx key={i} at={t} name="pop" />)}
+          <Sfx at={destAt} name="ping" />
+        </>
+      )}
+      {glowAt !== null ? <Sfx at={glowAt} name="whoosh" volume={0.8} /> : null}
+      {loopAt !== null ? <Sfx at={loopAt} name="question" /> : null}
+      {puzzleAt !== null ? <Sfx at={puzzleAt} name="shimmer" /> : null}
       {showCaptions ? <Captions captions={plan.captions} /> : null}
     </SceneFrame>
   );

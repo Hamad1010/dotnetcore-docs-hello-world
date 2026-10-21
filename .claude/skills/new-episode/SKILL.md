@@ -51,9 +51,13 @@ Follow `CLAUDE.md` (repo root) rules exactly, and the **current version** of the
   part A (the first ~2 minutes) first and you render only that for approval.
 
 ## 4. After approval: `episode.json` and `publish.md`
-- The draft is now frozen. Build `episode.json` from it, one scene per part (scene types: framework §5 and
+- The draft is now frozen. Build `episode.json` from it, one scene per part (scene types: framework §6 and
   `04-studio/src/types.ts`). If a part has no scene type yet, add it in `src/scenes/BizScenes.tsx` (cues,
-  silhouettes, our palette), list it in framework §5, and type-check.
+  silhouettes, our palette), list it in framework §6, and type-check.
+- Give every scene its `moments` (framework §3.14): a visual on the word for each name, date, number, quote,
+  comparison, list, question or hidden thing, so nothing sits still for more than ~4 seconds. After the voice is
+  synced, check that every cue lands on its word (use `phrase@2` for a repeated phrase) and look at stills taken on
+  those words.
 - Numbers: `{display|spoken}` e.g. `{2009|ألفين وتسعة}`, `{55|خمسة وخمسين}`, `{10%|عشرة بالمية}`.
 - Finish the publish kit: real chapter times from `out/chapters.txt`, 3 Shorts, an X thread, a WhatsApp card.
   Altered content: **No** (the owner's real voice).
@@ -70,8 +74,9 @@ Fix any overflow/wrapping by shortening text (not by shrinking fonts).
 ## 6. The owner's voice
 - Put the episode's parts into the Recording Booth (one part per scene) and tell the owner it's ready.
 - When the recording arrives: `python3 06-tools/clean_recording.py EP00N <file>`. It splits the parts at the
-  Booth's pauses, drops retakes, repeats and stutters, tightens long pauses, cleans and levels the sound (-16 LUFS)
-  and writes word marks so cues and subtitles land on the word. Read its report, then `npm run render -- EP00N`.
+  Booth's pauses (or by the script when the owner reads straight through), drops retakes, repeats and stutters,
+  tightens long pauses, cleans and levels the sound (-16 LUFS) and writes word marks so cues and subtitles land on
+  the word. Read its report, then `npm run render -- EP00N`.
 
 ## 7. Bookkeeping
 - `lessons.csv`: `status` → `draft` (sent for approval) / `scripted` (episode.json built) / `voiced` / `rendered`,

@@ -1,6 +1,6 @@
 # 11 · Video framework: how every long video is built
 
-**Current version: v4** (20 Oct 2026). This file is the only place where the structure of a long video is defined.
+**Current version: v4.2** (21 Oct 2026). This file is the only place where the structure of a long video is defined.
 `CLAUDE.md`, the `/new-episode` skill and the blueprint point here instead of repeating it, so a change made here
 reaches everything at once.
 
@@ -46,8 +46,10 @@ and destination; the station names are plain words, not part numbers.
 | 9 | 3 خطوات + لغز الحلقة | `actions` | ~40 s | At most 3 actions (today / this week / this month), the episode's puzzle (§3.11), answers in the comments |
 | 10 | الحلقة المقفلة · closing loop | `close` | ~25 s | Pay off the opening loop if not done yet, then a cliffhanger teaser for the next file |
 
-**Length: at least 8:00**, target 9–12 min, about 5,200–6,900 spoken characters at the owner's real pace (9.6
-characters per second including pauses, measured on EP001's part A). YouTube allows mid-roll ads only
+**Length: at least 8:00**, target 9–12 min, about 6,100–8,100 spoken characters at the owner's real pace (11.3
+characters per second including pauses, measured on the second take of EP001's part A; the first take was 9.6).
+The owner may keep a video longer when the content earns it (EP001's full script stays at ~9,200 characters, about
+13–16 minutes depending on the pace). YouTube allows mid-roll ads only
 on videos of 8 minutes or more. `python3 channel/06-tools/draft_length.py EP00N` warns below 8:00. Never pad: when a
 draft is short, add a story, an example or a clearer explanation, not filler.
 
@@ -150,6 +152,26 @@ Every full script comes with `publish.md` and three thumbnail images, so the own
 - **Never:** words the video doesn't deliver, money promises ("اربح…"), fake urgency, other brands' logos. YouTube
   treats misleading titles and thumbnails as spam, and they cost trust.
 
+### 3.14 Every sentence is seen: explainer moments and sound (new in v4.2)
+The owner's rule after part A: the screen must move with the voice. Nothing may sit still while a story is told.
+- **A moment on the word.** Whenever the narration brings in a name, a date, a number, a quote, a comparison, a list,
+  a question or something hidden, a visual appears on that word: the scene's `moments` in `episode.json`
+  (`04-studio/src/components/Moments.tsx`). Kinds: `date` (a calendar, years flipping), `profile` (who or what,
+  filled in field by field as it is said), `stamp` («مرفوض»), `quote` (typed word by word as it is read, with the
+  original line), `count`, `question` (a pause to guess), `share` (a map of dots filling: a quarter of Saudi Arabia, a
+  third of the Earth), `chips` (a short list, crossed out), `people`, `tally` ("count it one riyal a second…"), `send`
+  (an item travelling from one card to another), `mystery` (a hand holding something hidden: an opening loop).
+- **Never still for more than ~4 seconds,** and never empty placeholders while the story is told. One idea per
+  shot: at most 2–3 moments on screen; each leaves when the next takes its place (or on its `until` word).
+- **A sound for each moment,** short and never melodic (pop, tick, typing, swish, stamp, coin, paper, a rising hiss
+  into the big reveal, then an impact); a whoosh between scenes. They sit well under the voice
+  (`04-studio/src/components/Sfx.tsx`, made by `npm run music -- sfx`).
+- **The background is human voices only:** men humming softly, no instruments and no women's singing voices
+  (`channel.json` → `"background": "humming"`; the bed is made with `06-tools/humming_bed.py` and checked with
+  `06-tools/listen_check.py`). It plays about 20 dB under the voice and rises a little in the pauses between scenes.
+- **Cues are spoken words,** checked against the recording's word marks; `phrase@2` picks a phrase's second
+  occurrence when the first one is elsewhere (e.g. «ألفين» in 2009 and in 2000 years).
+
 ## 4. From draft to video
 
 1. Claude writes `03-episodes/EP00N/script-draft.md` (this framework, numbers as plain digits), `sources.md` and the
@@ -159,7 +181,8 @@ Every full script comes with `publish.md` and three thumbnail images, so the own
 2. The owner reads the draft and approves it or says what to change.
 3. After approval the draft is frozen. Claude builds `episode.json` from it (numbers become `{display|spoken}`),
    `npm run script` prints `script.md`, and the Recording Booth gets the text. From then on, `episode.json` is the
-   source: later changes go there.
+   source: later changes go there. After the recording is synced, Claude adds the scenes' `moments` (§3.14),
+   checks that every cue lands on its word, and looks at stills taken on those words before rendering.
 4. When the format is new, the owner records part A first and Claude renders it for approval; then the rest.
 
 ## 5. Checklist before a draft goes to the owner
@@ -192,8 +215,14 @@ Every full script comes with `publish.md` and three thumbnail images, so the own
 | `recap` | `journey` at the destination + `recap` (earlier format, to restyle) |
 | `actions` | to build: `actions` (with the puzzle) |
 | `close` | `outro` (earlier format, to restyle) |
+| every scene | `moments` on the narrator's words, each with its sound (§3.14) |
 
 ## 7. Changelog
+
+- **v4.2 · 21 Oct 2026.** From the owner's feedback on part A: every sentence is seen (§3.14: explainer moments on
+  the narrator's words, a sound for each, a whoosh between scenes, never still for more than ~4 s); the background is
+  men humming with no instruments; the owner's pace on the second take is 11.3 characters per second, so the
+  character targets become 6,100–8,100; EP001 keeps its full script (the owner chose the longer video).
 
 - **v4.1 · 20 Oct 2026.** Calibration, no structural change: the owner's measured pace (9.6 characters per second,
   pauses included) replaces the 13.5 estimate, so the character targets drop to 5,200–6,900.

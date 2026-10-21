@@ -1,6 +1,7 @@
 // The journey map (framework v3 §1): every video is a road from "أنت هنا" to a destination, with the parts as stations.
 // Drawn from plain shapes in our palette; the road starts on the right, like Arabic reading.
 import React from 'react';
+import {useCurrentFrame} from 'remotion';
 import {C, FONT} from '../theme';
 import {Person} from './Silhouettes';
 
@@ -82,12 +83,17 @@ export const JourneyMap: React.FC<{
   destination: MapStop;
   /** 0 → 1: how much of the road is drawn */
   reveal: number;
+  /** 0 → 1: the whole route shown faintly as a dashed line (the road ahead, before it is told) */
+  ghost?: number;
+  /** a light travelling along the road, in stops (0 = start … stations + 1 = destination); null = none */
+  glow?: number | null;
   /** where the traveller stands, in stops (0 = start … stations + 1 = destination) */
   traveller: number;
   /** which station is highlighted (1-based), 0 = none */
   active: number;
   portrait: boolean;
-}> = ({start, stations, destination, reveal, traveller, active, portrait}) => {
+}> = ({start, stations, destination, reveal, ghost = 0, glow = null, traveller, active, portrait}) => {
+  const f = useCurrentFrame();
   const W = portrait ? 1080 : 1920;
   const H = portrait ? 1920 : 1080;
   const stops = [start, ...stations, destination];
@@ -107,6 +113,7 @@ export const JourneyMap: React.FC<{
           </filter>
         </defs>
         <Contours w={W} h={H} />
+        {ghost > 0 ? <path d={d} fill="none" stroke={C.ink3} strokeWidth={6} strokeLinecap="round" strokeDasharray="2 22" strokeDashoffset={f * 1.2} opacity={0.45 * ghost} /> : null}
         <path d={d} pathLength={1} fill="none" stroke="#fff" strokeWidth={40} strokeLinecap="round" strokeLinejoin="round" strokeDasharray={`${reveal} 2`} filter="url(#road-shadow)" />
         <path d={d} pathLength={1} fill="none" stroke={C.ink3} strokeWidth={5} strokeLinecap="round" strokeDasharray={`${reveal} 2`} opacity={0.35} />
         <path d={d} pathLength={1} fill="none" stroke={C.blue} strokeWidth={14} strokeLinecap="round" strokeLinejoin="round" strokeDasharray={`${Math.min(done, reveal)} 2`} />
@@ -188,11 +195,20 @@ export const JourneyMap: React.FC<{
                 }}
               >
                 <Badge kind={s.mark} size={56} />
+                {s.mark === 'puzzle' ? (
+                  <div style={{position: 'absolute', left: 68, top: 6, whiteSpace: 'nowrap', direction: 'rtl', fontSize: 28, fontWeight: 700, color: '#fff', background: C.ink, borderRadius: 999, padding: '6px 20px'}}>لغز الحلقة</div>
+                ) : null}
               </div>
             ) : null}
           </React.Fragment>
         );
       })}
+      {glow !== null ? (
+        (() => {
+          const g = locate(road, glow);
+          return <div style={{position: 'absolute', left: g.x - 34, top: g.y - 34, width: 68, height: 68, borderRadius: 99, background: 'radial-gradient(circle, rgba(245,183,36,0.95) 0%, rgba(245,183,36,0.45) 45%, rgba(245,183,36,0) 70%)'}} />;
+        })()
+      ) : null}
       <div
         style={{
           position: 'absolute',

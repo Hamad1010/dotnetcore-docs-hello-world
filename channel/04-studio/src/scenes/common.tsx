@@ -18,16 +18,42 @@ export type SceneProps<T> = {
 /** Frame (relative to scene start) at a given fraction of the narration. */
 export const at = (plan: ScenePlan, fraction: number) => Math.round(plan.speechStart + plan.speechFrames * fraction);
 
+/** Where a cue starts in the spoken narration (character index), or -1. "phrase@2" = its second occurrence. */
+const findCue = (text: string, cue: string) => {
+  const m = cue.match(/^(.*)@(\d+)$/);
+  const [want, nth] = m ? [m[1], parseInt(m[2], 10)] : [cue, 1];
+  let i = -1;
+  for (let k = 0; k < nth; k++) {
+    i = text.indexOf(want, i + 1);
+    if (i < 0) return -1;
+  }
+  return i;
+};
+
 /** Frame at which a cue word is spoken: from the aligned real voice when there is one, else estimated from its
  * position in the narration (else `fallback`). */
 export const cueAt = (plan: ScenePlan, narration: string, cue: string | undefined, fallback: number) => {
   if (cue) {
     const text = spoken(narration);
-    const i = text.indexOf(cue);
+    const i = findCue(text, cue);
     if (i >= 0 && plan.marks) return plan.marks[Math.min(plan.marks.length - 1, text.slice(0, i).split(' ').length - 1)];
     if (i >= 0) return at(plan, i / Math.max(1, text.length));
   }
   return at(plan, fallback);
+};
+
+/** Frames at which `count` spoken words starting at `cue` are said (a quote typed word by word as it is read). */
+export const wordFrames = (plan: ScenePlan, narration: string, cue: string, count: number): number[] => {
+  const text = spoken(narration);
+  const i = findCue(text, cue);
+  if (i < 0) return [];
+  const words = text.split(' ');
+  const first = text.slice(0, i).split(' ').length - 1;
+  return Array.from({length: count}, (_, k) => {
+    const w = Math.min(words.length - 1, first + k);
+    if (plan.marks) return plan.marks[Math.min(plan.marks.length - 1, w)];
+    return at(plan, words.slice(0, w).join(' ').length / Math.max(1, text.length));
+  });
 };
 
 export const lessonNumber = (episode: Episode) => parseInt(episode.lesson.replace(/\D/g, ''), 10);

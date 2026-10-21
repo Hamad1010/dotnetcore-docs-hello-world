@@ -64,15 +64,84 @@ export type Tone = 'neg' | 'pos' | 'accent' | 'gold';
 /** One moment of a short story. `cue` = a word from the (spoken) narration: the card appears when it is said. */
 export type Beat = {cue?: string; year?: string; value?: string; unit?: string; label: string; tone?: Tone; gapLabel?: string;
   /** a touchable comparison shown under the card when `noteCue` is spoken */
-  note?: string; noteCue?: string};
+  note?: string; noteCue?: string;
+  /** the question that comes before the reveal ("تتوقعون كم دفعت؟"): the empty card shows "؟" from this word */
+  askCue?: string};
+
+/** Where an explainer moment sits: a third of the middle band, the top or bottom band, the floor, or the whole stage. */
+export type MomentSlot = 'right' | 'center' | 'left' | 'top-right' | 'top' | 'top-left' | 'bottom-right' | 'bottom' | 'bottom-left' | 'floor' | 'stage';
+
+type MomentBase = {
+  /** the spoken word that brings it in ("phrase@2" = the phrase's second occurrence) */
+  cue: string;
+  /** the spoken word that takes it away; default: when the next moment takes its slot, or at the end of the scene */
+  until?: string;
+  slot?: MomentSlot;
+  /** sits on top of its slot's moment instead of replacing it (a stamp on a card) */
+  over?: boolean;
+  /** pixels to shift it from the slot's centre [x, y] */
+  nudge?: [number, number];
+  /** moves (and shrinks) to another slot when `moveCue` is said, making room for what comes next */
+  moveTo?: MomentSlot;
+  moveCue?: string;
+};
+
+/** Explainer visuals that appear on the narrator's words, so every sentence is seen as well as heard. */
+export type Moment = MomentBase &
+  (
+    | {kind: 'date'; month?: string; year: string; to?: string; toCue?: string; note?: string; noteCue?: string}
+    | {
+        kind: 'profile';
+        icon?: 'person' | 'pair' | 'building' | 'chat';
+        title: string;
+        /** the title types in when this word is said (until then a blank bar: the name isn't known yet) */
+        titleCue?: string;
+        subtitle?: string;
+        tag?: string;
+        tone?: Tone;
+        fields?: {label: string; value: string; cue?: string; note?: string; noteCue?: string}[];
+      }
+    | {kind: 'stamp'; text: string; tone?: Tone}
+    | {kind: 'quote'; who: string; meta?: string; text: string; textCue?: string; original?: string}
+    | {kind: 'count'; value: string; unit?: string; label?: string; tone?: Tone}
+    | {kind: 'question'; text?: string}
+    | {kind: 'share'; shape: 'saudi' | 'world'; part: number; whole: number; title?: string; value?: string; label: string; fillCue?: string; tone?: Tone}
+    | {kind: 'chips'; title?: string; items: {text: string; cue?: string; crossed?: boolean}[]}
+    | {kind: 'people'; count: number; cols?: number; value?: string; label?: string; tone?: Tone}
+    | {
+        kind: 'tally';
+        /** "one riyal every second": coins drop each second from `startCue`, race from `fastCue`, `total` lands at `resultCue` */
+        unit: string;
+        per: string;
+        total: number;
+        startCue: string;
+        fastCue: string;
+        resultCue: string;
+        result: string;
+        resultUnit: string;
+        note?: string;
+      }
+    | {kind: 'send'; item: string; from: MomentSlot; to: MomentSlot; tone?: Tone}
+    | {kind: 'mystery'; label?: string}
+  );
 
 /** Business format, part 1: the "stop scrolling" short story told as a timeline of numbers over silhouettes. */
-export type StoryHookScene = Base & {type: 'storyhook'; place?: string; beats: Beat[]; phoneCue?: string};
+export type StoryHookScene = Base & {
+  type: 'storyhook';
+  place?: string;
+  beats: Beat[];
+  phoneCue?: string;
+  /** explainer moments that tell the story before the timeline of numbers takes the screen */
+  moments?: Moment[];
+  /** the word that brings in the timeline of beats; default: it is there from the start */
+  timelineCue?: string;
+};
 
 /** Business format, part 2: the smart transition. A before/after comparison, the topic, and what's coming. */
 export type OverviewScene = Base & {
   type: 'overview';
-  compare?: {from: {value: string; label: string; count: number; cue?: string}; to: {value: string; label: string; cue?: string}};
+  /** `highlightCue`: one person of the team lights up ("كل موظف…") */
+  compare?: {from: {value: string; label: string; count: number; cue?: string; highlightCue?: string}; to: {value: string; label: string; cue?: string}};
   topic: string;
   topicSub?: string;
   roadmap?: string[];
@@ -80,6 +149,7 @@ export type OverviewScene = Base & {
   /** the case file, e.g. "الملف 01 · لغز الـ55", shown when `fileCue` is spoken */
   file?: string;
   fileCue?: string;
+  moments?: Moment[];
 };
 
 /** One stop on the journey map. `cue` = the spoken word that makes it appear. */
@@ -100,6 +170,9 @@ export type JourneyScene = Base & {
   loopCue?: string;
   /** the word that shows the puzzle badge */
   puzzleCue?: string;
+  /** the word that sends a light along the whole road ("وخلك معي للآخر…") */
+  glowCue?: string;
+  moments?: Moment[];
 };
 
 export type Scene =
