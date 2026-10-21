@@ -117,6 +117,9 @@ export const JourneyMap: React.FC<{
         <path d={d} pathLength={1} fill="none" stroke="#fff" strokeWidth={40} strokeLinecap="round" strokeLinejoin="round" strokeDasharray={`${reveal} 2`} filter="url(#road-shadow)" />
         <path d={d} pathLength={1} fill="none" stroke={C.ink3} strokeWidth={5} strokeLinecap="round" strokeDasharray={`${reveal} 2`} opacity={0.35} />
         <path d={d} pathLength={1} fill="none" stroke={C.blue} strokeWidth={14} strokeLinecap="round" strokeLinejoin="round" strokeDasharray={`${Math.min(done, reveal)} 2`} />
+        {glow !== null ? (
+          <path d={d} pathLength={1} fill="none" stroke={C.yellow} strokeWidth={16} strokeLinecap="round" strokeLinejoin="round" strokeDasharray={`${locate(road, glow).dist / total} 2`} opacity={0.75} />
+        ) : null}
         {stops.map((s, i) => {
           const p = pts[i];
           const sc = s.shown;
@@ -206,7 +209,7 @@ export const JourneyMap: React.FC<{
       {glow !== null ? (
         (() => {
           const g = locate(road, glow);
-          return <div style={{position: 'absolute', left: g.x - 34, top: g.y - 34, width: 68, height: 68, borderRadius: 99, background: 'radial-gradient(circle, rgba(245,183,36,0.95) 0%, rgba(245,183,36,0.45) 45%, rgba(245,183,36,0) 70%)'}} />;
+          return <div style={{position: 'absolute', left: g.x - 60, top: g.y - 60, width: 120, height: 120, borderRadius: 99, background: 'radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(245,183,36,0.95) 22%, rgba(245,183,36,0.4) 48%, rgba(245,183,36,0) 70%)'}} />;
         })()
       ) : null}
       <div
