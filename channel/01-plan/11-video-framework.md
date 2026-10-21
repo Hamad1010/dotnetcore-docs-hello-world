@@ -1,6 +1,6 @@
 # 11 · Video framework: how every long video is built
 
-**Current version: v4.3** (21 Oct 2026). This file is the only place where the structure of a long video is defined.
+**Current version: v4.4** (21 Oct 2026). This file is the only place where the structure of a long video is defined.
 `CLAUDE.md`, the `/new-episode` skill and the blueprint point here instead of repeating it, so a change made here
 reaches everything at once.
 
@@ -156,11 +156,19 @@ Every full script comes with `publish.md` and three thumbnail images, so the own
 The owner's rule after part A: the screen must move with the voice. Nothing may sit still while a story is told.
 - **A moment on the word.** Whenever the narration brings in a name, a date, a number, a quote, a comparison, a list,
   a question or something hidden, a visual appears on that word: the scene's `moments` in `episode.json`
-  (`04-studio/src/components/Moments.tsx`). Kinds: `date` (a calendar, years flipping), `profile` (who or what,
-  filled in field by field as it is said), `stamp` («مرفوض»), `quote` (typed word by word as it is read, with the
-  original line), `count`, `question` (a pause to guess), `share` (a map of dots filling: a quarter of Saudi Arabia, a
-  third of the Earth), `chips` (a short list, crossed out), `people`, `tally` ("count it one riyal a second…"), `send`
-  (an item travelling from one card to another), `mystery` (a hand holding something hidden: an opening loop).
+  (`04-studio/src/components/Moments.tsx` and `MomentKinds.tsx`). Kinds: `date` (a calendar, years flipping),
+  `profile` (who or what, filled in field by field as it is said), `stamp` («مرفوض»), `quote` (typed word by word as
+  it is read, with the original line), `count`, `question` (a pause to guess), `share` (a map of dots filling: a
+  quarter of Saudi Arabia, a third of the Earth), `chips` (a short list, crossed out), `people`, `tally` ("count it one
+  riyal a second…"), `send` (an item travelling from one card to another), `mystery` (a hand holding something hidden:
+  an opening loop), `headline` (a station's title or a punchline), `wrench` (same force, longer handle), `clock` (the
+  24 hours everyone has), `times` (15 × Saudi Arabia, 7 doors that say «لا»), `quiz` (the self-check), `versus` (two
+  things side by side), `chat` (a phone, messages on their words), `math` (a sum built term by term, blanks for the
+  puzzle), `steps`, `alert` (a phone's emergency alert), `button`, `globe` (flying from Riyadh to the place),
+  `search` (a query and a rising trend) and `file` (the next case file).
+- **The second half waits for its word:** a headline's sub line, a step's detail, a comparison's note or a profile's
+  field appears when it is said (`subCue`, `noteCue`, `labelCue`, a field's `cue`), so long sentences build in beats.
+  A made-up example carries `illustration: true` (the «مثال توضيحي» chip) and a number its `source` line.
 - **Never still for more than ~4 seconds,** and never empty placeholders while the story is told. One idea per
   shot: at most 2–3 moments on screen; each leaves when the next takes its place (or on its `until` word).
 - **A sound for each moment,** short and never melodic (pop, tick, typing, swish, stamp, coin, paper, a rising hiss
@@ -209,17 +217,16 @@ The owner's rule after part A: the screen must move with the voice. Nothing may 
 | `hook` | `storyhook` (built) |
 | `bridge` | `overview` (comparison, topic, case file) + `journey` (the map) (built) |
 | every station start | `journey` with `at` = the station (built) |
-| `problem` | to build: `stats` |
-| `check` | to build: `selfcheck` |
-| `tools` | `story` per step (earlier format, to restyle), or to build: `steps` |
-| `risks` | to build: `trap` |
-| `practice` | `practice` (earlier format, to restyle) |
-| `recap` | `journey` at the destination + `recap` (earlier format, to restyle) |
-| `actions` | to build: `actions` (with the puzzle) |
-| `close` | `outro` (earlier format, to restyle) |
+| `problem`, `check`, `tools`, `risks`, `practice`, `actions`, `close` | `stage` (built): an empty stage with the station chip, filled by its `moments` (the self-check is a `quiz`, the puzzle a `math` with blanks) |
+| `recap` | `journey` at the destination (built): the road lights up from `glowCue` to `glowEndCue`, then fades at `focusCue` for its moments |
+| end card | `stage` with no narration (built): the next `file` from second 0 (`at: 0`), moved up to leave room for YouTube's end-screen elements |
 | every scene | `moments` on the narrator's words, each with its sound (§3.14) |
 
 ## 7. Changelog
+
+- **v4.4 · 21 Oct 2026.** Studio side only, no change for scripts: every part after the bridge is a `stage` scene
+  filled with moments (§6); 14 new moment kinds and cues for a sentence's second half (§3.14), built for the full
+  EP001.
 
 - **v4.3 · 21 Oct 2026.** The background: soft hums with no instruments, never sad, quiet under the voice (the
   owner's "Detective Backgrounds" style), picked by ear from options compared at three levels; `channel.json` names

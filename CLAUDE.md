@@ -59,7 +59,7 @@ In a cloud session set `REMOTION_BROWSER=/opt/pw-browsers/chromium_headless_shel
 - All animation is driven by `useCurrentFrame()` + `interpolate`/`spring`. Never CSS animations or `setTimeout`.
 - Scene timing comes only from `src/lib/plan.js` (`buildPlan`). When audio exists, `audio/timings.json` drives it.
 - Visuals that must land on a word use a `cue` (a word from the spoken narration) via `cueAt()` in `src/scenes/common.tsx`; `phrase@2` = its second occurrence.
-- Explainer visuals are a scene's `moments` in `episode.json` (`src/components/Moments.tsx`, kinds in `src/types.ts`). Sound effects play through `<Sfx>` (`src/components/Sfx.tsx`); the files come from `npm run music -- sfx`.
+- Explainer visuals are a scene's `moments` in `episode.json` (`src/components/Moments.tsx` and `MomentKinds.tsx`, kinds in `src/types.ts`); parts after the bridge are `stage` scenes filled by them. Sound effects play through `<Sfx>` (`src/components/Sfx.tsx`); the files come from `npm run music -- sfx`.
 - Static files are served from `channel/03-episodes` (public dir). Reference them with `staticFile('EP001/...')`.
 - Layout is RTL (`direction: rtl`); wrap numbers that must read LTR in `direction: 'ltr', unicodeBidi: 'isolate'`.
 - Type-check with `npm run check` after code changes.
