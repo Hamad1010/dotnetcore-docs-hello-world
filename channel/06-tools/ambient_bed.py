@@ -8,6 +8,10 @@ Presets (bright, never sad: no minor chords):
               times a minute, like a mind at work.
   insight     calm and bright: an A chord with its ninth (A E C# B) that slowly opens up, with a faint shimmer.
 
+The owner chose `insight` for the channel (21 Oct 2026): `ambient_bed.py insight 03-episodes/_assets/music/insight.mp3
+--seconds 300` remakes the exact file. Every bed comes out with a little room made for the voice (no rumble, a gentle
+dip at 190 Hz).
+
 Like the owner's "Detective Backgrounds" pack: soft tones, each from three slightly detuned voices, long swells and a
 soft room. Every tone completes a whole number of cycles in the loop and every slow
 movement divides its length, so the end flows straight back into the start. Screen the result with
@@ -22,6 +26,7 @@ import numpy as np
 
 SR = 44100
 LUFS = -18
+VOICE_ROOM = 'highpass=f=60:poles=2,equalizer=f=190:t=q:w=1.0:g=-3'  # no rumble, a little room where a man's voice has its body
 
 
 def q(f, length):
@@ -106,9 +111,9 @@ def main():
         raw = os.path.join(tmp, 'bed.f32')
         x.astype(np.float32).tofile(raw)
         src = ['-f', 'f32le', '-ar', str(SR), '-ac', '2', '-i', raw]
-        probe = subprocess.run(['ffmpeg', '-hide_banner', *src, '-af', 'ebur128', '-f', 'null', '-'], capture_output=True, text=True).stderr
+        probe = subprocess.run(['ffmpeg', '-hide_banner', *src, '-af', f'{VOICE_ROOM},ebur128', '-f', 'null', '-'], capture_output=True, text=True).stderr
         measured = float(probe[probe.rindex('Summary:'):].split('I:')[1].split('LUFS')[0])
-        subprocess.run(['ffmpeg', '-v', 'error', '-y', *src, '-af', f'volume={LUFS - measured:.2f}dB,alimiter=limit=0.8:level=false',
+        subprocess.run(['ffmpeg', '-v', 'error', '-y', *src, '-af', f'{VOICE_ROOM},volume={LUFS - measured:.2f}dB,alimiter=limit=0.8:level=false',
                         '-c:a', 'libmp3lame', '-b:a', '160k', dst], check=True)
     print(f'{dst}: {preset}, {length:.0f}s seamless loop, {LUFS} LUFS')
 

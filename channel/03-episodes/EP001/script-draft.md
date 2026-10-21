@@ -1,6 +1,7 @@
 # EP001 · الملف 01: لغز الـ55 · الرافعة: نتيجة أكبر… بنفس الجهد
 
-> **Framework v4** · draft for the owner's approval · sources: [sources.md](sources.md)
+> **Framework v4.3** · full script for the owner's final check · sources: [sources.md](sources.md)
+> **Length:** about 9,200 spoken characters ≈ 13½ minutes at your pace (11.3 characters a second).
 > **Journey:** أنت هنا: شغل بيدك… ساعة بساعة → كم تكلّفنا الساعات؟ → اختبر نفسك → 4 رافعات تبدأ فيها من اليوم →
 > فخاخ الطريق → تمارين → الوصول: شغلك يشتغل عنك.
 > **Opening loop:** "a lever that needs no money, no wasta and no permission" → paid off at station 3, lever 4 (your phone).
@@ -9,7 +10,9 @@
 > of EP002.
 > **Teaser:** EP002 «موهبتك المخفية».
 > **Publish kit:** [publish.md](publish.md) (3 titles, 2 descriptions, tags) and 3 thumbnails (`npm run thumbs -- EP001`).
-> **Part A = parts 1 and 2 (about 2 minutes): record these first.** They are in the Recording Booth as 3 short parts.
+> **Part A (parts 1 and 2) is recorded and approved** (take 2, with the Insight background at 25 dB). The Recording
+> Booth now holds the whole video in 16 short parts: read it all straight through (best: your voice sounds the same
+> all the way), or start at Booth part 4.
 > Reading marks: … = a short pause · [مثال توضيحي] = an illustration, labelled on screen.
 
 ## 1 · القصة
