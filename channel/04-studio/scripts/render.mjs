@@ -67,10 +67,13 @@ const master = (file) => {
   if (!m) return console.log('  (loudness not measured, left as rendered)');
   const gain = -14 - parseFloat(m[1]);
   const tmp = file.replace(/\.mp4$/, '.master.mp4');
-  const r = ffmpeg(['-y', '-loglevel', 'error', '-i', file, '-c:v', 'copy', '-af', `volume=${gain.toFixed(2)}dB,alimiter=limit=0.85:attack=5:release=60:level=false`, '-c:a', 'aac', '-b:a', '192k', tmp]);
+  // limit at -2 dBFS: AAC adds up to ~1 dB between samples, and YouTube wants true peaks under -1 dB
+  const r = ffmpeg(['-y', '-loglevel', 'error', '-i', file, '-c:v', 'copy', '-af', `volume=${(gain + 0.1).toFixed(2)}dB,alimiter=limit=0.79:attack=5:release=60:level=false`, '-c:a', 'aac', '-b:a', '192k', tmp]);
   if (r.status !== 0) return console.log('  (mastering failed, left as rendered)', r.stderr);
   fs.renameSync(tmp, file);
-  console.log(`✓ loudness ${m[1]} → -14 LUFS (${gain >= 0 ? '+' : ''}${gain.toFixed(1)} dB), peaks under -1 dB`);
+  const after = ffmpeg(['-hide_banner', '-nostats', '-i', file, '-vn', '-af', 'ebur128=peak=true', '-f', 'null', '-']).stderr || '';
+  const tp = after.slice(after.lastIndexOf('Summary:')).match(/Peak:\s+(-?[\d.]+)/);
+  console.log(`✓ loudness ${m[1]} → -14 LUFS (${gain >= 0 ? '+' : ''}${gain.toFixed(1)} dB), true peak ${tp ? tp[1] : '?'} dB`);
 };
 
 const progress = (label) => {
