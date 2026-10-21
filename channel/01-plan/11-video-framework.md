@@ -1,6 +1,6 @@
 # 11 · Video framework: how every long video is built
 
-**Current version: v4.2** (21 Oct 2026). This file is the only place where the structure of a long video is defined.
+**Current version: v4.3** (21 Oct 2026). This file is the only place where the structure of a long video is defined.
 `CLAUDE.md`, the `/new-episode` skill and the blueprint point here instead of repeating it, so a change made here
 reaches everything at once.
 
@@ -166,9 +166,11 @@ The owner's rule after part A: the screen must move with the voice. Nothing may 
 - **A sound for each moment,** short and never melodic (pop, tick, typing, swish, stamp, coin, paper, a rising hiss
   into the big reveal, then an impact); a whoosh between scenes. They sit well under the voice
   (`04-studio/src/components/Sfx.tsx`, made by `npm run music -- sfx`).
-- **The background is human voices only:** men humming softly, no instruments and no women's singing voices
-  (`channel.json` → `"background": "humming"`; the bed is made with `06-tools/humming_bed.py` and checked with
-  `06-tools/listen_check.py`). It plays about 20 dB under the voice and rises a little in the pauses between scenes.
+- **The background: soft hums, no instruments, never sad.** Its job is that the voice is never alone, without anyone
+  hearing "background music": quiet, curious, good for analysis. The owner chooses it by ear (their "Detective
+  Backgrounds" hums, or beds made with `06-tools/ambient_bed.py` or `humming_bed.py`; screen each with
+  `06-tools/listen_check.py`). `channel.json` → `"background"` (a file in `_assets/music/`, at -18 LUFS) and
+  `"backgroundLevel"` (how many dB under the voice); it rises 4 dB in the pauses between scenes.
 - **Cues are spoken words,** checked against the recording's word marks; `phrase@2` picks a phrase's second
   occurrence when the first one is elsewhere (e.g. «ألفين» in 2009 and in 2000 years).
 
@@ -218,6 +220,10 @@ The owner's rule after part A: the screen must move with the voice. Nothing may 
 | every scene | `moments` on the narrator's words, each with its sound (§3.14) |
 
 ## 7. Changelog
+
+- **v4.3 · 21 Oct 2026.** The background: soft hums with no instruments, never sad, quiet under the voice (the
+  owner's "Detective Backgrounds" style), picked by ear from options compared at three levels; `channel.json` names
+  the file and its level.
 
 - **v4.2 · 21 Oct 2026.** From the owner's feedback on part A: every sentence is seen (§3.14: explainer moments on
   the narrator's words, a sound for each, a whoosh between scenes, never still for more than ~4 s); the background is

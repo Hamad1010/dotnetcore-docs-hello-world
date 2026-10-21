@@ -207,7 +207,10 @@ export type Brand = {
   nameEn: string;
   handle: string;
   tagline: string;
-  background?: 'none' | 'humming' | 'calm';
+  /** a file in 03-episodes/_assets/music/ without ".mp3" (normalised to -18 LUFS), or "none" */
+  background?: string;
+  /** how many dB the background sits under the voice while it speaks (default 21) */
+  backgroundLevel?: number;
   /** shown before the episode number, e.g. "الملف" → "الملف 01" */
   episodeLabel?: string;
 };

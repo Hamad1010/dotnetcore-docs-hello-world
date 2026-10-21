@@ -10,7 +10,7 @@ import {Journey, Overview, StoryHook} from './scenes/BizScenes';
 import {Sfx, SfxOn} from './components/Sfx';
 
 export type EpisodeData = {episode: Episode; plan: Plan; brand: Brand; music: string | null; sfx: boolean};
-export type EpisodeProps = {episodeId: string; showCaptions?: boolean; data?: EpisodeData};
+export type EpisodeProps = {episodeId: string; showCaptions?: boolean; background?: string; data?: EpisodeData};
 
 const HOME = {lat: 24.71, lon: 46.68}; // the globe always starts from Riyadh
 
@@ -24,9 +24,10 @@ export const EpisodeVideo: React.FC<EpisodeProps> = ({episodeId, showCaptions, d
 
   let camera = HOME;
   let storyNo = 0;
-  // The background sits far under the voice and swells a little in the pauses between scenes (ducking).
-  const under = hasVoice ? (brand.background === 'humming' ? 0.13 : 0.07) : 0.2;
-  const gap = hasVoice ? under * 1.9 : under;
+  // The background sits `backgroundLevel` dB under the voice (both measured as loudness: the voice at -16 LUFS, the
+  // background files at -18 LUFS) and swells 4 dB in the pauses between scenes.
+  const under = hasVoice ? Math.pow(10, (2 - (brand.backgroundLevel ?? 21)) / 20) : 0.2;
+  const gap = hasVoice ? under * 1.58 : under;
   const speaking = plan.scenes.map((sp) => [sp.from + sp.speechStart, sp.from + sp.speechStart + sp.speechFrames] as const);
   const musicVolume = (f: number) => {
     // distance (in frames) to the nearest stretch of speech: 0 while the voice is on

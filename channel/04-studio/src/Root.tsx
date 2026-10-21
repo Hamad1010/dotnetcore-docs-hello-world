@@ -19,8 +19,9 @@ const exists = async (path: string) => {
   }
 };
 
-// Loads 03-episodes/<episodeId>/episode.json (+ audio/timings.json when a voice exists)
-const loadEpisode = async (episodeId: string): Promise<EpisodeData> => {
+// Loads 03-episodes/<episodeId>/episode.json (+ audio/timings.json when a voice exists).
+// `background` overrides channel.json's (to compare backgrounds, or to render the voice without one).
+const loadEpisode = async (episodeId: string, background?: string): Promise<EpisodeData> => {
   const [episode, brand] = (await Promise.all([
     fetch(staticFile(`${episodeId}/episode.json`)).then((r) => r.json()),
     fetch(staticFile('channel.json')).then((r) => r.json()),
@@ -30,15 +31,17 @@ const loadEpisode = async (episodeId: string): Promise<EpisodeData> => {
     timings = await fetch(staticFile(`${episodeId}/audio/timings.json`)).then((r) => r.json());
   }
   const plan = buildPlan(episode, timings, FPS);
-  // Background sound is a channel-wide setting in 03-episodes/channel.json → "background": none | humming | calm
-  const file = {humming: '_assets/music/humming.mp3', calm: '_assets/music/calm-pad.mp3', none: null}[brand.background ?? 'none'] ?? null;
+  // Background sound is a channel-wide setting in 03-episodes/channel.json → "background": a file in
+  // _assets/music/ (without .mp3), or "none"
+  const name = background ?? brand.background ?? 'none';
+  const file = name === 'none' ? null : `_assets/music/${name === 'calm' ? 'calm-pad' : name}.mp3`;
   const music = file && (await exists(file)) ? file : null;
   const sfx = await exists('_assets/sfx/pop.mp3');
   return {episode, plan, brand, music, sfx};
 };
 
 const episodeMeta: CalculateMetadataFunction<EpisodeProps> = async ({props}) => {
-  const data = await loadEpisode(props.episodeId);
+  const data = await loadEpisode(props.episodeId, props.background);
   return {durationInFrames: data.plan.total, props: {...props, data}};
 };
 

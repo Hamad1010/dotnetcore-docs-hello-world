@@ -9,6 +9,8 @@
 //   node scripts/render.mjs EP001 --thumb-only
 //   node scripts/render.mjs EP001 --shorts     vertical Shorts listed in episode.json "shorts" → out/short-N.mp4
 //   node scripts/render.mjs EP001 --short=2    only Short number 2
+//   node scripts/render.mjs EP001 --audio      only the soundtrack → out/<EP>.wav (fast: to compare backgrounds)
+//   --background=<name>                        a file in _assets/music/ (no .mp3), or none: overrides channel.json
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
@@ -28,11 +30,13 @@ const thumbOnly = args.includes('--thumb-only');
 const shortArg = args.find((a) => a.startsWith('--short='));
 const onlyShort = shortArg ? Number(shortArg.split('=')[1]) : null;
 const shortsOnly = args.includes('--shorts') || onlyShort !== null;
+const audioOnly = args.includes('--audio');
+const bgArg = args.find((a) => a.startsWith('--background='));
 const outDir = path.join(episodes, episodeId, 'out');
 fs.mkdirSync(outDir, {recursive: true});
 
 const browserExecutable = process.env.REMOTION_BROWSER || null;
-const inputProps = {episodeId};
+const inputProps = bgArg ? {episodeId, background: bgArg.split('=')[1]} : {episodeId};
 console.log('Bundling…');
 const serveUrl = await bundle({entryPoint: path.join(studio, 'src/index.ts'), publicDir: episodes});
 
@@ -111,6 +115,13 @@ if (shortsOnly) {
 
 const comp = await selectComposition({serveUrl, id: 'Episode', inputProps, browserExecutable});
 const {episode, plan} = comp.props.data;
+
+if (audioOnly) {
+  const wav = path.join(outDir, `${episodeId}${bgArg ? `-${bgArg.split('=')[1]}` : ''}.wav`);
+  await renderMedia({composition: comp, serveUrl, codec: 'wav', outputLocation: wav, inputProps, browserExecutable, onProgress: progress('audio')});
+  console.log(`✓ ${path.relative(process.cwd(), wav)}`);
+  process.exit(0);
+}
 
 // Subtitles + chapters (from the same timing plan the video uses)
 fs.writeFileSync(path.join(outDir, 'subtitles.ar.srt'), toSrt(plan));

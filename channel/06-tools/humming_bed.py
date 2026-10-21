@@ -5,7 +5,7 @@
 1. Finds each clip's key and tunes the others to the first one (rubberband, formants kept, so voices stay natural).
 2. Chains the clips with slow crossfades and closes the loop, so the end flows back into the start.
 3. Keeps it out of the narrator's way: high-pass 70 Hz, low-pass 5 kHz, a light room reverb (more of it starts to
-   sound like a chant, not a hum), then -20 LUFS. The studio plays it far lower under the voice (Episode.tsx).
+   sound like a chant, not a hum), then -18 LUFS like every background. The studio plays it far lower under the voice (Episode.tsx).
 
 Check a new bed for instruments with listen_check.py before using it (the channel's rule: no instruments).
 """
@@ -88,11 +88,11 @@ def main():
         wav = os.path.join(tmp, 'bed.f32')
         bed.astype(np.float32).tofile(wav)
         probe = subprocess.run(['ffmpeg', '-hide_banner', '-f', 'f32le', '-ar', str(SR), '-ac', '2', '-i', wav, '-af',
-                                'loudnorm=I=-20:TP=-3:LRA=7:print_format=summary', '-f', 'null', '-'], capture_output=True, text=True).stderr
-        gain = -20 - float(probe.split('Input Integrated:')[1].split('LUFS')[0])
+                                'loudnorm=I=-18:TP=-3:LRA=7:print_format=summary', '-f', 'null', '-'], capture_output=True, text=True).stderr
+        gain = -18 - float(probe.split('Input Integrated:')[1].split('LUFS')[0])
         subprocess.run(['ffmpeg', '-v', 'error', '-y', '-f', 'f32le', '-ar', str(SR), '-ac', '2', '-i', wav, '-af', f'volume={gain:.2f}dB,alimiter=limit=0.7:level=false',
                         '-c:a', 'libmp3lame', '-b:a', '160k', dst], check=True)
-    print(f'{dst}: {len(bed) / SR:.1f}s loop in {NAMES[home]}, -20 LUFS')
+    print(f'{dst}: {len(bed) / SR:.1f}s loop in {NAMES[home]}, -18 LUFS')
 
 
 if __name__ == '__main__':
