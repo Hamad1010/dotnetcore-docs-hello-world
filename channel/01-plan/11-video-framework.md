@@ -181,7 +181,8 @@ The owner's rule after part A: the screen must move with the voice. Nothing may 
   24 hours everyone has), `times` (15 × Saudi Arabia, 7 doors that say «لا»), `quiz` (the self-check), `versus` (two
   things side by side), `chat` (a phone, messages on their words), `math` (a sum built term by term, blanks for the
   puzzle), `steps`, `alert` (a phone's emergency alert), `button`, `globe` (flying from Riyadh to the place),
-  `search` (a query and a rising trend) and `file` (the next case file).
+  `search` (a query and a rising trend), `file` (the next case file), `scripture` (a verse or a hadith, its words lit as
+  they are read, v5) and `endscene` (the «فيه مشهد في النهاية» pop-up, v5).
 - **The second half waits for its word:** a headline's sub line, a step's detail, a comparison's note or a profile's
   field appears when it is said (`subCue`, `noteCue`, `labelCue`, a field's `cue`), so long sentences build in beats.
   A made-up example carries `illustration: true` (the «مثال توضيحي» chip) and a number its `source` line.

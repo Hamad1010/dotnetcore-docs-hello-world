@@ -6,7 +6,7 @@ import {interpolate, spring, useCurrentFrame, useVideoConfig} from 'remotion';
 import {geoContains, geoEqualEarth, geoMercator, geoPath, type GeoPermissibleObjects} from 'd3-geo';
 import {feature} from 'topojson-client';
 import world from 'world-atlas/countries-110m.json';
-import {C, EASE_IN_OUT, EASE_OUT, FONT} from '../theme';
+import {C, EASE_IN_OUT, EASE_OUT, FONT, ON_STAGE} from '../theme';
 import type {Moment, MomentSlot} from '../types';
 import type {ScenePlan} from '../lib/plan';
 import {cueAt, wordFrames} from '../scenes/common';
@@ -299,7 +299,7 @@ const ShareCard: React.FC<{m: Extract<Moment, {kind: 'share'}>; c: Clock}> = ({m
 // ------------------------------------------------------------------ chips: a short list, things crossed out
 const ChipRow: React.FC<{m: Extract<Moment, {kind: 'chips'}>; c: Clock}> = ({m, c}) => (
   <div style={{display: 'flex', alignItems: 'center', gap: 20, direction: 'rtl', fontFamily: FONT}}>
-    {m.title ? <div style={{fontSize: 38, fontWeight: 700, color: C.ink, whiteSpace: 'nowrap'}}>{m.title}</div> : null}
+    {m.title ? <div style={{fontSize: 38, fontWeight: 700, color: ON_STAGE.ink, whiteSpace: 'nowrap'}}>{m.title}</div> : null}
     {m.items.map((it, i) => {
       const at = c.at(it.cue, 0.3 + i * 0.2);
       if (c.f < at) return null;
@@ -473,7 +473,7 @@ const MysteryHand: React.FC<{m: Extract<Moment, {kind: 'mystery'}>; c: Clock}> =
           </text>
         </g>
       </svg>
-      {m.label ? <div style={{fontSize: 40, fontWeight: 700, color: C.ink, whiteSpace: 'nowrap'}}>{m.label}</div> : null}
+      {m.label ? <div style={{fontSize: 40, fontWeight: 700, color: ON_STAGE.ink, whiteSpace: 'nowrap'}}>{m.label}</div> : null}
       <Sfx at={c.inAt} name="shimmer" />
       {Number.isFinite(revealAt) ? <Sfx at={revealAt} name="ping" /> : null}
     </div>
@@ -490,7 +490,8 @@ const schedule = (moments: Moment[], plan: ScenePlan, narration: string, fps: nu
   const out: number[] = moments.map((m, i) => {
     if (until[i] !== null) return until[i] as number;
     if (m.over) return plan.frames;
-    const next = moments.findIndex((n, j) => j !== i && !n.over && n.kind !== 'send' && slot(n) === slot(m) && inAt[j] > inAt[i]);
+    // the pop-up and a travelling item never push a moment out of its slot
+    const next = moments.findIndex((n, j) => j !== i && !n.over && n.kind !== 'send' && n.kind !== 'endscene' && slot(n) === slot(m) && inAt[j] > inAt[i]);
     return next >= 0 ? inAt[next] : plan.frames;
   });
   // a moment sitting on another one leaves with it
@@ -515,6 +516,7 @@ export const Moments: React.FC<{moments?: Moment[]; plan: ScenePlan; narration: 
         const shown = f >= inAt && f < outAt + 12;
         const sounds: SfxName | null = Number.isFinite(moveAt) ? 'swish' : null;
         if (m.kind === 'send') return shown ? <SendItem key={i} m={m} c={c} portrait={portrait} /> : null;
+        if (m.kind === 'endscene') return shown ? <K.EndScene key={i} m={m} c={c} outAt={outAt} /> : null;
         let body: React.ReactNode = null;
         if (shown) {
           if (m.kind === 'date') body = <DateCard m={m} c={c} />;
@@ -542,6 +544,7 @@ export const Moments: React.FC<{moments?: Moment[]; plan: ScenePlan; narration: 
           else if (m.kind === 'globe') body = <K.PlaceGlobe m={m} c={c} />;
           else if (m.kind === 'search') body = <K.SearchTrend m={m} c={c} />;
           else if (m.kind === 'file') body = <K.CaseFile m={m} c={c} />;
+          else if (m.kind === 'scripture') body = <K.Scripture m={m} c={c} plan={plan} narration={narration} />;
         }
         const [sx, sy] = slots[m.slot ?? 'stage'];
         const [mx, my] = m.moveTo ? slots[m.moveTo] : [sx, sy];
@@ -569,7 +572,7 @@ export const Moments: React.FC<{moments?: Moment[]; plan: ScenePlan; narration: 
                   </div>
                 ) : null}
                 {m.source ? (
-                  <div style={{position: 'absolute', top: '100%', left: 0, right: 0, marginTop: 14, textAlign: 'center', fontFamily: FONT, direction: 'rtl', fontSize: 22, fontWeight: 500, color: C.ink3, whiteSpace: 'nowrap'}}>
+                  <div style={{position: 'absolute', top: '100%', left: 0, right: 0, marginTop: 14, textAlign: 'center', fontFamily: FONT, direction: 'rtl', fontSize: 22, fontWeight: 500, color: ON_STAGE.ink3, whiteSpace: 'nowrap'}}>
                     المصدر: {m.source}
                   </div>
                 ) : null}

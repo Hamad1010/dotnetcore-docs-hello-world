@@ -31,6 +31,15 @@ export const ACCENTS = [
 ];
 
 export const FONT = '"Readex Pro", "Noto Sans Arabic", sans-serif';
+/** The verse in the «وقفة» (framework v5 §3.15): Amiri Quran, made for the mushaf's script and its marks. */
+export const QURAN_FONT = '"Amiri Quran", "Amiri", serif';
+/** A hadith: classic naskh with its tashkeel. */
+export const NASKH_FONT = '"Amiri", serif';
+
+/** The teaser's dark screen (framework v5 §3.16). */
+export const DARK = {bg: '#0E1424', glow: '#23335A', ink: '#F2F5FA', ink2: '#B9C3D6', ink3: '#8EA0C0'};
+/** Text drawn straight on the stage (not on a card) follows the stage from light to dark (set by Stage). */
+export const ON_STAGE = {ink: `var(--stage-ink, ${C.ink})`, ink2: `var(--stage-ink2, ${C.ink2})`, ink3: `var(--stage-ink3, ${C.ink3})`};
 
 export const SHADOW = '0 1px 3px rgba(28,35,51,0.08), 0 12px 32px rgba(28,35,51,0.10)';
 export const SHADOW_SOFT = '0 1px 2px rgba(28,35,51,0.06), 0 6px 16px rgba(28,35,51,0.06)';

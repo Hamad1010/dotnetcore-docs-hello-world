@@ -1,6 +1,6 @@
 import React from 'react';
-import {AbsoluteFill, Html5Audio, Sequence, interpolate, staticFile} from 'remotion';
-import {ACCENTS, C} from './theme';
+import {AbsoluteFill, Html5Audio, Sequence, interpolate, staticFile, useCurrentFrame} from 'remotion';
+import {ACCENTS, C, DARK} from './theme';
 import type {Plan} from './lib/plan';
 import type {Brand, Episode} from './types';
 import {Hook, Lesson, Title} from './scenes/IntroScenes';
@@ -8,6 +8,7 @@ import {StoryScene} from './scenes/StoryScene';
 import {EndCard, Outro, Practice, Recap} from './scenes/ClosingScenes';
 import {Journey, Overview, Stage, StoryHook} from './scenes/BizScenes';
 import {Sfx, SfxOn} from './components/Sfx';
+import {cueAt} from './scenes/common';
 
 export type EpisodeData = {episode: Episode; plan: Plan; brand: Brand; music: string | null; sfx: boolean};
 export type EpisodeProps = {episodeId: string; showCaptions?: boolean; background?: string; data?: EpisodeData};
@@ -15,6 +16,7 @@ export type EpisodeProps = {episodeId: string; showCaptions?: boolean; backgroun
 const HOME = {lat: 24.71, lon: 46.68}; // the globe always starts from Riyadh
 
 export const EpisodeVideo: React.FC<EpisodeProps> = ({episodeId, showCaptions, data}) => {
+  const frame = useCurrentFrame();
   if (!data) return <AbsoluteFill style={{background: C.bg}} />;
   const {episode, plan, brand, music, sfx} = data;
   const hasVoice = plan.scenes.some((s) => s.audio);
@@ -29,16 +31,31 @@ export const EpisodeVideo: React.FC<EpisodeProps> = ({episodeId, showCaptions, d
   const under = hasVoice ? Math.pow(10, (2 - (brand.backgroundLevel ?? 21)) / 20) : 0.2;
   const gap = hasVoice ? under * 1.58 : under;
   const speaking = plan.scenes.map((sp) => [sp.from + sp.speechStart, sp.from + sp.speechStart + sp.speechFrames] as const);
+  // The «وقفة» (framework v5 §3.15) is quiet: no sound effects, and the background fades out around it.
+  const isQuiet = (i: number) => {
+    const s = episode.scenes[i];
+    return s.type === 'stage' && !!s.quiet;
+  };
+  const quiet = plan.scenes.filter((_, i) => isQuiet(i)).map((sp) => [sp.from, sp.from + sp.frames] as const);
+  const hush = (f: number) =>
+    Math.min(1, ...quiet.map(([a, b]) => (f < a ? interpolate(f, [a - 40, a], [1, 0], {extrapolateLeft: 'clamp'}) : f > b ? interpolate(f, [b, b + 60], [0, 1], {extrapolateRight: 'clamp'}) : 0)));
   const musicVolume = (f: number) => {
     // distance (in frames) to the nearest stretch of speech: 0 while the voice is on
     const away = Math.min(...speaking.map(([a, b]) => (f < a ? a - f : f > b ? f - b : 0)));
     const level = interpolate(away, [0, 8, 18], [under, under, gap], {extrapolateRight: 'clamp'});
-    return level * interpolate(f, [0, 45, plan.total - 75, plan.total], [0, 1, 1, 0], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
+    return level * hush(f) * interpolate(f, [0, 45, plan.total - 75, plan.total], [0, 1, 1, 0], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
   };
+  // From the teaser's first word the page under the scenes is dark too, so nothing flashes light between scenes.
+  const darkIndex = episode.scenes.findIndex((s) => s.type === 'stage' && (s.darkCue || s.dark));
+  const darkScene = darkIndex >= 0 ? episode.scenes[darkIndex] : null;
+  const darkFrom =
+    darkScene && darkScene.type === 'stage'
+      ? plan.scenes[darkIndex].from + (darkScene.darkCue ? cueAt(plan.scenes[darkIndex], darkScene.narration, darkScene.darkCue, 1) : 0)
+      : Infinity;
 
   return (
     <SfxOn.Provider value={sfx}>
-    <AbsoluteFill style={{background: C.bg}}>
+    <AbsoluteFill style={{background: frame >= darkFrom ? DARK.bg : C.bg}}>
       {episode.scenes.map((scene, i) => {
         const sp = plan.scenes[i];
         let storyIndex = 0;
@@ -91,13 +108,13 @@ export const EpisodeVideo: React.FC<EpisodeProps> = ({episodeId, showCaptions, d
         }
         return (
           <Sequence key={scene.id} from={sp.from} durationInFrames={sp.frames} name={`${scene.id} · ${scene.type}`}>
-            {el}
+            <SfxOn.Provider value={sfx && !isQuiet(i)}>{el}</SfxOn.Provider>
             {sp.audio ? (
               <Sequence from={sp.speechStart} name="voice">
                 <Html5Audio src={staticFile(`${episodeId}/audio/${sp.audio}`)} />
               </Sequence>
             ) : null}
-            {i > 0 ? <Sfx at={0} name="whoosh" /> : null}
+            {i > 0 && !isQuiet(i) ? <Sfx at={0} name="whoosh" /> : null}
           </Sequence>
         );
       })}

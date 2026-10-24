@@ -1,13 +1,14 @@
 // More explainer moments (see Moments.tsx for the layer that places and times them): a headline, a wrench that
 // turns, a 24-hour day, many copies of a shape, a self-check, a side-by-side comparison, a phone chat, a sum built
 // term by term, numbered steps, a phone's emergency alert, a button pressed, a globe flying to a place, a search
-// trend and the next case file. Plain shapes in our palette; each one has its sound.
+// trend, the next case file, a verse or a hadith (no sound: framework v5 §3.15) and the «فيه مشهد في النهاية» pop-up.
+// Plain shapes in our palette; each one has its sound.
 import React from 'react';
 import {interpolate, spring, useVideoConfig} from 'remotion';
 import {geoMercator, geoPath, type GeoPermissibleObjects} from 'd3-geo';
 import {feature} from 'topojson-client';
 import world from 'world-atlas/countries-110m.json';
-import {C, EASE_IN_OUT, FONT} from '../theme';
+import {C, EASE_IN_OUT, FONT, NASKH_FONT, ON_STAGE, QURAN_FONT} from '../theme';
 import type {Moment} from '../types';
 import type {ScenePlan} from '../lib/plan';
 import {wordFrames} from '../scenes/common';
@@ -34,10 +35,10 @@ export const Headline: React.FC<K<'headline'>> = ({m, c}) => {
             <span style={LTR}>{m.badge}</span>
           </div>
         ) : null}
-        <div style={{fontSize: 76, fontWeight: 700, color: C.ink, lineHeight: 1.25}}>{m.text}</div>
+        <div style={{fontSize: 76, fontWeight: 700, color: ON_STAGE.ink, lineHeight: 1.25}}>{m.text}</div>
       </div>
       <div style={{width: 380 * line, height: 10, borderRadius: 6, background: tone.main}} />
-      {m.sub ? <div style={{fontSize: 44, fontWeight: 500, color: C.ink2, opacity: sub, transform: `translateY(${(1 - sub) * 12}px)`}}>{m.sub}</div> : null}
+      {m.sub ? <div style={{fontSize: 44, fontWeight: 500, color: ON_STAGE.ink2, opacity: sub, transform: `translateY(${(1 - sub) * 12}px)`}}>{m.sub}</div> : null}
       <Sfx at={c.inAt} name="swish" />
       {m.sub && m.subCue ? <Sfx at={subAt} name="pop" volume={0.7} /> : null}
     </div>
@@ -121,7 +122,7 @@ export const DayClock: React.FC<K<'clock'>> = ({m, c}) => {
           ساعة
         </text>
       </svg>
-      {m.label ? <div style={{fontSize: 38, fontWeight: 700, color: C.ink, textAlign: 'center', maxWidth: 820, lineHeight: 1.35, opacity: m.labelCue ? ramp(c.f, c.at(m.labelCue, 0.6), 12) : 1}}>{m.label}</div> : null}
+      {m.label ? <div style={{fontSize: 38, fontWeight: 700, color: ON_STAGE.ink, textAlign: 'center', maxWidth: 820, lineHeight: 1.35, opacity: m.labelCue ? ramp(c.f, c.at(m.labelCue, 0.6), 12) : 1}}>{m.label}</div> : null}
       <Sfx at={c.inAt} name="roll" />
       {m.label && m.labelCue ? <Sfx at={c.at(m.labelCue, 0.6)} name="pop" volume={0.7} /> : null}
     </div>
@@ -348,7 +349,7 @@ export const MathSum: React.FC<K<'math'>> = ({m, c}) => {
   const times = m.terms.map((t, k) => (t.cue ? c.at(t.cue, 0.3) : c.inAt + k * 5));
   const term = (t: (typeof m.terms)[number], k: number) => {
     const p = ramp(c.f, times[k], 10);
-    if (t.op) return <div key={k} style={{fontSize: 70, fontWeight: 700, color: C.ink3, opacity: p, padding: '0 4px'}}>{t.text}</div>;
+    if (t.op) return <div key={k} style={{fontSize: 70, fontWeight: 700, color: ON_STAGE.ink3, opacity: p, padding: '0 4px'}}>{t.text}</div>;
     return (
       <div key={k} style={{display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 10, opacity: p, transform: `scale(${0.8 + 0.2 * p})`}}>
         {t.blank ? (
@@ -356,7 +357,7 @@ export const MathSum: React.FC<K<'math'>> = ({m, c}) => {
         ) : (
           <div style={{...CARD, borderRadius: 24, padding: '16px 32px', fontSize: 52, fontWeight: 700, whiteSpace: 'nowrap'}}>{t.text}</div>
         )}
-        {t.label ? <div style={{fontSize: 27, fontWeight: 600, color: C.ink2, whiteSpace: 'nowrap'}}>{t.label}</div> : null}
+        {t.label ? <div style={{fontSize: 27, fontWeight: 600, color: ON_STAGE.ink2, whiteSpace: 'nowrap'}}>{t.label}</div> : null}
         <Sfx at={times[k]} name="tick" />
       </div>
     );
@@ -381,12 +382,12 @@ export const MathSum: React.FC<K<'math'>> = ({m, c}) => {
   const tone = TONE[m.result?.tone ?? 'accent'];
   return (
     <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 26, fontFamily: FONT, direction: 'rtl'}}>
-      {m.title ? <div style={{fontSize: 44, fontWeight: 700, color: C.ink}}>{m.title}</div> : null}
+      {m.title ? <div style={{fontSize: 44, fontWeight: 700, color: ON_STAGE.ink}}>{m.title}</div> : null}
       <div style={{display: 'flex', alignItems: 'center', gap: 18}}>
         {parts}
         {m.result && res > 0 ? (
           <>
-            <div style={{fontSize: 70, fontWeight: 700, color: C.ink3}}>=</div>
+            <div style={{fontSize: 70, fontWeight: 700, color: ON_STAGE.ink3}}>=</div>
             <div style={{fontSize: 56, fontWeight: 700, color: tone.main, background: tone.soft, borderRadius: 24, padding: '16px 34px', whiteSpace: 'nowrap', opacity: res, transform: `scale(${0.8 + 0.2 * res})`}}>{m.result.text}</div>
           </>
         ) : null}
@@ -491,8 +492,8 @@ export const PlaceGlobe: React.FC<K<'globe'>> = ({m, c}) => {
     <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 18, fontFamily: FONT, direction: 'rtl'}}>
       <Globe size={460} accent={C.red} keys={[{at: c.inAt - 1, pos: {lat: 24.71, lon: 46.68}}, {at: arrive, pos: {lat: m.lat, lon: m.lon}}]} pin={{lat: m.lat, lon: m.lon, at: arrive}} />
       <div style={{textAlign: 'center', opacity: label, transform: `translateY(${(1 - label) * 14}px)`}}>
-        <div style={{fontSize: 46, fontWeight: 700, color: C.ink}}>{m.label}</div>
-        {m.sub ? <div style={{fontSize: 32, fontWeight: 500, color: C.ink2, marginTop: 4, opacity: sub}}>{m.sub}</div> : null}
+        <div style={{fontSize: 46, fontWeight: 700, color: ON_STAGE.ink}}>{m.label}</div>
+        {m.sub ? <div style={{fontSize: 32, fontWeight: 500, color: ON_STAGE.ink2, marginTop: 4, opacity: sub}}>{m.sub}</div> : null}
       </div>
       <Sfx at={c.inAt} name="whoosh" />
       <Sfx at={arrive} name="pop" />
@@ -540,7 +541,7 @@ export const CaseFile: React.FC<K<'file'>> = ({m, c}) => {
   return (
     <div style={{position: 'relative', width: 820, fontFamily: FONT, direction: 'rtl'}}>
       <div style={{width: 260, height: 54, background: C.yellow, borderRadius: '22px 22px 0 0', marginRight: 40}} />
-      <div style={{background: C.ink, borderRadius: 30, padding: '36px 48px 40px', color: '#fff', boxShadow: DEEP, display: 'flex', flexDirection: 'column', gap: 10}}>
+      <div style={{background: C.ink, borderRadius: 30, padding: '36px 48px 40px', color: '#fff', boxShadow: DEEP, display: 'flex', flexDirection: 'column', gap: 10, border: '3px solid var(--stage-file-border, transparent)'}}>
         <div style={{fontSize: 40, fontWeight: 700, color: C.yellow}}>{m.title}</div>
         <div style={{fontSize: 70, fontWeight: 700, lineHeight: 1.2}}>{m.text}</div>
         {m.note ? <div style={{alignSelf: 'flex-start', marginTop: 8, fontSize: 32, fontWeight: 700, color: C.ink, background: C.yellow, borderRadius: 999, padding: '6px 26px', opacity: note}}>{m.note}</div> : null}
@@ -550,3 +551,70 @@ export const CaseFile: React.FC<K<'file'>> = ({m, c}) => {
     </div>
   );
 };
+
+// ------------------------------------------------------------------ scripture: a verse or a hadith, lit as it is read
+// No sound effects here (the «وقفة» is quiet). The whole text is there from the start, faint, and each word lights up
+// when it is said, so the verse is never shown cut. A verse gets its ﴿ ﴾; a hadith keeps the quotes written in its text.
+// Its reference sits under it.
+const GOLD = '#A9822A';
+export const Scripture: React.FC<K<'scripture'> & {plan: ScenePlan; narration: string}> = ({m, c, plan, narration}) => {
+  const quran = m.book === 'quran';
+  // a pause mark standing alone (ۚ ۗ) belongs to the word before it: it isn't said, so it takes no word of the voice
+  const words = m.text.split(' ').reduce<string[]>((acc, w) => (acc.length && !/[\u0621-\u064A\u0671-\u06D3]/.test(w) ? [...acc.slice(0, -1), `${acc[acc.length - 1]} ${w}`] : [...acc, w]), []);
+  const times = m.textCue ? wordFrames(plan, narration, m.textCue, words.length) : [];
+  const lit = (k: number) => (times.length ? ramp(c.f, times[k] - 2, 8) : ramp(c.f, c.inAt + 8 + k * 5, 10));
+  const ref = ramp(c.f, c.inAt + 18, 18);
+  const corner = (style: React.CSSProperties) => (
+    <svg width={44} height={44} viewBox="-22 -22 44 44" style={{position: 'absolute', ...style}}>
+      <rect x={-12} y={-12} width={24} height={24} fill={GOLD} opacity={0.5} />
+      <rect x={-12} y={-12} width={24} height={24} fill={GOLD} opacity={0.5} transform="rotate(45)" />
+    </svg>
+  );
+  return (
+    <div style={{position: 'relative', width: 1500, background: '#FFFCF3', borderRadius: 36, padding: '44px 70px 36px', boxShadow: DEEP, border: '3px solid #E7D4A0', direction: 'rtl', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 18}}>
+      {corner({top: 16, right: 16})}
+      {corner({top: 16, left: 16})}
+      {corner({bottom: 16, right: 16})}
+      {corner({bottom: 16, left: 16})}
+      {m.intro ? <div style={{fontFamily: FONT, fontSize: 32, fontWeight: 600, color: GOLD}}>{m.intro}</div> : null}
+      <div style={{fontFamily: quran ? QURAN_FONT : NASKH_FONT, fontSize: quran ? 68 : 62, lineHeight: quran ? 2.05 : 1.85, color: C.ink, textAlign: 'center'}}>
+        {quran ? <span style={{color: GOLD}}>﴿</span> : null}
+        {words.map((w, k) => (
+          <span key={k} style={{opacity: 0.2 + 0.8 * lit(k)}}>
+            {w}
+            {k < words.length - 1 ? ' ' : ''}
+          </span>
+        ))}
+        {quran ? <span style={{color: GOLD}}>﴾</span> : null}
+      </div>
+      <div style={{display: 'flex', alignItems: 'center', gap: 18, fontFamily: FONT, fontSize: 30, fontWeight: 600, color: GOLD, opacity: ref}}>
+        <div style={{width: 70, height: 3, borderRadius: 2, background: '#E7D4A0'}} />
+        {m.ref}
+        <div style={{width: 70, height: 3, borderRadius: 2, background: '#E7D4A0'}} />
+      </div>
+    </div>
+  );
+};
+
+// ------------------------------------------------------------------ endscene: «فيه مشهد في النهاية», like a TV show
+// A small card in the top-left corner (the brand bar is on the right), from the close's first words until the teaser.
+export const EndScene: React.FC<K<'endscene'> & {outAt: number}> = ({m, c, outAt}) => {
+  const {fps} = useVideoConfig();
+  const p = spr(c.f, c.inAt, fps, 13, 150);
+  const out = interpolate(c.f, [outAt - 8, outAt + 4], [0, 1], clamp);
+  const pulse = 0.5 + 0.5 * Math.sin((c.f - c.inAt) / 7);
+  const blink = Math.sin((c.f - c.inAt) / 4) > -0.9 ? 1 : 0.1; // the eye blinks now and then
+  return (
+    <div style={{position: 'absolute', left: 64, top: 52, zIndex: 9, transform: `translateX(${(1 - p) * -420 - out * 420}px)`, opacity: Math.min(1, p * 1.4) * (1 - out)}}>
+      <div style={{display: 'flex', alignItems: 'center', gap: 18, background: 'rgba(14,20,36,0.94)', color: '#fff', borderRadius: 999, padding: '14px 34px 14px 20px', border: `3px solid ${C.yellow}`, boxShadow: `0 0 ${18 + 16 * pulse}px rgba(245,183,36,${0.35 + 0.25 * pulse}), 0 16px 34px rgba(0,0,0,0.3)`, direction: 'rtl', fontFamily: FONT, whiteSpace: 'nowrap'}}>
+        <svg width={58} height={40} viewBox="0 0 58 40">
+          <path d="M3 20 C14 3 44 3 55 20 C44 37 14 37 3 20 Z" fill="none" stroke={C.yellow} strokeWidth={4} />
+          <ellipse cx={29} cy={20} rx={9} ry={9 * blink} fill={C.yellow} />
+        </svg>
+        <span style={{fontSize: 38, fontWeight: 700}}>{m.text}</span>
+      </div>
+      <Sfx at={c.inAt} name="shimmer" volume={0.8} />
+    </div>
+  );
+};
+

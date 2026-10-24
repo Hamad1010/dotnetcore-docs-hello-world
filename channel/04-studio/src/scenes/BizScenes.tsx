@@ -1,12 +1,13 @@
 // Scenes for the business format («غرفة الفرص»): the "stop scrolling" story, the smart transition and the journey map.
 import React from 'react';
-import {interpolate, useCurrentFrame} from 'remotion';
-import {C, EASE_IN_OUT, EASE_OUT} from '../theme';
+import {AbsoluteFill, interpolate, interpolateColors, useCurrentFrame} from 'remotion';
+import {C, DARK, EASE_IN_OUT, EASE_OUT} from '../theme';
 import type {Beat, JourneyScene, OverviewScene, StageScene, StoryHookScene} from '../types';
 import {Backdrop, Captions, Chip, CountUp, SceneFrame, fadeUp, useIn, usePop, usePortrait} from '../components/ui';
 import {Crowd, Lever, PeopleGrid, Person, Phone, Skyline} from '../components/Silhouettes';
 import {JourneyMap} from '../components/JourneyMap';
 import {Moments, TONE as TONES} from '../components/Moments';
+import {ramp} from '../components/moment-kit';
 import {Sfx} from '../components/Sfx';
 import {cueAt, TopBar, type SceneProps} from './common';
 
@@ -447,18 +448,48 @@ const StationChip: React.FC<{label: string; station: number; total: number; p: n
   </div>
 );
 
+/** The teaser's dark screen (framework v5 §3.16): navy, a slow spotlight and a few specks of light. */
+const DarkStage: React.FC<{p: number}> = ({p}) => {
+  const f = useCurrentFrame();
+  const x = 50 + Math.sin(f / 90) * 14;
+  return (
+    <AbsoluteFill style={{opacity: p, background: `radial-gradient(ellipse 62% 74% at ${x}% 42%, ${DARK.glow} 0%, ${DARK.bg} 74%)`}}>
+      {Array.from({length: 22}, (_, k) => (
+        <div key={k} style={{position: 'absolute', left: (k * 397) % 1920, top: (k * 233 + 60) % 1080, width: 4, height: 4, borderRadius: 4, background: '#fff', opacity: 0.18 + 0.22 * Math.sin(f / 18 + k * 1.7)}} />
+      ))}
+    </AbsoluteFill>
+  );
+};
+
 export const Stage: React.FC<SceneProps<StageScene> & {showCaptions: boolean}> = (props) => {
   const {scene, plan, showCaptions} = props;
+  const f = useCurrentFrame();
   const head = useIn(4, 16);
+  // light → dark on the teaser's first word (or dark from the start: the end card after it)
+  const darkAt = scene.darkCue ? cueAt(plan, scene.narration, scene.darkCue, 1) : Infinity;
+  const dk = scene.dark ? 1 : ramp(f, darkAt, 26);
+  const tone = {
+    '--stage-ink': interpolateColors(dk, [0, 1], [C.ink, DARK.ink]),
+    '--stage-ink2': interpolateColors(dk, [0, 1], [C.ink2, DARK.ink2]),
+    '--stage-ink3': interpolateColors(dk, [0, 1], [C.ink3, DARK.ink3]),
+    '--stage-file-border': `rgba(255,255,255,${0.22 * dk})`,
+  } as React.CSSProperties;
   return (
     <SceneFrame frames={plan.frames}>
-      <Backdrop tint={C.blue} />
-      <TopBar episode={props.episode} brand={props.brand} />
-      {scene.label ? <StationChip label={scene.label} station={scene.station ?? 0} total={5} p={head} /> : null}
-      <Drift frames={plan.frames}>
-        <Moments moments={scene.moments} plan={plan} narration={scene.narration} />
-      </Drift>
-      {showCaptions ? <Captions captions={plan.captions} /> : null}
+      <AbsoluteFill style={tone}>
+        <Backdrop tint={C.blue} />
+        {dk > 0 ? <DarkStage p={dk} /> : null}
+        <div style={{opacity: 1 - dk}}>
+          <TopBar episode={props.episode} brand={props.brand} />
+        </div>
+        {scene.label ? <StationChip label={scene.label} station={scene.station ?? 0} total={5} p={head * (1 - dk)} /> : null}
+        <Drift frames={plan.frames}>
+          <Moments moments={scene.moments} plan={plan} narration={scene.narration} />
+        </Drift>
+        {showCaptions ? <Captions captions={plan.captions} /> : null}
+        {Number.isFinite(darkAt) ? <Sfx at={darkAt - 46} name="riser" volume={0.8} /> : null}
+        {Number.isFinite(darkAt) ? <Sfx at={darkAt} name="impact" /> : null}
+      </AbsoluteFill>
     </SceneFrame>
   );
 };

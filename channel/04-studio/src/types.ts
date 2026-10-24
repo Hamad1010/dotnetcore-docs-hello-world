@@ -183,6 +183,11 @@ export type Moment = MomentBase &
     | {kind: 'search'; query: string; note?: string; noteCue?: string}
     /** a case file: the next episode */
     | {kind: 'file'; title: string; text: string; note?: string}
+    /** a verse or a hadith, its words lit as they are read (`textCue` = the first word as spoken, without tashkeel),
+     * with its reference ("الزخرف: 32", "رواه البخاري (2262)") */
+    | {kind: 'scripture'; book: 'quran' | 'hadith'; text: string; ref: string; intro?: string; textCue?: string}
+    /** the «فيه مشهد في النهاية» pop-up in the corner, from `cue` until the teaser starts (`until`) */
+    | {kind: 'endscene'; text: string}
   );
 
 /** A station of the journey (or any part) told only through explainer moments, under a chip saying where we are. */
@@ -193,6 +198,12 @@ export type StageScene = Base & {
   /** the journey's station (1-based) for the little progress row; 0 = none */
   station?: number;
   moments: Moment[];
+  /** the screen turns dark when this word is said: the teaser (framework v5 §3.16) */
+  darkCue?: string;
+  /** dark from the first frame (the end card after a dark teaser) */
+  dark?: boolean;
+  /** no sound effects and the background fades out: the «وقفة» (framework v5 §3.15) */
+  quiet?: boolean;
 };
 
 /** Business format, part 1: the "stop scrolling" short story told as a timeline of numbers over silhouettes. */
