@@ -1,6 +1,7 @@
 """Turn the owner's Recording Booth file into clean, studio-like scene audio, synced word by word.
 
     python3 channel/06-tools/clean_recording.py EP001 path/to/recording.m4a
+    python3 channel/06-tools/clean_recording.py EP001 path/to/recording.m4a --isolate   (ElevenLabs Voice Isolator first)
     python3 channel/06-tools/clean_recording.py EP001 --marks     (only re-align the words, after a small text change)
 
 1. Listens: transcribes the recording with word times (ElevenLabs speech-to-text. In a cloud session the key is
@@ -10,8 +11,11 @@
    viewer shouldn't hear: a sentence said again after a "Mistake" pause, a word said twice by accident
    ("شغل، شغل"), a stutter ("كا-كانت"). Repetitions that are in the script ("ريال ريال") stay.
 3. Tightens long pauses: up to 0.7 s after a question or a full stop, 0.45 s after a comma, 0.3 s mid-sentence.
-4. Studio sound: high-pass, RNNoise noise removal, EQ (less boxiness, more presence and air), de-esser,
-   compressor, a soft gate that quiets the room between phrases, then loudness -16 LUFS with true peak -1.5 dB (two-pass, so the voice keeps its dynamics).
+4. Studio sound (framework v5 §3.17, tuned on EP001's recording): a steep high-pass at 90 Hz, RNNoise noise removal,
+   EQ (the boom at 110 Hz and the boxiness at 450 Hz down, presence at 3.5 kHz and air up), de-esser, compressor, a
+   gate that makes the pauses silent, then loudness -16 LUFS with true peak -1.5 dB (two-pass, so the voice keeps its
+   dynamics). `--isolate` first sends the recording to ElevenLabs' Voice Isolator (about 1,000 credits a minute of
+   audio) for a noisy or echoing room; RNNoise is then skipped.
 5. Writes audio/<sceneId>.mp3 and audio/timings.json for the studio, with `marks`: when each word of the
    narration starts, so captions, subtitles and on-screen cues land on the word.
 
@@ -38,9 +42,14 @@ PAUSE_CAP = {'end': 0.7, 'comma': 0.45, 'word': 0.3}
 LEAD, TAIL = 0.12, 0.30  # breath room kept before the first and after the last word of a scene
 RNNOISE_URL = 'https://raw.githubusercontent.com/GregorR/rnnoise-models/master/somnolent-hogwash-2018-09-01/sh.rnnn'
 RNNOISE = os.path.expanduser('~/.cache/channel-studio/rnnoise-sh.rnnn')
-CHAIN = ('highpass=f=75,{denoise}equalizer=f=220:t=q:w=1.0:g=-3,equalizer=f=3200:t=q:w=1.2:g=2.5,'
-         'highshelf=f=9000:g=2,deesser=i=0.35,acompressor=threshold=-24dB:ratio=3:attack=8:release=180:makeup=4dB:knee=4,'
-         'agate=threshold=-42dB:ratio=3:range=-18dB:attack=5:release=160:knee=6')  # the gate quiets the room in pauses
+# v5 (24 Oct 2026): measured on EP001's recording the voice had ~5 dB too much at 80–150 Hz and ~5 dB too little at
+# 2.5–5 kHz, and the room was audible in the pauses; this chain fixes both (EP001 used: high-pass 75 Hz, -3 dB at 220 Hz,
+# +2.5 dB at 3.2 kHz, +2 dB above 9 kHz, gate range -18 dB).
+CHAIN = ('highpass=f=90:poles=2,highpass=f=90:poles=2,{denoise}'
+         'equalizer=f=110:t=q:w=1.0:g=-5,equalizer=f=250:t=q:w=1.0:g=-1.5,equalizer=f=450:t=q:w=1.2:g=-2.5,'
+         'equalizer=f=3500:t=q:w=1.0:g=4,highshelf=f=9500:g=2.5,deesser=i=0.45,'
+         'acompressor=threshold=-24dB:ratio=3:attack=6:release=150:makeup=4dB:knee=4,'
+         'agate=threshold=-42dB:ratio=4:range=-26dB:attack=4:release=180:knee=6')  # the gate makes the pauses silent
 MARK = re.compile(r'\{([^|{}]*)\|([^{}]*)\}')
 AR = str.maketrans({'أ': 'ا', 'إ': 'ا', 'آ': 'ا', 'ى': 'ي', 'ة': 'ه', 'ؤ': 'و', 'ئ': 'ي'})
 
@@ -79,6 +88,17 @@ def transcribe(path):
     if 'words' not in data:
         sys.exit(f'speech-to-text failed: {out[:300]}')
     return [w for w in data['words'] if w.get('type') == 'word']
+
+
+def isolate(path, out):
+    """The voice alone, from ElevenLabs' Voice Isolator (noise and room echo removed); an mp3 aligned with the input."""
+    cmd = ['curl', '-sS', '--max-time', '1800', '-X', 'POST', 'https://api.elevenlabs.io/v1/audio-isolation',
+           '-F', f'audio=@{path}', '-o', out, '-w', '%{http_code}']
+    if os.environ.get('ELEVENLABS_API_KEY'):
+        cmd[1:1] = ['-H', f"xi-api-key: {os.environ['ELEVENLABS_API_KEY']}"]
+    code = subprocess.run(cmd, capture_output=True, text=True, check=True).stdout.strip()
+    if code != '200':
+        sys.exit(f'voice isolator failed ({code}): {open(out, errors="replace").read(300)}')
 
 
 def read_wav(path):
@@ -315,11 +335,13 @@ def remark(episode_id):
 
 
 def main():
-    if len(sys.argv) == 3 and sys.argv[2] == '--marks':
-        return remark(sys.argv[1])
-    if len(sys.argv) < 3:
+    args = [a for a in sys.argv[1:] if not a.startswith('--')]
+    if len(args) == 1 and '--marks' in sys.argv:
+        return remark(args[0])
+    if len(args) < 2:
         sys.exit(__doc__)
-    episode_id, recording = sys.argv[1], sys.argv[2]
+    episode_id, recording = args[0], args[1]
+    use_isolator = '--isolate' in sys.argv
     ep_dir = os.path.join(ROOT, '03-episodes', episode_id)
     audio = os.path.join(ep_dir, 'audio')
     work = os.path.join(audio, 'work')
@@ -341,8 +363,15 @@ def main():
         os.makedirs(os.path.dirname(RNNOISE), exist_ok=True)
         subprocess.run(['curl', '-sSfL', '--max-time', '120', RNNOISE_URL, '-o', RNNOISE], check=False)
     denoise = f'arnndn=m={RNNOISE}:mix=0.92,' if os.path.exists(RNNOISE) else 'afftdn=nr=12:nf=-44:tn=1,'
+    source = raw
+    if use_isolator:
+        source = os.path.join(work, 'isolated.mp3')
+        if not os.path.exists(source):
+            print('isolating the voice (ElevenLabs Voice Isolator)…')
+            isolate(raw, source)
+        denoise = ''
     studio = os.path.join(work, 'studio.wav')
-    ffmpeg('-i', raw, '-af', CHAIN.format(denoise=denoise), '-ar', str(SR), '-c:a', 'pcm_s16le', studio)
+    ffmpeg('-i', source, '-af', CHAIN.format(denoise=denoise), '-ac', '1', '-ar', str(SR), '-c:a', 'pcm_s16le', studio)
     x = read_wav(studio)
 
     timings, report = {}, []

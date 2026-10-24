@@ -71,6 +71,21 @@ The manual way, one file per part, still works:
 noise. **Phone:** airplane mode, Voice Memos (iPhone) or Recorder (Android), 15–20 cm from your mouth, slightly
 to the side so your breath doesn't hit it.
 
+**For a studio-clear voice (from EP002, framework v5 §3.17).** EP001's recording, measured: the room was fairly dry,
+but the voice had too much low boom and too little clarity, and the room could be heard in the pauses. The cleaning
+now corrects that; these habits make it sound even better:
+- **Put the phone on a stand** (a pile of books works) at mouth height, 15–20 cm away, pointing at your mouth from the
+  side. Not closer: closer adds boom. Not in your hand: hands add rustle.
+- **Same place, same distance, the whole episode,** so the voice sounds the same from the first word to the last.
+- **Soft room:** a closet, or a bedroom with curtains, a carpet and a bed. Never a bathroom, kitchen or empty room.
+  Turn off the AC, fans and anything that hums for those 20 minutes.
+- **Best quality:** iPhone: Settings → Apps → Voice Memos → Audio Quality → **Lossless**. Android: the recorder's
+  highest quality.
+- **Start with 5 seconds of silence** (don't move or talk): the room's own sound, so the cleaning knows what to remove.
+- **Speak a little closer and softer rather than loud and far,** as if to one person across a small table.
+- For a noisy or echoing room there is a stronger option: ElevenLabs' Voice Isolator before the cleaning
+  (`clean_recording.py … --isolate`, about 1,000 credits per minute of audio).
+
 **How to read:**
 - Open the episode's `script.md`. Each scene heading (like `0:25 · s1`) is one scene = **one file**.
 - Read like you're telling a friend a story: smile a little, slow down before numbers, pause after questions.
