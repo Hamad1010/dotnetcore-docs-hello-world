@@ -44,8 +44,12 @@ Follow `CLAUDE.md` (repo root) rules exactly, and the **current version** of the
 - Narration: simple Saudi white dialect, told as a story to people in front of you, with conviction; short
   sentences; no fluff, no hype, no promises of money. Each point ends in a business result, with one "small move,
   big impact". Every step has a first move that costs nothing.
-- Write the publish kit with the draft (framework §3.13): `publish.md` (3 titles, 2 descriptions, tags, the pinned
-  comment with the puzzle) and `thumbs.json`; run `npm run thumbs -- EP00N` in `04-studio` and look at the 3 images.
+- Write the publish kit with the draft (framework §3.13): `publish.md` (titles told as stories, every word true; 2–3
+  descriptions; tags; the pinned comment with the puzzle) and `thumbs.json` (the story designs in `ThumbStories.tsx`);
+  run `npm run thumbs -- EP00N` in `04-studio` and look at the images.
+- Framework v5 parts to remember: Saudi stories and numbers first (none that hurts anyone, none a later episode plans),
+  the «وقفة» before the close (Quran and Sahih al-Bukhari / Muslim only, exact texts checked twice, §3.15), and a close
+  with a 10–15 s bridge for the «فيه مشهد في النهاية» pop-up, then the teaser on a dark screen (§3.16).
 - Run `python3 06-tools/draft_length.py EP00N` (it warns below the framework's minimum) and the framework checklist (§5).
 - Send the draft to the owner and **wait for approval**. When the format or the look changes, the owner records
   part A (the first ~2 minutes) first and you render only that for approval.
