@@ -1,71 +1,19 @@
-// Ten thumbnail designs for the publish kit (framework §3.13): the texts live in 03-episodes/EP00N/thumbs.json
+// Ten thumbnail designs for the publish kit (framework §3.13), plus the story designs in ThumbStories.tsx (EP002 on): the texts live in 03-episodes/EP00N/thumbs.json
 // ("layout": "design"), the pictures are drawn here from our palette and silhouettes. 1280 × 720.
 // Rules they follow: at most 5 words of headline (+ a pill or two), one strong picture, high contrast so it still reads at
 // 168 × 94 px, the bottom corners left empty (the video length sits there), no other brand's logo, and every picture
 // matches something the video really shows.
 import React from 'react';
-import {AbsoluteFill, continueRender, delayRender} from 'remotion';
+import {AbsoluteFill} from 'remotion';
 import {C, FONT} from './theme';
 import {Crowd, PeopleGrid, Person} from './components/Silhouettes';
 import {HouseGlyph, NAVY, Padlock} from './brand-art';
+import {Badge, FitText, Headline, Ltr, Pill} from './thumb-kit';
+import {STORY_DESIGNS, type StoryDesign, type Tone} from './ThumbStories';
 
-export type DesignName = 'story' | 'scale' | 'time' | 'income' | 'phone' | 'repeat' | 'versus' | 'trap' | 'platform' | 'puzzle';
-export type DesignSpec = {layout: 'design'; design: DesignName; lines: string[]; tag?: string; tag2?: string; extra?: string};
-
-const Ltr: React.FC<{children: React.ReactNode}> = ({children}) => <span style={{direction: 'ltr', unicodeBidi: 'isolate'}}>{children}</span>;
-
-const Badge: React.FC<{text: string; dark?: boolean}> = ({text, dark}) => (
-  <div style={{position: 'absolute', right: 48, top: 38, background: dark ? '#fff' : C.ink, color: dark ? C.ink : '#fff', fontSize: 32, fontWeight: 700, padding: '6px 24px', borderRadius: 999}}>{text}</div>
-);
-
-/** One line of text that never wraps: it is drawn at `size`, or smaller when that is wider than `max` px. */
-const FitText: React.FC<{t: string; size: number; max: number; color: string; weight?: number}> = ({t, size, max, color, weight = 700}) => {
-  const ref = React.useRef<HTMLDivElement>(null);
-  const [fs, setFs] = React.useState(size);
-  React.useLayoutEffect(() => {
-    const handle = delayRender('fit text');
-    const measure = () => {
-      const el = ref.current;
-      if (el) {
-        el.style.fontSize = `${size}px`;
-        const w = el.getBoundingClientRect().width;
-        setFs(w > max ? Math.floor((size * max) / w) : size);
-      }
-      continueRender(handle);
-    };
-    document.fonts.ready.then(measure, measure);
-  }, [t, size, max]);
-  return (
-    <div ref={ref} style={{fontSize: fs, fontWeight: weight, color, lineHeight: 1.12, whiteSpace: 'nowrap', width: 'max-content'}}>
-      {t}
-    </div>
-  );
-};
-
-type Run = {t: string; size: number; color: string};
-/** The headline: right-aligned lines, each with its own size and colour, each fitted to the column. */
-const Headline: React.FC<{lines: Run[]; width?: number; right?: number; top?: number; bottom?: number; gap?: number; children?: React.ReactNode}> = ({
-  lines,
-  width = 620,
-  right = 56,
-  top = 96,
-  bottom = 70,
-  gap = 22,
-  children,
-}) => (
-  <div style={{position: 'absolute', right, top, bottom, width, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'flex-start', gap}}>
-    {lines.filter((l) => l.t).map((l, i) => (
-      <FitText key={i} t={l.t} size={l.size} max={width} color={l.color} />
-    ))}
-    {children}
-  </div>
-);
-
-const Pill: React.FC<{text: string; size?: number; bg: string; color: string; border?: string; max?: number}> = ({text, size = 60, bg, color, border, max = 620}) => (
-  <div style={{display: 'inline-flex', alignSelf: 'flex-start', background: bg, padding: `${size * 0.14}px ${size * 0.5}px`, borderRadius: 999, border: border ? `5px solid ${border}` : undefined}}>
-    <FitText t={text} size={size} max={max - size - 10} color={color} />
-  </div>
-);
+export type DesignName = 'story' | 'scale' | 'time' | 'income' | 'phone' | 'repeat' | 'versus' | 'trap' | 'platform' | 'puzzle' | StoryDesign;
+/** `tone`, `tiles` and `labels` are used by the story designs (ThumbStories.tsx) and the puzzle. */
+export type DesignSpec = {layout: 'design'; design: DesignName; lines: string[]; tag?: string; tag2?: string; extra?: string; tone?: Tone; tiles?: string[]; labels?: string[]};
 
 const Gear: React.FC<{cx: number; cy: number; r: number; fill: string; hole: string; teeth?: number; rotate?: number}> = ({cx, cy, r, fill, hole, teeth = 10, rotate = 0}) => (
   <g transform={`translate(${cx} ${cy}) rotate(${rotate})`}>
@@ -332,13 +280,24 @@ const Puzzle: React.FC<{s: DesignSpec; badge: string}> = ({s, badge}) => {
   return (
     <AbsoluteFill style={{background: 'radial-gradient(ellipse at 50% 35%, #26365E 0%, #141B2B 70%)', fontFamily: FONT, direction: 'rtl', overflow: 'hidden'}}>
       <div style={{position: 'absolute', left: 0, right: 0, top: 96, display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 14, direction: 'ltr'}}>
-        <div style={{border: '8px solid rgba(255,255,255,0.35)', borderRadius: 54, padding: '14px 18px', display: 'flex', alignItems: 'center', gap: 6}}>
-          {tile('55', '#fff', C.ink)}
-          {op('−')}
-          {tile('13', '#fff', C.ink)}
-        </div>
-        {op('×')}
-        {tile('؟', C.yellow, C.ink)}
+        {s.tiles ? (
+          // tiles from thumbs.json: numbers on white tiles, operators between them, then « = ؟ »
+          <>
+            {s.tiles.map((t, i) => <React.Fragment key={i}>{/^\d+$/.test(t) ? tile(t, '#fff', C.ink) : op(t)}</React.Fragment>)}
+            {op('=')}
+            {tile('؟', C.yellow, C.ink)}
+          </>
+        ) : (
+          <>
+            <div style={{border: '8px solid rgba(255,255,255,0.35)', borderRadius: 54, padding: '14px 18px', display: 'flex', alignItems: 'center', gap: 6}}>
+              {tile('55', '#fff', C.ink)}
+              {op('−')}
+              {tile('13', '#fff', C.ink)}
+            </div>
+            {op('×')}
+            {tile('؟', C.yellow, C.ink)}
+          </>
+        )}
       </div>
       <Badge text={badge} dark />
       <div style={{position: 'absolute', left: 90, right: 90, top: 330, display: 'flex', justifyContent: 'center'}}>
@@ -363,6 +322,7 @@ export const ThumbDesign: React.FC<{spec: DesignSpec; badge: string}> = ({spec, 
     trap: Trap,
     platform: Platform,
     puzzle: Puzzle,
+    ...STORY_DESIGNS,
   };
   const D = map[spec.design];
   return <D s={spec} badge={badge} />;

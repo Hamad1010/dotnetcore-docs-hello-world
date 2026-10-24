@@ -39,7 +39,8 @@ const loadEpisode = async (episodeId: string, background?: string): Promise<Epis
   const file = name === 'none' ? null : `_assets/music/${name === 'calm' ? 'calm-pad' : name}.mp3`;
   const music = file && (await exists(file)) ? file : null;
   const sfx = await exists('_assets/sfx/pop.mp3');
-  return {episode, plan, brand, music, sfx};
+  const level = episode.backgroundLevel ?? brand.backgroundLevel;
+  return {episode, plan, brand: {...brand, backgroundLevel: level}, music, sfx};
 };
 
 const episodeMeta: CalculateMetadataFunction<EpisodeProps> = async ({props}) => {

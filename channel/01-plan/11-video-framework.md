@@ -1,6 +1,6 @@
 # 11 · Video framework: how every long video is built
 
-**Current version: v4.4** (21 Oct 2026). This file is the only place where the structure of a long video is defined.
+**Current version: v5** (24 Oct 2026). This file is the only place where the structure of a long video is defined.
 `CLAUDE.md`, the `/new-episode` skill and the blueprint point here instead of repeating it, so a change made here
 reaches everything at once.
 
@@ -31,7 +31,7 @@ and destination; the station names are plain words, not part numbers.
 - At every new part the marker moves on and the narration says it ("وصلنا للمحطة الثانية…", "باقي محطتين").
 - In part 8 the marker reaches the destination and the narration looks back at the road travelled.
 
-## 2. The parts, in order (v3)
+## 2. The parts, in order (v3, part 10 added in v5)
 
 | # | Part | id | Time | What it does |
 |---|---|---|---|---|
@@ -44,7 +44,8 @@ and destination; the station names are plain words, not part numbers.
 | 7 | محطة: تمارين | `practice` | ~30 s | 2–3 exercises for everyday life |
 | 8 | الوصول · the destination | `recap` | ~20 s | Look back at the road, then one sentence people remember and repeat |
 | 9 | 3 خطوات + لغز الحلقة | `actions` | ~40 s | At most 3 actions (today / this week / this month), the episode's puzzle (§3.11), answers in the comments |
-| 10 | الحلقة المقفلة · closing loop | `close` | ~25 s | Pay off the opening loop if not done yet, then a cliffhanger teaser for the next file |
+| 10 | وقفة · the faith pause (v5) | `faith` | 45–75 s | One verse and/or authentic hadith tied to the lesson, what it means, the link to the lesson and its effect on how we work, and a real story from the same sources when one fits (§3.15) |
+| 11 | الحلقة المقفلة · closing loop | `close` | ~35 s | A 10–15 s bridge (a question that leads to the next file) with the «فيه مشهد في النهاية» pop-up, then the cliffhanger teaser on a dark screen (§3.16) |
 
 **Length: at least 8:00**, target 9–12 min, about 6,100–8,100 spoken characters at the owner's real pace (11.3
 characters per second including pauses, measured on the second take of EP001's part A; the first take was 9.6).
@@ -84,8 +85,10 @@ draft is short, add a story, an example or a clearer explanation, not filler.
 
 ### 3.5 Opening and closing loops
 - **Opening loop** (part 2): one specific promise that makes people stay. Specific, honest, always paid off.
-- **Closing loop** (part 10): pay it off if it wasn't already, then a cliffhanger about the next file: a question
-  or a half-told story, without spoiling its twist. Written last, once the next episode is confirmed.
+- **Closing loop** (part 11 since v5): pay it off if it wasn't already, then a cliffhanger about the next file: a question
+  or a half-told story, without spoiling its twist. Written last, once the next episode is confirmed. It opens with a
+  10–15 s bridge (a question that leads to the next file) for the «فيه مشهد في النهاية» pop-up, and the teaser itself
+  plays on a dark screen (§3.16).
 
 ### 3.6 Quotes with credentials (when a quote fits)
 - Name and 1–2 achievements with numbers before the quote (§3.4). Only quotes with a traceable source; translate
@@ -134,19 +137,30 @@ Each trap goes through five steps, so it is clear and not just a warning:
 - One lesson per video, tied to business results; one "small move, big impact" detail; the owner's angles
   (leverage 10x/25x, scaling and alignment, comparisons that reveal opportunities, connections that pay off years
   later, the 1% a day). Stories depend on the topic; vary countries; an Arab/Gulf example when a verified one exists.
+- **Saudi first (v5):** wherever it fits, the real stories, numbers and use cases come from Saudi Arabia: a verified Saudi
+  founder or company, a Saudi statistic (GASTAT, the ministries, Gallup's Saudi data), a Saudi tool (the freelance
+  document, Monsha'at), and Saudi daily life in every [مثال توضيحي] (Riyadh, Jeddah, Dammam, a كشتة, a family occasion).
+  Two limits: nothing that hurts, mocks or embarrasses a person, family, tribe, region or group (no living private
+  person's failure, no gossip), and never a story the tracker plans for a later episode (check `lessons.csv` →
+  `story_lead` and `story-bank.csv` before using it).
 - No subscribe/like requests, no money promises, a gentle "talk to a specialist" line when stress comes up.
 - A near-real example is marked **[مثال توضيحي]** in the script and labelled on screen.
 
 ### 3.13 The publish kit (new in v4)
 Every full script comes with `publish.md` and three thumbnail images, so the owner judges the whole package:
-- **3 video titles:** ≤ 60 characters, the searched words in the first half, a number or a twist, and a question the
-  video truly answers. One story title, one numbers title, one "how to" title.
+- **3 video titles, told as a story (v5):** the owner's model is the Saudi storytelling title: a person, what happened
+  to them, the turn, and what it leaves open («…وبعد سبع سنين صار اللي ما توقعه أحد»), so the viewer wants to know what
+  happened. Every word is true and happens in the video (best in the first 30 s); the turn the title promises is the one
+  the video shows; no drama the story doesn't have (tears, prison, a death, «صدمة»). The hook and the main words sit in
+  the first ~60 characters (phones cut there), the whole title in 100 (YouTube's limit). Searched words go in where they
+  fit naturally (موهبة، مشروع، دخل، من البيت). Never a verse or a hadith as a hook. EP002 has 20 titles.
 - **3 thumbnails (text + image):** at most 4 words, one big number or one strong word, one silhouette visual, high
   contrast, the file badge. Each matches a title and what the viewer sees in the first 30 seconds. The texts live in
   `thumbs.json`; `npm run thumbs -- EP00N` renders `out/thumb-1.png` … `thumb-3.png`. (`"layout": "design"` picks one of the ten designs in
-  `04-studio/src/ThumbDesigns.tsx`; the text of a headline is fitted to its column automatically.) The owner can ask for more: EP001 has 10 titles,
+  `04-studio/src/ThumbDesigns.tsx` or the sixteen story designs in `ThumbStories.tsx`; the text of a headline is fitted to its
+  column automatically.) The owner can ask for more: EP001 has 10 titles,
   10 thumbnails and 5 descriptions.
-- **2 descriptions:** the first two lines carry the hook and the main search words (they show before "more"); then
+- **2–3 descriptions:** the first two lines carry the hook and the main search words (they show before "more"); then
   what the viewer will learn, the chapters, the sources, and at most 3 hashtags.
 - **The words people search:** before publishing, check YouTube Studio → Analytics → Research (searches across
   YouTube) and Google Trends for Saudi Arabia. Prefer phrases our viewers type (مشروع، فكرة مشروع، دخل إضافي، بدون
@@ -180,9 +194,50 @@ The owner's rule after part A: the screen must move with the voice. Nothing may 
   hearing "background music": quiet, curious, good for analysis. The owner chooses it by ear (their "Detective
   Backgrounds" hums, or beds made with `06-tools/ambient_bed.py` or `humming_bed.py`; screen each with
   `06-tools/listen_check.py`). `channel.json` → `"background"` (a file in `_assets/music/`, at -18 LUFS) and
-  `"backgroundLevel"` (how many dB under the voice); it rises 4 dB in the pauses between scenes.
+  `"backgroundLevel"` (how many dB under the voice: 20 from v5, 25 in EP001); it rises 4 dB in the pauses between scenes
+  and fades out for the «وقفة» (§3.15).
 - **Cues are spoken words,** checked against the recording's word marks; `phrase@2` picks a phrase's second
   occurrence when the first one is elsewhere (e.g. «ألفين» in 2009 and in 2000 years).
+
+### 3.15 The «وقفة»: a verse and a hadith before the end (new in v5)
+The owner's request after EP001: a short religious pause, tied to the lesson, before the teaser.
+- **Where and how long:** part 10, after the puzzle and before the close. 45–75 seconds, calm.
+- **What it holds:** one verse and/or one or two hadiths that truly relate to the lesson; what they mean, from a known
+  tafsir or sharh (al-Muyassar, Ibn Kathir, al-Sa'di, al-Tabari; Fath al-Bari, al-Nawawi, HadeethEnc or Dorar for a hadith);
+  the link to the lesson in plain words, said as ours after the explanation, never as tafsir; the effect on how we
+  work («والأثر؟…»); and a real story from the Quran or the authentic Sunnah when one fits (EP002: the prophets herded sheep).
+- **Only these sources:** the Quran, as written in the Madinah mushaf (Uthmani script, with tashkeel), with surah and
+  ayah; hadith only from Sahih al-Bukhari or Sahih Muslim, with book and number, in their exact wording (quoting part
+  of one is fine). Never from memory: every text is checked against two references (Quran.com or the King Fahd Complex;
+  Dorar or Sunnah.com) and listed in `sources.md` with the tafsir used. Well-known sayings that are not in the two
+  Sahihs (e.g. «إن الله يحب إذا عمل أحدكم عملًا أن يتقنه») are not used here. When a word's meaning is disputed, the
+  narration doesn't explain it.
+- **Tone:** mainstream meaning only; nothing sectarian, no fiqh rulings, no promises ("do this and you'll get rich").
+  Never used as a title, a thumbnail or a Short hook.
+- **On screen:** the verse and the hadith appear as they are read, in a Quran-appropriate font, with their reference;
+  no sound effects, and the background hum fades out for the whole part. Never a picture of the Prophet ﷺ, any prophet
+  or companion: only text, nature, sheep, landscapes.
+- **The owner** reads the verse exactly as written, with its tashkeel, and says «صلى الله عليه وسلم» in full.
+
+### 3.16 The ending: «فيه مشهد في النهاية» and the dark teaser (new in v5)
+Like a TV show or an anime that keeps a scene after the credits:
+- **The pop-up:** about 10 seconds before the teaser, during the close's opening bridge (never over a verse or a hadith),
+  a small card slides in: «فيه مشهد في النهاية», with one soft sound. It leaves when the teaser starts. The bridge
+  sentence must last 10–15 s so the pop-up has its time.
+- **The dark screen:** on the teaser's first word the whole screen turns from light to dark in about a second (dark
+  navy, a soft spotlight, light text, cards that glow), and the next file's end card stays dark.
+- **Honest:** the promised scene really comes and is worth waiting for: a real cliffhanger about the next file.
+
+### 3.17 A clear, close voice (new in v5)
+After EP001 the owner asked for a voice that sounds like a studio, not a room. Most of it is won while recording; the
+cleaning does the rest.
+- **Recording:** a small room full of soft things (a closet of clothes is ideal), never a bathroom, kitchen or empty room;
+  no AC or fan; the phone in airplane mode, 15–20 cm from the mouth and slightly to the side, on a stand so the distance
+  never changes; speak a bit closer and softer rather than loud and far; record 5 seconds of silence first. iPhone:
+  Settings → Apps → Voice Memos → Audio Quality → Lossless. Details: `10-voice-guide.md` §5.
+- **Cleaning** (`06-tools/clean_recording.py`): retakes, stutters and long pauses removed; then noise learnt from the
+  quiet parts and removed, room echo shortened, the voice's low rumble and boom cut, presence and air brought up,
+  sibilants softened, gentle compression, and loudness to -16 LUFS. Its report says what it did.
 
 ## 4. From draft to video
 
@@ -199,7 +254,7 @@ The owner's rule after part A: the screen must move with the voice. Nothing may 
 
 ## 5. Checklist before a draft goes to the owner
 
-- [ ] All 10 parts (or a note saying why part 6 is skipped); `draft_length.py` shows at least 8:00.
+- [ ] All 11 parts (or a note saying why part 6 is skipped); `draft_length.py` shows at least 8:00.
 - [ ] The journey: start, stations and destination named in part 2; every part opens with its station.
 - [ ] Every person, company and organisation is introduced with numbers the first time it appears.
 - [ ] The hook: a twist in the first 30 s; at least one question to the viewer.
@@ -210,6 +265,11 @@ The owner's rule after part A: the screen must move with the voice. Nothing may 
 - [ ] The publish kit: 3 titles, 3 thumbnails (text + image), 2 descriptions (§3.13).
 - [ ] A small move with big impact; every point ends in a business result.
 - [ ] No subscribe/like, no promises, no investing tips; the specialist line if stress comes up.
+- [ ] Saudi stories, numbers and examples wherever they fit; nothing that hurts anyone; no story a later episode plans.
+- [ ] The «وقفة»: exact texts (surah and ayah; al-Bukhari or Muslim with its number), the tafsir or sharh named in
+  `sources.md`, the link and the effect in plain words, 45–75 s (§3.15).
+- [ ] The close: a 10–15 s bridge for the pop-up, then the teaser marked for the dark screen (§3.16).
+- [ ] Titles in the story style, every word true and shown in the video (§3.13).
 - [ ] Nothing from private sources (`CLAUDE.md` rule 2).
 
 ## 6. Parts → video scenes (for the studio)
@@ -221,10 +281,19 @@ The owner's rule after part A: the screen must move with the voice. Nothing may 
 | every station start | `journey` with `at` = the station (built) |
 | `problem`, `check`, `tools`, `risks`, `practice`, `actions`, `close` | `stage` (built): an empty stage with the station chip, filled by its `moments` (the self-check is a `quiz`, the puzzle a `math` with blanks) |
 | `recap` | `journey` at the destination (built): the road lights up from `glowCue` to `glowEndCue`, then fades at `focusCue` for its moments |
-| end card | `stage` with no narration (built): the next `file` from second 0 (`at: 0`), moved up to leave room for YouTube's end-screen elements |
+| `faith` | `stage` with `quiet: true` (no sound effects, the background fades out) and `scripture` moments: the verse or hadith typed as it is read, with its reference |
+| `close` | `stage` with an `endscene` moment (the «فيه مشهد في النهاية» pop-up, from the bridge's first word `until` the teaser's) and `darkCue` = the teaser's first word |
+| end card | `stage` with no narration (built): the next `file` from second 0 (`at: 0`), moved up to leave room for YouTube's end-screen elements; `dark: true` after a dark teaser |
 | every scene | `moments` on the narrator's words, each with its sound (§3.14) |
 
 ## 7. Changelog
+
+- **v5 · 24 Oct 2026.** From the owner's notes after publishing EP001: titles told as stories, in the style of Saudi
+  storytelling channels, every word true (§3.13); a new part 10, the «وقفة», with a verse and a hadith from al-Bukhari or
+  Muslim tied to the lesson (§3.15); a «فيه مشهد في النهاية» pop-up about 10 s before the teaser, and the teaser on a
+  dark screen (§3.16); Saudi stories, numbers and examples first wherever they fit, without hurting anyone or using a
+  later episode's story (§3.12); the background 20 dB under the voice (§3.14); a clearer voice: recording rules and a
+  stronger cleaning chain (§3.17). The close becomes part 11.
 
 - **v4.4 · 21 Oct 2026.** Studio side only, no change for scripts: every part after the bridge is a `stage` scene
   filled with moments (§6); 14 new moment kinds and cues for a sentence's second half (§3.14), built for the full

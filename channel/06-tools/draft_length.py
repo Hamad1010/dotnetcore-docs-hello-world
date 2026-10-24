@@ -19,7 +19,8 @@ MIN_SECONDS = 8 * 60  # keep in step with the framework's minimum length (11-vid
 
 def spoken(line):
     line = re.sub(r'\[[^\]]*\]', '', line)
-    line = re.sub(r'[*«»]', '', line).strip()
+    line = re.sub(r'[*«»﴿﴾]', '', line)
+    line = re.sub(r'[ً-ٰٟۖ-ۭ]', '', line).strip()  # tashkeel and Quran marks take no time
     digits = sum(len(d) for d in re.findall(r'\d', line))
     return len(re.sub(r'\d', '', line)) + digits * WORDS_PER_DIGIT
 

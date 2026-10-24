@@ -12,10 +12,12 @@ Recording Booth, and the studio links your voice and renders the video, thumbnai
 
 ## Your next 3 actions
 
-1. **Watch the full EP001** (`03-episodes/EP001/out/EP001.mp4`, 12:59) and send the timestamps you'd change.
-2. **Choose the package** in `03-episodes/EP001/publish.md` (10 titles, 10 thumbnails, 5 descriptions; my pick is title 1 + thumbnail 1 + description 1) and the
-   channel look in `01-plan/14-brand-kit.md` (20 avatars, 5 banners; my pick is avatar `host-02` + `banner-2`), then pick the handle.
-3. **Launch on Monday 26 Oct, 8–9 pm** with the checklist in `01-plan/12-launch-and-monetization.md`, and record EP002 while the first numbers come in.
+1. **Review the EP002 script** (`03-episodes/EP002/script-draft.md`, framework v5, about 14 minutes) and say what to change.
+   New in v5: the «وقفة» with a verse and two hadiths, the «فيه مشهد في النهاية» pop-up and the dark teaser.
+2. **Pick EP002's package** in `03-episodes/EP002/publish.md` (20 story titles, 20 thumbnails, 3 descriptions; my pick is
+   title 1 + thumbnail 1 + description 1).
+3. **Record EP002** once the script is approved, in the setup of `01-plan/11-video-framework.md` §3.17 (a soft small room,
+   the phone 15–20 cm away on a stand, Lossless quality), and send EP001's publish date and link for the tracker.
 
 Then follow the week-by-week coaching plan: [`01-plan/08-coaching-roadmap.md`](01-plan/08-coaching-roadmap.md).
 

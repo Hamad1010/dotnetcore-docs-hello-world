@@ -273,6 +273,8 @@ export type Episode = {
   next?: {lesson: string; title: string; teaser: string};
   /** Shorts to cut from this episode: each entry is a list of scene ids, e.g. [["hook","lesson"],["s4"]] */
   shorts?: string[][];
+  /** dB under the voice for this episode only, overriding channel.json (EP001 keeps the 25 it was published with) */
+  backgroundLevel?: number;
   scenes: Scene[];
 };
 
