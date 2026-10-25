@@ -12,12 +12,11 @@ Recording Booth, and the studio links your voice and renders the video, thumbnai
 
 ## Your next 3 actions
 
-1. **Review the EP002 script** (`03-episodes/EP002/script-draft.md`, framework v5, about 14 minutes) and say what to change.
-   New in v5: the «وقفة» with a verse and two hadiths, the «فيه مشهد في النهاية» pop-up and the dark teaser.
+1. **Record EP002** in the Recording Booth (<https://claude.ai/artifact/6ygwHYvcEr24DeRoZysEgt>): 17 parts, one sentence per
+   line, each ending at a red stop. Phone on a stand 15–20 cm away, Lossless, 5 seconds of silence first. Send the file(s).
 2. **Pick EP002's package** in `03-episodes/EP002/publish.md` (20 story titles, 20 thumbnails, 3 descriptions; my pick is
    title 1 + thumbnail 1 + description 1).
-3. **Record EP002** once the script is approved, in the setup of `01-plan/11-video-framework.md` §3.17 (a soft small room,
-   the phone 15–20 cm away on a stand, Lossless quality), and send EP001's publish date and link for the tracker.
+3. **Send EP001's first-week numbers** (views, CTR, average view duration) for the tracker and the weekly review.
 
 Then follow the week-by-week coaching plan: [`01-plan/08-coaching-roadmap.md`](01-plan/08-coaching-roadmap.md).
 

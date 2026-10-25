@@ -38,7 +38,7 @@ rests on two or more independent results where possible. Re-open the links marke
 - Gallup, State of the Global Workplace 2026 (2025 data): 20% of employees worldwide engaged (lowest since 2020); low engagement
   costs about $10 trillion in lost productivity; 263,810 respondents in 140+ countries and territories:
   [Gallup](https://www.gallup.com/workplace/697904/state-of-the-global-workplace-2026.aspx).
-- Saudi Arabia: 26% engaged (MENA 14%, world 20%):
+- Saudi Arabia: 26% engaged (MENA 14%, world 20%). **Not in the final script** (the owner removed the line on 25 Oct 2026):
   [Gallup, Saudi country data](https://www.gallup.com/workplace/706970/state-global-workplace-saudi-arabia-country-level-data.aspx).
 - People who use their strengths every day are six times as likely to be engaged:
   [Gallup](https://courses.gallup.com/strengths-coaching-certification) ·

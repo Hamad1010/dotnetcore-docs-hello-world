@@ -419,22 +419,46 @@ const Equal: React.FC<P> = (p) => {
   );
 };
 
-// ------------------------------------------------------------------------------------------- people4: 3 of every 4
-const People4: React.FC<P> = (p) => (
-  <Frame {...p} tone="navy" sizes={[176, 130]}>
-    <Pic>
-      <circle cx={478} cy={500} r={140} fill={C.yellow} opacity={0.2} />
-      {[0, 1, 2].map((k) => (
-        <g key={k} transform={`translate(${k * 118} ${400 + (k % 2) * 20})`}>
-          <Person size={300} color="#4A5A82" />
+// ------------------------------------------------------------------------------------------- people4: a few of many, lit
+// `labels: [total, lit]` (default 4 and 1): up to 4 people stand in a row; more stand in two rows of five.
+const People4: React.FC<P> = (p) => {
+  const [total, lit] = (p.s.labels ?? ['4', '1']).map(Number);
+  if (total > 4) {
+    const cols = 5;
+    return (
+      <Frame {...p} tone="navy" sizes={[176, 130]}>
+        <Pic>
+          {Array.from({length: total}, (_, k) => {
+            const row = Math.floor(k / cols);
+            const col = k % cols;
+            const on = k >= total - lit;
+            return (
+              <g key={k} transform={`translate(${20 + col * 118} ${200 + row * 250})`}>
+                {on ? <circle cx={60} cy={110} r={92} fill={C.yellow} opacity={0.2} /> : null}
+                <Person size={210} color={on ? C.yellow : '#4A5A82'} />
+              </g>
+            );
+          })}
+        </Pic>
+      </Frame>
+    );
+  }
+  return (
+    <Frame {...p} tone="navy" sizes={[176, 130]}>
+      <Pic>
+        <circle cx={478} cy={500} r={140} fill={C.yellow} opacity={0.2} />
+        {[0, 1, 2].map((k) => (
+          <g key={k} transform={`translate(${k * 118} ${400 + (k % 2) * 20})`}>
+            <Person size={300} color="#4A5A82" />
+          </g>
+        ))}
+        <g transform="translate(360 380)">
+          <Person size={330} color={C.yellow} />
         </g>
-      ))}
-      <g transform="translate(360 380)">
-        <Person size={330} color={C.yellow} />
-      </g>
-    </Pic>
-  </Frame>
-);
+      </Pic>
+    </Frame>
+  );
+};
 
 // ------------------------------------------------------------------------------------------- desks: same salary, ×6
 const Desk: React.FC<{x: number; lit: boolean}> = ({x, lit}) => {

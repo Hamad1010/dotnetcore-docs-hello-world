@@ -1,6 +1,6 @@
 # 11 · Video framework: how every long video is built
 
-**Current version: v5** (24 Oct 2026). This file is the only place where the structure of a long video is defined.
+**Current version: v5.1** (25 Oct 2026). This file is the only place where the structure of a long video is defined.
 `CLAUDE.md`, the `/new-episode` skill and the blueprint point here instead of repeating it, so a change made here
 reaches everything at once.
 
@@ -61,6 +61,20 @@ draft is short, add a story, an example or a clearer explanation, not filler.
   sentences, pauses (…).
 - Ask before you reveal: "تتوقعون كم دفعت؟" → pause → the number. "ايش صار؟" before every turn in the story.
 - One idea per sentence. Keep the twist for last. The model is the owner's own rewrite of EP001's opening.
+- **The middle is never skipped (v5.1, the owner's rule).** Every event comes in order, cause then effect, so nobody
+  wonders how we got here: «وجرّبت تحل المشكلة بنفسها. وانحلت بالفعل… وهنا جاتها الشرارة.» Before a draft goes out,
+  read each story as a numbered list of events and check that none is missing between two lines.
+- **Plain and explicit beats clever.** Say the thing outright: «يرفضونها» rather than a bare «لا»; «الشركة الصغيرة اللي تو
+  فتحوها بتفلس» rather than «الصغير بينتهي»; a teaser that ends on a full question («ايش السر اللي سووه عشان يخلون العملاق
+  الأمريكي يدفع هالمبلغ؟») rather than «وش سوّوا؟».
+- **The owner's warm asides.** Short spoken asides that make it a conversation, one or two per part, never forced:
+  «لا تنسى»، «لا طبعًا»، «يا حبيبي»، «على طبق من ذهب»، «وعلى الطاري»، «أكيد يدور في بالك»، «بوضح لكم أكثر، ولا
+  يهمكم»، «فيه فرق بين الاثنين».
+- **Talk to the person in the story (the owner's favourite).** Comment to them as if they were in front of you, on what
+  they don't see: «طيب… لو أي أحد يسويها… ليش يتصلون فيها هي بالذات؟»; «يا سارة… سبع سنين تسمعين «لا»… وما
+  انتبهتي إنك كنتي تتدربين؟». At least once in every story.
+- **Labels the viewer doesn't need go.** No «وقفة قصيرة» announcing a pause, no «قال المفسرون» when the meaning can simply
+  follow («يعني…»); the source stays in `sources.md`.
 
 ### 3.2 Steps anyone can follow
 - Many viewers have a small salary or no job. Every tool must work with no money, a phone and this week.
@@ -205,7 +219,8 @@ The owner's request after EP001: a short religious pause, tied to the lesson, be
 - **Where and how long:** part 10, after the puzzle and before the close. 45–75 seconds, calm.
 - **What it holds:** one verse and/or one or two hadiths that truly relate to the lesson; what they mean, from a known
   tafsir or sharh (al-Muyassar, Ibn Kathir, al-Sa'di, al-Tabari; Fath al-Bari, al-Nawawi, HadeethEnc or Dorar for a hadith);
-  the link to the lesson in plain words, said as ours after the explanation, never as tafsir; the effect on how we
+  the link to the lesson in plain words, said as ours after the explanation, never as tafsir (the meaning can follow
+  the verse directly with «يعني…», without naming the tafsir aloud); the effect on how we
   work («والأثر؟…»); and a real story from the Quran or the authentic Sunnah when one fits (EP002: the prophets herded sheep).
 - **Only these sources:** the Quran, as written in the Madinah mushaf (Uthmani script, with tashkeel), with surah and
   ayah; hadith only from Sahih al-Bukhari or Sahih Muslim, with book and number, in their exact wording (quoting part
@@ -240,6 +255,18 @@ cleaning does the rest.
   quiet parts and removed, room echo shortened, the voice's low rumble and boom cut, presence and air brought up,
   sibilants softened, gentle compression, and loudness to -16 LUFS. Its report says what it did.
 
+### 3.18 Dialogues (new in v5.1)
+When the episode's skill happens in a conversation (asking people, offering, pricing, answering a customer, negotiating),
+show it as a short dialogue of 2–6 lines: two voices, Saudi names and places, what is said, and what changes because of it.
+- **Written by us, always.** Every dialogue is ours, built from the skill's idea. The trainers' courses, the dialogue course
+  the owner named included, are a syllabus only: no dialogue, example, sentence or list is copied from them, and no trainer or
+  course is named in anything public (`CLAUDE.md` rule 2). Using a trainer's own dialogue needs that trainer's written
+  permission first.
+- **Or real and documented.** A real conversation of a known master (a founder, a negotiator, a leader) with a traceable
+  source, introduced with credentials (§3.4, §3.6).
+- A made-up dialogue carries [مثال توضيحي]; on screen it plays as a `chat` moment, each bubble on its words. The owner reads
+  both voices.
+
 ## 4. From draft to video
 
 1. Claude writes `03-episodes/EP00N/script-draft.md` (this framework, numbers as plain digits), `sources.md` and the
@@ -248,7 +275,8 @@ cleaning does the rest.
    loop is paid off, the small move, the puzzle and its answer, the teaser, and where part A ends.
 2. The owner reads the draft and approves it or says what to change.
 3. After approval the draft is frozen. Claude builds `episode.json` from it (numbers become `{display|spoken}`),
-   `npm run script` prints `script.md`, and the Recording Booth gets the text. From then on, `episode.json` is the
+   `npm run script` prints `script.md`, and the Recording Booth gets the text: one numbered sentence per line, each
+   ending at a red stop, so the owner knows where a sentence ends and retakes only that sentence (v5.1). From then on, `episode.json` is the
    source: later changes go there. After the recording is synced, Claude adds the scenes' `moments` (§3.14),
    checks that every cue lands on its word, and looks at stills taken on those words before rendering.
 4. When the format is new, the owner records part A first and Claude renders it for approval; then the rest.
@@ -271,6 +299,8 @@ cleaning does the rest.
   `sources.md`, the link and the effect in plain words, 45–75 s (§3.15).
 - [ ] The close: a 10–15 s bridge for the pop-up, then the teaser marked for the dark screen (§3.16).
 - [ ] Titles in the story style, every word true and shown in the video (§3.13).
+- [ ] Every story read as a list of events: nothing missing in the middle (§3.1); the person in the story is spoken to
+  at least once; a dialogue where the skill is a conversation (§3.18).
 - [ ] Nothing from private sources (`CLAUDE.md` rule 2).
 
 ## 6. Parts → video scenes (for the studio)
@@ -288,6 +318,11 @@ cleaning does the rest.
 | every scene | `moments` on the narrator's words, each with its sound (§3.14) |
 
 ## 7. Changelog
+
+- **v5.1 · 25 Oct 2026.** From the owner's revision of EP002: the middle of a story is never skipped; plain, explicit
+  wording; the owner's warm asides; talking to the person in the story; no labels the viewer doesn't need (§3.1, §3.15).
+  Dialogues for conversation skills, always our own or real and documented, never copied from a course (§3.18). The
+  Recording Booth shows one sentence per line with a stop at its end (§4).
 
 - **v5 · 24 Oct 2026.** From the owner's notes after publishing EP001: titles told as stories, in the style of Saudi
   storytelling channels, every word true (§3.13); a new part 10, the «وقفة», with a verse and a hadith from al-Bukhari or

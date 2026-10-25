@@ -1,6 +1,6 @@
 # EP002 · Publish kit · الملف 02: لغز السبع سنين
 
-> Written 24 Oct 2026 with the script draft (framework v5 §3.13). The titles are told as stories, in the style of the
+> Written 24 Oct 2026, updated 25 Oct for the owner's approved script (framework v5.1 §3.13). The titles are told as stories, in the style of the
 > Saudi storytelling titles you sent, and every word is true and shown in the video. Chapter times are estimates from the
 > draft at your pace; they are replaced with the real ones from `out/chapters.txt` after the render.
 > Thumbnails: `npm run thumbs -- EP002` → `out/thumb-1.png … thumb-20.png` (copies in `thumbnails/`).
@@ -8,7 +8,7 @@
 ## 1. Start here: the package I would publish
 
 - **Title 1 + thumbnail 1.** The first 80 seconds deliver exactly that story (the exam, the doors, the seven years, the billion).
-- If **Test & compare** is on, test thumbnails **1, 7 and 15** (Sara · the Saudi thobe · the Saudi number: three different reasons
+- If **Test & compare** is on, test thumbnails **1, 7 and 16** (Sara · the Saudi thobe · the two employees: three different reasons
   to click), then titles **1, 7 and 3**. Let each test finish (up to about 2 weeks) and change nothing else meanwhile.
 - Description **1** to start; 2 and 3 are for the tests, the Community tab and the Shorts.
 - The rule they all follow (framework §3.13): a person, what happened, the turn, and what it leaves open. No drama the story
@@ -34,7 +34,7 @@ Each is 100 characters or fewer (YouTube's limit); the person and the setback co
 | 12 | استلفت 6 آلاف دولار من أختها عشان أول منتج… وبعد 4 سنين صارت شركتها بمليار و200 مليون | 85 | Huda Kattan · her sister's loan | step 4 | 12 |
 | 13 | وحدة بدت بمدونة… والثانية بمقص… والثنتين وصلوا لنفس الرقم بالضبط! | 65 | both · the same number | step 4 | 13 |
 | 14 | لغز السبع سنين: 3 قصص نجاح… وكل وحدة فيها نفس الرقم | 51 | the 7-year mystery | parts 1, step 4, the teaser | 14 |
-| 15 | 3 من كل 4 موظفين في السعودية يداومون وقلبهم مو هناك… وش اللي يفرّق الرابع؟ | 74 | Gallup · Saudi number | station 1 (2:40) | 15 |
+| 15 | 2 من كل 10 موظفين بس متحمسين لشغلهم… وش اللي يفرّق الاثنين عن الباقي؟ | 69 | Gallup · 2 of 10 | station 1 (2:40) | 15 |
 | 16 | موظفين نفس الراتب ونفس المكتب… واحد شغّال بموهبته والثاني ضدها… والفرق 6 أضعاف | 78 | Gallup · two employees | station 1 | 16 |
 | 17 | الشي اللي الناس دايم يطلبونه منك وتحسبه عادي… ممكن يكون أول مشروع لك | 68 | your hidden talent · the lesson | stations 2–3 | 17 |
 | 18 | اللي استقالوا عشان مشروعهم واللي كمّلوا في وظيفتهم… دراسة كشفت مين يفشل أكثر | 76 | the study on quitting | trap 1 | 18 |
@@ -62,7 +62,7 @@ and a picture of something the video really shows. The bottom corners stay clear
 | 12 | سلفة من أختها · 6 آلاف $ · وبعد 4 سنين؟ | a small stack of coins → a tall one | 12 |
 | 13 | نفس الرقم! · مدونة… ومقص | two cards, 1.2 = 1.2 (scissors · laptop) | 13 |
 | 14 | لغز · السبع سنين · 3 قصص… نفس الرقم | a giant 7 over three case files | 14 |
-| 15 | 3 من كل 4 · قلبهم مو في شغلهم · السعودية | four people, three dim and one lit | 15 |
+| 15 | 2 من كل 10 · متحمسين لشغلهم · غالوب 2026 | ten people, two of them lit | 15 |
 | 16 | نفس الراتب… · 6 أضعاف · واحد شغّال بموهبته | two desks, one dim and one lit, a «×6» badge | 16 |
 | 17 | تحسبه · عادي؟ · موهبتك المخفية | a person surrounded by «تكفى…»-style requests | 17 |
 | 18 | تستقيل… · ولا تكمّل؟ · دراسة كشفت الفرق | a road that splits: «أستقيل» or «أكمّل» | 18 |
@@ -129,16 +129,16 @@ Copy a whole block into YouTube Studio. The first two lines (about 157 character
 
 ### Description 2 · Saudi first: Loai Naseem and the Saudi numbers (pairs with titles 7–10 and 15–17, thumbnails 7–10 and 15–17)
 
-1,962 characters.
+1,921 characters.
 
 ```
 شاب سعودي من جدة بدأ يفصّل ثيابه في غرفة صغيرة في البيت بخياط واحد من مشغل أمه… وبعد 9 سنين صار عنده مصنع فيه 250 خياط. وش الموهبة اللي شافها في ثوب عادي؟
 
-وفي السعودية: تقريبًا 3 من كل 4 موظفين مو متحمسين لشغلهم، حسب غالوب 2026. والموهبة اللي ما تنشاف… ما تنباع. في هالملف: وين تتخبّى موهبتك، وكيف تجرّبها بأصغر نسخة، حتى من البيت.
+وحسب غالوب 2026: 2 من كل 10 موظفين بس في العالم متحمسين لشغلهم. والموهبة اللي ما تنشاف… ما تنباع. في هالملف: وين تتخبّى موهبتك، وكيف تجرّبها بأصغر نسخة، حتى من البيت.
 
 وش بتشوف:
 • قصة لؤي نسيم و«لومار»: ليش ما استقال إلا بعد 4 سنين؟
-• أرقام غالوب: العالم والسعودية
+• أرقام غالوب: كم موهبة ضايعة؟
 • 3 أماكن تدوّر فيها على موهبتك، ورسالة وحدة لخمسة يعرفونك
 • وثيقة العمل الحر: تخلي شغلك رسمي ببلاش
 • فخ «أستقيل بكرة» وفخ «أنتظر الشغف»
@@ -166,7 +166,7 @@ Copy a whole block into YouTube Studio. The first two lines (about 157 character
 
 المصادر:
 لؤي نسيم و«لومار» (Wamda): https://www.wamda.com/2015/10/from-home-based-workshop-to-14-stores-redefining-traditional-thobe
-غالوب، السعودية 2026: https://www.gallup.com/workplace/706970/state-global-workplace-saudi-arabia-country-level-data.aspx
+غالوب 2026: https://www.gallup.com/workplace/697904/state-of-the-global-workplace-2026.aspx
 دراسة الاستقالة (Inc.): https://www.inc.com/kimberly-weisul/keep-day-job-nicest-possible-way.html
 
 الحسابات الرسمية (للاطلاع فقط):
@@ -253,7 +253,7 @@ Copy a whole block into YouTube Studio. The first two lines (about 157 character
 
 - Language and captions: Arabic; upload `out/subtitles.ar.srt`. Category: Education. Audience: «لا، المحتوى غير موجّه للأطفال».
 - Altered or synthetic content: **No** (your own voice). Paid promotion: **No**.
-- Cards: at 1:19 (the answer to EP001's puzzle) → EP001; at 3:42 (the self-check) → the playlist «ابدأ من الملف 01».
+- Cards: at 1:19 (the answer to EP001's puzzle) → EP001 (https://youtu.be/FQbItdOoFnA); at 3:42 (the self-check) → the playlist «ابدأ من الملف 01».
 - End screen: the dark end card leaves room for EP003 and the playlist.
 - Before publishing, open the links once (this session could not open them) and check freelance.sa's current terms.
 

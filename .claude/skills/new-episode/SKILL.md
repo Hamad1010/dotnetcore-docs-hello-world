@@ -50,6 +50,9 @@ Follow `CLAUDE.md` (repo root) rules exactly, and the **current version** of the
 - Framework v5 parts to remember: Saudi stories and numbers first (none that hurts anyone, none a later episode plans),
   the «وقفة» before the close (Quran and Sahih al-Bukhari / Muslim only, exact texts checked twice, §3.15), and a close
   with a 10–15 s bridge for the «فيه مشهد في النهاية» pop-up, then the teaser on a dark screen (§3.16).
+- The owner's own style (v5.1, §3.1): never skip the middle of a story (every event in order, cause then effect),
+  plain explicit wording, their warm asides, and talking to the person in the story. Dialogues for conversation skills are
+  always our own or real and documented, never copied from a course (§3.18). The Booth gets one sentence per line.
 - Run `python3 06-tools/draft_length.py EP00N` (it warns below the framework's minimum) and the framework checklist (§5).
 - Send the draft to the owner and **wait for approval**. When the format or the look changes, the owner records
   part A (the first ~2 minutes) first and you render only that for approval.
