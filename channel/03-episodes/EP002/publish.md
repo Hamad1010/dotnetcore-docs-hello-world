@@ -1,8 +1,8 @@
 # EP002 · Publish kit · الملف 02: لغز السبع سنين
 
-> Written 24 Oct 2026, updated 25 Oct for the owner's approved script (framework v5.1 §3.13). The titles are told as stories, in the style of the
-> Saudi storytelling titles you sent, and every word is true and shown in the video. Chapter times are estimates from the
-> draft at your pace; they are replaced with the real ones from `out/chapters.txt` after the render.
+> Written 24 Oct 2026, updated 26 Oct after the render (the owner's recording, 15:04). The titles are told as stories, in the style of the
+> Saudi storytelling titles you sent, and every word is true and shown in the video. Chapter times are the real ones,
+> from `out/chapters.txt`.
 > Thumbnails: `npm run thumbs -- EP002` → `out/thumb-1.png … thumb-20.png` (copies in `thumbnails/`).
 
 ## 1. Start here: the package I would publish
@@ -76,7 +76,7 @@ Copy a whole block into YouTube Studio. The first two lines (about 157 character
 
 ### Description 1 · Story first: Sara (pairs with titles 1–6 and 13, thumbnails 1–6 and 13)
 
-1,883 characters.
+1,906 characters.
 
 ```
 رسبت في اختبار المحاماة مرتين، وطقّت الأبواب 7 سنين تبيع فاكسات وتسمع «لا»… وبعدها بدأت بـ19 ألف ريال فكرة صغيرة انباعت أغلبها بتقييم 1.2 مليار دولار. وين كانت موهبتها؟
@@ -92,22 +92,22 @@ Copy a whole block into YouTube Studio. The first two lines (about 157 character
 
 الفصول:
 0:00 القصة: 7 سنين من «لا»
-1:19 حل لغز الملف 01
-1:38 وش علاقة الفاكس بالمليار؟
-2:06 خريطة الرحلة
-2:40 المحطة 1: كم موهبة ضايعة؟
-3:42 المحطة 2: اختبر نفسك
-4:47 الخطوة 1: دوّر في 3 أماكن
-5:33 الخطوة 2: قصة «لومار»
-6:42 الخطوة 3: اسأل 5
-7:14 الخطوة 4: أصغر نسخة
-8:31 الفخ 1: تستقيل بكرة
-9:51 الفخ 2: تنتظر الشغف
-10:47 المحطة 5: تمارين وسؤال العشا
-11:30 الوصول
-11:52 3 خطوات + لغز الملف 02
-12:33 وقفة
-13:39 الملف الجاي
+1:23 حل لغز الملف 01
+1:44 وش علاقة الفاكس بالمليار؟
+2:15 خريطة الرحلة
+2:48 المحطة 1: كم موهبة ضايعة؟
+3:44 المحطة 2: اختبر نفسك
+4:50 المحطة 3 · الخطوة 1: دوّر في 3 أماكن
+5:35 الخطوة 2: قصة «لومار»
+6:44 الخطوة 3: اسأل 5
+7:15 الخطوة 4: أصغر نسخة
+8:37 المحطة 4 · الفخ 1: تستقيل بكرة
+10:02 الفخ 2: تنتظر الشغف
+11:05 المحطة 5: تمارين وسؤال العشا
+11:51 الوصول
+12:14 3 خطوات + لغز الملف 02
+12:54 وقفة
+14:04 الملف الجاي
 
 لغز الملف 02: خذ عدد السنين اللي قضتها سارة تطق الأبواب، واطرح منها عدد الخطوات في محطة الأدوات، واطرح بعد عدد الأماكن اللي تدوّر فيها على موهبتك. كم يطلع؟ وإذا عرفت وش يعني الرقم في رحلتنا… قله. اكتب جوابك في التعليقات، والحل في بداية الملف 03.
 
@@ -129,7 +129,7 @@ Copy a whole block into YouTube Studio. The first two lines (about 157 character
 
 ### Description 2 · Saudi first: Loai Naseem and the Saudi numbers (pairs with titles 7–10 and 15–17, thumbnails 7–10 and 15–17)
 
-1,921 characters.
+1,944 characters.
 
 ```
 شاب سعودي من جدة بدأ يفصّل ثيابه في غرفة صغيرة في البيت بخياط واحد من مشغل أمه… وبعد 9 سنين صار عنده مصنع فيه 250 خياط. وش الموهبة اللي شافها في ثوب عادي؟
@@ -145,22 +145,22 @@ Copy a whole block into YouTube Studio. The first two lines (about 157 character
 
 الفصول:
 0:00 القصة: 7 سنين من «لا»
-1:19 حل لغز الملف 01
-1:38 وش علاقة الفاكس بالمليار؟
-2:06 خريطة الرحلة
-2:40 المحطة 1: كم موهبة ضايعة؟
-3:42 المحطة 2: اختبر نفسك
-4:47 الخطوة 1: دوّر في 3 أماكن
-5:33 الخطوة 2: قصة «لومار»
-6:42 الخطوة 3: اسأل 5
-7:14 الخطوة 4: أصغر نسخة
-8:31 الفخ 1: تستقيل بكرة
-9:51 الفخ 2: تنتظر الشغف
-10:47 المحطة 5: تمارين وسؤال العشا
-11:30 الوصول
-11:52 3 خطوات + لغز الملف 02
-12:33 وقفة
-13:39 الملف الجاي
+1:23 حل لغز الملف 01
+1:44 وش علاقة الفاكس بالمليار؟
+2:15 خريطة الرحلة
+2:48 المحطة 1: كم موهبة ضايعة؟
+3:44 المحطة 2: اختبر نفسك
+4:50 المحطة 3 · الخطوة 1: دوّر في 3 أماكن
+5:35 الخطوة 2: قصة «لومار»
+6:44 الخطوة 3: اسأل 5
+7:15 الخطوة 4: أصغر نسخة
+8:37 المحطة 4 · الفخ 1: تستقيل بكرة
+10:02 الفخ 2: تنتظر الشغف
+11:05 المحطة 5: تمارين وسؤال العشا
+11:51 الوصول
+12:14 3 خطوات + لغز الملف 02
+12:54 وقفة
+14:04 الملف الجاي
 
 لغز الملف 02: خذ عدد السنين اللي قضتها سارة تطق الأبواب، واطرح منها عدد الخطوات في محطة الأدوات، واطرح بعد عدد الأماكن اللي تدوّر فيها على موهبتك. كم يطلع؟ وإذا عرفت وش يعني الرقم في رحلتنا… قله. اكتب جوابك في التعليقات، والحل في بداية الملف 03.
 
@@ -183,7 +183,7 @@ Copy a whole block into YouTube Studio. The first two lines (about 157 character
 
 ### Description 3 · How-to and numbers: the four steps, the two traps, the puzzle (pairs with titles 11–12, 14 and 18–20, thumbnails 11–12, 14 and 18–20)
 
-1,898 characters.
+1,921 characters.
 
 ```
 خسرت وظيفتها وبدت مدونة ببلاش… وبعد 7 سنين تقيّمت شركتها بأكثر من مليار. وقبلها بنت ثانية بدت بمقص ووصلت لنفس الرقم بالضبط! كيف تطلّع موهبتك وتجرّبها قبل ما تصرف أي شي؟
@@ -198,22 +198,22 @@ Copy a whole block into YouTube Studio. The first two lines (about 157 character
 
 الفصول:
 0:00 القصة: 7 سنين من «لا»
-1:19 حل لغز الملف 01
-1:38 وش علاقة الفاكس بالمليار؟
-2:06 خريطة الرحلة
-2:40 المحطة 1: كم موهبة ضايعة؟
-3:42 المحطة 2: اختبر نفسك
-4:47 الخطوة 1: دوّر في 3 أماكن
-5:33 الخطوة 2: قصة «لومار»
-6:42 الخطوة 3: اسأل 5
-7:14 الخطوة 4: أصغر نسخة
-8:31 الفخ 1: تستقيل بكرة
-9:51 الفخ 2: تنتظر الشغف
-10:47 المحطة 5: تمارين وسؤال العشا
-11:30 الوصول
-11:52 3 خطوات + لغز الملف 02
-12:33 وقفة
-13:39 الملف الجاي
+1:23 حل لغز الملف 01
+1:44 وش علاقة الفاكس بالمليار؟
+2:15 خريطة الرحلة
+2:48 المحطة 1: كم موهبة ضايعة؟
+3:44 المحطة 2: اختبر نفسك
+4:50 المحطة 3 · الخطوة 1: دوّر في 3 أماكن
+5:35 الخطوة 2: قصة «لومار»
+6:44 الخطوة 3: اسأل 5
+7:15 الخطوة 4: أصغر نسخة
+8:37 المحطة 4 · الفخ 1: تستقيل بكرة
+10:02 الفخ 2: تنتظر الشغف
+11:05 المحطة 5: تمارين وسؤال العشا
+11:51 الوصول
+12:14 3 خطوات + لغز الملف 02
+12:54 وقفة
+14:04 الملف الجاي
 
 لغز الملف 02: خذ عدد السنين اللي قضتها سارة تطق الأبواب، واطرح منها عدد الخطوات في محطة الأدوات، واطرح بعد عدد الأماكن اللي تدوّر فيها على موهبتك. كم يطلع؟ وإذا عرفت وش يعني الرقم في رحلتنا… قله. اكتب جوابك في التعليقات، والحل في بداية الملف 03.
 
@@ -253,7 +253,7 @@ Copy a whole block into YouTube Studio. The first two lines (about 157 character
 
 - Language and captions: Arabic; upload `out/subtitles.ar.srt`. Category: Education. Audience: «لا، المحتوى غير موجّه للأطفال».
 - Altered or synthetic content: **No** (your own voice). Paid promotion: **No**.
-- Cards: at 1:19 (the answer to EP001's puzzle) → EP001 (https://youtu.be/FQbItdOoFnA); at 3:42 (the self-check) → the playlist «ابدأ من الملف 01».
+- Cards: at 1:23 (the answer to EP001's puzzle) → EP001 (https://youtu.be/FQbItdOoFnA); at 3:44 (the self-check) → the playlist «ابدأ من الملف 01».
 - End screen: the dark end card leaves room for EP003 and the playlist.
 - Before publishing, open the links once (this session could not open them) and check freelance.sa's current terms.
 

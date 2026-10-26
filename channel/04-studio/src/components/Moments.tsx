@@ -334,7 +334,7 @@ const PeopleCard: React.FC<{m: Extract<Moment, {kind: 'people'}>; c: Clock}> = (
           {m.label ? <span style={{fontSize: 34, fontWeight: 700, color: C.ink, whiteSpace: 'nowrap'}}>{m.label}</span> : null}
         </div>
       ) : null}
-      <PeopleGrid count={m.count} cols={cols} cell={m.count <= 8 ? 70 : 32} progress={p} color={tone.main} highlight={hi}
+      <PeopleGrid count={m.count} cols={cols} cell={m.count <= 8 ? 70 : m.count <= 12 ? 54 : 32} progress={p} color={tone.main} highlight={hi}
         subs={m.subs} fade={m.fade} fadeProgress={fade} />
       <Sfx at={c.inAt} name="pop" />
       <Sfx at={c.inAt + 3} name="roll" />
