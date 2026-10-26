@@ -16,6 +16,8 @@ const outDir = path.join(episodes, '_brand', 'out');
 fs.mkdirSync(outDir, {recursive: true});
 const browserExecutable = process.env.REMOTION_BROWSER || null;
 const serveUrl = await bundle({entryPoint: path.join(studio, 'src/index.ts'), publicDir: episodes});
+// the bundle is a ~1 GB temporary copy of the studio: delete it however the script ends
+process.on('exit', () => fs.rmSync(serveUrl, {recursive: true, force: true}));
 
 const still = async (id, inputProps, file) => {
   const composition = await selectComposition({serveUrl, id, inputProps, browserExecutable});

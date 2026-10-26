@@ -12,10 +12,10 @@ Recording Booth, and the studio links your voice and renders the video, thumbnai
 
 ## Your next 3 actions
 
-1. **Record EP002** in the Recording Booth (<https://claude.ai/artifact/6ygwHYvcEr24DeRoZysEgt>): 17 parts, one sentence per
-   line, each ending at a red stop. Phone on a stand 15–20 cm away, Lossless, 5 seconds of silence first. Send the file(s).
-2. **Pick EP002's package** in `03-episodes/EP002/publish.md` (20 story titles, 20 thumbnails, 3 descriptions; my pick is
-   title 1 + thumbnail 1 + description 1).
+1. **Watch EP002** (`03-episodes/EP002/out/EP002.mp4`, 15:04): your recording with its visuals, sounds and the dark ending.
+   Tell me anything to change; a fix and a new render take under an hour.
+2. **Upload EP002** with `03-episodes/EP002/publish.md`: my pick is title 1 + thumbnail 1 + description 1; upload
+   `out/subtitles.ar.srt`; cards at 1:23 (EP001) and 3:44 (the playlist); altered content: No.
 3. **Send EP001's first-week numbers** (views, CTR, average view duration) for the tracker and the weekly review.
 
 Then follow the week-by-week coaching plan: [`01-plan/08-coaching-roadmap.md`](01-plan/08-coaching-roadmap.md).
