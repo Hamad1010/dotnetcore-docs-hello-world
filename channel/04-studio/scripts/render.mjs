@@ -61,21 +61,29 @@ const ffmpeg = (args) => {
   return spawnSync('npx', ['remotion', 'ffmpeg', ...args], {encoding: 'utf8', cwd: studio});
 };
 
+// Integrated loudness (and true peak) of a file's sound; framelog=quiet keeps ffmpeg's output short for long videos.
+const loudness = (file, options = '') => {
+  const out = ffmpeg(['-hide_banner', '-nostats', '-i', file, '-vn', '-af', `ebur128=framelog=quiet${options}`, '-f', 'null', '-']).stderr || '';
+  const s = out.slice(out.lastIndexOf('Summary:'));
+  return {i: s.match(/I:\s+(-?[\d.]+) LUFS/)?.[1], tp: s.match(/Peak:\s+(-?[\d.]+)/)?.[1]};
+};
+
 // Final loudness: YouTube plays everything at about -14 LUFS and never turns a quiet video up, so the finished mix is
-// brought to -14 LUFS with a limiter that keeps peaks under -1 dB. The picture is copied untouched.
-const master = (file) => {
-  const probe = ffmpeg(['-hide_banner', '-nostats', '-i', file, '-vn', '-af', 'ebur128', '-f', 'null', '-']).stderr || '';
-  const m = probe.slice(probe.lastIndexOf('Summary:')).match(/I:\s+(-?[\d.]+) LUFS/);
-  if (!m) return console.log('  (loudness not measured, left as rendered)');
-  const gain = -14 - parseFloat(m[1]);
-  const tmp = file.replace(/\.mp4$/, '.master.mp4');
-  // limit at -2 dBFS: AAC adds up to ~1 dB between samples, and YouTube wants true peaks under -1 dB
-  const r = ffmpeg(['-y', '-loglevel', 'error', '-i', file, '-c:v', 'copy', '-af', `volume=${(gain + 0.1).toFixed(2)}dB,alimiter=limit=0.79:attack=5:release=60:level=false`, '-c:a', 'aac', '-b:a', '192k', tmp]);
-  if (r.status !== 0) return console.log('  (mastering failed, left as rendered)', r.stderr);
-  fs.renameSync(tmp, file);
-  const after = ffmpeg(['-hide_banner', '-nostats', '-i', file, '-vn', '-af', 'ebur128=peak=true', '-f', 'null', '-']).stderr || '';
-  const tp = after.slice(after.lastIndexOf('Summary:')).match(/Peak:\s+(-?[\d.]+)/);
-  console.log(`✓ loudness ${m[1]} → -14 LUFS (${gain >= 0 ? '+' : ''}${gain.toFixed(1)} dB), true peak ${tp ? tp[1] : '?'} dB`);
+// brought to -14 LUFS with a limiter at -2 dBFS, and encoded once to AAC at 256k (at 192k one sharp click in EP002 came
+// out 3 dB over the limiter; YouTube wants true peaks under -1 dB). The picture is copied untouched. `sound` is the
+// episode's separate WAV; without it the file's own sound is used (a Short).
+const master = (picture, output, sound = null) => {
+  const {i} = loudness(sound ?? picture);
+  const gain = i ? -14 - parseFloat(i) : 0;
+  const tmp = output.replace(/\.mp4$/, '.master.mp4');
+  const inputs = sound ? ['-i', picture, '-i', sound, '-map', '0:v', '-map', '1:a'] : ['-i', picture];
+  const filter = i ? ['-af', `volume=${(gain + 0.1).toFixed(2)}dB,alimiter=limit=0.79:attack=5:release=60:level=false`] : [];
+  const r = ffmpeg(['-y', '-loglevel', 'error', ...inputs, '-c:v', 'copy', ...filter, '-c:a', 'aac', '-b:a', '256k', '-movflags', '+faststart', tmp]);
+  if (r.status !== 0) return console.log('  (mastering failed)', r.stderr);
+  fs.renameSync(tmp, output);
+  if (!i) return console.log('  (loudness not measured, sound left as rendered)');
+  const after = loudness(output, ':peak=true');
+  console.log(`✓ loudness ${i} → ${after.i ?? '?'} LUFS (${gain >= 0 ? '+' : ''}${gain.toFixed(1)} dB), true peak ${after.tp ?? '?'} dB`);
 };
 
 const progress = (label) => {
@@ -113,7 +121,7 @@ if (shortsOnly) {
       onProgress: progress(`short ${i + 1}`),
     });
     console.log(`✓ ${path.relative(process.cwd(), out)} (${(short.durationInFrames / short.fps).toFixed(1)} s)`);
-    master(out);
+    master(out, out);
   }
   process.exit(0);
 }
@@ -133,7 +141,28 @@ fs.writeFileSync(path.join(outDir, 'subtitles.ar.srt'), toSrt(plan));
 fs.writeFileSync(path.join(outDir, 'chapters.txt'), toChapters(episode, plan) + '\n');
 console.log('✓ subtitles.ar.srt + chapters.txt');
 
+// The sound first, in parts of about 3 minutes cut where a scene starts, joined into one WAV: Remotion mixes all of a
+// render's sounds through full-length temporary files (about 10 GB at once for a 15-minute episode), more than a cloud
+// session's disk holds. Then the picture without sound; master() puts the two together.
 const output = path.join(outDir, `${episodeId}${preview ? '-preview' : ''}.mp4`);
+const work = path.join(outDir, 'parts');
+fs.rmSync(work, {recursive: true, force: true});
+fs.mkdirSync(work, {recursive: true});
+const total = comp.durationInFrames;
+const cuts = [0];
+for (const sc of plan.scenes) if (sc.from - cuts[cuts.length - 1] >= 180 * plan.fps && total - sc.from >= 60 * plan.fps) cuts.push(sc.from);
+cuts.push(total);
+const wavs = [];
+for (let k = 0; k + 1 < cuts.length; k++) {
+  wavs.push(`sound-${k + 1}.wav`);
+  await renderMedia({composition: comp, serveUrl, codec: 'wav', outputLocation: path.join(work, wavs[k]), inputProps, browserExecutable, frameRange: [cuts[k], cuts[k + 1] - 1]});
+}
+fs.writeFileSync(path.join(work, 'sound.txt'), wavs.map((w) => `file '${w}'`).join('\n') + '\n');
+const sound = path.join(work, 'sound.wav');
+ffmpeg(['-y', '-loglevel', 'error', '-f', 'concat', '-safe', '0', '-i', path.join(work, 'sound.txt'), '-c', 'copy', sound]);
+console.log(`✓ sound (${wavs.length} parts)`);
+
+const picture = path.join(work, 'picture.mp4');
 const started = Date.now();
 let last = -1;
 await renderMedia({
@@ -141,10 +170,9 @@ await renderMedia({
   serveUrl,
   codec: 'h264',
   crf: preview ? 26 : 18,
-  audioCodec: 'aac',
-  audioBitrate: '192k',
+  muted: true,
   scale: preview ? 2 / 3 : 1,
-  outputLocation: output,
+  outputLocation: picture,
   inputProps,
   browserExecutable,
   concurrency: Math.max(1, os.cpus().length),
@@ -160,5 +188,6 @@ await renderMedia({
   },
 });
 const mins = (plan.total / plan.fps / 60).toFixed(2);
-console.log(`✓ ${path.relative(process.cwd(), output)}  (${mins} min video, rendered in ${Math.round((Date.now() - started) / 1000)}s)`);
-master(output);
+master(picture, output, sound);
+fs.rmSync(work, {recursive: true, force: true});
+console.log(`✓ ${path.relative(process.cwd(), output)}  (${mins} min video, picture rendered in ${Math.round((Date.now() - started) / 1000)}s)`);
