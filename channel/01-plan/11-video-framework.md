@@ -1,6 +1,6 @@
 # 11 · Video framework: how every long video is built
 
-**Current version: v5.1** (25 Oct 2026). This file is the only place where the structure of a long video is defined.
+**Current version: v5.2** (28 Oct 2026). This file is the only place where the structure of a long video is defined.
 `CLAUDE.md`, the `/new-episode` skill and the blueprint point here instead of repeating it, so a change made here
 reaches everything at once.
 
@@ -18,7 +18,7 @@ reaches everything at once.
 such as Ramadan or back to school, an event). To keep that safe:
 - A lesson keeps its id (`L0xx`) forever. The episode number (`EP0xx`, «الملف 06») is given when the episode is
   produced, in publication order. The tracker's row order is the plan; moving a lesson means moving its row.
-- Teasers, callbacks and the previous puzzle's answer are written at production time, after the order is confirmed.
+- Teasers and callbacks are written at production time, after the order is confirmed.
 - If a timely episode jumps in after a teaser promised something else, it opens with one honest line ("قبل ما نكمل
   الملف اللي وعدتكم فيه… فيه شي صار هالأسبوع ما يتأجل"), and the promised episode comes right after it.
 
@@ -30,20 +30,23 @@ and destination; the station names are plain words, not part numbers.
 - The whole map appears in part 2: start, stations, destination, the marker at "أنت هنا".
 - At every new part the marker moves on and the narration says it ("وصلنا للمحطة الثانية…", "باقي محطتين").
 - In part 8 the marker reaches the destination and the narration looks back at the road travelled.
+- **The map's shape (v5.2, the owner asked for a new one after EP002):** a trail that climbs a mountain to the flag on its
+  summit, or a staircase whose top step is the destination; EP001–EP002 keep their winding road. `episode.json` →
+  `"map": "mountain" | "stairs" | "wave"`; Shorts always use the winding road.
 
 ## 2. The parts, in order (v3, part 10 added in v5)
 
 | # | Part | id | Time | What it does |
 |---|---|---|---|---|
 | 1 | القصة · the stop-scrolling story | `hook` | 0:00–1:00 | A true story told in steps, with questions to the viewer. A twist in the first 30 s, the big number by ~0:45. Every name introduced (§3.4) |
-| 2 | الجسر + الخريطة · bridge, map, opening loop | `bridge` | ~1:10 | The comparison that names the topic, the case file («الملف 01»), the journey map, the opening loop. From EP002: the previous puzzle's answer (≤ 15 s) |
+| 2 | الجسر + الخريطة · bridge, map, opening loop | `bridge` | ~1:10 | The comparison that names the topic, the case file («الملف 01»), the journey map, the opening loop. No puzzle answer (v5.2) |
 | 3 | محطة: المشكلة بالأرقام | `problem` | ~1:10 | How big the problem is: 2–3 statistics, each made touchable, and what it costs the viewer |
 | 4 | محطة: اختبر نفسك | `check` | ~1:10 | 6–8 questions anyone understands (§3.8), a way to count, 3 result bands with what to do |
 | 5 | محطة: الأدوات خطوة خطوة | `tools` | 3–3:30 | 3–5 steps. Each: what to do, why, a real story or example, and how to start with no money |
 | 6 | محطة: فخاخ الطريق | `risks` | ~2:00 | 2–3 traps, each told as a mini-story (§3.7). Skip only if the topic has none |
 | 7 | محطة: تمارين | `practice` | ~30 s | 2–3 exercises for everyday life |
 | 8 | الوصول · the destination | `recap` | ~20 s | Look back at the road, then one sentence people remember and repeat |
-| 9 | 3 خطوات + لغز الحلقة | `actions` | ~40 s | At most 3 actions (today / this week / this month), the episode's puzzle (§3.11), answers in the comments |
+| 9 | 3 خطوات | `actions` | ~30 s | At most 3 actions (today / this week / this month), then one question the viewer answers in the comments from their own life (§3.11) |
 | 10 | وقفة · the faith pause (v5) | `faith` | 45–75 s | One verse and/or authentic hadith tied to the lesson, what it means, the link to the lesson and its effect on how we work, and a real story from the same sources when one fits (§3.15) |
 | 11 | الحلقة المقفلة · closing loop | `close` | ~35 s | A 10–15 s bridge (a question that leads to the next file) with the «فيه مشهد في النهاية» pop-up, then the cliffhanger teaser on a dark screen (§3.16) |
 
@@ -123,10 +126,10 @@ Each trap goes through five steps, so it is clear and not just a warning:
 - End with 3 bands (0–2, 3–5, 6+), each saying what to do now and which step of the video is for them.
 
 ### 3.9 The series is a detective show (new in v3)
-- Each episode is a case file: «الملف 01 · لغز الـ55». The lesson is the clue that solves the case.
+- Each episode is a case file: «الملف 03 · سر الـ3.1 مليار». The lesson is the clue that solves the case. From v5.2 a
+  case is named with «سر» or «قصة», never «لغز», so nobody waits for a puzzle.
 - **Callbacks:** at least one small detail from an earlier file (a number, a name), with a YouTube card to it at that
   moment. New viewers get curious and watch the older files; that adds watch hours.
-- **The previous puzzle's answer** opens part 2 of the next file (≤ 15 s), told by the owner.
 - **Cliffhanger** at the end + an end screen to the next file; one playlist per season, in order ("ابدأ من الملف 01").
 
 ### 3.10 What keeps people watching (the healthy kind of "dopamine triggers")
@@ -139,13 +142,11 @@ Each trap goes through five steps, so it is clear and not just a warning:
 - **Never:** a promise that isn't paid off, fake urgency, fear, misleading titles or thumbnails, or prizes that work
   like gambling. They break trust (our whole brand) and YouTube's policies.
 
-### 3.11 The episode's puzzle (لغز الحلقة, new in v3)
-- One puzzle tied to the lesson, with one exact answer (a number or a word) that needs details from the episode.
-  Best when the answer itself means something (EP001: 168 = the hours in a week).
-- Viewers answer in the comments. The owner reveals the answer at the start of the next file (part 2, ≤ 15 s) and
-  can reply in the comments.
-- **No prizes and no winners** (the owner's decision, v4). If prizes ever come back, read
-  `06-monetization-policy-legal.md` §9 first.
+### 3.11 No puzzle (v5.2; the puzzle of v3–v5.1 is retired)
+- The owner saw no value in the episode's puzzle: from EP003 there is none, and the next file never gives an answer
+  (EP002's puzzle stays unanswered on purpose).
+- Part 9 ends instead with one question the viewer answers in the comments from their own life, tied to the lesson
+  (EP002: «وش الشي اللي الناس دايم يطلبونه منك؟»). No prizes, no winners.
 
 ### 3.12 Kept from earlier versions
 - One lesson per video, tied to business results; one "small move, big impact" detail; the owner's angles
@@ -193,8 +194,7 @@ The owner's rule after part A: the screen must move with the voice. Nothing may 
   riyal a second…"), `send` (an item travelling from one card to another), `mystery` (a hand holding something hidden:
   an opening loop), `headline` (a station's title or a punchline), `wrench` (same force, longer handle), `clock` (the
   24 hours everyone has), `times` (15 × Saudi Arabia, 7 doors that say «لا»), `quiz` (the self-check), `versus` (two
-  things side by side), `chat` (a phone, messages on their words), `math` (a sum built term by term, blanks for the
-  puzzle), `steps`, `alert` (a phone's emergency alert), `button`, `globe` (flying from Riyadh to the place),
+  things side by side), `chat` (a phone, messages on their words), `math` (a sum built term by term), `steps`, `alert` (a phone's emergency alert), `button`, `globe` (flying from Riyadh to the place),
   `search` (a query and a rising trend), `file` (the next case file), `scripture` (a verse or a hadith, its words lit as
   they are read, v5) and `endscene` (the «فيه مشهد في النهاية» pop-up, v5).
 - **The second half waits for its word:** a headline's sub line, a step's detail, a comparison's note or a profile's
@@ -216,7 +216,7 @@ The owner's rule after part A: the screen must move with the voice. Nothing may 
 
 ### 3.15 The «وقفة»: a verse and a hadith before the end (new in v5)
 The owner's request after EP001: a short religious pause, tied to the lesson, before the teaser.
-- **Where and how long:** part 10, after the puzzle and before the close. 45–75 seconds, calm.
+- **Where and how long:** part 10, after the 3 steps and before the close. 45–75 seconds, calm.
 - **What it holds:** one verse and/or one or two hadiths that truly relate to the lesson; what they mean, from a known
   tafsir or sharh (al-Muyassar, Ibn Kathir, al-Sa'di, al-Tabari; Fath al-Bari, al-Nawawi, HadeethEnc or Dorar for a hadith);
   the link to the lesson in plain words, said as ours after the explanation, never as tafsir (the meaning can follow
@@ -272,7 +272,7 @@ show it as a short dialogue of 2–6 lines: two voices, Saudi names and places, 
 1. Claude writes `03-episodes/EP00N/script-draft.md` (this framework, numbers as plain digits), `sources.md` and the
    publish kit (§3.13): `publish.md`, `thumbs.json` and the three thumbnail images.
    Draft header: title, case file, `Framework vN`, the journey (start → stations → destination), where the opening
-   loop is paid off, the small move, the puzzle and its answer, the teaser, and where part A ends.
+   loop is paid off, the small move, the map's shape, the teaser, and where part A ends.
 2. The owner reads the draft and approves it or says what to change.
 3. After approval the draft is frozen. Claude builds `episode.json` from it (numbers become `{display|spoken}`),
    `npm run script` prints `script.md`, and the Recording Booth gets the text: one numbered sentence per line, each
@@ -290,7 +290,7 @@ show it as a short dialogue of 2–6 lines: two voices, Saudi names and places, 
 - [ ] Every big number is touchable; every number and its arithmetic is in `sources.md`.
 - [ ] Every trap follows the five steps; every tool step has a first move that costs nothing.
 - [ ] The self-check says how to count and ends with 3 bands.
-- [ ] Opening loop paid off; a callback (from EP002 on); the puzzle has one exact answer; the teaser matches the tracker.
+- [ ] Opening loop paid off; a callback (from EP002 on); no puzzle and no puzzle answer (v5.2); the teaser matches the tracker.
 - [ ] The publish kit: 3 titles, 3 thumbnails (text + image), 2 descriptions (§3.13).
 - [ ] A small move with big impact; every point ends in a business result.
 - [ ] No subscribe/like, no promises, no investing tips; the specialist line if stress comes up.
@@ -309,8 +309,8 @@ show it as a short dialogue of 2–6 lines: two voices, Saudi names and places, 
 |---|---|
 | `hook` | `storyhook` (built) |
 | `bridge` | `overview` (comparison, topic, case file) + `journey` (the map) (built) |
-| every station start | `journey` with `at` = the station (built) |
-| `problem`, `check`, `tools`, `risks`, `practice`, `actions`, `close` | `stage` (built): an empty stage with the station chip, filled by its `moments` (the self-check is a `quiz`, the puzzle a `math` with blanks) |
+| every station start | `journey` with `at` = the station (built); the episode's `map` picks the shape (`wave`, `mountain`, `stairs`) |
+| `problem`, `check`, `tools`, `risks`, `practice`, `actions`, `close` | `stage` (built): an empty stage with the station chip, filled by its `moments` (the self-check is a `quiz`) |
 | `recap` | `journey` at the destination (built): the road lights up from `glowCue` to `glowEndCue`, then fades at `focusCue` for its moments |
 | `faith` | `stage` with `quiet: true` (no sound effects, the background fades out) and `scripture` moments: the verse or hadith typed as it is read, with its reference |
 | `close` | `stage` with an `endscene` moment (the «فيه مشهد في النهاية» pop-up, from the bridge's first word `until` the teaser's) and `darkCue` = the teaser's first word |
@@ -318,6 +318,10 @@ show it as a short dialogue of 2–6 lines: two voices, Saudi names and places, 
 | every scene | `moments` on the narrator's words, each with its sound (§3.14) |
 
 ## 7. Changelog
+
+- **v5.2 · 28 Oct 2026.** From the owner after EP002: no more puzzles, and EP002's puzzle gets no answer; part 9 ends with
+  one question the viewer answers from their own life (§2, §3.11); case names use «سر» or «قصة», never «لغز» (§3.9). A new
+  shape for the journey map: a mountain trail or a staircase, chosen per episode (§1, §6).
 
 - **v5.1 · 25 Oct 2026.** From the owner's revision of EP002: the middle of a story is never skipped; plain, explicit
   wording; the owner's warm asides; talking to the person in the story; no labels the viewer doesn't need (§3.1, §3.15).

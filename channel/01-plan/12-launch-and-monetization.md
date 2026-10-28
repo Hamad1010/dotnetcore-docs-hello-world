@@ -37,16 +37,16 @@ For the video (all the text is ready in `03-episodes/EP001/publish.md`):
 - [ ] **Description 1**, pasted whole. Check the first two lines on your phone's preview. Chapters: first at 0:00, at least three, each over 10 seconds, in order **[confirmed]**.
 - [ ] **Subtitles:** upload `out/subtitles.ar.srt` as Arabic captions. English subtitles later widen the audience.
 - [ ] **Settings:** altered or synthetic content **No** (your own voice, `06` §3); paid promotion **No**; comments on.
-- [ ] **End screen** (last 20 seconds; our end card leaves room): next video or playlist. **Cards:** one at the quiz (3:20), one at the puzzle (11:42).
+- [ ] **End screen** (last 20 seconds; our end card leaves room): next video or playlist. **Cards:** one at the self-check, one at a callback to an earlier file (times in each `publish.md`).
 - [ ] **Playlist:** «ابدأ من الملف 01».
-- [ ] **Pinned comment:** the puzzle (text in `publish.md`).
+- [ ] **Pinned comment:** the episode's question for viewers (text in `publish.md`; EP001–EP002 carried a puzzle, retired in v5.2).
 
 ## 2. Launch day and the first 48 hours
 
 Your plan's launch day is **Monday 26 Oct, 8–9 pm Saudi time** (`08` and `03` §11; after four weeks, check Studio → Audience → «When your viewers are on
 YouTube» and move to your best slot).
 
-1. **First hour:** pin the puzzle comment, then answer every comment with a real answer, and keep answering through the first day or two.
+1. **First hour:** pin the comment with the episode's question, then answer every comment with a real answer, and keep answering through the first day or two.
 2. **Tell people who will genuinely care**, one honest sentence and the link, where your audience already is (WhatsApp groups, X, LinkedIn, Snapchat):
    «سويت أول ملف في قناتي… قصة واتساب والرافعة. شوفوه وقولوا لي وش تقطعون منه». Real feedback beats a bigger number. Don't ask for likes or subscribes (your
    rule), and don't pay anyone to watch.
@@ -54,7 +54,7 @@ YouTube» and move to your best slot).
    since Oct 2024 **[confirmed]**, but 30–50 seconds with the hook in the first 2 seconds suits discovery (`03` §5). End by pointing to the full video
    («related video» in Studio). Your playbook also lists **Shorts series** and **Hype** (for smaller channels) as 2026 features: use them if they show in your Studio
    (`03` §6; I couldn't check availability).
-4. **Day 2:** a Community post with the puzzle, if the tab is on your channel.
+4. **Day 2:** a Community post with the episode's question or a still from the video, if the tab is on your channel.
 5. **Don't edit the title or thumbnail by hand in the first 48 hours** unless the click-through rate is clearly poor after about 1,000 impressions (section 4). Use Test & compare.
 
 ## 3. The first week
@@ -63,7 +63,7 @@ YouTube» and move to your best slot).
 |---|---|
 | Mon 26 | Publish EP001 · pinned comment · share · Short 1 (the hook) |
 | Tue 27 | Reply to every comment · Short 2 (Kodak vs Instagram: «13 موظف… مليار») |
-| Wed 28 | Community post (the puzzle) |
+| Wed 28 | Community post (the episode's question) |
 | Thu 29 | Short 3 (quick replies: «اكتب الرد مرة») · read the numbers (section 4) |
 | Fri 30 | The weekly review (`05-templates/weekly-review.md` or paste the numbers and run `/weekly-review`) |
 | next week | Record and publish EP002 (the hidden talent) |

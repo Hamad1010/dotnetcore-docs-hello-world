@@ -95,9 +95,8 @@ prominently and detects undisclosed AI content itself, so honesty is the safe ro
 
 ## 9. Puzzles and prizes
 
-**No prizes and no winners for now** (the owner's decision, framework v4). The puzzle at the end of each file is for
-comments and curiosity; the owner reveals the answer at the start of the next file. If prizes ever come back, check
-these first:
+**No puzzles since framework v5.2** (the owner's decision after EP002), and **no prizes or winners** (since v4). Each file
+ends with one question viewers answer in the comments from their own life. If prizes ever come back, check these first:
 - **YouTube's contest rules** ([policy](https://support.google.com/youtube/answer/1620498)): you are fully responsible;
   follow local law; entry is free; publish official rules; never require subscribing, liking or any other metric.
 - **Saudi Arabia:** the Ministry of Commerce requires a licence before a prize competition is run or advertised and

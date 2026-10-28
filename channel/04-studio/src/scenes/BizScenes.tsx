@@ -400,6 +400,7 @@ export const Journey: React.FC<SceneProps<JourneyScene> & {showCaptions: boolean
       <div style={{position: 'absolute', inset: 0, opacity: mapFade}}>
       <JourneyMap
         portrait={portrait}
+        shape={props.episode.map}
         ghost={walking ? 0 : interpolate(f, [0, 12, destAt, destAt + 20], [0, 1, 1, 0], clamp)}
         glow={glow}
         reveal={reveal}

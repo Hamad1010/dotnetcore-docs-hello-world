@@ -1,14 +1,21 @@
 // The journey map (framework v3 §1): every video is a road from "أنت هنا" to a destination, with the parts as stations.
-// Drawn from plain shapes in our palette; the road starts on the right, like Arabic reading.
+// Drawn from plain shapes in our palette; the road starts on the right, like Arabic reading. Three shapes (framework
+// v5.2): the winding road of EP001–EP002, a trail that climbs a mountain to the flag on its summit, and a staircase whose
+// top step is the destination. Shorts (portrait) always use the winding road.
 import React from 'react';
 import {useCurrentFrame} from 'remotion';
 import {C, FONT} from '../theme';
+import type {MapShape} from '../types';
 import {Person} from './Silhouettes';
 
 type Pt = {x: number; y: number};
 export type MapStop = {label: string; shown: number; mark?: 'loop' | 'puzzle'; markShown?: number; markPulse?: number};
 
 const SAMPLES = 28;
+// the mountain: its summit (the destination) and how wide it is at its foot
+const PEAK = {x: 960, y: 370};
+const FOOT = {y: 1040, half: 760};
+const mountainHalf = (y: number) => ((y - PEAK.y) / (FOOT.y - PEAK.y)) * FOOT.half;
 
 const catmull = (p0: Pt, p1: Pt, p2: Pt, p3: Pt, t: number): Pt => {
   const t2 = t * t;
@@ -18,22 +25,37 @@ const catmull = (p0: Pt, p1: Pt, p2: Pt, p3: Pt, t: number): Pt => {
   return {x: f(p0.x, p1.x, p2.x, p3.x), y: f(p0.y, p1.y, p2.y, p3.y)};
 };
 
-/** Where the stops sit: a winding road from right to left (landscape) or top to bottom (portrait). */
-const stopPoints = (count: number, portrait: boolean): Pt[] =>
+/** Where the stops sit: a winding road from right to left (landscape) or top to bottom (portrait); switchbacks up the
+ * mountain from its right foot to the summit; or one stop on each step of a staircase climbing to the left. */
+const stopPoints = (count: number, portrait: boolean, shape: MapShape): Pt[] =>
   Array.from({length: count}, (_, i) => {
     const t = count === 1 ? 0 : i / (count - 1);
-    return portrait ? {x: i % 2 ? 300 : 780, y: 430 + t * 1060} : {x: 1730 - t * 1540, y: i % 2 ? 450 : 720};
+    if (portrait) return {x: i % 2 ? 300 : 780, y: 430 + t * 1060};
+    if (shape === 'mountain') {
+      const y = 950 - t * (950 - PEAK.y);
+      return {x: i === count - 1 ? PEAK.x : PEAK.x + (i % 2 ? -1 : 1) * 0.78 * mountainHalf(y), y};
+    }
+    if (shape === 'stairs') return {x: 1640 - t * 1380, y: 850 - t * 520};
+    return {x: 1730 - t * 1540, y: i % 2 ? 450 : 720};
   });
 
-/** The road as one polyline per segment (stop i → stop i+1), so every stop sits exactly on it. */
-const sampleRoad = (pts: Pt[]) =>
+const withLengths = (seg: Pt[]) => {
+  const lens = [0];
+  for (let k = 1; k < seg.length; k++) lens.push(lens[k - 1] + Math.hypot(seg[k].x - seg[k - 1].x, seg[k].y - seg[k - 1].y));
+  return {seg, lens};
+};
+
+/** The road as one polyline per segment (stop i → stop i+1), so every stop sits exactly on it: a smooth curve, or for
+ * the staircase a tread, a riser and the next tread. */
+const sampleRoad = (pts: Pt[], stairs: boolean) =>
   pts.slice(0, -1).map((_, i) => {
+    if (stairs) {
+      const mx = (pts[i].x + pts[i + 1].x) / 2;
+      return withLengths([pts[i], {x: mx, y: pts[i].y}, {x: mx, y: pts[i + 1].y}, pts[i + 1]]);
+    }
     const p0 = pts[Math.max(0, i - 1)];
     const p3 = pts[Math.min(pts.length - 1, i + 2)];
-    const seg = Array.from({length: SAMPLES + 1}, (__, k) => catmull(p0, pts[i], pts[i + 1], p3, k / SAMPLES));
-    const lens = [0];
-    for (let k = 1; k < seg.length; k++) lens.push(lens[k - 1] + Math.hypot(seg[k].x - seg[k - 1].x, seg[k].y - seg[k - 1].y));
-    return {seg, lens};
+    return withLengths(Array.from({length: SAMPLES + 1}, (__, k) => catmull(p0, pts[i], pts[i + 1], p3, k / SAMPLES)));
   });
 
 /** Point and road distance at a position measured in stops (1.5 = halfway between stops 1 and 2). */
@@ -62,6 +84,56 @@ const Contours: React.FC<{w: number; h: number}> = ({w, h}) => (
     })}
   </g>
 );
+
+/** A mountain in our palette: two paler peaks behind, the main one shaded on its right, snow on the summit. */
+const Mountain: React.FC = () => {
+  const {x, y} = PEAK;
+  const left = x - FOOT.half;
+  const right = x + FOOT.half;
+  // the snow line: a jagged edge about 110 px under the summit
+  const snowY = y + 110;
+  const snowHalf = mountainHalf(snowY);
+  const snow = `M${x} ${y} L${x + snowHalf} ${snowY} L${x + snowHalf * 0.55} ${snowY - 22} L${x + snowHalf * 0.2} ${snowY + 8} L${x - snowHalf * 0.25} ${snowY - 18} L${x - snowHalf * 0.6} ${snowY + 6} L${x - snowHalf} ${snowY} Z`;
+  return (
+    <g>
+      <defs>
+        <linearGradient id="mountain-fill" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stopColor="#D6E2F5" />
+          <stop offset="1" stopColor="#EDF2FA" />
+        </linearGradient>
+      </defs>
+      <path d={`M${left - 260} ${FOOT.y + 40} L${left + 180} ${y + 230} L${left + 520} ${FOOT.y + 40} Z`} fill="#E6EDF8" />
+      <path d={`M${right - 480} ${FOOT.y + 40} L${right + 40} ${y + 160} L${right + 420} ${FOOT.y + 40} Z`} fill="#E6EDF8" />
+      <path d={`M${left} ${FOOT.y} L${x} ${y} L${right} ${FOOT.y} Z`} fill="url(#mountain-fill)" stroke={C.landStroke} strokeWidth={3} strokeLinejoin="round" />
+      <path d={`M${x} ${y} L${right} ${FOOT.y} L${x + 120} ${FOOT.y} L${x + 60} ${y + 420} L${x + 30} ${y + 180} Z`} fill={C.graticule} opacity={0.55} />
+      <path d={snow} fill="#fff" />
+    </g>
+  );
+};
+
+/** The staircase's body under its steps, so the steps read as solid stairs. */
+const StairBody: React.FC<{pts: Pt[]; h: number}> = ({pts, h}) => {
+  const n = pts.length;
+  const half = (pts[0].x - pts[n - 1].x) / (n - 1) / 2;
+  let d = `M${pts[0].x + half} ${h} L${pts[0].x + half} ${pts[0].y}`;
+  pts.forEach((p, i) => {
+    const mx = i < n - 1 ? (p.x + pts[i + 1].x) / 2 : p.x - half;
+    d += ` L${mx} ${p.y}`;
+    if (i < n - 1) d += ` L${mx} ${pts[i + 1].y}`;
+  });
+  d += ` L${pts[n - 1].x - half} ${h} Z`;
+  return (
+    <g>
+      <defs>
+        <linearGradient id="stairs-fill" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stopColor="#DCE6F7" />
+          <stop offset="1" stopColor="#F0F4FB" />
+        </linearGradient>
+      </defs>
+      <path d={d} fill="url(#stairs-fill)" stroke={C.landStroke} strokeWidth={3} strokeLinejoin="round" />
+    </g>
+  );
+};
 
 const Badge: React.FC<{kind: 'loop' | 'puzzle'; size: number}> = ({kind, size}) =>
   kind === 'loop' ? (
@@ -92,13 +164,15 @@ export const JourneyMap: React.FC<{
   /** which station is highlighted (1-based), 0 = none */
   active: number;
   portrait: boolean;
-}> = ({start, stations, destination, reveal, ghost = 0, glow = null, traveller, active, portrait}) => {
+  shape?: MapShape;
+}> = ({start, stations, destination, reveal, ghost = 0, glow = null, traveller, active, portrait, shape: wanted = 'wave'}) => {
   const f = useCurrentFrame();
   const W = portrait ? 1080 : 1920;
   const H = portrait ? 1920 : 1080;
+  const shape: MapShape = portrait ? 'wave' : wanted;
   const stops = [start, ...stations, destination];
-  const pts = stopPoints(stops.length, portrait);
-  const road = sampleRoad(pts);
+  const pts = stopPoints(stops.length, portrait, shape);
+  const road = sampleRoad(pts, shape === 'stairs');
   const total = road.reduce((a, r) => a + r.lens[r.lens.length - 1], 0);
   const d = road.map((r, i) => r.seg.map((p, k) => `${i === 0 && k === 0 ? 'M' : 'L'}${p.x.toFixed(1)} ${p.y.toFixed(1)}`).join(' ')).join(' ');
   const me = locate(road, traveller);
@@ -113,6 +187,8 @@ export const JourneyMap: React.FC<{
           </filter>
         </defs>
         <Contours w={W} h={H} />
+        {shape === 'mountain' ? <Mountain /> : null}
+        {shape === 'stairs' ? <StairBody pts={pts} h={H + 20} /> : null}
         {ghost > 0 ? <path d={d} fill="none" stroke={C.ink3} strokeWidth={6} strokeLinecap="round" strokeDasharray="2 22" strokeDashoffset={f * 1.2} opacity={0.45 * ghost} /> : null}
         <path d={d} pathLength={1} fill="none" stroke="#fff" strokeWidth={40} strokeLinecap="round" strokeLinejoin="round" strokeDasharray={`${reveal} 2`} filter="url(#road-shadow)" />
         <path d={d} pathLength={1} fill="none" stroke={C.ink3} strokeWidth={5} strokeLinecap="round" strokeDasharray={`${reveal} 2`} opacity={0.35} />
@@ -157,14 +233,22 @@ export const JourneyMap: React.FC<{
         const p = pts[i];
         const above = portrait ? false : p.y < 600;
         const edge = i === 0 || i === last;
-        // The start label hangs to the right edge's inside, the destination's to the left edge's inside, the rest centre.
+        // The winding road: the start label hangs to the right edge's inside, the destination's to the left edge's
+        // inside, the rest centre. The mountain: each label on the outer side of its switchback, the destination's
+        // beside the flag. The staircase: each label on the front of its step, under the tread.
         const place: React.CSSProperties = portrait
           ? {...(p.x < 540 ? {left: p.x + 60} : {right: W - p.x + 60}), top: p.y, transform: `translateY(-50%) scale(${s.shown})`}
-          : {
-              ...(i === 0 ? {right: W - p.x - 46} : i === last ? {left: p.x - 46} : {left: p.x}),
-              top: above ? p.y - 62 : p.y + (i === 0 ? 40 : 56),
-              transform: `translate(${edge ? '0' : '-50%'}, ${above ? '-100%' : '0'}) scale(${s.shown})`,
-            };
+          : shape === 'mountain'
+            ? i === last
+              ? {left: p.x + 76, top: p.y - 78, transform: `translateY(-50%) scale(${s.shown})`}
+              : {...(p.x > PEAK.x ? {left: p.x + 52} : {right: W - p.x + 52}), top: p.y, transform: `translateY(-50%) scale(${s.shown})`}
+            : shape === 'stairs'
+              ? {left: p.x, top: p.y + 44, transform: `translateX(-50%) scale(${s.shown})`}
+              : {
+                  ...(i === 0 ? {right: W - p.x - 46} : i === last ? {left: p.x - 46} : {left: p.x}),
+                  top: above ? p.y - 62 : p.y + (i === 0 ? 40 : 56),
+                  transform: `translate(${edge ? '0' : '-50%'}, ${above ? '-100%' : '0'}) scale(${s.shown})`,
+                };
         return (
           <React.Fragment key={i}>
             <div

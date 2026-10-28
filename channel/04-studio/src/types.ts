@@ -233,6 +233,10 @@ export type OverviewScene = Base & {
   moments?: Moment[];
 };
 
+/** The journey map's shape (framework v5.2): the winding road of EP001–EP002, a trail up a mountain to the flag on its
+ * summit, or a staircase whose top step is the destination. */
+export type MapShape = 'wave' | 'mountain' | 'stairs';
+
 /** One stop on the journey map. `cue` = the spoken word that makes it appear. */
 export type JourneyStop = {label: string; cue?: string; mark?: 'loop' | 'puzzle'};
 
@@ -286,6 +290,8 @@ export type Episode = {
   shorts?: string[][];
   /** dB under the voice for this episode only, overriding channel.json (EP001 keeps the 25 it was published with) */
   backgroundLevel?: number;
+  /** the journey map's shape; default the winding road */
+  map?: MapShape;
   scenes: Scene[];
 };
 

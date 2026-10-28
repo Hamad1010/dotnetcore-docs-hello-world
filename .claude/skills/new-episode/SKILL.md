@@ -29,7 +29,7 @@ Follow `CLAUDE.md` (repo root) rules exactly, and the **current version** of the
 - **Quotes:** only with a traceable source, plus the person's achievements in numbers (framework §3.6).
 - **Touchable comparisons** for every big number, with the arithmetic (framework §3.3).
 - **Traps:** a real case for each, told in the five steps of framework §3.7.
-- **The puzzle:** one exact answer that needs details from the episode (framework §3.11). No prizes.
+- **No puzzle** (framework v5.2 §3.11): part 9 ends with one question the viewer answers from their own life.
 - **Company examples** don't have to be famous brands: the world's largest companies (Forbes Global 2000, Fortune
   Global 500) work too, introduced with their rank or one number (framework §3.4).
 - **Search words:** what our viewers type for this topic (framework §3.13), for the titles and descriptions.
@@ -45,7 +45,7 @@ Follow `CLAUDE.md` (repo root) rules exactly, and the **current version** of the
   sentences; no fluff, no hype, no promises of money. Each point ends in a business result, with one "small move,
   big impact". Every step has a first move that costs nothing.
 - Write the publish kit with the draft (framework §3.13): `publish.md` (titles told as stories, every word true; 2–3
-  descriptions; tags; the pinned comment with the puzzle) and `thumbs.json` (the story designs in `ThumbStories.tsx`);
+  descriptions; tags; the pinned comment with the episode's question) and `thumbs.json` (the story designs in `ThumbStories.tsx`);
   run `npm run thumbs -- EP00N` in `04-studio` and look at the images.
 - Framework v5 parts to remember: Saudi stories and numbers first (none that hurts anyone, none a later episode plans),
   the «وقفة» before the close (Quran and Sahih al-Bukhari / Muslim only, exact texts checked twice, §3.15), and a close
@@ -53,6 +53,8 @@ Follow `CLAUDE.md` (repo root) rules exactly, and the **current version** of the
 - The owner's own style (v5.1, §3.1): never skip the middle of a story (every event in order, cause then effect),
   plain explicit wording, their warm asides, and talking to the person in the story. Dialogues for conversation skills are
   always our own or real and documented, never copied from a course (§3.18). The Booth gets one sentence per line.
+- v5.2: no puzzle and no answer to an earlier one; the journey map's shape is set per episode (`"map"` in `episode.json`:
+  `mountain` or `stairs`; EP001–EP002 keep the winding road), and case names use «سر» or «قصة», never «لغز».
 - Run `python3 06-tools/draft_length.py EP00N` (it warns below the framework's minimum) and the framework checklist (§5).
 - Send the draft to the owner and **wait for approval**. When the format or the look changes, the owner records
   part A (the first ~2 minutes) first and you render only that for approval.
