@@ -1,6 +1,7 @@
 # EP002 · Publish kit · الملف 02: لغز السبع سنين
 
-> Written 24 Oct 2026, updated 26 Oct after the render (the owner's recording, 15:04). The titles are told as stories, in the style of the
+> Written 24 Oct 2026, updated 26 Oct after the render (the owner's recording, 15:04) and 28 Oct: no puzzle in the
+> descriptions or the pinned comment (framework v5.2; EP003 gives no answer). The titles are told as stories, in the style of the
 > Saudi storytelling titles you sent, and every word is true and shown in the video. Chapter times are the real ones,
 > from `out/chapters.txt`.
 > Thumbnails: `npm run thumbs -- EP002` → `out/thumb-1.png … thumb-20.png` (copies in `thumbnails/`).
@@ -39,7 +40,7 @@ Each is 100 characters or fewer (YouTube's limit); the person and the setback co
 | 17 | الشي اللي الناس دايم يطلبونه منك وتحسبه عادي… ممكن يكون أول مشروع لك | 68 | your hidden talent · the lesson | stations 2–3 | 17 |
 | 18 | اللي استقالوا عشان مشروعهم واللي كمّلوا في وظيفتهم… دراسة كشفت مين يفشل أكثر | 76 | the study on quitting | trap 1 | 18 |
 | 19 | جرّبوا شي بسيط على طلاب في ستانفورد… والنتيجة تفسّر ليش نترك الشي أول ما يصعب | 77 | the Stanford study | trap 2 (9:51) | 19 |
-| 20 | لغز الملف 02: 7 − 4 − 3 = ؟… والجواب كم ريال تحتاج عشان تبدأ | 60 | the file's puzzle | part 9 (11:52) | 20 |
+| 20 | ~~لغز الملف 02: 7 − 4 − 3 = ؟… والجواب كم ريال تحتاج عشان تبدأ~~ | 60 | retired 28 Oct: no puzzles from v5.2 | n/a | 20 |
 
 ## 3. Twenty thumbnails
 
@@ -67,7 +68,7 @@ and a picture of something the video really shows. The bottom corners stay clear
 | 17 | تحسبه · عادي؟ · موهبتك المخفية | a person surrounded by «تكفى…»-style requests | 17 |
 | 18 | تستقيل… · ولا تكمّل؟ · دراسة كشفت الفرق | a road that splits: «أستقيل» or «أكمّل» | 18 |
 | 19 | أول ما يصعب… · تتركه؟ · تجربة في ستانفورد | interest rising, then falling at a red «صعب» wall | 19 |
-| 20 | كم يطلع الرقم؟ · لغز الملف 02 | the tiles 7 − 4 − 3 = ؟ | 20 |
+| 20 | ~~كم يطلع الرقم؟ · لغز الملف 02~~ (retired 28 Oct: no puzzles from v5.2) | the tiles 7 − 4 − 3 = ؟ | 20 |
 
 ## 4. Three descriptions
 
@@ -76,7 +77,7 @@ Copy a whole block into YouTube Studio. The first two lines (about 157 character
 
 ### Description 1 · Story first: Sara (pairs with titles 1–6 and 13, thumbnails 1–6 and 13)
 
-1,906 characters.
+1,767 characters.
 
 ```
 رسبت في اختبار المحاماة مرتين، وطقّت الأبواب 7 سنين تبيع فاكسات وتسمع «لا»… وبعدها بدأت بـ19 ألف ريال فكرة صغيرة انباعت أغلبها بتقييم 1.2 مليار دولار. وين كانت موهبتها؟
@@ -92,7 +93,7 @@ Copy a whole block into YouTube Studio. The first two lines (about 157 character
 
 الفصول:
 0:00 القصة: 7 سنين من «لا»
-1:23 حل لغز الملف 01
+1:23 الـ168 ساعة من الملف 01
 1:44 وش علاقة الفاكس بالمليار؟
 2:15 خريطة الرحلة
 2:48 المحطة 1: كم موهبة ضايعة؟
@@ -105,11 +106,11 @@ Copy a whole block into YouTube Studio. The first two lines (about 157 character
 10:02 الفخ 2: تنتظر الشغف
 11:05 المحطة 5: تمارين وسؤال العشا
 11:51 الوصول
-12:14 3 خطوات + لغز الملف 02
+12:14 3 خطوات
 12:54 وقفة
 14:04 الملف الجاي
 
-لغز الملف 02: خذ عدد السنين اللي قضتها سارة تطق الأبواب، واطرح منها عدد الخطوات في محطة الأدوات، واطرح بعد عدد الأماكن اللي تدوّر فيها على موهبتك. كم يطلع؟ وإذا عرفت وش يعني الرقم في رحلتنا… قله. اكتب جوابك في التعليقات، والحل في بداية الملف 03.
+وسؤال لك: وش الشي اللي الناس دايم يطلبونه منك؟ اكتب جوابك في التعليقات… يمكن تعليقك يفتح عين أحد ثاني على موهبته.
 
 المصادر:
 سارة بلايكلي وسنين الفاكس (CNBC): https://www.cnbc.com/amp/2019/04/03/self-made-billionaire-spanx-founder-sara-blakely-sold-fax-machines-before-making-it-big.html
@@ -129,7 +130,7 @@ Copy a whole block into YouTube Studio. The first two lines (about 157 character
 
 ### Description 2 · Saudi first: Loai Naseem and the Saudi numbers (pairs with titles 7–10 and 15–17, thumbnails 7–10 and 15–17)
 
-1,944 characters.
+1,805 characters.
 
 ```
 شاب سعودي من جدة بدأ يفصّل ثيابه في غرفة صغيرة في البيت بخياط واحد من مشغل أمه… وبعد 9 سنين صار عنده مصنع فيه 250 خياط. وش الموهبة اللي شافها في ثوب عادي؟
@@ -145,7 +146,7 @@ Copy a whole block into YouTube Studio. The first two lines (about 157 character
 
 الفصول:
 0:00 القصة: 7 سنين من «لا»
-1:23 حل لغز الملف 01
+1:23 الـ168 ساعة من الملف 01
 1:44 وش علاقة الفاكس بالمليار؟
 2:15 خريطة الرحلة
 2:48 المحطة 1: كم موهبة ضايعة؟
@@ -158,11 +159,11 @@ Copy a whole block into YouTube Studio. The first two lines (about 157 character
 10:02 الفخ 2: تنتظر الشغف
 11:05 المحطة 5: تمارين وسؤال العشا
 11:51 الوصول
-12:14 3 خطوات + لغز الملف 02
+12:14 3 خطوات
 12:54 وقفة
 14:04 الملف الجاي
 
-لغز الملف 02: خذ عدد السنين اللي قضتها سارة تطق الأبواب، واطرح منها عدد الخطوات في محطة الأدوات، واطرح بعد عدد الأماكن اللي تدوّر فيها على موهبتك. كم يطلع؟ وإذا عرفت وش يعني الرقم في رحلتنا… قله. اكتب جوابك في التعليقات، والحل في بداية الملف 03.
+وسؤال لك: وش الشي اللي الناس دايم يطلبونه منك؟ اكتب جوابك في التعليقات… يمكن تعليقك يفتح عين أحد ثاني على موهبته.
 
 المصادر:
 لؤي نسيم و«لومار» (Wamda): https://www.wamda.com/2015/10/from-home-based-workshop-to-14-stores-redefining-traditional-thobe
@@ -181,9 +182,9 @@ Copy a whole block into YouTube Studio. The first two lines (about 157 character
 #موهبتك_المخفية #مشروع_من_البيت #العمل_الحر
 ```
 
-### Description 3 · How-to and numbers: the four steps, the two traps, the puzzle (pairs with titles 11–12, 14 and 18–20, thumbnails 11–12, 14 and 18–20)
+### Description 3 · How-to and numbers: the four steps, the two traps (pairs with titles 11–12, 14 and 18–19, thumbnails 11–12, 14 and 18–19)
 
-1,921 characters.
+1,789 characters.
 
 ```
 خسرت وظيفتها وبدت مدونة ببلاش… وبعد 7 سنين تقيّمت شركتها بأكثر من مليار. وقبلها بنت ثانية بدت بمقص ووصلت لنفس الرقم بالضبط! كيف تطلّع موهبتك وتجرّبها قبل ما تصرف أي شي؟
@@ -198,7 +199,7 @@ Copy a whole block into YouTube Studio. The first two lines (about 157 character
 
 الفصول:
 0:00 القصة: 7 سنين من «لا»
-1:23 حل لغز الملف 01
+1:23 الـ168 ساعة من الملف 01
 1:44 وش علاقة الفاكس بالمليار؟
 2:15 خريطة الرحلة
 2:48 المحطة 1: كم موهبة ضايعة؟
@@ -211,11 +212,11 @@ Copy a whole block into YouTube Studio. The first two lines (about 157 character
 10:02 الفخ 2: تنتظر الشغف
 11:05 المحطة 5: تمارين وسؤال العشا
 11:51 الوصول
-12:14 3 خطوات + لغز الملف 02
+12:14 3 خطوات
 12:54 وقفة
 14:04 الملف الجاي
 
-لغز الملف 02: خذ عدد السنين اللي قضتها سارة تطق الأبواب، واطرح منها عدد الخطوات في محطة الأدوات، واطرح بعد عدد الأماكن اللي تدوّر فيها على موهبتك. كم يطلع؟ وإذا عرفت وش يعني الرقم في رحلتنا… قله. اكتب جوابك في التعليقات، والحل في بداية الملف 03.
+وسؤال لك: وش الشي اللي الناس دايم يطلبونه منك؟ اكتب جوابك في التعليقات… يمكن تعليقك يفتح عين أحد ثاني على موهبته.
 
 المصادر:
 هدى قطان (Huda Beauty): https://hudabeauty.com/huda-kattan/
@@ -230,7 +231,7 @@ Copy a whole block into YouTube Studio. The first two lines (about 157 character
 • الآية والحديثين: سورة الزخرف (32)، صحيح البخاري (2262)، صحيح مسلم (2664).
 • ما لنا أي علاقة بالشركات والأشخاص المذكورين.
 
-#اكتشف_موهبتك #ريادة_الأعمال #لغز
+#اكتشف_موهبتك #ريادة_الأعمال #مشروع_صغير
 ```
 
 ## 5. Tags, pinned comment, upload settings
@@ -244,16 +245,15 @@ Copy a whole block into YouTube Studio. The first two lines (about 157 character
 **Pinned comment:**
 
 ```
-🔎 لغز الملف 02: خذ عدد السنين اللي قضتها سارة تطق الأبواب، واطرح منها عدد الخطوات في محطة الأدوات، واطرح بعد عدد الأماكن اللي تدوّر فيها على موهبتك. كم يطلع؟ وإذا عرفت وش يعني الرقم في رحلتنا… قله. اكتب جوابك في التعليقات، والحل في بداية الملف 03.
-
-وسؤال لك: وش الشي اللي الناس دايم يطلبونه منك؟ 👇
+وش الشي اللي الناس دايم يطلبونه منك… وأنت تشوفه عادي؟ 👇
+يمكن تعليقك يفتح عين أحد ثاني على موهبته.
 ```
 
 **Upload settings:**
 
 - Language and captions: Arabic; upload `out/subtitles.ar.srt`. Category: Education. Audience: «لا، المحتوى غير موجّه للأطفال».
 - Altered or synthetic content: **No** (your own voice). Paid promotion: **No**.
-- Cards: at 1:23 (the answer to EP001's puzzle) → EP001 (https://youtu.be/FQbItdOoFnA); at 3:44 (the self-check) → the playlist «ابدأ من الملف 01».
+- Cards: at 1:23 (EP001's 168 hours) → EP001 (https://youtu.be/FQbItdOoFnA); at 3:44 (the self-check) → the playlist «ابدأ من الملف 01».
 - End screen: the dark end card leaves room for EP003 and the playlist.
 - Before publishing, open the links once (this session could not open them) and check freelance.sa's current terms.
 
