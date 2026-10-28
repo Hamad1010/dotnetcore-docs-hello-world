@@ -77,16 +77,18 @@ const loudness = (file, options = '') => {
 
 // Final loudness: YouTube plays everything at about -14 LUFS and never turns a quiet video up, so the finished mix is
 // brought to -14 LUFS under a limiter at -2 dBFS, and encoded once to AAC at 256k (at 192k one sharp click in EP002 came
-// out 3 dB over the limiter). YouTube wants true peaks under -1 dB: the limiter runs at 4× the sample rate, so it sees
-// the peaks between samples, and the encoded file is measured; if a click still comes out over -1 dB (EP003: an effect
-// on a word, +0.3 dB) the ceiling drops by the overshoot and the mastering runs again. The picture is copied untouched.
+// out 3 dB over the limiter). YouTube wants true peaks under -1 dB, so we aim for -1.5: the limiter runs at 4× the sample
+// rate, so it sees the peaks between samples, and the encoded file is measured; if a click still comes out over -1.5 dB
+// (EP003: an effect on a word, +0.3 dB with the old limiter, -1.0 with this one at -2) the ceiling drops by the overshoot
+// and the mastering runs again. The picture is copied untouched.
 // `sound` is the episode's separate WAV; without it the file's own sound is used (a Short).
 const master = (picture, output, sound = null) => {
   const {i} = loudness(sound ?? picture);
   const gain = i ? -14 - parseFloat(i) : 0;
   const tmp = output.replace(/\.mp4$/, '.master.mp4');
   const inputs = sound ? ['-i', picture, '-i', sound, '-map', '0:v', '-map', '1:a'] : ['-i', picture];
-  let ceiling = -2;
+  const target = -1.5;
+  let ceiling = -2.5;
   let after = {};
   for (let pass = 1; pass <= 3; pass++) {
     const limiter = `aresample=192000,alimiter=limit=${(10 ** (ceiling / 20)).toFixed(3)}:attack=5:release=60:level=false,aresample=48000`;
@@ -96,8 +98,8 @@ const master = (picture, output, sound = null) => {
     if (!i) break;
     after = loudness(tmp, ':peak=true');
     const tp = parseFloat(after.tp);
-    if (!(tp > -1)) break;
-    ceiling -= tp + 1.3;
+    if (!(tp > target)) break;
+    ceiling -= tp - target + 0.2;
   }
   fs.renameSync(tmp, output);
   if (!i) return console.log('  (loudness not measured, sound left as rendered)');
