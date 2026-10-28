@@ -2,9 +2,10 @@
 // anime sparkles on a reveal, an anime sky with cel-shaded clouds and a painted mountain for the journey map.
 // Textures from 06-tools/watercolor_textures.py; everything else drawn here from plain shapes.
 import React from 'react';
-import {AbsoluteFill, Img, interpolate, useCurrentFrame, useVideoConfig} from 'remotion';
+import {AbsoluteFill, Img, interpolate, useCurrentFrame} from 'remotion';
 import {C} from '../theme';
 import {ink, texture} from '../look-kit';
+import {useFrameSize} from './frame';
 
 const clamp = {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'} as const;
 
@@ -19,7 +20,7 @@ const WASHES = [
 /** The stage: warm cold-press paper, four pigment washes drying at its corners, drifting very slowly. */
 export const WashBackdrop: React.FC = () => {
   const f = useCurrentFrame();
-  const {width, height} = useVideoConfig();
+  const {width, height} = useFrameSize();
   const t = f / 30;
   return (
     <AbsoluteFill style={{background: C.bg, overflow: 'hidden'}}>
@@ -154,7 +155,7 @@ const Cloud: React.FC<{id: string; puffs: Puff[]; x: number; y: number; s: numbe
  * behind the top bar and the title (BizScenes' Journey). */
 export const AnimeSky: React.FC<{opacity?: number}> = ({opacity = 1}) => {
   const f = useCurrentFrame();
-  const {width: w, height} = useVideoConfig();
+  const {width: w, height} = useFrameSize();
   const horizon = height * 0.72;
   return (
     <svg width={w} height={height} viewBox={`0 0 ${w} ${height}`} style={{position: 'absolute', inset: 0, opacity}}>

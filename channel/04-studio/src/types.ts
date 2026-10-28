@@ -287,8 +287,9 @@ export type Episode = {
   youtubeTitle?: string;
   thumbnail?: {line1?: string; line2?: string; badge?: string; big?: string; bigUnit?: string};
   next?: {lesson: string; title: string; teaser: string};
-  /** Shorts to cut from this episode: each entry is a list of scene ids, e.g. [["hook","lesson"],["s4"]] */
-  shorts?: string[][];
+  /** Shorts to cut from this episode: each entry is a list of scene ids, e.g. [["hook","lesson"],["s4"]], or
+   * {scenes, title}: a Short of wide (stage) scenes shows them in a band with its title above (BoxedShort) */
+  shorts?: (string[] | {scenes: string[]; title?: string})[];
   /** dB under the voice for this episode only, overriding channel.json (EP001 keeps the 25 it was published with) */
   backgroundLevel?: number;
   /** the journey map's shape; default the winding road */

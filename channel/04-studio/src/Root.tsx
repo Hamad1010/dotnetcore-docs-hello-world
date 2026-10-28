@@ -2,6 +2,7 @@ import React from 'react';
 import {Composition, Still, staticFile, type CalculateMetadataFunction} from 'remotion';
 import {buildPlan, FPS, type Timings} from './lib/plan';
 import {EpisodeVideo, type EpisodeData, type EpisodeProps} from './Episode';
+import {BoxedShort} from './BoxedShort';
 import {Thumbnail, type ThumbProps} from './Thumbnail';
 import {LogoSheet, LogoSingle} from './Brandkit';
 import {AvatarStill} from './Avatars';
@@ -48,9 +49,11 @@ const episodeMeta: CalculateMetadataFunction<EpisodeProps> = async ({props}) => 
   return {durationInFrames: data.plan.total, props: {...props, data}};
 };
 
-type ShortProps = EpisodeProps & {sceneIds: string[]};
-// Shorts always burn in captions (many people watch on mute); long videos get the SRT file instead.
-const ShortVideo: React.FC<ShortProps> = (props) => <EpisodeVideo {...props} showCaptions={props.showCaptions ?? true} />;
+type ShortProps = EpisodeProps & {sceneIds: string[]; title?: string};
+// Shorts always burn in captions (many people watch on mute); long videos get the SRT file instead. Stage scenes are
+// laid out for 16:9 only, so a Short made of them keeps them wide in a band (BoxedShort).
+const ShortVideo: React.FC<ShortProps> = (props) =>
+  props.data?.episode.scenes.some((s) => s.type === 'stage') ? <BoxedShort {...props} /> : <EpisodeVideo {...props} showCaptions={props.showCaptions ?? true} />;
 
 // A vertical Short cut from an episode: the chosen scenes + a 3-second "full lesson on the channel" card.
 const shortMeta: CalculateMetadataFunction<ShortProps> = async ({props}) => {
@@ -64,7 +67,10 @@ const shortMeta: CalculateMetadataFunction<ShortProps> = async ({props}) => {
     timings = await fetch(staticFile(`${props.episodeId}/audio/timings.json`)).then((r) => r.json());
   }
   const plan = buildPlan(episode, timings, FPS);
-  return {durationInFrames: plan.total, props: {...props, data: {...full, episode, plan}}};
+  // the title the episode gives this Short in "shorts", unless one is passed
+  const entry = (full.episode.shorts ?? []).map((e) => (Array.isArray(e) ? {scenes: e} : e)).find((e) => e.scenes.join() === props.sceneIds.join());
+  const title = props.title ?? (entry && 'title' in entry ? entry.title : undefined);
+  return {durationInFrames: plan.total, props: {...props, title, data: {...full, episode, plan}}};
 };
 
 const thumbMeta: CalculateMetadataFunction<ThumbProps> = async ({props}) => {

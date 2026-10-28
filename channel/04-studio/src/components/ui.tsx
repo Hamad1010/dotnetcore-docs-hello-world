@@ -3,6 +3,7 @@ import {AbsoluteFill, interpolate, spring, useCurrentFrame, useVideoConfig} from
 import {C, EASE_IN, EASE_OUT, FONT, SHADOW, SHADOW_SOFT, watercolor} from '../theme';
 import {paperCard} from '../look-kit';
 import {WashBackdrop} from './Watercolor';
+import {useFrameSize} from './frame';
 
 // ---------- motion helpers ----------
 
@@ -138,7 +139,7 @@ export const CountUp: React.FC<{value: string; delay?: number; dur?: number}> = 
 
 /** True for vertical (Shorts) compositions. */
 export const usePortrait = () => {
-  const {width, height} = useVideoConfig();
+  const {width, height} = useFrameSize();
   return height > width;
 };
 

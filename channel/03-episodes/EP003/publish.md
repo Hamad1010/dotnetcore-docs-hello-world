@@ -1,8 +1,9 @@
 # EP003 · Publish kit · الملف 03: سر الـ3.1 مليار
 
-> Written 28 Oct 2026 with the draft, for your approval. Framework v5.2: no puzzle anywhere; the pinned comment carries the
-> episode's question. Chapter times are estimates from the draft (about 15:30); the real ones come from the render.
-> Thumbnails: `npm run thumbs -- EP003` → `out/thumb-1.png … thumb-3.png`. Want more options, like EP002's 20? Say so.
+> Written 28 Oct 2026 with the draft; updated after the render the same day: the video is 15:59, the chapter and card
+> times are the real ones, and §7 adds the 3 Shorts, an X thread and a WhatsApp card. Framework v5.2: no puzzle anywhere;
+> the pinned comment carries the episode's question. Thumbnails: `npm run thumbs -- EP003` → `out/thumb-1.png … thumb-3.png`.
+> Want more options, like EP002's 20? Say so.
 
 ## 1. Start here: the package I would publish
 
@@ -18,9 +19,9 @@ Each is told as a story (a person, what happened, the turn, what it leaves open)
 
 | # | Title | Chars | Where the video shows it | Thumbnail |
 |---|---|---|---|---|
-| 1 | اثنين بدوا شركة صغيرة في دبي… ودخل عليهم عملاق أمريكي جمع أكثر منهم 150 مرة… وهذا اللي صار | 90 | part 1 (0:00–2:35) | 1 |
+| 1 | اثنين بدوا شركة صغيرة في دبي… ودخل عليهم عملاق أمريكي جمع أكثر منهم 150 مرة… وهذا اللي صار | 90 | part 1 (0:00–2:36) | 1 |
 | 2 | جمعوا 1.7 مليون بس… وبعد 6 سنين دفع العملاق الأمريكي 3.1 مليار عشان يشتريهم | 75 | part 1 (2013 → 2019) | 2 |
-| 3 | كاش… و«جنب المسجد»… وش اللي فهمه اثنين في دبي وما فهمه العملاق الأمريكي؟ | 72 | part 1 (≈1:25) and step 1 | 3 |
+| 3 | كاش… و«جنب المسجد»… وش اللي فهمه اثنين في دبي وما فهمه العملاق الأمريكي؟ | 72 | part 1 (1:43–1:53) and step 1 (5:59) | 3 |
 
 The numbers: Uber got about $258 million from Google alone, 150 times Careem's $1.7 million round in 2013; the deal came six years
 later, in 2019 (`sources.md` §1).
@@ -38,8 +39,8 @@ and a picture of something the video really shows; the bottom corners stay clear
 
 ## 4. Three descriptions
 
-Copy a whole block into YouTube Studio. The first two lines show before «عرض المزيد». Replace the chapter times with the real ones
-after the render (each chapter over 10 seconds, the first at 0:00). Three hashtags each. Every number matches `sources.md`.
+Copy a whole block into YouTube Studio. The first two lines show before «عرض المزيد». The chapter times are the real ones from
+the render (each chapter over 10 seconds, the first at 0:00). Three hashtags each. Every number matches `sources.md`.
 
 ### Description 1 · Story first: Careem and the giant (titles 1–2, thumbnails 1–2)
 
@@ -57,22 +58,22 @@ after the render (each chapter over 10 seconds, the first at 0:00). Three hashta
 
 الفصول:
 0:00 القصة: العملاق اشتراهم
-1:25 كاش… و«جنب المسجد»
-2:35 السر اسمه التموضع
-3:16 خريطة الرحلة
-3:49 المحطة 1: كم يكلّفك إنك تشبه غيرك؟
-4:48 المحطة 2: اختبر نفسك
-5:51 المحطة 3 · الخطوة 1: قارن
-6:53 الخطوة 2: ضيّق… قصة «فودكس»
-8:07 الخطوة 3: امتلك كلمة
-9:09 الخطوة 4: قلها في جملة
-9:59 المحطة 4 · الفخ 1: تقلّد الكبير
-11:17 الفخ 2: كلمة أكبر منك
-12:24 المحطة 5: تمارين
-12:53 الوصول
-13:14 3 خطوات وسؤال الحلقة
-13:44 وقفة
-14:45 الملف الجاي
+1:27 كاش… و«جنب المسجد»
+2:36 السر اسمه التموضع
+3:18 خريطة الرحلة
+3:52 المحطة 1: كم يكلّفك إنك تشبه غيرك؟
+4:57 المحطة 2: اختبر نفسك
+5:59 المحطة 3 · الخطوة 1: قارن
+7:00 الخطوة 2: ضيّق… قصة «فودكس»
+8:16 الخطوة 3: امتلك كلمة
+9:19 الخطوة 4: قلها في جملة
+10:11 المحطة 4 · الفخ 1: تقلّد الكبير
+11:29 الفخ 2: كلمة أكبر منك
+12:33 المحطة 5: تمارين
+13:03 الوصول
+13:23 3 خطوات وسؤال الحلقة
+13:53 وقفة
+14:59 الملف الجاي
 
 وسؤال لك: وش الكلمة الوحدة اللي تبي الناس يقولونها عنك… وأنت مو موجود؟ اكتبها في التعليقات.
 
@@ -171,7 +172,7 @@ after the render (each chapter over 10 seconds, the first at 0:00). Three hashta
 
 - Language and captions: Arabic; upload `out/subtitles.ar.srt`. Category: Education. Audience: «لا، المحتوى غير موجّه للأطفال».
 - Altered or synthetic content: **No** (your own voice). Paid promotion: **No**.
-- Cards: at «وفي آخر الملف الثاني سألتكم…» (≈3:00, the callback) → EP002; at the self-check (≈4:48) → the playlist «ابدأ من الملف 01».
+- Cards: at «وفي آخر الملف الثاني سألتكم…» (3:03, the callback) → EP002; at the self-check (5:01) → the playlist «ابدأ من الملف 01».
 - End screen: the dark end card leaves room for EP004 and the playlist.
 - Before publishing, open the links once (this session could not open them) and check the freelance-document figure in the
   National Transformation Program's 2025 report.
@@ -188,3 +189,70 @@ Check YouTube Studio → Research and Google Trends (Saudi Arabia) before publis
 | العمل الحر | description 2 · tags |
 
 Not used on purpose: «اربح»، «مضمون»، «ثروة»، amounts of monthly income, investment words, and the religious texts (never as a hook).
+
+## 7. Three Shorts, an X thread and a WhatsApp card
+
+**Shorts** (`npm run render -- EP003 --shorts` → `out/short-1-hook.mp4`, `out/short-2-step2.mp4`, `out/short-3-step3.mp4`):
+9:16, the Short's title on top from the first frame, the scene as a wide band in the middle, big captions under it, and
+3 seconds of «الدرس كامل على القناة» at the end. Post one a day from the day after the long video, each with **Related
+video → EP003**, in the season's Shorts series. They run longer than the playbook's 30–60 s because each is one whole part
+of the story (YouTube allows up to 3 minutes); if one loses people before half way, trim its end in YouTube Studio.
+
+| # | Short | Length | Title on YouTube (also on screen) | Playbook §5 |
+|---|---|---|---|---|
+| 1 | the hook: Careem and the $3.1 billion | ≈1:30 | ليش اتفقت أوبر تدفع 3.1 مليار… لشركة بدت باثنين في دبي؟ | hook + best story |
+| 2 | step 2: Foodics, then Haifa (مثال توضيحي) | ≈1:19 | شابين سعوديين ضيّقوا… وأكثر من 5 مليار طلب مرّت على نظامهم | a Saudi story |
+| 3 | step 3: Volvo, «سواق» or «كابتن», then your word | ≈1:05 | فولفو عطت اختراعها لكل الشركات ببلاش… وكسبت كلمة وحدة | did you know + an exercise |
+
+Description of each Short:
+
+```
+القصة كاملة في الملف 03 من «غرفة الفرص» 👆
+#التموضع #ريادة_الأعمال #قصة_نجاح
+```
+
+**X thread** (five posts, each under 280 characters; the link goes in the last one):
+
+```
+1/ في 2019 أوبر اتفقت تدفع 3.1 مليار دولار عشان تشتري «كريم»… شركة بدت في دبي باثنين بس.
+والغريب؟ أوبر دخلت عليهم السوق في 2013… وجمعت من قوقل لحالها أكثر منهم 150 مرة.
+كيف انقلبت القصة؟ 🧵
+```
+
+```
+2/ «كريم» ما حاولت تصير نسخة صغيرة من أوبر. دوّرت على مشاكل محلية وحلّتها:
+• أوبر بالبطاقة بس… وأغلب الناس في دول مثل مصر وباكستان يدفعون كاش.
+• والعنوان عندنا «جنب المسجد… لف يمين عند البقالة». فاشترت «عنواني»: شركة ناشئة في السعودية تحل مشكلة العناوين.
+```
+
+```
+3/ والنتيجة؟ في 2019 صار عند «كريم» أكثر من 30 مليون مستخدم في 15 دولة.
+العملاق ما قدر ياخذ مكانهم… فاشتراهم.
+```
+
+```
+4/ هذا اسمه التموضع: المكان اللي تاخذه في عقل الزبون لما يفكر في حاجته. 4 خطوات:
+1) قارن: اقرأ 20 تقييم سلبي لمنافسينك واكتب الشكوى اللي تتكرر
+2) ضيّق: اخدم ناس محددين
+3) امتلك كلمة وحدة
+4) قلها في جملة
+```
+
+```
+5/ وسؤال لك: وش الكلمة الوحدة اللي تبي الناس يقولونها عنك… وأنت مو موجود؟
+الملف 03 كامل على يوتيوب 👇
+[رابط الحلقة]
+```
+
+**WhatsApp card** (the channel's weekly lesson card; picture: `out/thumb-1.jpg`):
+
+```
+🗂️ الملف 03 من «غرفة الفرص»: تموضعك
+
+أوبر جمعت من قوقل لحالها أكثر من «كريم» 150 مرة… وبعد 6 سنين اتفقت تدفع 3.1 مليار دولار عشان تشتريها.
+السر؟ «كريم» ما حاولت تكون الأفضل… صارت الوحيدة اللي فاهمة الناس هنا.
+
+جرّبها اليوم (ربع ساعة): اقرأ 20 تقييم سلبي لمنافسينك… واكتب الشكوى اللي تتكرر. هذا هو الفراغ اللي تدخل منه.
+
+الحلقة كاملة: [الرابط]
+```

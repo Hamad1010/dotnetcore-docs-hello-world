@@ -105,7 +105,8 @@ const progress = (label) => {
 if (shortsOnly) {
   const ep = JSON.parse(fs.readFileSync(path.join(episodes, episodeId, 'episode.json'), 'utf8'));
   const list = ep.shorts && ep.shorts.length ? ep.shorts : ep.scenes.filter((s) => s.type === 'story').slice(0, 3).map((s) => [s.id]);
-  for (const [i, sceneIds] of list.entries()) {
+  // an entry is a list of scene ids, or {scenes, title} (the title is read from episode.json by the composition)
+  for (const [i, sceneIds] of list.map((e) => (Array.isArray(e) ? e : e.scenes)).entries()) {
     if (onlyShort !== null && i + 1 !== onlyShort) continue;
     const props = {episodeId, sceneIds};
     const short = await selectComposition({serveUrl, id: 'Short', inputProps: props, browserExecutable});
