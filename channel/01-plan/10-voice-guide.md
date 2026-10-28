@@ -85,6 +85,9 @@ now corrects that; these habits make it sound even better:
 - **Speak a little closer and softer rather than loud and far,** as if to one person across a small table.
 - For a noisy or echoing room there is a stronger option: ElevenLabs' Voice Isolator before the cleaning
   (`clean_recording.py … --isolate`, about 1,000 credits per minute of audio).
+- **Breathe as you like.** From EP003 the cleaning silences every breath and lip click between words (each word keeps
+  its own sound, its first س or ح and its last ت or ف included, and a sound classifier checks nothing it silences is speech). A wrong word can often be fixed with the same
+  word said elsewhere in your recording, so a slip doesn't always mean recording again.
 
 **How to read:**
 - Open the episode's `script.md`. Each scene heading (like `0:25 · s1`) is one scene = **one file**.

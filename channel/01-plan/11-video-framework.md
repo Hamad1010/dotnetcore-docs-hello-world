@@ -253,7 +253,13 @@ cleaning does the rest.
   Settings → Apps → Voice Memos → Audio Quality → Lossless. Details: `10-voice-guide.md` §5.
 - **Cleaning** (`06-tools/clean_recording.py`): retakes, stutters and long pauses removed; then noise learnt from the
   quiet parts and removed, room echo shortened, the voice's low rumble and boom cut, presence and air brought up,
-  sibilants softened, gentle compression, and loudness to -16 LUFS. Its report says what it did.
+  sibilants softened, gentle compression, and loudness to -16 LUFS. **Breaths go too** (from EP003, the owner's request):
+  between two words the inhalations, lip clicks and room are silenced. Each word keeps its own sound: its voice, a
+  final س or ف or ه as long as it goes on, a stop's release (a hissed final ت), and the س ش ص or ف ح خ ه that leads into
+  the next word. A sound classifier checks that no silenced stretch is speech. Lines of a few seconds get the same
+  loudness as the rest (a gain and a peak limiter). A word said wrong can be replaced by the same word said right
+  elsewhere in the recording (`audio/cuts.json`). Each finished scene is transcribed again, and the report lists any word
+  that can't be heard any more.
 
 ### 3.18 Dialogues (new in v5.1)
 When the episode's skill happens in a conversation (asking people, offering, pricing, answering a customer, negotiating),
@@ -321,7 +327,8 @@ show it as a short dialogue of 2–6 lines: two voices, Saudi names and places, 
 
 - **v5.2 · 28 Oct 2026.** From the owner after EP002: no more puzzles, and EP002's puzzle gets no answer; part 9 ends with
   one question the viewer answers from their own life (§2, §3.11); case names use «سر» or «قصة», never «لغز» (§3.9). A new
-  shape for the journey map: a mountain trail or a staircase, chosen per episode (§1, §6).
+  shape for the journey map: a mountain trail or a staircase, chosen per episode (§1, §6). From the owner's EP003
+  recording: the cleaning removes breaths and can patch a wrong word with the same word said elsewhere (§3.17).
 
 - **v5.1 · 25 Oct 2026.** From the owner's revision of EP002: the middle of a story is never skipped; plain, explicit
   wording; the owner's warm asides; talking to the person in the story; no labels the viewer doesn't need (§3.1, §3.15).
