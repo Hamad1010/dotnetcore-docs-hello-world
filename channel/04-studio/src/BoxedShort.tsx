@@ -29,7 +29,8 @@ export const BoxedShort: React.FC<EpisodeProps & {title?: string}> = (props) => 
   applyLook(episode.look);
   const last = plan.scenes.length - 1; // the end card the Short adds
   const endAt = plan.scenes[last].from;
-  const shown = interpolate(f, [0, 10, endAt, endAt + 10], [0, 1, 1, 0], clamp);
+  // on screen from the very first frame (the feed shows it before anyone taps), gone into the end card
+  const shown = interpolate(f, [endAt, endAt + 10], [1, 0], clamp);
   return (
     <AbsoluteFill>
       <Backdrop />
