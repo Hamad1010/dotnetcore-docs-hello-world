@@ -15,7 +15,8 @@ Recording Booth, and the studio links your voice and renders the video, thumbnai
 1. **Upload EP002** with `03-episodes/EP002/publish.md` (updated 28 Oct: no puzzle in the descriptions or the pinned comment;
    the video itself still asks it, as you chose): title 1 + thumbnail 1 + description 1; upload `out/subtitles.ar.srt`;
    cards at 1:23 (EP001) and 3:44 (the playlist); altered content: No.
-2. **Upload EP003** (rendered 28 Oct in the new look) with `03-episodes/EP003/publish.md`: `out/EP003.mp4`, title 1 +
+2. **Upload EP003** (rendered 28 Oct in the new look) with `03-episodes/EP003/publish.md`: the file I sent,
+   `EP003-upload.mp4` (355 MB; the 520 MB master stays in `out/EP003.mp4`), title 1 +
    thumbnail 1 + description 1; upload `out/subtitles.ar.srt`; cards at 3:03 (EP002) and 5:01 (the playlist); altered
    content: No. Then the 3 Shorts in `out/`, one a day, each with Related video → EP003 (publish.md §7).
 3. **Send EP001's first-week numbers** (views, CTR, average view duration) for the tracker and the weekly review.
