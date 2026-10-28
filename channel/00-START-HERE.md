@@ -12,10 +12,11 @@ Recording Booth, and the studio links your voice and renders the video, thumbnai
 
 ## Your next 3 actions
 
-1. **Watch EP002** (`03-episodes/EP002/out/EP002.mp4`, 15:04): your recording with its visuals, sounds and the dark ending.
-   Tell me anything to change; a fix and a new render take under an hour.
-2. **Upload EP002** with `03-episodes/EP002/publish.md`: my pick is title 1 + thumbnail 1 + description 1; upload
-   `out/subtitles.ar.srt`; cards at 1:23 (EP001) and 3:44 (the playlist); altered content: No.
+1. **Upload EP002** with `03-episodes/EP002/publish.md` (updated 28 Oct: no puzzle in the descriptions or the pinned comment;
+   the video itself still asks it, see the note in the kit): title 1 + thumbnail 1 + description 1; upload `out/subtitles.ar.srt`;
+   cards at 1:23 (EP001) and 3:44 (the playlist); altered content: No.
+2. **Read the EP003 draft** (`03-episodes/EP003/script-draft.md`, about 15:30) and its kit (`publish.md`, three thumbnails in
+   `out/`), then approve it or say what to change, and **pick the map's shape**: 1 · the mountain or 2 · the stairs.
 3. **Send EP001's first-week numbers** (views, CTR, average view duration) for the tracker and the weekly review.
 
 Then follow the week-by-week coaching plan: [`01-plan/08-coaching-roadmap.md`](01-plan/08-coaching-roadmap.md).

@@ -7,7 +7,7 @@ import {geoMercator, geoPath, type GeoPermissibleObjects} from 'd3-geo';
 import {feature} from 'topojson-client';
 import world from 'world-atlas/countries-110m.json';
 import {C, FONT} from './theme';
-import {PeopleGrid, Person} from './components/Silhouettes';
+import {PeopleGrid, Person, Skyline} from './components/Silhouettes';
 import {HouseGlyph, Star8} from './brand-art';
 import {Badge, Headline, Pill} from './thumb-kit';
 import type {DesignSpec} from './ThumbDesigns';
@@ -28,7 +28,9 @@ export type StoryDesign =
   | 'desks'
   | 'asks'
   | 'fork'
-  | 'graph';
+  | 'graph'
+  | 'giant'
+  | 'address';
 export type Tone = 'navy' | 'blue' | 'green' | 'red' | 'yellow' | 'light';
 
 type P = {s: DesignSpec; badge: string};
@@ -564,6 +566,77 @@ const Graph: React.FC<P> = (p) => (
   </Frame>
 );
 
+// ------------------------------------------------------------------------------------------- giant: the small company in front of the giant
+const Car: React.FC<{x: number; y: number; w: number; body: string; glass: string; wheel: string}> = ({x, y, w, body, glass, wheel}) => (
+  <g transform={`translate(${x} ${y}) scale(${w / 404})`}>
+    <path d="M10 150 Q10 112 52 104 L118 94 L168 44 Q182 30 202 30 L292 30 Q316 30 330 48 L368 94 L384 98 Q404 104 404 130 L404 150 Q404 162 392 162 L22 162 Q10 162 10 150 Z" fill={body} />
+    <path d="M186 50 L150 92 L248 92 L248 50 Z" fill={glass} />
+    <path d="M262 50 L262 92 L350 92 L318 56 Q312 50 302 50 Z" fill={glass} />
+    {[96, 318].map((cx) => (
+      <g key={cx}>
+        <circle cx={cx} cy={162} r={36} fill={wheel} />
+        <circle cx={cx} cy={162} r={15} fill={glass} />
+      </g>
+    ))}
+  </g>
+);
+const Giant: React.FC<P> = (p) => (
+  <Frame {...p} tone="navy" sizes={[150, 150]}>
+    <Pic>
+      <g transform="translate(-20 300)">
+        <Skyline width={680} height={300} seed={3} color="#24304F" />
+      </g>
+      <Car x={-190} y={150} w={820} body="#3A4870" glass="#26324F" wheel="#0E1424" />
+      <rect x={0} y={650} width={640} height={70} fill="#0E1424" />
+      <path d="M20 684 H620" stroke="#fff" strokeWidth={6} strokeDasharray="34 26" opacity={0.5} />
+      <Car x={250} y={530} w={240} body={C.yellow} glass={C.ink} wheel={C.ink} />
+    </Pic>
+  </Frame>
+);
+
+// ------------------------------------------------------------------------------------------- address: «وينك؟» on a street with no name
+const Address: React.FC<P> = (p) => {
+  const [ask, answer, answer2] = p.s.labels ?? ['وينك؟', 'جنب المسجد…', 'لف يمين'];
+  return (
+    <Frame {...p} tone="yellow" sizes={[150, 130]}>
+      <Pic shadow="rgba(28,35,51,0.28)">
+        <g transform="translate(470 120)">
+          <rect x={-8} y={60} width={16} height={560} fill={C.ink} />
+          <rect x={-120} y={0} width={240} height={110} rx={16} fill="#1F7A52" stroke="#fff" strokeWidth={7} />
+          <Word x={0} y={84} size={96} fill="#fff">
+            ؟
+          </Word>
+          <g transform="translate(96 -10)">
+            <circle r={44} fill={C.red} opacity={0.22} />
+            <path d="M0 0 C-30 -40 -30 -78 0 -86 C30 -78 30 -40 0 0 Z" fill={C.red} />
+            <circle cy={-58} r={13} fill="#fff" />
+          </g>
+        </g>
+        <g transform="translate(40 110) rotate(-6)">
+          <rect width={360} height={600} rx={50} fill={C.ink} />
+          <rect x={18} y={70} width={324} height={500} rx={30} fill="#fff" />
+          <rect x={140} y={28} width={80} height={14} rx={7} fill="#3A4870" />
+          <g transform="translate(40 120)">
+            <rect width={170} height={84} rx={28} fill="#E9EEF6" />
+            <Word x={85} y={56} size={46} fill={C.ink}>
+              {ask}
+            </Word>
+          </g>
+          <g transform="translate(36 240)">
+            <rect width={292} height={150} rx={30} fill={C.green} />
+            <Word x={146} y={64} size={40} fill="#fff">
+              {answer}
+            </Word>
+            <Word x={146} y={118} size={40} fill="#fff">
+              {answer2}
+            </Word>
+          </g>
+        </g>
+      </Pic>
+    </Frame>
+  );
+};
+
 export const STORY_DESIGNS: Record<StoryDesign, React.FC<P>> = {
   doors: Doors,
   scissors: Scissors,
@@ -581,5 +654,7 @@ export const STORY_DESIGNS: Record<StoryDesign, React.FC<P>> = {
   asks: Asks,
   fork: Fork,
   graph: Graph,
+  giant: Giant,
+  address: Address,
 };
 
