@@ -184,8 +184,9 @@ export type Moment = MomentBase &
     /** a case file: the next episode */
     | {kind: 'file'; title: string; text: string; note?: string}
     /** a verse or a hadith, its words lit as they are read (`textCue` = the first word as spoken, without tashkeel),
-     * with its reference ("الزخرف: 32", "رواه البخاري (2262)") */
-    | {kind: 'scripture'; book: 'quran' | 'hadith'; text: string; ref: string; intro?: string; textCue?: string}
+     * with its reference ("الزخرف: 32", "رواه البخاري (2262)"). A hadith told in pieces, with the narrator's words
+     * between them, puts each piece on its own line of `text` and gives `textCue` one first word per line. */
+    | {kind: 'scripture'; book: 'quran' | 'hadith'; text: string; ref: string; intro?: string; textCue?: string | string[]}
     /** the «فيه مشهد في النهاية» pop-up in the corner, from `cue` until the teaser starts (`until`) */
     | {kind: 'endscene'; text: string}
   );

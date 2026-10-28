@@ -8,7 +8,8 @@ import {interpolate, spring, useVideoConfig} from 'remotion';
 import {geoMercator, geoPath, type GeoPermissibleObjects} from 'd3-geo';
 import {feature} from 'topojson-client';
 import world from 'world-atlas/countries-110m.json';
-import {C, EASE_IN_OUT, FONT, NASKH_FONT, ON_STAGE, QURAN_FONT} from '../theme';
+import {C, EASE_IN_OUT, FONT, NASKH_FONT, ON_STAGE, QURAN_FONT, watercolor} from '../theme';
+import {ink, INK_SHADOW_SOFT} from '../look-kit';
 import type {Moment} from '../types';
 import type {ScenePlan} from '../lib/plan';
 import {wordFrames} from '../scenes/common';
@@ -31,7 +32,7 @@ export const Headline: React.FC<K<'headline'>> = ({m, c}) => {
     <div style={{width: 1560, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 20, direction: 'rtl', fontFamily: FONT, textAlign: 'center'}}>
       <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 30}}>
         {m.badge ? (
-          <div style={{flex: '0 0 auto', width: 120, height: 120, borderRadius: 999, background: tone.main, color: '#fff', fontSize: 68, fontWeight: 700, display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: `0 16px 34px ${tone.main}55`}}>
+          <div style={{flex: '0 0 auto', width: 120, height: 120, borderRadius: 999, background: tone.main, color: '#fff', fontSize: 68, fontWeight: 700, display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: watercolor() ? INK_SHADOW_SOFT : `0 16px 34px ${tone.main}55`}}>
             <span style={LTR}>{m.badge}</span>
           </div>
         ) : null}
@@ -291,7 +292,7 @@ export const Versus: React.FC<K<'versus'>> = ({m, c}) => {
   return (
     <div style={{position: 'relative'}}>
       {m.title ? (
-        <div style={{position: 'absolute', bottom: '100%', left: '50%', transform: 'translateX(-50%)', marginBottom: 26, whiteSpace: 'nowrap', fontFamily: FONT, direction: 'rtl', fontSize: 46, fontWeight: 700, color: C.ink, background: C.yellow, borderRadius: 999, padding: '10px 40px', boxShadow: '0 14px 30px rgba(201,138,0,0.3)'}}>
+        <div style={{position: 'absolute', bottom: '100%', left: '50%', transform: 'translateX(-50%)', marginBottom: 26, whiteSpace: 'nowrap', fontFamily: FONT, direction: 'rtl', fontSize: 46, fontWeight: 700, color: C.ink, background: C.yellow, borderRadius: 999, padding: '10px 40px', boxShadow: watercolor() ? INK_SHADOW_SOFT : '0 14px 30px rgba(201,138,0,0.3)'}}>
           {m.title}
           <Sfx at={c.inAt} name="question" />
         </div>
@@ -470,10 +471,13 @@ export const PressButton: React.FC<K<'button'>> = ({m, c}) => {
   const toward = ramp(c.f, pressAt - 16, 16, EASE_IN_OUT);
   const press = c.f >= pressAt ? 1 - spr(c.f, pressAt, fps, 10, 200) : 0;
   const ring = interpolate(c.f, [pressAt, pressAt + 18], [0, 1], clamp);
+  const down = c.f >= pressAt ? 1 - press : 0;
+  // the watercolor look: an ink line and a hard cel shadow that the press flattens
+  const shadow = watercolor() ? `0 0 0 3px ${ink(0.9)}, ${-10 + 7 * down}px ${12 - 8 * down}px 0 3px ${ink(0.2)}` : `0 ${18 - 12 * down}px 36px ${tone.main}66`;
   return (
     <div style={{position: 'relative', fontFamily: FONT, direction: 'rtl', padding: 40}}>
       {ring > 0 && ring < 1 ? <div style={{position: 'absolute', inset: 40 - 30 * ring, borderRadius: 999, border: `6px solid ${tone.main}`, opacity: 1 - ring}} /> : null}
-      <div style={{background: tone.main, color: '#fff', fontSize: 64, fontWeight: 700, borderRadius: 999, padding: '28px 90px', boxShadow: `0 ${18 - 12 * (c.f >= pressAt ? 1 - press : 0)}px 36px ${tone.main}66`, transform: `scale(${1 - 0.07 * (c.f >= pressAt ? 1 - press : 0)})`}}>{m.text}</div>
+      <div style={{background: tone.main, color: '#fff', fontSize: 64, fontWeight: 700, borderRadius: 999, padding: '28px 90px', boxShadow: shadow, transform: `scale(${1 - 0.07 * down})`}}>{m.text}</div>
       <svg width={90} height={110} viewBox="0 0 30 37" style={{position: 'absolute', left: 120 - 60 * toward, top: 150 - 70 * toward}}>
         <path d="M3 2 L3 28 L10 22 L15 34 L20 32 L15 20 L25 20 Z" fill="#fff" stroke={C.ink} strokeWidth={2.2} strokeLinejoin="round" />
       </svg>
@@ -559,10 +563,21 @@ export const CaseFile: React.FC<K<'file'>> = ({m, c}) => {
 const GOLD = '#A9822A';
 export const Scripture: React.FC<K<'scripture'> & {plan: ScenePlan; narration: string}> = ({m, c, plan, narration}) => {
   const quran = m.book === 'quran';
-  // a pause mark standing alone (ۚ ۗ) belongs to the word before it: it isn't said, so it takes no word of the voice
-  const words = m.text.split(' ').reduce<string[]>((acc, w) => (acc.length && !/[\u0621-\u064A\u0671-\u06D3]/.test(w) ? [...acc.slice(0, -1), `${acc[acc.length - 1]} ${w}`] : [...acc, w]), []);
-  const times = m.textCue ? wordFrames(plan, narration, m.textCue, words.length) : [];
-  const lit = (k: number) => (times.length ? ramp(c.f, times[k] - 2, 8) : ramp(c.f, c.inAt + 8 + k * 5, 10));
+  // a pause mark standing alone (ۚ ۗ) belongs to the word before it: it isn't said, so it takes no word of the voice,
+  // and a no-break space keeps it on that word's line
+  const lines = m.text.split('\n').map((line) =>
+    line.split(' ').reduce<string[]>((acc, w) => (acc.length && !/[\u0621-\u064A\u0671-\u06D3]/.test(w) ? [...acc.slice(0, -1), `${acc[acc.length - 1]}\u00A0${w}`] : [...acc, w]), []),
+  );
+  const words = lines.flat();
+  // one cue: the words are read straight through; one cue per line: each line waits for its own first word
+  const cues = Array.isArray(m.textCue) ? m.textCue : null;
+  const times = cues
+    ? lines.flatMap((line, l) => wordFrames(plan, narration, cues[Math.min(l, cues.length - 1)], line.length))
+    : typeof m.textCue === 'string'
+      ? wordFrames(plan, narration, m.textCue, words.length)
+      : [];
+  const lit = (k: number) => (times.length === words.length ? ramp(c.f, times[k] - 2, 8) : ramp(c.f, c.inAt + 8 + k * 5, 10));
+  const first = lines.map((_, l) => lines.slice(0, l).flat().length);
   const ref = ramp(c.f, c.inAt + 18, 18);
   const corner = (style: React.CSSProperties) => (
     <svg width={44} height={44} viewBox="-22 -22 44 44" style={{position: 'absolute', ...style}}>
@@ -577,13 +592,18 @@ export const Scripture: React.FC<K<'scripture'> & {plan: ScenePlan; narration: s
       {corner({bottom: 16, right: 16})}
       {corner({bottom: 16, left: 16})}
       {m.intro ? <div style={{fontFamily: FONT, fontSize: 32, fontWeight: 600, color: GOLD}}>{m.intro}</div> : null}
-      <div style={{fontFamily: quran ? QURAN_FONT : NASKH_FONT, fontSize: quran ? 68 : 62, lineHeight: quran ? 2.05 : 1.85, color: C.ink, textAlign: 'center'}}>
+      <div style={{fontFamily: quran ? QURAN_FONT : NASKH_FONT, fontSize: quran ? 68 : 62, lineHeight: quran ? 2.05 : 1.85, color: C.ink, textAlign: 'center', textWrap: 'balance'}}>
         {quran ? <span style={{color: GOLD}}>﴿</span> : null}
-        {words.map((w, k) => (
-          <span key={k} style={{opacity: 0.2 + 0.8 * lit(k)}}>
-            {w}
-            {k < words.length - 1 ? ' ' : ''}
-          </span>
+        {lines.map((line, l) => (
+          <React.Fragment key={l}>
+            {l ? <br /> : null}
+            {line.map((w, k) => (
+              <span key={k} style={{opacity: 0.2 + 0.8 * lit(first[l] + k)}}>
+                {w}
+                {k < line.length - 1 ? ' ' : ''}
+              </span>
+            ))}
+          </React.Fragment>
         ))}
         {quran ? <span style={{color: GOLD}}>﴾</span> : null}
       </div>

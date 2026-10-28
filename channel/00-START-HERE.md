@@ -15,8 +15,9 @@ Recording Booth, and the studio links your voice and renders the video, thumbnai
 1. **Upload EP002** with `03-episodes/EP002/publish.md` (updated 28 Oct: no puzzle in the descriptions or the pinned comment;
    the video itself still asks it, as you chose): title 1 + thumbnail 1 + description 1; upload `out/subtitles.ar.srt`;
    cards at 1:23 (EP001) and 3:44 (the playlist); altered content: No.
-2. **Listen to EP003's cleaned voice** (recorded 28 Oct: breaths silenced, one slip patched, synced word by word) and
-   tell me if anything sounds off; then I design every scene's moments and render it.
+2. **Watch EP003's first 30 seconds in the new look** (between watercolor and anime: `03-episodes/EP003/out/EP003-first30s.mp4`)
+   and say if it stays. Every scene's moments are designed on your words and checked in stills, so the full render
+   follows your answer (about an hour).
 3. **Send EP001's first-week numbers** (views, CTR, average view duration) for the tracker and the weekly review.
 
 Then follow the week-by-week coaching plan: [`01-plan/08-coaching-roadmap.md`](01-plan/08-coaching-roadmap.md).

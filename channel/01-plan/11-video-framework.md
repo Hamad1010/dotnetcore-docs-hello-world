@@ -231,8 +231,9 @@ The owner's request after EP001: a short religious pause, tied to the lesson, be
 - **Tone:** mainstream meaning only; nothing sectarian, no fiqh rulings, no promises ("do this and you'll get rich").
   Never used as a title, a thumbnail or a Short hook.
 - **On screen:** the verse and the hadith appear as they are read, in a Quran-appropriate font, with their reference;
-  no sound effects, and the background hum fades out for the whole part. Never a picture of the Prophet ﷺ, any prophet
-  or companion: only text, nature, sheep, landscapes.
+  a long verse breaks its line at a pause mark; a hadith told in pieces, with the narration between them, stays one card
+  with each piece on its own line, lit when it is said (EP003); no sound effects, and the background hum fades out for
+  the whole part. Never a picture of the Prophet ﷺ, any prophet or companion: only text, nature, sheep, landscapes.
 - **The owner** reads the verse exactly as written, with its tashkeel, and says «صلى الله عليه وسلم» in full.
 
 ### 3.16 The ending: «فيه مشهد في النهاية» and the dark teaser (new in v5)
@@ -331,7 +332,8 @@ show it as a short dialogue of 2–6 lines: two voices, Saudi names and places, 
   recording: the cleaning removes breaths and can patch a wrong word with the same word said elsewhere (§3.17).
   An experiment the owner asked for on EP003: a look between watercolor and anime (`episode.json` `"look": "watercolor"`:
   paper and pigment washes, an ink line and a cel shadow on every card, an anime sky over the map). The layouts and this
-  framework don't change; the owner decides after the 30-second test whether it stays.
+  framework don't change; the owner decides after the 30-second test whether it stays. On screen in the «وقفة»: a hadith
+  told in pieces is one card, each piece lit on its own word (§3.15).
 
 - **v5.1 · 25 Oct 2026.** From the owner's revision of EP002: the middle of a story is never skipped; plain, explicit
   wording; the owner's warm asides; talking to the person in the story; no labels the viewer doesn't need (§3.1, §3.15).

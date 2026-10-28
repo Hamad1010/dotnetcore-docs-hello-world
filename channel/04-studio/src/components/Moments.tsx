@@ -231,7 +231,7 @@ const QuestionMark: React.FC<{m: Extract<Moment, {kind: 'question'}>; c: Clock}>
       <div style={{width: 210, height: 210, borderRadius: 999, background: C.yellow, color: C.ink, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 150, fontWeight: 700, transform: `scale(${pulse})`, boxShadow: watercolor() ? INK_SHADOW : '0 20px 50px rgba(201,138,0,0.35)'}}>
         ؟
       </div>
-      {m.text ? <div style={{fontSize: 48, fontWeight: 700, color: C.ink, background: C.surface, borderRadius: 999, padding: '8px 34px', boxShadow: DEEP}}>{m.text}</div> : null}
+      {m.text ? <div style={{fontSize: 48, fontWeight: 700, color: C.ink, background: C.surface, borderRadius: 999, padding: '8px 34px', boxShadow: DEEP, textAlign: 'center', textWrap: 'balance'}}>{m.text}</div> : null}
       <Sfx at={c.inAt} name="question" />
     </div>
   );
@@ -330,9 +330,9 @@ const PeopleCard: React.FC<{m: Extract<Moment, {kind: 'people'}>; c: Clock}> = (
   const hi = ramp(c.f, hiAt, 10);
   return (
     <div style={{...CARD, padding: '24px 40px', display: 'flex', alignItems: 'center', gap: 36}}>
-      {m.value ? (
+      {m.value || m.label ? (
         <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-          <span style={{...numDir(m.value), fontSize: 104, fontWeight: 700, lineHeight: 1, color: tone.main}}>{counted(m.value, p)}</span>
+          {m.value ? <span style={{...numDir(m.value), fontSize: 104, fontWeight: 700, lineHeight: 1, color: tone.main}}>{counted(m.value, p)}</span> : null}
           {m.label ? <span style={{fontSize: 34, fontWeight: 700, color: C.ink, whiteSpace: 'nowrap'}}>{m.label}</span> : null}
         </div>
       ) : null}
