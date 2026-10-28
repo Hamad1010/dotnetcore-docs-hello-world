@@ -6,7 +6,9 @@ import {interpolate, spring, useCurrentFrame, useVideoConfig} from 'remotion';
 import {geoContains, geoEqualEarth, geoMercator, geoPath, type GeoPermissibleObjects} from 'd3-geo';
 import {feature} from 'topojson-client';
 import world from 'world-atlas/countries-110m.json';
-import {C, EASE_IN_OUT, EASE_OUT, FONT, ON_STAGE} from '../theme';
+import {C, EASE_IN_OUT, EASE_OUT, FONT, ON_STAGE, watercolor} from '../theme';
+import {FocusLines, Sparkles} from './Watercolor';
+import {INK_SHADOW} from '../look-kit';
 import type {Moment, MomentSlot} from '../types';
 import type {ScenePlan} from '../lib/plan';
 import {cueAt, wordFrames} from '../scenes/common';
@@ -226,7 +228,7 @@ const QuestionMark: React.FC<{m: Extract<Moment, {kind: 'question'}>; c: Clock}>
   const pulse = 1 + 0.06 * Math.sin((c.f - c.inAt) / 5);
   return (
     <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 16, fontFamily: FONT}}>
-      <div style={{width: 210, height: 210, borderRadius: 999, background: C.yellow, color: C.ink, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 150, fontWeight: 700, transform: `scale(${pulse})`, boxShadow: '0 20px 50px rgba(201,138,0,0.35)'}}>
+      <div style={{width: 210, height: 210, borderRadius: 999, background: C.yellow, color: C.ink, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 150, fontWeight: 700, transform: `scale(${pulse})`, boxShadow: watercolor() ? INK_SHADOW : '0 20px 50px rgba(201,138,0,0.35)'}}>
         ؟
       </div>
       {m.text ? <div style={{fontSize: 48, fontWeight: 700, color: C.ink, background: C.surface, borderRadius: 999, padding: '8px 34px', boxShadow: DEEP}}>{m.text}</div> : null}
@@ -483,6 +485,9 @@ const MysteryHand: React.FC<{m: Extract<Moment, {kind: 'mystery'}>; c: Clock}> =
 // ------------------------------------------------------------------ the layer
 type Timed = {m: Moment; inAt: number; outAt: number; moveAt: number};
 
+/** The watercolor look's anime sparkles go on the big reveals: a number, a headline, a winning stamp. */
+const sparkles = (m: Moment) => watercolor() && (m.kind === 'count' || m.kind === 'headline' || (m.kind === 'stamp' && (m.tone === 'pos' || m.tone === 'gold')));
+
 const schedule = (moments: Moment[], plan: ScenePlan, narration: string, fps: number): Timed[] => {
   const inAt = moments.map((m, i) => (m.at !== undefined ? Math.round(m.at * fps) : cueAt(plan, narration, m.cue, (i + 0.5) / Math.max(1, moments.length))));
   const until = moments.map((m) => (m.until ? cueAt(plan, narration, m.until, 1) : null));
@@ -565,7 +570,9 @@ export const Moments: React.FC<{moments?: Moment[]; plan: ScenePlan; narration: 
                   zIndex: m.over ? 6 : 2,
                 }}
               >
+                {watercolor() && m.kind === 'question' ? <FocusLines at={inAt} /> : null}
                 {body}
+                {sparkles(m) ? <Sparkles at={inAt} /> : null}
                 {m.illustration ? (
                   <div style={{position: 'absolute', ...(m.kind === 'chat' ? {bottom: -22, left: '50%', transform: 'translateX(-50%)'} : {top: -22, left: 18}), fontFamily: FONT, fontSize: 24, fontWeight: 700, color: '#8A5E00', background: C.yellowSoft, border: `2px solid ${C.yellow}`, borderRadius: 999, padding: '4px 16px', whiteSpace: 'nowrap'}}>
                     مثال توضيحي

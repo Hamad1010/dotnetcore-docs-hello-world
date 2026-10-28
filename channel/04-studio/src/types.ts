@@ -292,6 +292,8 @@ export type Episode = {
   backgroundLevel?: number;
   /** the journey map's shape; default the winding road */
   map?: MapShape;
+  /** the look: "material" (default) or "watercolor", between watercolor and anime (an experiment from EP003) */
+  look?: 'material' | 'watercolor';
   scenes: Scene[];
 };
 

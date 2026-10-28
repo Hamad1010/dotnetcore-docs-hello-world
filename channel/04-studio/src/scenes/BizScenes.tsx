@@ -1,11 +1,15 @@
 // Scenes for the business format («غرفة الفرص»): the "stop scrolling" story, the smart transition and the journey map.
 import React from 'react';
 import {AbsoluteFill, interpolate, interpolateColors, useCurrentFrame} from 'remotion';
-import {C, DARK, EASE_IN_OUT, EASE_OUT} from '../theme';
+import {C, DARK, EASE_IN_OUT, EASE_OUT, watercolor} from '../theme';
+import {Img} from 'remotion';
+import {texture} from '../look-kit';
 import type {Beat, JourneyScene, OverviewScene, StageScene, StoryHookScene} from '../types';
 import {Backdrop, Captions, Chip, CountUp, SceneFrame, fadeUp, useIn, usePop, usePortrait} from '../components/ui';
 import {Crowd, Lever, PeopleGrid, Person, Phone, Skyline} from '../components/Silhouettes';
 import {JourneyMap} from '../components/JourneyMap';
+import {AnimeSky} from '../components/Watercolor';
+import {INK_SHADOW_SOFT, paperCard} from '../look-kit';
 import {Moments, TONE as TONES} from '../components/Moments';
 import {ramp} from '../components/moment-kit';
 import {Sfx} from '../components/Sfx';
@@ -392,9 +396,20 @@ export const Journey: React.FC<SceneProps<JourneyScene> & {showCaptions: boolean
   return (
     <SceneFrame frames={plan.frames}>
       <Backdrop tint={C.blue} />
+      {watercolor() ? <AnimeSky opacity={0.2 + 0.8 * mapFade} /> : null}
       <TopBar episode={props.episode} brand={props.brand} />
       <div style={{position: 'absolute', top: portrait ? 250 : 150, left: 0, right: 0, display: 'flex', justifyContent: 'center', ...fadeUp(title, 16)}}>
-        <div style={{fontSize: portrait ? 60 : 54, fontWeight: 700, color: C.ink}}>{scene.title ?? 'خريطة الرحلة'}</div>
+        <div
+          style={{
+            fontSize: portrait ? 60 : 54,
+            fontWeight: 700,
+            color: C.ink,
+            // over the watercolor look's sky: a paper label with an ink line
+            ...(watercolor() ? {background: paperCard(), boxShadow: INK_SHADOW_SOFT, borderRadius: 999, padding: '6px 40px 10px'} : {}),
+          }}
+        >
+          {scene.title ?? 'خريطة الرحلة'}
+        </div>
       </div>
       <Drift frames={plan.frames}>
       <div style={{position: 'absolute', inset: 0, opacity: mapFade}}>
@@ -449,15 +464,26 @@ const StationChip: React.FC<{label: string; station: number; total: number; p: n
   </div>
 );
 
-/** The teaser's dark screen (framework v5 §3.16): navy, a slow spotlight and a few specks of light. */
+/** The teaser's dark screen (framework v5 §3.16): navy, a slow spotlight and a few specks of light. In the watercolor
+ * look: an indigo night on the same paper, its specks small four-point stars. */
 const DarkStage: React.FC<{p: number}> = ({p}) => {
   const f = useCurrentFrame();
   const x = 50 + Math.sin(f / 90) * 14;
+  const wc = watercolor();
   return (
     <AbsoluteFill style={{opacity: p, background: `radial-gradient(ellipse 62% 74% at ${x}% 42%, ${DARK.glow} 0%, ${DARK.bg} 74%)`}}>
-      {Array.from({length: 22}, (_, k) => (
-        <div key={k} style={{position: 'absolute', left: (k * 397) % 1920, top: (k * 233 + 60) % 1080, width: 4, height: 4, borderRadius: 4, background: '#fff', opacity: 0.18 + 0.22 * Math.sin(f / 18 + k * 1.7)}} />
-      ))}
+      {wc ? <Img src={texture('paper.jpg')} style={{position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', mixBlendMode: 'multiply', opacity: 0.4}} /> : null}
+      {Array.from({length: 22}, (_, k) => {
+        const o = 0.18 + 0.22 * Math.sin(f / 18 + k * 1.7);
+        const at = {position: 'absolute', left: (k * 397) % 1920, top: (k * 233 + 60) % 1080} as const;
+        return wc ? (
+          <svg key={k} width={14} height={14} viewBox="-1 -1 2 2" style={{...at, opacity: o * 1.6}}>
+            <path d="M0 -1 C0.1 -0.1 0.1 -0.1 1 0 C0.1 0.1 0.1 0.1 0 1 C-0.1 0.1 -0.1 0.1 -1 0 C-0.1 -0.1 -0.1 -0.1 0 -1 Z" fill="#FFF6D8" />
+          </svg>
+        ) : (
+          <div key={k} style={{...at, width: 4, height: 4, borderRadius: 4, background: '#fff', opacity: o}} />
+        );
+      })}
     </AbsoluteFill>
   );
 };

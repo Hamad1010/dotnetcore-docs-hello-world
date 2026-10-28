@@ -1,18 +1,37 @@
 // Silhouettes ("shadows" of places, people and things) drawn for this project.
 // Plain shapes only: no photos, no faces, no logos, so they are safe in every video.
 import React from 'react';
-import {C} from '../theme';
+import {C, watercolor} from '../theme';
+import {ink} from '../look-kit';
 
 type Base = {color?: string; opacity?: number; style?: React.CSSProperties};
 
 const HEAD = {cx: 36, cy: 22, r: 17};
 const BODY = 'M2 100 C2 64 16 46 36 46 C56 46 70 64 70 100 Z';
 
+/** The anime treatment of a figure (watercolor look): a hard shade on its left side (the light is top right) and an
+ * ink line around it. */
+const InkFigure: React.FC = () => {
+  const id = `figure-${React.useId().replace(/[^a-zA-Z0-9_-]/g, '')}`;
+  return (
+    <>
+      <clipPath id={id}>
+        <circle {...HEAD} />
+        <path d={BODY} />
+      </clipPath>
+      <path d="M-2 -2 H24 C30 30 18 52 30 70 C34 84 30 94 32 104 H-2 Z" fill="#000" opacity={0.16} clipPath={`url(#${id})`} />
+      <circle {...HEAD} fill="none" stroke={ink(0.9)} strokeWidth={2.4} />
+      <path d={BODY} fill="none" stroke={ink(0.9)} strokeWidth={2.4} strokeLinejoin="round" />
+    </>
+  );
+};
+
 /** One person (head and shoulders). `size` is the height in px. */
 export const Person: React.FC<Base & {size?: number}> = ({size = 300, color = C.ink, opacity = 1, style}) => (
   <svg width={size * 0.72} height={size} viewBox="0 0 72 100" style={{opacity, overflow: 'visible', ...style}}>
     <circle {...HEAD} fill={color} />
     <path d={BODY} fill={color} />
+    {watercolor() ? <InkFigure /> : null}
   </svg>
 );
 
@@ -23,6 +42,7 @@ export const PeopleGrid: React.FC<
 > = ({count, cols, cell = 30, progress = 1, highlight = 0, highlightColor = C.yellow, subs = 0, fade = 0, fadeProgress = 0, color = C.blue, opacity = 1, style}) => {
   const rows = Math.ceil(count / cols);
   const shown = Math.round(count * progress);
+  const line = watercolor() ? ink(0.9) : undefined;
   return (
     <svg width={cols * cell} height={rows * cell * 1.25} viewBox={`0 0 ${cols * 72} ${rows * 90}`} style={{opacity, overflow: 'visible', ...style}}>
       {Array.from({length: count}, (_, i) => {
@@ -34,8 +54,8 @@ export const PeopleGrid: React.FC<
         return (
           <g key={i} transform={`translate(${x + 8 + 28} ${y + 4 + 39}) scale(${0.78 * (1 + 0.45 * lit)}) translate(-36 -50)`} opacity={(i < shown ? 1 : 0.12) * (i === 0 ? 1 : 1 - 0.7 * highlight) * (1 - 0.75 * gone)}>
             {lit > 0 ? <circle cx={36} cy={50} r={58} fill={highlightColor} opacity={0.25 * lit} /> : null}
-            <circle {...HEAD} fill={fill} />
-            <path d={BODY} fill={fill} />
+            <circle {...HEAD} fill={fill} stroke={line} strokeWidth={line ? 3 : 0} />
+            <path d={BODY} fill={fill} stroke={line} strokeWidth={line ? 3 : 0} strokeLinejoin="round" />
             {gone > 0 ? <path d={`M8 12 L${8 + 56 * gone} ${12 + 76 * gone} M64 12 L${64 - 56 * gone} ${12 + 76 * gone}`} stroke={C.red} strokeWidth={9} strokeLinecap="round" /> : null}
           </g>
         );

@@ -1,6 +1,8 @@
 import React from 'react';
 import {AbsoluteFill, interpolate, spring, useCurrentFrame, useVideoConfig} from 'remotion';
-import {C, EASE_IN, EASE_OUT, FONT, SHADOW, SHADOW_SOFT} from '../theme';
+import {C, EASE_IN, EASE_OUT, FONT, SHADOW, SHADOW_SOFT, watercolor} from '../theme';
+import {paperCard} from '../look-kit';
+import {WashBackdrop} from './Watercolor';
 
 // ---------- motion helpers ----------
 
@@ -37,7 +39,7 @@ export const SceneFrame: React.FC<{frames: number; children: React.ReactNode}> =
 // ---------- building blocks ----------
 
 export const Card: React.FC<{style?: React.CSSProperties; children: React.ReactNode; soft?: boolean}> = ({style, children, soft}) => (
-  <div style={{background: C.surface, borderRadius: 36, boxShadow: soft ? SHADOW_SOFT : SHADOW, ...style}}>{children}</div>
+  <div style={{background: paperCard(), borderRadius: 36, boxShadow: soft ? SHADOW_SOFT : SHADOW, ...style}}>{children}</div>
 );
 
 export const Chip: React.FC<{color?: string; bg?: string; children: React.ReactNode; size?: number; style?: React.CSSProperties}> = ({
@@ -54,12 +56,12 @@ export const Chip: React.FC<{color?: string; bg?: string; children: React.ReactN
       gap: 12,
       padding: `${size * 0.32}px ${size * 0.8}px`,
       borderRadius: 999,
-      background: bg,
+      background: bg === C.surface ? paperCard() : bg,
       color,
       fontSize: size,
       fontWeight: 500,
       whiteSpace: 'nowrap',
-      boxShadow: bg === C.surface ? SHADOW_SOFT : 'none',
+      boxShadow: bg === C.surface || watercolor() ? SHADOW_SOFT : 'none',
       ...style,
     }}
   >
@@ -93,6 +95,7 @@ export const Brand: React.FC<{name: string; size?: number; color?: string}> = ({
 /** Soft, slowly drifting color blobs + dot grid. Gives depth without noise. */
 export const Backdrop: React.FC<{tint?: string}> = ({tint = C.blue}) => {
   const f = useCurrentFrame();
+  if (watercolor()) return <WashBackdrop />;
   const t = f / 30;
   const blob = (x: number, y: number, r: number, color: string, phase: number): React.CSSProperties => ({
     position: 'absolute',

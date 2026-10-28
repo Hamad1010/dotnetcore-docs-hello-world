@@ -10,6 +10,8 @@
 //   node scripts/render.mjs EP001 --shorts     vertical Shorts listed in episode.json "shorts" → out/short-N.mp4
 //   node scripts/render.mjs EP001 --short=2    only Short number 2
 //   node scripts/render.mjs EP001 --audio      only the soundtrack → out/<EP>.wav (fast: to compare backgrounds)
+//   node scripts/render.mjs EP003 --until=30   only the first 30 seconds (a new look's test, CLAUDE.md rule 9)
+//                                              → out/<EP>-first30s.mp4
 //   --background=<name>                        a file in _assets/music/ (no .mp3), or none: overrides channel.json
 import fs from 'node:fs';
 import os from 'node:os';
@@ -32,6 +34,8 @@ const onlyShort = shortArg ? Number(shortArg.split('=')[1]) : null;
 const shortsOnly = args.includes('--shorts') || onlyShort !== null;
 const audioOnly = args.includes('--audio');
 const bgArg = args.find((a) => a.startsWith('--background='));
+const untilArg = args.find((a) => a.startsWith('--until='));
+const untilSeconds = untilArg ? Number(untilArg.split('=')[1]) : null;
 const outDir = path.join(episodes, episodeId, 'out');
 fs.mkdirSync(outDir, {recursive: true});
 
@@ -144,11 +148,11 @@ console.log('✓ subtitles.ar.srt + chapters.txt');
 // The sound first, in parts of about 3 minutes cut where a scene starts, joined into one WAV: Remotion mixes all of a
 // render's sounds through full-length temporary files (about 10 GB at once for a 15-minute episode), more than a cloud
 // session's disk holds. Then the picture without sound; master() puts the two together.
-const output = path.join(outDir, `${episodeId}${preview ? '-preview' : ''}.mp4`);
+const output = path.join(outDir, `${episodeId}${untilSeconds ? `-first${untilSeconds}s` : ''}${preview ? '-preview' : ''}.mp4`);
 const work = path.join(outDir, 'parts');
 fs.rmSync(work, {recursive: true, force: true});
 fs.mkdirSync(work, {recursive: true});
-const total = comp.durationInFrames;
+const total = untilSeconds ? Math.min(comp.durationInFrames, Math.round(untilSeconds * plan.fps)) : comp.durationInFrames;
 const cuts = [0];
 for (const sc of plan.scenes) if (sc.from - cuts[cuts.length - 1] >= 180 * plan.fps && total - sc.from >= 60 * plan.fps) cuts.push(sc.from);
 cuts.push(total);
@@ -171,6 +175,7 @@ await renderMedia({
   codec: 'h264',
   crf: preview ? 26 : 18,
   muted: true,
+  frameRange: [0, total - 1],
   scale: preview ? 2 / 3 : 1,
   outputLocation: picture,
   inputProps,
@@ -187,7 +192,7 @@ await renderMedia({
     }
   },
 });
-const mins = (plan.total / plan.fps / 60).toFixed(2);
+const mins = (total / plan.fps / 60).toFixed(2);
 master(picture, output, sound);
 fs.rmSync(work, {recursive: true, force: true});
 console.log(`✓ ${path.relative(process.cwd(), output)}  (${mins} min video, picture rendered in ${Math.round((Date.now() - started) / 1000)}s)`);

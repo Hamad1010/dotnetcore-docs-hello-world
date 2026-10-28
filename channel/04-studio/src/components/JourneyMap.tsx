@@ -4,7 +4,9 @@
 // top step is the destination. Shorts (portrait) always use the winding road.
 import React from 'react';
 import {useCurrentFrame} from 'remotion';
-import {C, FONT} from '../theme';
+import {C, FONT, watercolor} from '../theme';
+import {ink, INK_SHADOW_SOFT, paperCard} from '../look-kit';
+import {WashMountain} from './Watercolor';
 import type {MapShape} from '../types';
 import {Person} from './Silhouettes';
 
@@ -137,11 +139,11 @@ const StairBody: React.FC<{pts: Pt[]; h: number}> = ({pts, h}) => {
 
 const Badge: React.FC<{kind: 'loop' | 'puzzle'; size: number}> = ({kind, size}) =>
   kind === 'loop' ? (
-    <div style={{width: size, height: size, borderRadius: 99, background: C.yellow, color: C.ink, fontSize: size * 0.62, fontWeight: 700, display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 6px 16px rgba(201,138,0,0.35)'}}>
+    <div style={{width: size, height: size, borderRadius: 99, background: C.yellow, color: C.ink, fontSize: size * 0.62, fontWeight: 700, display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: watercolor() ? INK_SHADOW_SOFT : '0 6px 16px rgba(201,138,0,0.35)'}}>
       ؟
     </div>
   ) : (
-    <div style={{width: size, height: size, borderRadius: 99, background: C.ink, display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 6px 16px rgba(28,35,51,0.35)'}}>
+    <div style={{width: size, height: size, borderRadius: 99, background: C.ink, display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: watercolor() ? INK_SHADOW_SOFT : '0 6px 16px rgba(28,35,51,0.35)'}}>
       <svg width={size * 0.56} height={size * 0.56} viewBox="0 0 24 24">
         <circle cx="10" cy="10" r="6.5" fill="none" stroke="#fff" strokeWidth="2.6" />
         <path d="M15 15l6 6" stroke="#fff" strokeWidth="2.8" strokeLinecap="round" />
@@ -178,6 +180,8 @@ export const JourneyMap: React.FC<{
   const me = locate(road, traveller);
   const done = me.dist / total;
   const last = stops.length - 1;
+  const wc = watercolor();
+  const line = wc ? ink(0.9) : undefined;
   return (
     <div style={{position: 'absolute', inset: 0, fontFamily: FONT}}>
       <svg width={W} height={H} viewBox={`0 0 ${W} ${H}`} style={{position: 'absolute', inset: 0}}>
@@ -186,12 +190,23 @@ export const JourneyMap: React.FC<{
             <feDropShadow dx="0" dy="10" stdDeviation="12" floodColor="#1C2333" floodOpacity="0.16" />
           </filter>
         </defs>
-        <Contours w={W} h={H} />
-        {shape === 'mountain' ? <Mountain /> : null}
+        {wc ? null : <Contours w={W} h={H} />}
+        {shape === 'mountain' ? (wc ? <WashMountain x={PEAK.x} y={PEAK.y} footY={FOOT.y} half={FOOT.half} snowHalf={mountainHalf(PEAK.y + 110)} /> : <Mountain />) : null}
         {shape === 'stairs' ? <StairBody pts={pts} h={H + 20} /> : null}
         {ghost > 0 ? <path d={d} fill="none" stroke={C.ink3} strokeWidth={6} strokeLinecap="round" strokeDasharray="2 22" strokeDashoffset={f * 1.2} opacity={0.45 * ghost} /> : null}
-        <path d={d} pathLength={1} fill="none" stroke="#fff" strokeWidth={40} strokeLinecap="round" strokeLinejoin="round" strokeDasharray={`${reveal} 2`} filter="url(#road-shadow)" />
-        <path d={d} pathLength={1} fill="none" stroke={C.ink3} strokeWidth={5} strokeLinecap="round" strokeDasharray={`${reveal} 2`} opacity={0.35} />
+        {wc ? (
+          <>
+            {/* the road inked: a hard shadow down to the left, an ink edge, the paper road */}
+            <path d={d} pathLength={1} fill="none" stroke={ink(0.14)} strokeWidth={46} strokeLinecap="round" strokeLinejoin="round" strokeDasharray={`${reveal} 2`} transform="translate(-8 10)" />
+            <path d={d} pathLength={1} fill="none" stroke={ink(0.9)} strokeWidth={46} strokeLinecap="round" strokeLinejoin="round" strokeDasharray={`${reveal} 2`} />
+            <path d={d} pathLength={1} fill="none" stroke="#FFF9EC" strokeWidth={39} strokeLinecap="round" strokeLinejoin="round" strokeDasharray={`${reveal} 2`} />
+          </>
+        ) : (
+          <>
+            <path d={d} pathLength={1} fill="none" stroke="#fff" strokeWidth={40} strokeLinecap="round" strokeLinejoin="round" strokeDasharray={`${reveal} 2`} filter="url(#road-shadow)" />
+            <path d={d} pathLength={1} fill="none" stroke={C.ink3} strokeWidth={5} strokeLinecap="round" strokeDasharray={`${reveal} 2`} opacity={0.35} />
+          </>
+        )}
         <path d={d} pathLength={1} fill="none" stroke={C.blue} strokeWidth={14} strokeLinecap="round" strokeLinejoin="round" strokeDasharray={`${Math.min(done, reveal)} 2`} />
         {glow !== null ? (
           <path d={d} pathLength={1} fill="none" stroke={C.yellow} strokeWidth={16} strokeLinecap="round" strokeLinejoin="round" strokeDasharray={`${locate(road, glow).dist / total} 2`} opacity={0.75} />
@@ -204,7 +219,7 @@ export const JourneyMap: React.FC<{
             return (
               <g key={i} transform={`translate(${p.x} ${p.y}) scale(${sc})`}>
                 <circle r={22} fill={C.red} opacity={0.18} />
-                <circle r={11} fill={C.red} />
+                <circle r={11} fill={C.red} stroke={line} strokeWidth={line ? 3.5 : 0} />
               </g>
             );
           }
@@ -213,14 +228,14 @@ export const JourneyMap: React.FC<{
               <g key={i} transform={`translate(${p.x} ${p.y}) scale(${sc})`}>
                 <circle r={26} fill={C.green} opacity={0.18} />
                 <rect x={-3} y={-92} width={6} height={92} rx={3} fill={C.ink} />
-                <path d="M3 -90 L60 -72 L3 -54 Z" fill={C.green} />
+                <path d="M3 -90 L60 -72 L3 -54 Z" fill={C.green} stroke={line} strokeWidth={line ? 3 : 0} strokeLinejoin="round" />
               </g>
             );
           }
           const on = i === active;
           return (
             <g key={i} transform={`translate(${p.x} ${p.y}) scale(${sc * (on ? 1.15 : 1)})`}>
-              <circle r={34} fill={on || i < traveller ? C.blue : '#fff'} stroke={C.blue} strokeWidth={7} />
+              <circle r={34} fill={on || i < traveller ? C.blue : C.surface} stroke={line ?? C.blue} strokeWidth={wc ? 5 : 7} />
               <text y={11} textAnchor="middle" fontFamily={FONT} fontWeight={700} fontSize={32} fill={on || i < traveller ? '#fff' : C.blue}>
                 {i}
               </text>
@@ -262,11 +277,11 @@ export const JourneyMap: React.FC<{
                 lineHeight: 1.35,
                 fontSize: edge ? 32 : 30,
                 fontWeight: 700,
-                color: i === 0 ? C.red : i === last ? '#1F8A52' : C.ink,
-                background: '#fff',
+                color: i === 0 ? C.red : i === last ? (wc ? C.green : '#1F8A52') : C.ink,
+                background: wc ? paperCard() : '#fff',
                 padding: '10px 22px',
                 borderRadius: s.label.includes('\n') ? 26 : 999,
-                boxShadow: '0 2px 6px rgba(28,35,51,0.08), 0 10px 24px rgba(28,35,51,0.10)',
+                boxShadow: wc ? INK_SHADOW_SOFT : '0 2px 6px rgba(28,35,51,0.08), 0 10px 24px rgba(28,35,51,0.10)',
                 opacity: Math.min(1, s.shown * 1.4),
               }}
             >
@@ -301,7 +316,7 @@ export const JourneyMap: React.FC<{
           position: 'absolute',
           left: me.x - 38,
           top: me.y - 128,
-          filter: 'drop-shadow(0 14px 16px rgba(28,35,51,0.30))',
+          filter: wc ? 'drop-shadow(-6px 8px 0 rgba(38,41,74,0.18))' : 'drop-shadow(0 14px 16px rgba(28,35,51,0.30))',
           opacity: Math.min(1, start.shown * 1.5),
         }}
       >

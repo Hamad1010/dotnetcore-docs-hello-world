@@ -9,6 +9,8 @@ import {EndCard, Outro, Practice, Recap} from './scenes/ClosingScenes';
 import {Journey, Overview, Stage, StoryHook} from './scenes/BizScenes';
 import {Sfx, SfxOn} from './components/Sfx';
 import {cueAt} from './scenes/common';
+import {applyLook} from './look';
+import {WashTextures} from './components/Watercolor';
 
 export type EpisodeData = {episode: Episode; plan: Plan; brand: Brand; music: string | null; sfx: boolean};
 export type EpisodeProps = {episodeId: string; showCaptions?: boolean; background?: string; data?: EpisodeData};
@@ -19,6 +21,8 @@ export const EpisodeVideo: React.FC<EpisodeProps> = ({episodeId, showCaptions, d
   const frame = useCurrentFrame();
   if (!data) return <AbsoluteFill style={{background: C.bg}} />;
   const {episode, plan, brand, music, sfx} = data;
+  // the look first: every scene reads its colours, shadows and cards when it is drawn
+  applyLook(episode.look);
   const hasVoice = plan.scenes.some((s) => s.audio);
   // Without a voice track the captions carry the story, so they are always on.
   const caps = showCaptions ?? !hasVoice;
@@ -56,6 +60,7 @@ export const EpisodeVideo: React.FC<EpisodeProps> = ({episodeId, showCaptions, d
   return (
     <SfxOn.Provider value={sfx}>
     <AbsoluteFill style={{background: frame >= darkFrom ? DARK.bg : C.bg}}>
+      {episode.look === 'watercolor' ? <WashTextures /> : null}
       {episode.scenes.map((scene, i) => {
         const sp = plan.scenes[i];
         let storyIndex = 0;

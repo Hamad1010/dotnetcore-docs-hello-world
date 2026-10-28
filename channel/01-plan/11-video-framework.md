@@ -329,6 +329,9 @@ show it as a short dialogue of 2–6 lines: two voices, Saudi names and places, 
   one question the viewer answers from their own life (§2, §3.11); case names use «سر» or «قصة», never «لغز» (§3.9). A new
   shape for the journey map: a mountain trail or a staircase, chosen per episode (§1, §6). From the owner's EP003
   recording: the cleaning removes breaths and can patch a wrong word with the same word said elsewhere (§3.17).
+  An experiment the owner asked for on EP003: a look between watercolor and anime (`episode.json` `"look": "watercolor"`:
+  paper and pigment washes, an ink line and a cel shadow on every card, an anime sky over the map). The layouts and this
+  framework don't change; the owner decides after the 30-second test whether it stays.
 
 - **v5.1 · 25 Oct 2026.** From the owner's revision of EP002: the middle of a story is never skipped; plain, explicit
   wording; the owner's warm asides; talking to the person in the story; no labels the viewer doesn't need (§3.1, §3.15).

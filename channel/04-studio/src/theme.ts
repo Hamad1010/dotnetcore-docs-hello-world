@@ -41,8 +41,19 @@ export const DARK = {bg: '#0E1424', glow: '#23335A', ink: '#F2F5FA', ink2: '#B9C
 /** Text drawn straight on the stage (not on a card) follows the stage from light to dark (set by Stage). */
 export const ON_STAGE = {ink: `var(--stage-ink, ${C.ink})`, ink2: `var(--stage-ink2, ${C.ink2})`, ink3: `var(--stage-ink3, ${C.ink3})`};
 
-export const SHADOW = '0 1px 3px rgba(28,35,51,0.08), 0 12px 32px rgba(28,35,51,0.10)';
-export const SHADOW_SOFT = '0 1px 2px rgba(28,35,51,0.06), 0 6px 16px rgba(28,35,51,0.06)';
+export let SHADOW = '0 1px 3px rgba(28,35,51,0.08), 0 12px 32px rgba(28,35,51,0.10)';
+export let SHADOW_SOFT = '0 1px 2px rgba(28,35,51,0.06), 0 6px 16px rgba(28,35,51,0.06)';
+/** Set by applyLook (look.ts): the values above are read when a frame is drawn, so an episode's look reaches them. */
+export const setShadows = (shadow: string, soft: string) => {
+  SHADOW = shadow;
+  SHADOW_SOFT = soft;
+};
+
+/** An episode's look (episode.json "look"): the channel's clean "material" look, or "watercolor", an experiment from
+ * EP003 between watercolor and anime (look.ts). */
+export type LookName = 'material' | 'watercolor';
+export const LOOK: {name: LookName} = {name: 'material'};
+export const watercolor = () => LOOK.name === 'watercolor';
 
 // Material-style motion curves
 export const EASE_OUT = Easing.bezier(0.05, 0.7, 0.1, 1);

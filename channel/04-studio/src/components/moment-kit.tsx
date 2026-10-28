@@ -12,7 +12,11 @@ export const TONE: Record<Tone, {main: string; soft: string}> = {
   gold: {main: '#C98A00', soft: C.yellowSoft},
 };
 export const clamp = {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'} as const;
-export const DEEP = '0 2px 6px rgba(28,35,51,0.08), 0 30px 60px rgba(28,35,51,0.18)';
+export let DEEP = '0 2px 6px rgba(28,35,51,0.08), 0 30px 60px rgba(28,35,51,0.18)';
+/** Set by applyLook (look.ts), with CARD and TONE, which are changed in place. */
+export const setDeep = (v: string) => {
+  DEEP = v;
+};
 export const CARD: React.CSSProperties = {background: C.surface, borderRadius: 32, boxShadow: DEEP, direction: 'rtl', fontFamily: FONT, color: C.ink};
 export const LTR: React.CSSProperties = {direction: 'ltr', unicodeBidi: 'isolate'};
 /** 0 → 1 over `dur` frames from frame `at`; stays 0 when `at` never comes (Infinity). */
