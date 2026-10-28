@@ -13,8 +13,8 @@
   to click), then titles **1, 7 and 3**. Let each test finish (up to about 2 weeks) and change nothing else meanwhile.
 - Description **1** to start; 2 and 3 are for the tests, the Community tab and the Shorts.
 - **The puzzle in the video (28 Oct).** The video still asks its puzzle after the three steps (about 12:30, «ولغز الملف الثاني… والحل
-  في بداية الملف الجاي»), and EP003 won't answer it (framework v5.2). If EP002 isn't uploaded yet, I can cut those ~30 seconds and
-  render again (about 40 minutes); otherwise leave it: the descriptions and the pinned comment only carry the episode's question.
+  في بداية الملف الجاي»), and EP003 won't answer it (framework v5.2). You chose to leave it as it is (28 Oct): the descriptions and the
+  pinned comment only carry the episode's question.
 - The rule they all follow (framework §3.13): a person, what happened, the turn, and what it leaves open. No drama the story
   doesn't have, no money promise, never a verse or a hadith as a hook.
 

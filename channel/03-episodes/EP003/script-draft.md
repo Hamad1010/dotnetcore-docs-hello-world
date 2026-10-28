@@ -1,11 +1,10 @@
 # EP003 · الملف 03: سر الـ3.1 مليار · تموضعك: لا تكون الأفضل… كن الوحيد
 
-> **Draft for your approval · 28 Oct 2026.** Framework v5.2: no puzzle, and no answer to EP002's. Sources, links and the arithmetic
-> behind every number: [sources.md](sources.md).
+> **Approved by the owner on 28 Oct 2026 (frozen).** From here on `episode.json` is the source. Framework v5.2: no puzzle, and no
+> answer to EP002's. Sources, links and the arithmetic behind every number: [sources.md](sources.md).
 > **Journey:** أنت هنا: «فيه غيري كثير… ليش يختاروني أنا؟» → كم يكلّفك إنك تشبه غيرك؟ → اختبر نفسك → 4 خطوات تلقى فيها مكانك →
 > فخاخ الطريق → تمارين → الوصول: أول اسم يجي في بالهم.
-> **The map's shape:** your pick from `EP003-map-options.jpg`: 1 · the mountain (my choice: the flag on the summit is «أول اسم يجي في
-> بالهم») or 2 · the stairs. The narration says «نطلع… من تحت لفوق», which fits both.
+> **The map's shape:** the mountain (the owner's choice, 28 Oct): the flag on the summit is «أول اسم يجي في بالهم».
 > **EP002's promise kept:** its teaser asked what the two in Dubai did so the giant paid $3.1 billion. Part 1 tells the whole story in
 > order; part 2 names the secret.
 > **Opening loops:** the two young Saudis who served one kind of shop → station 3, step 2 (Foodics); the 15-minute move that can give
