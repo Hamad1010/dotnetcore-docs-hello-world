@@ -1,0 +1,12 @@
+{
+  "name": "غرفة الفرص",
+  "nameEn": "Opportunity Room",
+  "handle": "",
+  "tagline": "اكتشف موهبتك… وحوّلها لمشروع يكبر، بالأرقام",
+  "note": "Business channel. Handle not chosen yet: check the same handle is free on YouTube, TikTok, Snapchat, Instagram and X.",
+  "background": "insight",
+  "backgroundLevel": 20,
+  "backgroundOptions": "background = a file in _assets/music/ without \".mp3\" (every bed there is at -18 LUFS), or none. backgroundLevel = how many dB it sits under the voice while it speaks (it rises 4 dB in the pauses); 20 from EP002 on, and an episode.json can set its own (EP001: 25). Compare beds with: npm run render -- EP00N --audio --background=<name>",
+  "episodeLabel": "الملف",
+  "episodeLabelNote": "Shown on screen before the episode number (\"الملف 01\"), from framework v3 §3.9. Change it here only."
+}

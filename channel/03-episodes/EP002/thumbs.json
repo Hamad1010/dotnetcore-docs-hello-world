@@ -1,0 +1,206 @@
+[
+ {
+  "layout": "design",
+  "design": "doors",
+  "lines": [
+   "7 سنين",
+   "من «لا»"
+  ],
+  "tag": "وبعدها؟"
+ },
+ {
+  "layout": "design",
+  "design": "scissors",
+  "lines": [
+   "ليلة وحدة…",
+   "ومقص"
+  ],
+  "tag": "بداية مليار"
+ },
+ {
+  "layout": "design",
+  "design": "dinner",
+  "lines": [
+   "سؤال العشا"
+  ],
+  "extra": "وش فشلتي فيه هالأسبوع؟",
+  "tag": "كل أسبوع"
+ },
+ {
+  "layout": "design",
+  "design": "growth",
+  "lines": [
+   "19 ألف ريال…",
+   "4.5 مليار"
+  ],
+  "tag": "بعد 21 سنة",
+  "labels": [
+   "2000",
+   "2021"
+  ]
+ },
+ {
+  "layout": "design",
+  "design": "doors",
+  "lines": [
+   "كلهم «لا»",
+   "إلا واحد"
+  ],
+  "extra": "نعم",
+  "tone": "blue"
+ },
+ {
+  "layout": "design",
+  "design": "seven",
+  "lines": [
+   "7 سنين",
+   "ضياع؟"
+  ],
+  "tag": "موهبتها كانت هنا"
+ },
+ {
+  "layout": "design",
+  "design": "factory",
+  "lines": [
+   "خياط واحد…",
+   "صاروا 250"
+  ],
+  "tag": "غرفة في البيت"
+ },
+ {
+  "layout": "design",
+  "design": "thobe",
+  "lines": [
+   "ثوب عادي؟"
+  ],
+  "tag": "شاف فيه فرصة"
+ },
+ {
+  "layout": "design",
+  "design": "branches",
+  "lines": [
+   "بدأ من",
+   "مشغل أمه"
+  ],
+  "tag": "أكثر من 10 فروع"
+ },
+ {
+  "layout": "design",
+  "design": "calendar",
+  "lines": [
+   "ما استقال",
+   "4 سنين"
+  ],
+  "tag": "ليش؟",
+  "labels": [
+   "2001",
+   "2005"
+  ]
+ },
+ {
+  "layout": "design",
+  "design": "blog",
+  "lines": [
+   "خسرت وظيفتها",
+   "وبدت مدونة"
+  ],
+  "tag": "وبعد 7 سنين؟",
+  "extra": "ببلاش"
+ },
+ {
+  "layout": "design",
+  "design": "growth",
+  "lines": [
+   "سلفة من أختها",
+   "6 آلاف $"
+  ],
+  "tag": "وبعد 4 سنين؟",
+  "labels": [
+   "2013",
+   "2017"
+  ],
+  "tone": "blue"
+ },
+ {
+  "layout": "design",
+  "design": "equal",
+  "lines": [
+   "نفس الرقم!"
+  ],
+  "tag": "مدونة… ومقص"
+ },
+ {
+  "layout": "design",
+  "design": "seven",
+  "lines": [
+   "لغز",
+   "السبع سنين"
+  ],
+  "tag": "3 قصص… نفس الرقم",
+  "tone": "blue"
+ },
+ {
+  "layout": "design",
+  "design": "people4",
+  "lines": [
+   "2 من كل 10"
+  ],
+  "tag": "متحمسين لشغلهم",
+  "tag2": "غالوب 2026",
+  "labels": [
+   "10",
+   "2"
+  ]
+ },
+ {
+  "layout": "design",
+  "design": "desks",
+  "lines": [
+   "نفس الراتب…",
+   "6 أضعاف"
+  ],
+  "tag": "واحد شغّال بموهبته"
+ },
+ {
+  "layout": "design",
+  "design": "asks",
+  "lines": [
+   "تحسبه",
+   "عادي؟"
+  ],
+  "tag": "موهبتك المخفية"
+ },
+ {
+  "layout": "design",
+  "design": "fork",
+  "lines": [
+   "تستقيل…",
+   "ولا تكمّل؟"
+  ],
+  "tag": "دراسة كشفت الفرق"
+ },
+ {
+  "layout": "design",
+  "design": "graph",
+  "lines": [
+   "أول ما يصعب…",
+   "تتركه؟"
+  ],
+  "tag": "تجربة في ستانفورد"
+ },
+ {
+  "layout": "design",
+  "design": "puzzle",
+  "lines": [
+   "كم يطلع الرقم؟"
+  ],
+  "tag": "لغز الملف 02",
+  "tiles": [
+   "7",
+   "−",
+   "4",
+   "−",
+   "3"
+  ]
+ }
+]
