@@ -12,6 +12,8 @@
 //   node scripts/render.mjs EP001 --audio      only the soundtrack → out/<EP>.wav (fast: to compare backgrounds)
 //   node scripts/render.mjs EP003 --until=30   only the first 30 seconds (a new look's test, CLAUDE.md rule 9)
 //                                              → out/<EP>-first30s.mp4
+//   node scripts/render.mjs EP003 --remaster   the sound again, mastered onto the picture of the existing out/<EP>.mp4
+//                                              (after a change to the mix or the mastering; the picture isn't redrawn)
 //   --background=<name>                        a file in _assets/music/ (no .mp3), or none: overrides channel.json
 import fs from 'node:fs';
 import os from 'node:os';
@@ -33,6 +35,7 @@ const shortArg = args.find((a) => a.startsWith('--short='));
 const onlyShort = shortArg ? Number(shortArg.split('=')[1]) : null;
 const shortsOnly = args.includes('--shorts') || onlyShort !== null;
 const audioOnly = args.includes('--audio');
+const remaster = args.includes('--remaster');
 const bgArg = args.find((a) => a.startsWith('--background='));
 const untilArg = args.find((a) => a.startsWith('--until='));
 const untilSeconds = untilArg ? Number(untilArg.split('=')[1]) : null;
@@ -73,21 +76,32 @@ const loudness = (file, options = '') => {
 };
 
 // Final loudness: YouTube plays everything at about -14 LUFS and never turns a quiet video up, so the finished mix is
-// brought to -14 LUFS with a limiter at -2 dBFS, and encoded once to AAC at 256k (at 192k one sharp click in EP002 came
-// out 3 dB over the limiter; YouTube wants true peaks under -1 dB). The picture is copied untouched. `sound` is the
-// episode's separate WAV; without it the file's own sound is used (a Short).
+// brought to -14 LUFS under a limiter at -2 dBFS, and encoded once to AAC at 256k (at 192k one sharp click in EP002 came
+// out 3 dB over the limiter). YouTube wants true peaks under -1 dB: the limiter runs at 4× the sample rate, so it sees
+// the peaks between samples, and the encoded file is measured; if a click still comes out over -1 dB (EP003: an effect
+// on a word, +0.3 dB) the ceiling drops by the overshoot and the mastering runs again. The picture is copied untouched.
+// `sound` is the episode's separate WAV; without it the file's own sound is used (a Short).
 const master = (picture, output, sound = null) => {
   const {i} = loudness(sound ?? picture);
   const gain = i ? -14 - parseFloat(i) : 0;
   const tmp = output.replace(/\.mp4$/, '.master.mp4');
   const inputs = sound ? ['-i', picture, '-i', sound, '-map', '0:v', '-map', '1:a'] : ['-i', picture];
-  const filter = i ? ['-af', `volume=${(gain + 0.1).toFixed(2)}dB,alimiter=limit=0.79:attack=5:release=60:level=false`] : [];
-  const r = ffmpeg(['-y', '-loglevel', 'error', ...inputs, '-c:v', 'copy', ...filter, '-c:a', 'aac', '-b:a', '256k', '-movflags', '+faststart', tmp]);
-  if (r.status !== 0) return console.log('  (mastering failed)', r.stderr);
+  let ceiling = -2;
+  let after = {};
+  for (let pass = 1; pass <= 3; pass++) {
+    const limiter = `aresample=192000,alimiter=limit=${(10 ** (ceiling / 20)).toFixed(3)}:attack=5:release=60:level=false,aresample=48000`;
+    const filter = i ? ['-af', `volume=${(gain + 0.1).toFixed(2)}dB,${limiter}`] : [];
+    const r = ffmpeg(['-y', '-loglevel', 'error', ...inputs, '-c:v', 'copy', ...filter, '-c:a', 'aac', '-b:a', '256k', '-movflags', '+faststart', tmp]);
+    if (r.status !== 0) return console.log('  (mastering failed)', r.stderr);
+    if (!i) break;
+    after = loudness(tmp, ':peak=true');
+    const tp = parseFloat(after.tp);
+    if (!(tp > -1)) break;
+    ceiling -= tp + 1.3;
+  }
   fs.renameSync(tmp, output);
   if (!i) return console.log('  (loudness not measured, sound left as rendered)');
-  const after = loudness(output, ':peak=true');
-  console.log(`✓ loudness ${i} → ${after.i ?? '?'} LUFS (${gain >= 0 ? '+' : ''}${gain.toFixed(1)} dB), true peak ${after.tp ?? '?'} dB`);
+  console.log(`✓ loudness ${i} → ${after.i ?? '?'} LUFS (${gain >= 0 ? '+' : ''}${gain.toFixed(1)} dB), true peak ${after.tp ?? '?'} dB (limiter at ${ceiling.toFixed(1)} dB)`);
 };
 
 const progress = (label) => {
@@ -150,6 +164,10 @@ console.log('✓ subtitles.ar.srt + chapters.txt');
 // render's sounds through full-length temporary files (about 10 GB at once for a 15-minute episode), more than a cloud
 // session's disk holds. Then the picture without sound; master() puts the two together.
 const output = path.join(outDir, `${episodeId}${untilSeconds ? `-first${untilSeconds}s` : ''}${preview ? '-preview' : ''}.mp4`);
+if (remaster && !fs.existsSync(output)) {
+  console.log(`no ${path.relative(process.cwd(), output)} to put the sound on: render the episode first`);
+  process.exit(1);
+}
 const work = path.join(outDir, 'parts');
 fs.rmSync(work, {recursive: true, force: true});
 fs.mkdirSync(work, {recursive: true});
@@ -166,6 +184,13 @@ fs.writeFileSync(path.join(work, 'sound.txt'), wavs.map((w) => `file '${w}'`).jo
 const sound = path.join(work, 'sound.wav');
 ffmpeg(['-y', '-loglevel', 'error', '-f', 'concat', '-safe', '0', '-i', path.join(work, 'sound.txt'), '-c', 'copy', sound]);
 console.log(`✓ sound (${wavs.length} parts)`);
+
+if (remaster) {
+  master(output, output, sound);
+  fs.rmSync(work, {recursive: true, force: true});
+  console.log(`✓ ${path.relative(process.cwd(), output)}  (new sound, the same picture)`);
+  process.exit(0);
+}
 
 const picture = path.join(work, 'picture.mp4');
 const started = Date.now();
