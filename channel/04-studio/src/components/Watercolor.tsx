@@ -3,9 +3,10 @@
 // Textures from 06-tools/watercolor_textures.py; everything else drawn here from plain shapes.
 import React from 'react';
 import {AbsoluteFill, Img, interpolate, useCurrentFrame} from 'remotion';
-import {C} from '../theme';
+import {C, rich} from '../theme';
 import {ink, texture} from '../look-kit';
 import {useFrameSize} from './frame';
+import {Atmosphere} from './Motion';
 
 const clamp = {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'} as const;
 
@@ -40,6 +41,7 @@ export const WashBackdrop: React.FC = () => {
           }}
         />
       ))}
+      {rich() ? <Atmosphere /> : null}
     </AbsoluteFill>
   );
 };
@@ -50,6 +52,7 @@ export const WashTextures: React.FC = () => (
     {(['paper.jpg', 'paper-tile.jpg', 'wash-blue.png', 'wash-gold.png', 'wash-green.png', 'wash-rose.png'] as const).map((n) => (
       <Img key={n} src={texture(n)} style={{display: 'none'}} />
     ))}
+    {rich() ? (['blue', 'gold', 'green', 'rose'] as const).map((n) => <Img key={n} src={texture(`stroke-${n}.png`)} style={{display: 'none'}} />) : null}
   </>
 );
 

@@ -294,6 +294,9 @@ export type Episode = {
   backgroundLevel?: number;
   /** the journey map's shape; default the winding road */
   map?: MapShape;
+  /** how much it moves: "plain" (default) or "rich", brush wipes between scenes, kinetic headlines, impacts, light
+   * and motes (components/Motion.tsx; the owner's request after EP003) */
+  motion?: 'plain' | 'rich';
   /** the look: "material" (default) or "watercolor", between watercolor and anime (an experiment from EP003) */
   look?: 'material' | 'watercolor';
   scenes: Scene[];

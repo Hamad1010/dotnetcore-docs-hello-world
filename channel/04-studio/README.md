@@ -11,6 +11,8 @@ Turns `../03-episodes/<EP>/episode.json` into a finished video. You edit **text*
 | `npm run preview -- EP001` | A few still frames → `out/preview/` (fast visual check) |
 | `npm run render -- EP001 [--preview]` | MP4 + thumbnail + `subtitles.ar.srt` + `chapters.txt` → `out/` |
 | `npm run render -- EP003 --until=30` | Only the first 30 seconds → `out/EP003-first30s.mp4` (a new look's test, CLAUDE.md rule 9) |
+| `npm run render -- EP003 --from=445 --until=505` | A window anywhere in the episode → `out/EP003-445s-505s.mp4` |
+| `npm run render -- EP003 --remaster` | The sound again, mastered onto the existing `out/EP003.mp4` (the picture isn't redrawn) |
 | `npm run render -- EP001 --shorts` | Vertical 9:16 Shorts (scenes listed in `episode.json` → `shorts`; an entry can be `{"scenes": [...], "title": "..."}`) |
 | `npm run preview -- EP001 --short=s4` | Still frames of a Short |
 | `npm run studio` | Live editor in the browser (scrub, tweak, see changes instantly) |
@@ -26,6 +28,10 @@ Turns `../03-episodes/<EP>/episode.json` into a finished video. You edit **text*
   from EP003) moves it between watercolor and anime: paper and pigment washes (`06-tools/watercolor_textures.py` →
   `03-episodes/_assets/look/`), an ink line and a cel shadow on every card, an anime sky over the journey map, sparkles on
   the big reveals and focus lines behind a question (`src/components/Watercolor.tsx`).
+- `src/components/Motion.tsx`: rich motion (`episode.json` → `"motion": "rich"`, on trial since EP003's 60-second test):
+  brush strokes wiping between scenes (`stroke-<pigment>.png` from `06-tools/watercolor_textures.py`), headlines that
+  land word by word on a painted underline, an impact burst when a number lands, cards that bounce in, ink thrown by
+  stamps, warm sun rays and motes on the paper. Plain shapes and moving images only, so a render costs what it did.
 - `src/BoxedShort.tsx`: a Short made of stage scenes, whose cards are laid out for 16:9 only: the scenes stay wide in a band
   across the vertical frame (`src/components/frame.ts` tells them their size), the Short's title above, big captions
   below, then the vertical end card.

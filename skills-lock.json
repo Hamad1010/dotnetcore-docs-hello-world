@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "skills": {
+    "audio-cleanup": {
+      "source": "nemock/audio-cleanup-skill",
+      "sourceType": "github",
+      "skillPath": "skills/audio-cleanup/SKILL.md",
+      "computedHash": "adc3882e1c9e1ea7bddfa26f123e1732553c7b4d13b7535efa880e4564ab6d2f",
+      "installMode": "copy"
+    }
+  }
+}

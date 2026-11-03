@@ -12,6 +12,7 @@
 //   node scripts/render.mjs EP001 --audio      only the soundtrack → out/<EP>.wav (fast: to compare backgrounds)
 //   node scripts/render.mjs EP003 --until=30   only the first 30 seconds (a new look's test, CLAUDE.md rule 9)
 //                                              → out/<EP>-first30s.mp4
+//   node scripts/render.mjs EP003 --from=461 --until=521   a window from second 461 to 521 → out/<EP>-461s-521s.mp4
 //   node scripts/render.mjs EP003 --remaster   the sound again, mastered onto the picture of the existing out/<EP>.mp4
 //                                              (after a change to the mix or the mastering; the picture isn't redrawn)
 //   --background=<name>                        a file in _assets/music/ (no .mp3), or none: overrides channel.json
@@ -39,6 +40,8 @@ const remaster = args.includes('--remaster');
 const bgArg = args.find((a) => a.startsWith('--background='));
 const untilArg = args.find((a) => a.startsWith('--until='));
 const untilSeconds = untilArg ? Number(untilArg.split('=')[1]) : null;
+const fromArg = args.find((a) => a.startsWith('--from='));
+const fromSeconds = fromArg ? Number(fromArg.split('=')[1]) : 0;
 const outDir = path.join(episodes, episodeId, 'out');
 fs.mkdirSync(outDir, {recursive: true});
 
@@ -165,7 +168,8 @@ console.log('✓ subtitles.ar.srt + chapters.txt');
 // The sound first, in parts of about 3 minutes cut where a scene starts, joined into one WAV: Remotion mixes all of a
 // render's sounds through full-length temporary files (about 10 GB at once for a 15-minute episode), more than a cloud
 // session's disk holds. Then the picture without sound; master() puts the two together.
-const output = path.join(outDir, `${episodeId}${untilSeconds ? `-first${untilSeconds}s` : ''}${preview ? '-preview' : ''}.mp4`);
+const window = untilSeconds ? (fromSeconds ? `-${fromSeconds}s-${untilSeconds}s` : `-first${untilSeconds}s`) : '';
+const output = path.join(outDir, `${episodeId}${window}${preview ? '-preview' : ''}.mp4`);
 if (remaster && !fs.existsSync(output)) {
   console.log(`no ${path.relative(process.cwd(), output)} to put the sound on: render the episode first`);
   process.exit(1);
@@ -174,8 +178,9 @@ const work = path.join(outDir, 'parts');
 fs.rmSync(work, {recursive: true, force: true});
 fs.mkdirSync(work, {recursive: true});
 const total = untilSeconds ? Math.min(comp.durationInFrames, Math.round(untilSeconds * plan.fps)) : comp.durationInFrames;
-const cuts = [0];
-for (const sc of plan.scenes) if (sc.from - cuts[cuts.length - 1] >= 180 * plan.fps && total - sc.from >= 60 * plan.fps) cuts.push(sc.from);
+const first = Math.min(total - 1, Math.round(fromSeconds * plan.fps));
+const cuts = [first];
+for (const sc of plan.scenes) if (sc.from > first && sc.from - cuts[cuts.length - 1] >= 180 * plan.fps && total - sc.from >= 60 * plan.fps) cuts.push(sc.from);
 cuts.push(total);
 const wavs = [];
 for (let k = 0; k + 1 < cuts.length; k++) {
@@ -203,7 +208,7 @@ await renderMedia({
   codec: 'h264',
   crf: preview ? 26 : 18,
   muted: true,
-  frameRange: [0, total - 1],
+  frameRange: [first, total - 1],
   scale: preview ? 2 / 3 : 1,
   outputLocation: picture,
   inputProps,
@@ -220,7 +225,7 @@ await renderMedia({
     }
   },
 });
-const mins = (total / plan.fps / 60).toFixed(2);
+const mins = ((total - first) / plan.fps / 60).toFixed(2);
 master(picture, output, sound);
 fs.rmSync(work, {recursive: true, force: true});
 console.log(`✓ ${path.relative(process.cwd(), output)}  (${mins} min video, picture rendered in ${Math.round((Date.now() - started) / 1000)}s)`);

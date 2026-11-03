@@ -11,6 +11,7 @@ import {Sfx, SfxOn} from './components/Sfx';
 import {cueAt} from './scenes/common';
 import {applyLook} from './look';
 import {WashTextures} from './components/Watercolor';
+import {BrushWipe, WIPE_FRAMES, WIPE_LEAD} from './components/Motion';
 
 export type EpisodeData = {episode: Episode; plan: Plan; brand: Brand; music: string | null; sfx: boolean};
 export type EpisodeProps = {episodeId: string; showCaptions?: boolean; background?: string; data?: EpisodeData};
@@ -22,7 +23,7 @@ export const EpisodeVideo: React.FC<EpisodeProps> = ({episodeId, showCaptions, d
   if (!data) return <AbsoluteFill style={{background: C.bg}} />;
   const {episode, plan, brand, music, sfx} = data;
   // the look first: every scene reads its colours, shadows and cards when it is drawn
-  applyLook(episode.look);
+  applyLook(episode.look, episode.motion);
   const hasVoice = plan.scenes.some((s) => s.audio);
   // Without a voice track the captions carry the story, so they are always on.
   const caps = showCaptions ?? !hasVoice;
@@ -123,6 +124,16 @@ export const EpisodeVideo: React.FC<EpisodeProps> = ({episodeId, showCaptions, d
           </Sequence>
         );
       })}
+      {/* rich motion: a brush wipe on every cut, except into, out of or inside the quiet «وقفة» and the dark teaser */}
+      {episode.motion === 'rich'
+        ? plan.scenes.map((sp, i) =>
+            i > 0 && !isQuiet(i) && !isQuiet(i - 1) && sp.from < darkFrom ? (
+              <Sequence key={`wipe-${i}`} from={sp.from - WIPE_LEAD} durationInFrames={WIPE_FRAMES} name={`wipe ${episode.scenes[i].id}`}>
+                <BrushWipe index={i} />
+              </Sequence>
+            ) : null,
+          )
+        : null}
       {music ? <Html5Audio src={staticFile(music)} loop volume={musicVolume} /> : null}
     </AbsoluteFill>
     </SfxOn.Provider>

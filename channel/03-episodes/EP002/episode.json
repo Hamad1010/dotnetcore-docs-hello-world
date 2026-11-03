@@ -4,6 +4,7 @@
   "season": 1,
   "status": "scripted",
   "framework": "v5",
+  "backgroundLevel": 20,
   "note": "Built 25 Oct 2026 from the owner's approved revision (script-draft.md). Moments are designed after the recording is synced (framework §3.14).",
   "title": "موهبتك المخفية",
   "kicker": "لغز السبع سنين",

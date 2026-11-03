@@ -6,8 +6,9 @@ import {interpolate, spring, useCurrentFrame, useVideoConfig} from 'remotion';
 import {geoContains, geoEqualEarth, geoMercator, geoPath, type GeoPermissibleObjects} from 'd3-geo';
 import {feature} from 'topojson-client';
 import world from 'world-atlas/countries-110m.json';
-import {C, EASE_IN_OUT, EASE_OUT, FONT, ON_STAGE, watercolor} from '../theme';
+import {C, EASE_IN_OUT, EASE_OUT, FONT, ON_STAGE, rich, watercolor} from '../theme';
 import {FocusLines, Sparkles} from './Watercolor';
+import {ImpactBurst, InkSplatter, punch, shake, squash} from './Motion';
 import {INK_SHADOW} from '../look-kit';
 import type {Moment, MomentSlot} from '../types';
 import type {ScenePlan} from '../lib/plan';
@@ -141,7 +142,10 @@ const StampMark: React.FC<{m: Extract<Moment, {kind: 'stamp'}>; c: Clock}> = ({m
   const {fps} = useVideoConfig();
   const p = spring({frame: c.f - c.inAt, fps, config: {damping: 9, stiffness: 190, mass: 0.6}});
   const tone = TONE[m.tone ?? 'neg'];
+  // rich motion: the hit throws ink and shakes the stamp
   return (
+    <div style={{position: 'relative', transform: rich() ? shake(c.f, c.inAt + 3) : undefined}}>
+    {rich() ? <InkSplatter at={c.inAt + 3} color={tone.main} /> : null}
     <div
       style={{
         border: `${m.small ? 7 : 9}px solid ${tone.main}`,
@@ -160,6 +164,7 @@ const StampMark: React.FC<{m: Extract<Moment, {kind: 'stamp'}>; c: Clock}> = ({m
     >
       {m.text}
       <Sfx at={c.inAt + 3} name="stamp" />
+    </div>
     </div>
   );
 };
@@ -210,15 +215,20 @@ const QuoteCard: React.FC<{m: Extract<Moment, {kind: 'quote'}>; c: Clock; plan: 
 const CountCard: React.FC<{m: Extract<Moment, {kind: 'count'}>; c: Clock}> = ({m, c}) => {
   const tone = TONE[m.tone ?? 'accent'];
   const p = interpolate(c.f, [c.inAt, c.inAt + 26], [0, 1], {...clamp, easing: EASE_OUT});
+  // rich motion: the number lands with an impact frame and swells for a third of a second
+  const land = c.inAt + 26;
   return (
+    <div style={{position: 'relative'}}>
+    {rich() ? <ImpactBurst at={land} color={tone.main} /> : null}
     <div style={{...CARD, padding: '28px 44px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6}}>
-      <div style={{display: 'flex', alignItems: 'baseline', gap: 14, color: tone.main}}>
+      <div style={{display: 'flex', alignItems: 'baseline', gap: 14, color: tone.main, transform: rich() ? `scale(${1 + 0.14 * punch(c.f, land)})` : undefined}}>
         <span style={{...numDir(m.value), fontSize: 110, fontWeight: 700, lineHeight: 1}}>{counted(m.value, p)}</span>
         {m.unit ? <span style={{fontSize: 42, fontWeight: 700}}>{m.unit}</span> : null}
       </div>
       {m.label ? <div style={{fontSize: 32, color: C.ink2, fontWeight: 500}}>{m.label}</div> : null}
       <Sfx at={c.inAt} name="pop" />
       <Sfx at={c.inAt + 2} name="roll" />
+    </div>
     </div>
   );
 };
@@ -557,6 +567,7 @@ export const Moments: React.FC<{moments?: Moment[]; plan: ScenePlan; narration: 
         const [dx, dy] = m.nudge ?? [0, 0];
         const enter = m.kind === 'stamp' ? 1 : spring({frame: f - inAt, fps, config: {damping: 15, stiffness: 150, mass: 0.7}});
         const exit = interpolate(f, [outAt, outAt + 12], [0, 1], {...clamp, easing: EASE_OUT});
+        const [qx, qy] = rich() && m.kind !== 'stamp' ? squash(f, inAt, fps) : [1, 1];
         return (
           <React.Fragment key={i}>
             {shown ? (
@@ -565,7 +576,7 @@ export const Moments: React.FC<{moments?: Moment[]; plan: ScenePlan; narration: 
                   position: 'absolute',
                   left: sx + (mx - sx) * mv + dx,
                   top: sy + (my - sy) * mv + dy,
-                  transform: `translate(-50%, -50%) translateY(${(1 - enter) * 40 - exit * 30}px) scale(${(0.86 + 0.14 * enter) * (1 - 0.18 * mv) * (1 - 0.06 * exit)})`,
+                  transform: `translate(-50%, -50%) translateY(${(1 - enter) * 40 - exit * 30}px) scale(${qx * (0.86 + 0.14 * enter) * (1 - 0.18 * mv) * (1 - 0.06 * exit)}, ${qy * (0.86 + 0.14 * enter) * (1 - 0.18 * mv) * (1 - 0.06 * exit)})`,
                   opacity: Math.min(1, enter * 1.3) * (1 - exit),
                   zIndex: m.over ? 6 : 2,
                 }}

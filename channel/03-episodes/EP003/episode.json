@@ -4,6 +4,7 @@
  "season": 1,
  "status": "scripted",
  "framework": "v5.2",
+ "backgroundLevel": 20,
  "note": "Built 28 Oct 2026 from the owner's approved draft (script-draft.md). Moments are designed after the recording is synced (framework §3.14). Narration matched to the owner's recording of 28 Oct (21 small wording changes: «كافيه», «تقليد الكبير», «يا حبيبي» left out…).",
  "title": "تموضعك",
  "kicker": "سر الـ3.1 مليار",

@@ -1,6 +1,6 @@
 # 11 · Video framework: how every long video is built
 
-**Current version: v5.2** (28 Oct 2026). This file is the only place where the structure of a long video is defined.
+**Current version: v5.3** (3 Nov 2026). This file is the only place where the structure of a long video is defined.
 `CLAUDE.md`, the `/new-episode` skill and the blueprint point here instead of repeating it, so a change made here
 reaches everything at once.
 
@@ -162,6 +162,9 @@ Each trap goes through five steps, so it is clear and not just a warning:
 - A near-real example is marked **[مثال توضيحي]** in the script and labelled on screen.
 
 ### 3.13 The publish kit (new in v4)
+**v5.3: no thumbnails and no Shorts until the owner decides** (their rule, Nov 2026). The kit is `publish.md`: titles
+(through `/yt-package`), descriptions (through `/yt-seo`), tags, chapters (through `/yt-chapters`), the pinned comment.
+What follows about thumbnails waits until then.
 Every full script comes with `publish.md` and three thumbnail images, so the owner judges the whole package:
 - **3 video titles, told as a story (v5):** the owner's model is the Saudi storytelling title: a person, what happened
   to them, the turn, and what it leaves open («…وبعد سبع سنين صار اللي ما توقعه أحد»), so the viewer wants to know what
@@ -205,11 +208,11 @@ The owner's rule after part A: the screen must move with the voice. Nothing may 
 - **A sound for each moment,** short and never melodic (pop, tick, typing, swish, stamp, coin, paper, a rising hiss
   into the big reveal, then an impact); a whoosh between scenes. They sit well under the voice
   (`04-studio/src/components/Sfx.tsx`, made by `npm run music -- sfx`).
-- **The background: soft hums, no instruments, never sad.** Its job is that the voice is never alone, without anyone
-  hearing "background music": quiet, curious, good for analysis. The owner chooses it by ear (their "Detective
+- **The background: soft hums, no instruments, never sad.** Its job is that the voice is never alone: quiet, curious,
+  good for analysis, and since v5.3 a bit noticeable (the owner asked for it 5 dB louder). The owner chooses it by ear (their "Detective
   Backgrounds" hums, or beds made with `06-tools/ambient_bed.py` or `humming_bed.py`; screen each with
   `06-tools/listen_check.py`). `channel.json` → `"background"` (a file in `_assets/music/`, at -18 LUFS) and
-  `"backgroundLevel"` (how many dB under the voice: 20 from v5, 25 in EP001); it rises 4 dB in the pauses between scenes
+  `"backgroundLevel"` (how many dB under the voice: 15 from v5.3, 20 in EP002–EP003, 25 in EP001); it rises 4 dB in the pauses between scenes
   and fades out for the «وقفة» (§3.15).
 - **Cues are spoken words,** checked against the recording's word marks; `phrase@2` picks a phrase's second
   occurrence when the first one is elsewhere (e.g. «ألفين» in 2009 and in 2000 years).
@@ -261,6 +264,10 @@ cleaning does the rest.
   loudness as the rest (a gain and a peak limiter). A word said wrong can be replaced by the same word said right
   elsewhere in the recording (`audio/cuts.json`). Each finished scene is transcribed again, and the report lists any word
   that can't be heard any more.
+- **A podcast voice (v5.3, the owner's request):** from EP004 the sound the viewer hears is the `audio-cleanup` skill's
+  podcast preset (`.claude/skills/audio-cleanup`) on the noise-cleaned voice: more body at 200 Hz, presence at 3 kHz,
+  the hiss above 14 kHz cut, a gentle 3:1 compressor. The cuts, pauses and breaths are still decided as above, so
+  nothing else changes; `--voice=studio` gives the v5 sound.
 
 ### 3.18 Dialogues (new in v5.1)
 When the episode's skill happens in a conversation (asking people, offering, pricing, answering a customer, negotiating),
@@ -276,8 +283,9 @@ show it as a short dialogue of 2–6 lines: two voices, Saudi names and places, 
 
 ## 4. From draft to video
 
-1. Claude writes `03-episodes/EP00N/script-draft.md` (this framework, numbers as plain digits), `sources.md` and the
-   publish kit (§3.13): `publish.md`, `thumbs.json` and the three thumbnail images.
+1. Claude runs `/yt-script` (five hooks for part 1, scored) and writes `03-episodes/EP00N/script-draft.md` (this
+   framework, numbers as plain digits), `sources.md` and the publish kit (§3.13): `publish.md` (no thumbnails while
+   they are paused).
    Draft header: title, case file, `Framework vN`, the journey (start → stations → destination), where the opening
    loop is paid off, the small move, the map's shape, the teaser, and where part A ends.
 2. The owner reads the draft and approves it or says what to change.
@@ -298,7 +306,8 @@ show it as a short dialogue of 2–6 lines: two voices, Saudi names and places, 
 - [ ] Every trap follows the five steps; every tool step has a first move that costs nothing.
 - [ ] The self-check says how to count and ends with 3 bands.
 - [ ] Opening loop paid off; a callback (from EP002 on); no puzzle and no puzzle answer (v5.2); the teaser matches the tracker.
-- [ ] The publish kit: 3 titles, 3 thumbnails (text + image), 2 descriptions (§3.13).
+- [ ] The hook: five options scored with `/yt-script`; the owner sees the top two.
+- [ ] The publish kit: 3 titles (through `/yt-package`), 2 descriptions (§3.13); no thumbnails or Shorts (v5.3).
 - [ ] A small move with big impact; every point ends in a business result.
 - [ ] No subscribe/like, no promises, no investing tips; the specialist line if stress comes up.
 - [ ] Saudi stories, numbers and examples wherever they fit; nothing that hurts anyone; no story a later episode plans.
@@ -325,6 +334,14 @@ show it as a short dialogue of 2–6 lines: two voices, Saudi names and places, 
 | every scene | `moments` on the narrator's words, each with its sound (§3.14) |
 
 ## 7. Changelog
+
+- **v5.3 · 3 Nov 2026.** From the owner after EP003: no thumbnails and no Shorts until they decide (§3.13); the
+  `youtube-agent` skills at every stage, from the script (`/yt-script` scores five hooks) to the publish
+  (`/yt-package`, `/yt-edit`, `/yt-chapters`, `/yt-seo`, `/yt-comment`, `/yt-retention`; CLAUDE.md rule 12); a podcast
+  voice from the `audio-cleanup` skill (§3.17); the background 5 dB louder, 15 dB under the voice (§3.14). On trial
+  with a 60-second test from EP003: richer motion on the watercolor-anime look (`episode.json` `"motion": "rich"`:
+  brushes wiping between scenes, headlines landing word by word on a painted underline, an impact when a number lands,
+  cards that bounce in, ink thrown by stamps, sun rays and motes on the paper); the owner decides whether it stays.
 
 - **v5.2 · 28 Oct 2026.** From the owner after EP002: no more puzzles, and EP002's puzzle gets no answer; part 9 ends with
   one question the viewer answers from their own life (§2, §3.11); case names use «سر» or «قصة», never «لغز» (§3.9). A new

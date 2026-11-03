@@ -4,7 +4,7 @@
 // card and chip, pigment colours, an anime sky with cel-shaded clouds over the journey map, sparkles on the big reveals.
 // Components read C, SHADOW, DEEP, CARD and TONE when a frame is drawn, so applyLook (called by the episode before
 // anything else) reaches all of them.
-import {ACCENTS, C, DARK, LOOK, ON_STAGE, SHADOW, SHADOW_SOFT, setShadows, type LookName} from './theme';
+import {ACCENTS, C, DARK, LOOK, ON_STAGE, SHADOW, SHADOW_SOFT, setShadows, type LookName, type MotionName} from './theme';
 import {CARD, DEEP, setDeep, TONE} from './components/moment-kit';
 import {INK_DEEP, INK_SHADOW, INK_SHADOW_SOFT, paperCard} from './look-kit';
 
@@ -36,7 +36,8 @@ const WATERCOLOR: typeof C = {
 };
 const WATERCOLOR_DARK: typeof DARK = {bg: '#171A31', glow: '#2E3666', ink: '#F4F0E6', ink2: '#C3C1D2', ink3: '#9A9CB8'};
 
-export const applyLook = (name: LookName = 'material') => {
+export const applyLook = (name: LookName = 'material', motion: MotionName = 'plain') => {
+  LOOK.motion = motion;
   if (LOOK.name === name) return;
   LOOK.name = name;
   const w = name === 'watercolor';

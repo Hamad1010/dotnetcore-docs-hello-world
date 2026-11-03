@@ -4,6 +4,7 @@
     python3 channel/06-tools/clean_recording.py EP001 path/to/recording.m4a --isolate   (ElevenLabs Voice Isolator first)
     python3 channel/06-tools/clean_recording.py EP001 --marks     (only re-align the words, after a small text change)
     … --reuse-stt     a re-run after a change to the sound only: scenes of the same length keep their transcripts (no cost)
+    … --voice=studio  the v5 studio sound (EP001–EP003) instead of the podcast voice
 
 1. Listens: transcribes the recording with word times (ElevenLabs speech-to-text. In a cloud session the key is
    the environment's network secret; on a computer, set ELEVENLABS_API_KEY).
@@ -21,6 +22,11 @@
    gate that makes the pauses silent, then loudness -16 LUFS with true peak -1.5 dB (two-pass, so the voice keeps its
    dynamics). `--isolate` first sends the recording to ElevenLabs' Voice Isolator (about 1,000 credits a minute of
    audio) for a noisy or echoing room; RNNoise is then skipped.
+   The podcast voice (the owner's request, Nov 2026; the default from EP004): what the viewer hears comes from the
+   audio-cleanup skill (`.claude/skills/audio-cleanup`, preset podcast) run on the high-passed, RNNoise-cleaned voice:
+   warmer (body at 200 Hz), presence at 3 kHz, the top above 14 kHz cut, a gentler 3:1 compressor; then the same gate.
+   Every decision (cuts, pauses, breaths) is still taken on the studio chain and the raw voice, so a re-run changes the
+   sound and nothing else; the skill's chain runs about 25 ms late, measured on each recording and taken back.
 5. Writes audio/<sceneId>.mp3 and audio/timings.json for the studio, with `marks`: when each word of the
    narration starts, so captions, subtitles and on-screen cues land on the word.
 
@@ -69,11 +75,12 @@ RNNOISE = os.path.expanduser('~/.cache/channel-studio/rnnoise-sh.rnnn')
 # v5 (24 Oct 2026): measured on EP001's recording the voice had ~5 dB too much at 80–150 Hz and ~5 dB too little at
 # 2.5–5 kHz, and the room was audible in the pauses; this chain fixes both (EP001 used: high-pass 75 Hz, -3 dB at 220 Hz,
 # +2.5 dB at 3.2 kHz, +2 dB above 9 kHz, gate range -18 dB).
+GATE = 'agate=threshold=-42dB:ratio=4:range=-26dB:attack=4:release=180:knee=6'  # the gate makes the pauses silent
 CHAIN = ('highpass=f=90:poles=2,highpass=f=90:poles=2,{denoise}'
          'equalizer=f=110:t=q:w=1.0:g=-5,equalizer=f=250:t=q:w=1.0:g=-1.5,equalizer=f=450:t=q:w=1.2:g=-2.5,'
          'equalizer=f=3500:t=q:w=1.0:g=4,highshelf=f=9500:g=2.5,deesser=i=0.45,'
-         'acompressor=threshold=-24dB:ratio=3:attack=6:release=150:makeup=4dB:knee=4,'
-         'agate=threshold=-42dB:ratio=4:range=-26dB:attack=4:release=180:knee=6')  # the gate makes the pauses silent
+         'acompressor=threshold=-24dB:ratio=3:attack=6:release=150:makeup=4dB:knee=4,' + GATE)
+PODCAST = os.path.join(os.path.dirname(ROOT), '.claude', 'skills', 'audio-cleanup', 'scripts', 'clean_audio.py')
 MARK = re.compile(r'\{([^|{}]*)\|([^{}]*)\}')
 AR = str.maketrans({'أ': 'ا', 'إ': 'ا', 'آ': 'ا', 'ى': 'ي', 'ة': 'ه', 'ؤ': 'و', 'ئ': 'ي'})
 
@@ -293,6 +300,46 @@ def plan_cuts(group, narration, x, cuts=(), heard=()):
             spans[-1][1] = cur['end']
     spans[-1][1] += TAIL
     return spans, removed, items
+
+
+def lag_behind(ref, y, hop=SR // 1000):
+    """How many samples y runs behind ref, from their loudness envelopes in 1 ms steps (an EQ turns the phase, so the
+    waveforms themselves don't line up, but the envelopes do), measured at five places and taken as the median."""
+    n = min(len(ref), len(y)) // hop
+    env = lambda v: np.log(np.sqrt((v[:n * hop].reshape(n, hop) ** 2).mean(1)) + 1e-5)
+    ea, eb = env(ref), env(y)
+    lags = []
+    for start in np.linspace(0.1, 0.8, 5) * n:
+        s, length = int(start), min(6000, n // 8)
+        u = ea[s:s + length] - ea[s:s + length].mean()
+        scores = []
+        for lag in range(-60, 61):
+            v = eb[max(0, s + lag):max(0, s + lag) + length]
+            if len(v) < length:
+                continue
+            v = v - v.mean()
+            scores.append((np.dot(u, v) / (np.sqrt(np.dot(u, u) * np.dot(v, v)) + 1e-9), lag))
+        if scores:
+            lags.append(max(scores)[1])
+    return int(np.median(lags)) * hop if lags else 0
+
+
+def podcast_voice(source, denoise, work, studio_x):
+    """The podcast voice: the high-passed, RNNoise-cleaned voice through the audio-cleanup skill's podcast preset, then
+    the gate; shifted back by the skill chain's delay so it lines up with the studio chain sample for sample."""
+    pre = os.path.join(work, 'denoised.wav')
+    ffmpeg('-i', source, '-af', f'highpass=f=90:poles=2,highpass=f=90:poles=2,{denoise}anull', '-ac', '1', '-ar', str(SR),
+           '-c:a', 'pcm_s16le', pre)
+    shaped = os.path.join(work, 'podcast.wav')
+    subprocess.run([sys.executable, PODCAST, pre, '--preset', 'podcast', '--output', shaped, '-q'], check=True,
+                   stdout=subprocess.DEVNULL)
+    voice = os.path.join(work, 'voice.wav')
+    ffmpeg('-i', shaped, '-af', GATE, '-ac', '1', '-ar', str(SR), '-c:a', 'pcm_s16le', voice)
+    y = read_wav(voice)
+    lag = lag_behind(studio_x, y)
+    y = np.concatenate([y[lag:], np.zeros(lag, np.float32)]) if lag > 0 else np.concatenate([np.zeros(-lag, np.float32), y[:len(y) + lag]])
+    print(f'podcast voice: the skill chain ran {lag / SR * 1000:.0f} ms late, taken back')
+    return np.pad(y, (0, max(0, len(studio_x) - len(y))))[:len(studio_x)]
 
 
 def assemble(x, spans, quiet=()):
@@ -619,6 +666,8 @@ def main():
     ffmpeg('-i', source, '-af', CHAIN.format(denoise=denoise), '-ac', '1', '-ar', str(SR), '-c:a', 'pcm_s16le', studio)
     x = read_wav(studio)
     x0 = read_wav(raw)  # the unprocessed voice: what the voicing and the speech check listen to
+    # what the viewer hears: the podcast voice (default) or the studio chain itself (--voice=studio, EP001–EP003)
+    heard_voice = x if '--voice=studio' in sys.argv else podcast_voice(source, denoise, work, x)
 
     timings, report = {}, []
     old_file = os.path.join(audio, 'timings.json')
@@ -638,7 +687,7 @@ def main():
             quiet.append((a, b))
         breaths[scene['id']] = sum(1 for a, b in quiet if np.max(np.abs(x[int(a * SR):int(b * SR)]), initial=0) > 0.01)
         part = os.path.join(work, f"{scene['id']}.wav")
-        write_wav(part, assemble(x, spans, quiet))
+        write_wav(part, assemble(heard_voice, spans, quiet))
         final = os.path.join(audio, f"{scene['id']}.mp3")
         loudnorm(part, final)
         dur = float(subprocess.run(['ffprobe', '-v', 'error', '-show_entries', 'format=duration', '-of', 'csv=p=0', final],

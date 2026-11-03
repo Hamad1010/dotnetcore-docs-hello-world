@@ -37,6 +37,23 @@ Follow `CLAUDE.md` (repo root) rules exactly, and the **current version** of the
   callback is fine).
 - Note every disagreement between sources; use the safer wording.
 
+## 2b. The YouTube agent, from the script to the publish (the owner's rule, Nov 2026)
+The `youtube-agent` plugin (project settings; its skills are `/yt-*`; read each SKILL.md before using it) runs at
+every stage of every episode. Its voice file is `channel/01-plan/14-youtube-voice.md`: copy it to
+`~/.claude/youtube/voice.md` before the first `/yt-*` skill of a session. Its rules sit under CLAUDE.md and the
+framework: our facts, our dialect, our structure win where they differ.
+- **Before the script:** `/yt-script`: five hooks for part 1 off its 21 formulas, scored with `hookscore.py`. The
+  tool reads English words only, so score a faithful English rendering of each Arabic hook and show both; show the
+  owner the top two with their panels and the formula each uses. Mark `[ON SCREEN: …]` on every beat of the draft.
+- **Titles:** `/yt-package`: ten titles run through `title.py` (the 60/40-character cuts), the top three shown.
+  The thumbnail half is skipped while thumbnails are paused.
+- **After the recording:** `/yt-edit`: `deadair.py` on the cleaned scenes' transcript as a second check on dead air,
+  fillers and retakes the cleaner missed.
+- **Before the upload:** `/yt-chapters` (its three rules on our chapter list) and `/yt-seo` (the description's first
+  two lines, honest tags, the three queries the video must win).
+- **After the upload:** `/yt-comment` (the first replies, the pin), `/yt-retention` when the owner sends the
+  retention export, `/yt-audit` once a month. `/yt-shorts` waits with the Shorts.
+
 ## 3. Write the draft, then wait for approval
 - Write `03-episodes/EP00N/script-draft.md` exactly as the framework says: its header lines, one `## N · part`
   heading per part, numbers as plain digits, `[مثال توضيحي]` on illustrations. Write `sources.md` with links, the
@@ -44,9 +61,9 @@ Follow `CLAUDE.md` (repo root) rules exactly, and the **current version** of the
 - Narration: simple Saudi white dialect, told as a story to people in front of you, with conviction; short
   sentences; no fluff, no hype, no promises of money. Each point ends in a business result, with one "small move,
   big impact". Every step has a first move that costs nothing.
-- Write the publish kit with the draft (framework §3.13): `publish.md` (titles told as stories, every word true; 2–3
-  descriptions; tags; the pinned comment with the episode's question) and `thumbs.json` (the story designs in `ThumbStories.tsx`);
-  run `npm run thumbs -- EP00N` in `04-studio` and look at the images.
+- Write the publish kit with the draft (framework §3.13): `publish.md` (titles told as stories, every word true, run
+  through `/yt-package`; 2–3 descriptions; tags; the pinned comment with the episode's question). **No thumbnails and
+  no Shorts until the owner decides** (their rule, Nov 2026): no `thumbs.json`, no `npm run thumbs`, no `--shorts`.
 - Framework v5 parts to remember: Saudi stories and numbers first (none that hurts anyone, none a later episode plans),
   the «وقفة» before the close (Quran and Sahih al-Bukhari / Muslim only, exact texts checked twice, §3.15), and a close
   with a 10–15 s bridge for the «فيه مشهد في النهاية» pop-up, then the teaser on a dark screen (§3.16).
@@ -68,15 +85,16 @@ Follow `CLAUDE.md` (repo root) rules exactly, and the **current version** of the
   synced, check that every cue lands on its word (use `phrase@2` for a repeated phrase) and look at stills taken on
   those words.
 - Numbers: `{display|spoken}` e.g. `{2009|ألفين وتسعة}`, `{55|خمسة وخمسين}`, `{10%|عشرة بالمية}`.
-- Finish the publish kit: real chapter times from `out/chapters.txt`, 3 Shorts, an X thread, a WhatsApp card.
-  Altered content: **No** (the owner's real voice).
+- Finish the publish kit: real chapter times from `out/chapters.txt` (checked with `/yt-chapters`), the description
+  through `/yt-seo`, an X thread, a WhatsApp card. No Shorts or thumbnails until the owner decides. Altered content:
+  **No** (the owner's real voice).
 
 ## 5. Build and check
 ```bash
 cd channel/04-studio && (test -d node_modules || npm install)
 export REMOTION_BROWSER=${REMOTION_BROWSER:-$(find /opt/pw-browsers -name headless_shell -type f 2>/dev/null | head -1)}
 npm run script -- EP00N
-npm run preview -- EP00N      # then LOOK at 3–4 frames: the hook cards, the comparison, a stats scene, the thumbnail
+npm run preview -- EP00N      # then LOOK at 3–4 frames: the hook cards, the comparison, a stats scene
 ```
 Fix any overflow/wrapping by shortening text (not by shrinking fonts).
 
@@ -85,7 +103,9 @@ Fix any overflow/wrapping by shortening text (not by shrinking fonts).
 - When the recording arrives: `python3 06-tools/clean_recording.py EP00N <file>`. It splits the parts at the
   Booth's pauses (or by the script when the owner reads straight through), drops retakes, repeats and stutters,
   tightens long pauses, cleans and levels the sound (-16 LUFS) and writes word marks so cues and subtitles land on
-  the word. Read its report, then `npm run render -- EP00N`.
+  the word. The sound is the podcast voice (the owner's request, Nov 2026): the `audio-cleanup` skill's podcast preset
+  (`.claude/skills/audio-cleanup`) inside the cleaner; `--voice=studio` gives EP001–EP003's sound. Read its report,
+  run `/yt-edit` on the scenes' transcript, then `npm run render -- EP00N`.
 
 ## 7. Bookkeeping
 - `lessons.csv`: `status` → `draft` (sent for approval) / `scripted` (episode.json built) / `voiced` / `rendered`,

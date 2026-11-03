@@ -4,8 +4,9 @@ every run writes the same files; all our own, nothing licensed.
 
     python3 channel/06-tools/watercolor_textures.py
 
-Writes 03-episodes/_assets/look/: paper.jpg (the stage, 1920×1080), paper-tile.jpg (cards, 512 px, tiles seamlessly)
-and wash-<pigment>.png (four washes with transparency, laid over the paper by Backdrop).
+Writes 03-episodes/_assets/look/: paper.jpg (the stage, 1920×1080), paper-tile.jpg (cards, 512 px, tiles seamlessly),
+wash-<pigment>.png (four washes with transparency, laid over the paper by Backdrop) and stroke-<pigment>.png (four wide
+brush strokes, the wipe between scenes when an episode's motion is "rich").
 """
 import os
 
@@ -66,12 +67,40 @@ def wash(size, seed, rgb, granulation):
     return Image.fromarray(out, 'RGBA')
 
 
+def stroke(w, h, seed, rgb):
+    """One loaded brush pulled across the paper: a swelling start, ragged edges, a solid body, bristle streaks along
+    it that open into dry brush at the end, pigment pooled at the edges, and the paper's grain."""
+    rng = np.random.default_rng(seed)
+    y, x = np.mgrid[0:h, 0:w]
+    u = x / w  # along the stroke
+    v = (y - h / 2) / (h / 2)  # across it, -1..1
+    along = lambda size, s: noise((1, w), size, seed + s)[0]
+    # the half-width: swells in over the first 7%, holds, and thins over the last 25%; the edges wander
+    width = np.clip(u / 0.07, 0, 1) ** 0.6 * np.clip((1 - u) / 0.25, 0, 1) ** 0.8 * 0.86
+    top = width * (1 + 0.06 * along(70, 1) + 0.012 * along(14, 2))
+    bottom = width * (1 + 0.06 * along(70, 3) + 0.012 * along(14, 4))
+    edge = np.where(v < 0, top[None, :] + v, bottom[None, :] - v)
+    inside = np.clip(edge / 0.05, 0, 1)
+    # bristles: fine streaks along the stroke, opening into gaps where the brush runs dry
+    bristle = noise((h, 1), 2.2, seed + 5)[:, 0][:, None]
+    dry = np.clip((u - 0.62) / 0.38, 0, 1) ** 1.5 + 0.35 * np.clip(np.abs(v) - 0.55, 0, 1)
+    gaps = np.clip(1 - dry * 1.6 * np.clip(0.6 - bristle, 0, None), 0, 1)
+    streak = 0.03 + 0.12 * np.clip((u - 0.45) / 0.55, 0, 1)  # the body is solid; the streaks show where it thins
+    density = inside * gaps * (0.95 + streak * bristle.clip(-1, 1)) * (1 + 0.15 * np.clip(1 - edge / 0.12, 0, 1) * inside)
+    density *= 1 + 0.10 * noise((h, w), 1.6, seed + 6)
+    out = np.zeros((h, w, 4), np.uint8)
+    out[..., :3] = rgb
+    out[..., 3] = (np.clip(density, 0, 1) * 255).astype(np.uint8)
+    return Image.fromarray(out, 'RGBA')
+
+
 def main():
     os.makedirs(OUT, exist_ok=True)
     paper(1080, 1920, 11, (247, 241, 230), 0.045, 0.16).save(os.path.join(OUT, 'paper.jpg'), quality=90)
     paper(512, 512, 21, (255, 252, 245), 0.03, 0).save(os.path.join(OUT, 'paper-tile.jpg'), quality=90)
     for k, (name, (rgb, gran)) in enumerate(PIGMENTS.items()):
         wash(1024, 100 + k * 10, rgb, gran).save(os.path.join(OUT, f'wash-{name}.png'), optimize=True)
+        stroke(1600, 420, 200 + k * 10, rgb).save(os.path.join(OUT, f'stroke-{name}.png'), optimize=True)
     for f in sorted(os.listdir(OUT)):
         print(f'{f:16s} {os.path.getsize(os.path.join(OUT, f)) / 1024:7.0f} KB')
 

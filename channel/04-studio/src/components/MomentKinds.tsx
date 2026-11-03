@@ -8,7 +8,8 @@ import {interpolate, spring, useVideoConfig} from 'remotion';
 import {geoMercator, geoPath, type GeoPermissibleObjects} from 'd3-geo';
 import {feature} from 'topojson-client';
 import world from 'world-atlas/countries-110m.json';
-import {C, EASE_IN_OUT, FONT, NASKH_FONT, ON_STAGE, QURAN_FONT, watercolor} from '../theme';
+import {C, EASE_IN_OUT, FONT, NASKH_FONT, ON_STAGE, QURAN_FONT, rich, watercolor} from '../theme';
+import {BrushUnderline, KineticWords} from './Motion';
 import {ink, INK_SHADOW_SOFT} from '../look-kit';
 import type {Moment} from '../types';
 import type {ScenePlan} from '../lib/plan';
@@ -36,9 +37,9 @@ export const Headline: React.FC<K<'headline'>> = ({m, c}) => {
             <span style={LTR}>{m.badge}</span>
           </div>
         ) : null}
-        <div style={{fontSize: 76, fontWeight: 700, color: ON_STAGE.ink, lineHeight: 1.25}}>{m.text}</div>
+        <div style={{fontSize: 76, fontWeight: 700, color: ON_STAGE.ink, lineHeight: 1.25}}>{rich() ? <KineticWords text={m.text} at={c.inAt} /> : m.text}</div>
       </div>
-      <div style={{width: 380 * line, height: 10, borderRadius: 6, background: tone.main}} />
+      {rich() ? <BrushUnderline p={line} color={tone.main} /> : <div style={{width: 380 * line, height: 10, borderRadius: 6, background: tone.main}} />}
       {m.sub ? <div style={{fontSize: 44, fontWeight: 500, color: ON_STAGE.ink2, opacity: sub, transform: `translateY(${(1 - sub) * 12}px)`}}>{m.sub}</div> : null}
       <Sfx at={c.inAt} name="swish" />
       {m.sub && m.subCue ? <Sfx at={subAt} name="pop" volume={0.7} /> : null}

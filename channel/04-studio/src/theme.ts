@@ -50,10 +50,12 @@ export const setShadows = (shadow: string, soft: string) => {
 };
 
 /** An episode's look (episode.json "look"): the channel's clean "material" look, or "watercolor", an experiment from
- * EP003 between watercolor and anime (look.ts). */
+ * EP003 between watercolor and anime (look.ts). Its motion ("motion"): "plain", or "rich" (components/Motion.tsx). */
 export type LookName = 'material' | 'watercolor';
-export const LOOK: {name: LookName} = {name: 'material'};
+export type MotionName = 'plain' | 'rich';
+export const LOOK: {name: LookName; motion: MotionName} = {name: 'material', motion: 'plain'};
 export const watercolor = () => LOOK.name === 'watercolor';
+export const rich = () => LOOK.motion === 'rich';
 
 // Material-style motion curves
 export const EASE_OUT = Easing.bezier(0.05, 0.7, 0.1, 1);
