@@ -7,6 +7,18 @@
       "skillPath": "skills/audio-cleanup/SKILL.md",
       "computedHash": "adc3882e1c9e1ea7bddfa26f123e1732553c7b4d13b7535efa880e4564ab6d2f",
       "installMode": "copy"
+    },
+    "humanizer": {
+      "source": "blader/humanizer",
+      "sourceType": "github",
+      "skillPath": "SKILL.md",
+      "computedHash": "1e67c3a4a675bd0c961b1fd8ebb718174f9a61a547d9bedad2ade5eb99cce831"
+    },
+    "remotion-best-practices": {
+      "source": "remotion-dev/skills",
+      "sourceType": "github",
+      "skillPath": "skills/remotion-best-practices/SKILL.md",
+      "computedHash": "562d0482f6aba777059ee4185a4aa997ffec8388ebeae1ad1dbe749f0127d37b"
     }
   }
 }

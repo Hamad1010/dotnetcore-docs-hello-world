@@ -299,6 +299,9 @@ export type Episode = {
   motion?: 'plain' | 'rich';
   /** the look: "material" (default) or "watercolor", between watercolor and anime (an experiment from EP003) */
   look?: 'material' | 'watercolor';
+  /** the sound effects for this episode only, overriding channel.json: "foley" (paper, cards, books and coins, from
+   * EP004) or "synth" (the synthesized set EP001–EP003 were made with) */
+  sfx?: SfxSet;
   scenes: Scene[];
 };
 
@@ -313,4 +316,8 @@ export type Brand = {
   backgroundLevel?: number;
   /** shown before the episode number, e.g. "الملف" → "الملف 01" */
   episodeLabel?: string;
+  /** the channel's sound effects: "foley" in 03-episodes/_assets/sfx-foley/, "synth" in _assets/sfx/ (default) */
+  sfx?: SfxSet;
 };
+
+export type SfxSet = 'synth' | 'foley';

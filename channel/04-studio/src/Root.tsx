@@ -39,7 +39,10 @@ const loadEpisode = async (episodeId: string, background?: string): Promise<Epis
   const name = background ?? brand.background ?? 'none';
   const file = name === 'none' ? null : `_assets/music/${name === 'calm' ? 'calm-pad' : name}.mp3`;
   const music = file && (await exists(file)) ? file : null;
-  const sfx = await exists('_assets/sfx/pop.mp3');
+  // the sound effects: channel.json's set unless the episode keeps its own (EP001–EP003: "synth")
+  const set = episode.sfx ?? brand.sfx ?? 'synth';
+  const dir = set === 'synth' ? '_assets/sfx' : `_assets/sfx-${set}`;
+  const sfx = (await exists(`${dir}/pop.mp3`)) ? dir : null;
   const level = episode.backgroundLevel ?? brand.backgroundLevel;
   return {episode, plan, brand: {...brand, backgroundLevel: level}, music, sfx};
 };

@@ -1,5 +1,5 @@
 import React from 'react';
-import {AbsoluteFill, interpolate, spring, useCurrentFrame, useVideoConfig} from 'remotion';
+import {AbsoluteFill, Img, interpolate, spring, staticFile, useCurrentFrame, useVideoConfig} from 'remotion';
 import {C, EASE_IN, EASE_OUT, FONT, SHADOW, SHADOW_SOFT, watercolor} from '../theme';
 import {paperCard} from '../look-kit';
 import {WashBackdrop} from './Watercolor';
@@ -86,9 +86,18 @@ export const BrandMark: React.FC<{size?: number}> = ({size = 64}) => (
   </svg>
 );
 
+/** The channel's avatar, the one on its YouTube page (the owner's choice, 4 Nov 2026): 03-episodes/_assets/brand/avatar.png,
+ * a circle that carries its own red ring. It stands for the channel in every video; BrandMark stays for the launch kit. */
+export const ChannelAvatar: React.FC<{size?: number}> = ({size = 64}) => (
+  <Img
+    src={staticFile('_assets/brand/avatar.png')}
+    style={{width: size, height: size, borderRadius: '50%', flexShrink: 0, boxShadow: '0 2px 7px rgba(40, 30, 20, 0.22)'}}
+  />
+);
+
 export const Brand: React.FC<{name: string; size?: number; color?: string}> = ({name, size = 30, color = C.ink}) => (
   <div style={{display: 'flex', alignItems: 'center', gap: 14, fontSize: size, fontWeight: 700, color}}>
-    <BrandMark size={size * 1.6} />
+    <ChannelAvatar size={size * 1.75} />
     <span>{name}</span>
   </div>
 );

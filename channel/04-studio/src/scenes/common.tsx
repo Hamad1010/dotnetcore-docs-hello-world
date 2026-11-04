@@ -2,7 +2,7 @@ import React from 'react';
 import {C} from '../theme';
 import {spoken, type ScenePlan} from '../lib/plan';
 import type {Brand, Episode} from '../types';
-import {BrandMark, Chip, useIn, usePortrait} from '../components/ui';
+import {ChannelAvatar, Chip, useIn, usePortrait} from '../components/ui';
 
 export type SceneProps<T> = {
   scene: T;
@@ -75,7 +75,7 @@ export const TopBar: React.FC<{episode: Episode; brand: Brand; storyIndex?: numb
     return (
       <div style={{position: 'absolute', top: 96, left: 0, right: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 14, opacity: p, direction: 'rtl'}}>
         <div style={{display: 'flex', alignItems: 'center', gap: 14}}>
-          <BrandMark size={58} />
+          <ChannelAvatar size={66} />
           <div style={{fontSize: 34, fontWeight: 700}}>{brand.name}</div>
         </div>
         <Chip size={28} color={C.ink2}>
@@ -99,7 +99,7 @@ export const TopBar: React.FC<{episode: Episode; brand: Brand; storyIndex?: numb
       }}
     >
       <div style={{display: 'flex', alignItems: 'center', gap: 18}}>
-        <BrandMark size={52} />
+        <ChannelAvatar size={62} />
         <div style={{fontSize: 28, fontWeight: 700}}>{brand.name}</div>
         <Chip size={24} color={C.ink2}>
           {episodeTag(episode, brand)} · {episode.title}

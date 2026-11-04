@@ -13,7 +13,7 @@ import {applyLook} from './look';
 import {WashTextures} from './components/Watercolor';
 import {BrushWipe, WIPE_FRAMES, WIPE_LEAD} from './components/Motion';
 
-export type EpisodeData = {episode: Episode; plan: Plan; brand: Brand; music: string | null; sfx: boolean};
+export type EpisodeData = {episode: Episode; plan: Plan; brand: Brand; music: string | null; sfx: string | null};
 export type EpisodeProps = {episodeId: string; showCaptions?: boolean; background?: string; data?: EpisodeData};
 
 const HOME = {lat: 24.71, lon: 46.68}; // the globe always starts from Riyadh
@@ -114,7 +114,7 @@ export const EpisodeVideo: React.FC<EpisodeProps> = ({episodeId, showCaptions, d
         }
         return (
           <Sequence key={scene.id} from={sp.from} durationInFrames={sp.frames} name={`${scene.id} · ${scene.type}`}>
-            <SfxOn.Provider value={sfx && !isQuiet(i)}>{el}</SfxOn.Provider>
+            <SfxOn.Provider value={isQuiet(i) ? null : sfx}>{el}</SfxOn.Provider>
             {sp.audio ? (
               <Sequence from={sp.speechStart} name="voice">
                 <Html5Audio src={staticFile(`${episodeId}/audio/${sp.audio}`)} />

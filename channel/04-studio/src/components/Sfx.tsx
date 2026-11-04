@@ -1,5 +1,7 @@
-// Sound effects (made by scripts/music.mjs → 03-episodes/_assets/sfx/): each one marks something that appears,
-// moves, lands or counts on screen. Levels sit well under the voice.
+// Sound effects: each one marks something that appears, moves, lands or counts on screen. Levels sit well under the
+// voice. Two sets with the same names and jobs: "foley" (03-episodes/_assets/sfx-foley/, cards, paper, books, wood and
+// coins from Kenney's CC0 packs, 06-tools/sfx_foley.py; the channel's set from EP004) and "synth" (_assets/sfx/, made by
+// scripts/music.mjs; EP001–EP003). channel.json "sfx" picks the set, an episode.json "sfx" keeps its own.
 import React from 'react';
 import {Html5Audio, Sequence, staticFile, useVideoConfig} from 'remotion';
 
@@ -25,23 +27,24 @@ export type SfxName =
   | 'buzz'
   | 'click';
 
+// seconds each lasts, the longer of the two sets
 const SECONDS: Record<SfxName, number> = {
   pop: 0.21,
   bubble: 0.16,
   tick: 0.08,
-  type: 0.13,
-  type2: 0.13,
-  swish: 0.4,
+  type: 0.16,
+  type2: 0.17,
+  swish: 0.6,
   whoosh: 0.74,
   strike: 0.21,
   stamp: 0.63,
   impact: 1.55,
   riser: 1.65,
   shimmer: 1.05,
-  paper: 0.37,
-  roll: 1.0,
+  paper: 0.64,
+  roll: 1.29,
   ping: 0.95,
-  coin: 0.5,
+  coin: 0.72,
   thud: 0.34,
   question: 0.42,
   buzz: 0.58,
@@ -72,17 +75,17 @@ const LEVEL: Record<SfxName, number> = {
   click: 0.45,
 };
 
-/** True when the sound effects exist (`npm run music -- sfx`); Episode.tsx provides it. */
-export const SfxOn = React.createContext(false);
+/** The folder of the episode's sound effects in 03-episodes (null: none, or a quiet scene); Episode.tsx provides it. */
+export const SfxOn = React.createContext<string | null>(null);
 
 /** One sound at frame `at` of the current scene. */
 export const Sfx: React.FC<{at: number; name: SfxName; volume?: number}> = ({at, name, volume = 1}) => {
-  const on = React.useContext(SfxOn);
+  const dir = React.useContext(SfxOn);
   const {fps} = useVideoConfig();
-  if (!on || !Number.isFinite(at)) return null;
+  if (!dir || !Number.isFinite(at)) return null;
   return (
     <Sequence from={Math.max(0, Math.round(at))} durationInFrames={Math.ceil(SECONDS[name] * fps) + 2} layout="none" name={`sfx ${name}`}>
-      <Html5Audio src={staticFile(`_assets/sfx/${name}.mp3`)} volume={LEVEL[name] * volume} />
+      <Html5Audio src={staticFile(`${dir}/${name}.mp3`)} volume={LEVEL[name] * volume} />
     </Sequence>
   );
 };

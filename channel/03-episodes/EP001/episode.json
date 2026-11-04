@@ -15,6 +15,7 @@
     "line1": "19 مليار $",
     "badge": "الرافعة"
   },
+  "sfx": "synth",
   "scenes": [
     {
       "id": "hook",

@@ -19,6 +19,7 @@
  "look": "watercolor",
  "shorts": [
   {
+   "sfx": "synth",
    "scenes": [
     "hook"
    ],

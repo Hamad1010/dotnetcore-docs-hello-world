@@ -21,8 +21,8 @@ Saudi white dialect, said to people sitting in front of me, with conviction. Sho
 questions I wait on, numbers you can touch. I tell a story the way it happened, in order, never skipping the middle.
 From my own recordings (EP003):
 
-> «القصة اللي وعدتكم فيها… نبدأها من آخرها. في ألفين وتسعطعش… أوبر… الشركة الأمريكية اللي تشتغل في أكثر من ستين
-> دولة… اتفقت تدفع ثلاثة فاصلة واحد مليار دولار…»
+> «في ألفين وتسعطعش… أوبر… الشركة الأمريكية اللي تشتغل في أكثر من ستين دولة… اتفقت تدفع ثلاثة فاصلة واحد مليار
+> دولار…»
 
 > «يا مدثر… يا ماغنوس… العملاق وصل عندكم… وش بتسوون؟»
 
@@ -36,7 +36,11 @@ warm aside a part («ولا يهمكم»).
 
 ## Words I never use
 
-Hype and promises: «اربح»، «مضمون»، «ثروة»، «سر النجاح»، «غيّر حياتك»، «فرصة لا تتعوض»، monthly income figures,
+Callbacks that point back at a promise: «اللي وعدتكم فيها»، «زي ما وعدتكم»، «مثل ما وعدتك»، «اللي قلت لك عنه قبل». When
+a story or a move I mentioned earlier comes back, I just tell it. I talk like I'm talking to a friend: plain words, no
+slogans, no line that repeats what the story already showed (every script goes through the `humanizer` skill).
+
+Hype and promises: «اربح»، «مضمون»، «ثروة» (one exception, my choice: the title of file 05, «شبكتك ثروتك»)، «سر النجاح»، «غيّر حياتك»، «فرصة لا تتعوض»، monthly income figures,
 investment or trading words. No "subscribe", "like" or "hit the bell" (I say it myself when I want to). No channel
 intro, no "before we start". No academic word without an instant simple explanation. English words only when people
 here say them that way (أوبر، آيباد، كاش).
@@ -51,5 +55,6 @@ the private courses the lessons grew from: no trainer, course or attendee is eve
 
 Long videos of 8 to 16 minutes, one lesson each, as a journey on a map: a true story for the hook, the stations, four
 steps, two traps, exercises, three actions and one question for the viewer, a short «وقفة» with a verse and a hadith,
-then a dark teaser for the next file. My own voice, never on camera: the screen is animated explainer moments in a
-watercolor-anime look. Shorts and thumbnails are paused until I decide.
+then a dark teaser for the next file, on a mountain map. My own voice, never on camera, with a podcast sound: the screen
+is animated explainer moments in a watercolor-anime look with rich motion, my channel's avatar at the top right. Shorts
+and thumbnails are paused until I decide.

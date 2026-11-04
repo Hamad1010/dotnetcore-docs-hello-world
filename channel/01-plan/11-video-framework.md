@@ -1,6 +1,6 @@
 # 11 · Video framework: how every long video is built
 
-**Current version: v5.3** (3 Nov 2026). This file is the only place where the structure of a long video is defined.
+**Current version: v5.4** (4 Nov 2026). This file is the only place where the structure of a long video is defined.
 `CLAUDE.md`, the `/new-episode` skill and the blueprint point here instead of repeating it, so a change made here
 reaches everything at once.
 
@@ -32,7 +32,8 @@ and destination; the station names are plain words, not part numbers.
 - In part 8 the marker reaches the destination and the narration looks back at the road travelled.
 - **The map's shape (v5.2, the owner asked for a new one after EP002):** a trail that climbs a mountain to the flag on its
   summit, or a staircase whose top step is the destination; EP001–EP002 keep their winding road. `episode.json` →
-  `"map": "mountain" | "stairs" | "wave"`; Shorts always use the winding road.
+  `"map": "mountain" | "stairs" | "wave"`; Shorts always use the winding road. **v5.4: the mountain, every episode,
+  until the owner says otherwise** (their choice, 4 Nov 2026).
 
 ## 2. The parts, in order (v3, part 10 added in v5)
 
@@ -70,6 +71,10 @@ draft is short, add a story, an example or a clearer explanation, not filler.
 - **Plain and explicit beats clever.** Say the thing outright: «يرفضونها» rather than a bare «لا»; «الشركة الصغيرة اللي تو
   فتحوها بتفلس» rather than «الصغير بينتهي»; a teaser that ends on a full question («ايش السر اللي سووه عشان يخلون العملاق
   الأمريكي يدفع هالمبلغ؟») rather than «وش سوّوا؟».
+- **Like talking to a friend (v5.4, the owner's rule).** Every draft goes through the `humanizer` skill
+  (`.claude/skills/humanizer`) before the owner sees it: fewer slogans and «مو كذا… كذا» contrasts, no closing line that
+  repeats what the story just showed, no inflated words; every sentence adds something new. It changes the wording only:
+  every fact, number, quote and story stays, and the owner's own phrases and asides stay.
 - **The owner's warm asides.** Short spoken asides that make it a conversation, one or two per part, never forced:
   «لا تنسى»، «لا طبعًا»، «يا حبيبي»، «على طبق من ذهب»، «وعلى الطاري»، «أكيد يدور في بالك»، «بوضح لكم أكثر، ولا
   يهمكم»، «فيه فرق بين الاثنين».
@@ -102,6 +107,9 @@ draft is short, add a story, an example or a clearer explanation, not filler.
 
 ### 3.5 Opening and closing loops
 - **Opening loop** (part 2): one specific promise that makes people stay. Specific, honest, always paid off.
+- **Pay it off by telling it, never by pointing back at it (v5.4, the owner's rule):** no «اللي وعدتك فيها»، «زي ما
+  وعدتكم»، «مثل ما قلت لكم» when the loop comes back. The story or the move simply arrives: «وهنا الحركة الصغيرة: …»،
+  «وهنا قصة البنك: …». The same goes for every callback: one plain question («تذكر الـ62%؟») at most.
 - **Closing loop** (part 11 since v5): pay it off if it wasn't already, then a cliffhanger about the next file: a question
   or a half-told story, without spoiling its twist. Written last, once the next episode is confirmed. It opens with a
   10–15 s bridge (a question that leads to the next file) for the «فيه مشهد في النهاية» pop-up, and the teaser itself
@@ -207,7 +215,15 @@ The owner's rule after part A: the screen must move with the voice. Nothing may 
   shot: at most 2–3 moments on screen; each leaves when the next takes its place (or on its `until` word).
 - **A sound for each moment,** short and never melodic (pop, tick, typing, swish, stamp, coin, paper, a rising hiss
   into the big reveal, then an impact); a whoosh between scenes. They sit well under the voice
-  (`04-studio/src/components/Sfx.tsx`, made by `npm run music -- sfx`).
+  (`04-studio/src/components/Sfx.tsx`). **v5.4: the «foley» set** (the owner asked for new sounds): a card laid down, a
+  chip, a card slid or fanned, a book placed or flipped, a riffle before a reveal, coins, a leather drop, a wooden knock,
+  from Kenney's CC0 packs (public domain), matched to the old loudness (`06-tools/sfx_foley.py` → `_assets/sfx-foley/`).
+  `channel.json` `"sfx": "foley"`; EP001–EP003 keep `"synth"` (`npm run music -- sfx`).
+- **The channel's avatar at the top right (v5.4, the owner's request):** the avatar from the channel's YouTube page
+  (`03-episodes/_assets/brand/avatar.png`) in the top bar of every scene and in the intro and end lockups.
+- **Photos (v5.4):** only public domain or CC0, never a face we have no right to, each with its source in `sources.md`.
+  None for now: the session's network policy blocks every photo library (Wikimedia Commons, Openverse, Unsplash, Pexels…);
+  they come back when the owner allows one of those domains, or sends photos they own.
 - **The background: soft hums, no instruments, never sad.** Its job is that the voice is never alone: quiet, curious,
   good for analysis, and since v5.3 a bit noticeable (the owner asked for it 5 dB louder). The owner chooses it by ear (their "Detective
   Backgrounds" hums, or beds made with `06-tools/ambient_bed.py` or `humming_bed.py`; screen each with
@@ -305,7 +321,9 @@ show it as a short dialogue of 2–6 lines: two voices, Saudi names and places, 
 - [ ] Every big number is touchable; every number and its arithmetic is in `sources.md`.
 - [ ] Every trap follows the five steps; every tool step has a first move that costs nothing.
 - [ ] The self-check says how to count and ends with 3 bands.
-- [ ] Opening loop paid off; a callback (from EP002 on); no puzzle and no puzzle answer (v5.2); the teaser matches the tracker.
+- [ ] Opening loop paid off by telling it, with no «وعدتك» line (v5.4); a callback (from EP002 on); no puzzle and no puzzle
+  answer (v5.2); the teaser matches the tracker.
+- [ ] The `humanizer` pass done: it reads like talking to a friend, and no fact, number or quote changed (v5.4).
 - [ ] The hook: five options scored with `/yt-script`; the owner sees the top two.
 - [ ] The publish kit: 3 titles (through `/yt-package`), 2 descriptions (§3.13); no thumbnails or Shorts (v5.3).
 - [ ] A small move with big impact; every point ends in a business result.
@@ -332,8 +350,16 @@ show it as a short dialogue of 2–6 lines: two voices, Saudi names and places, 
 | `close` | `stage` with an `endscene` moment (the «فيه مشهد في النهاية» pop-up, from the bridge's first word `until` the teaser's) and `darkCue` = the teaser's first word |
 | end card | `stage` with no narration (built): the next `file` from second 0 (`at: 0`), moved up to leave room for YouTube's end-screen elements; `dark: true` after a dark teaser |
 | every scene | `moments` on the narrator's words, each with its sound (§3.14) |
+| the episode | from EP004 (v5.4): `"look": "watercolor"`, `"motion": "rich"`, `"map": "mountain"`; the sounds and the background level come from `channel.json` |
 
 ## 7. Changelog
+
+- **v5.4 · 4 Nov 2026.** From the owner after EP004's draft: every script goes through the `humanizer` skill so it reads
+  like talking to a friend, and a loop is paid off by telling it, never with «اللي وعدتك فيها» (§3.1, §3.5, §5); the
+  mountain map for every episode until they say otherwise (§1); new sound effects, the «foley» set from Kenney's CC0
+  packs (§3.14); the channel's avatar at the top right of every video (§3.14); photos only when public domain or CC0,
+  none while the network blocks the photo libraries (§3.14). The v5.3 trial is approved: the podcast voice, the
+  background at 15 dB and the rich motion are the standard from EP004 (`"motion": "rich"`).
 
 - **v5.3 · 3 Nov 2026.** From the owner after EP003: no thumbnails and no Shorts until they decide (§3.13); the
   `youtube-agent` skills at every stage, from the script (`/yt-script` scores five hooks) to the publish

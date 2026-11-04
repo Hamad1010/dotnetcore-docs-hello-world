@@ -28,7 +28,12 @@ Turns `../03-episodes/<EP>/episode.json` into a finished video. You edit **text*
   from EP003) moves it between watercolor and anime: paper and pigment washes (`06-tools/watercolor_textures.py` →
   `03-episodes/_assets/look/`), an ink line and a cel shadow on every card, an anime sky over the journey map, sparkles on
   the big reveals and focus lines behind a question (`src/components/Watercolor.tsx`).
-- `src/components/Motion.tsx`: rich motion (`episode.json` → `"motion": "rich"`, on trial since EP003's 60-second test):
+- `src/components/Sfx.tsx`: the sound effects. `channel.json` `"sfx"` picks the set: `"foley"` (`03-episodes/_assets/sfx-foley/`,
+  cards, paper, books, wood and coins from Kenney's CC0 packs, made by `python3 ../06-tools/sfx_foley.py <kenney assets>`,
+  the channel's set from EP004) or `"synth"` (`_assets/sfx/`, `npm run music -- sfx`, kept by EP001–EP003's episode.json).
+- `ChannelAvatar` (`src/components/ui.tsx`): the channel's avatar from its YouTube page, `03-episodes/_assets/brand/avatar.png`,
+  at the top right of every scene (`TopBar`) and in the intro and end lockups.
+- `src/components/Motion.tsx`: rich motion (`episode.json` → `"motion": "rich"`, approved by the owner on 4 Nov 2026, from EP004):
   brush strokes wiping between scenes (`stroke-<pigment>.png` from `06-tools/watercolor_textures.py`), headlines that
   land word by word on a painted underline, an impact burst when a number lands, cards that bounce in, ink thrown by
   stamps, warm sun rays and motes on the paper. Plain shapes and moving images only, so a render costs what it did.

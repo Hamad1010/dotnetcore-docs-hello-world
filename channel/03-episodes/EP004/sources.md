@@ -1,6 +1,6 @@
 # EP004 · الملف 04: سر المصافحة · الثقة عملة · Sources
 
-Checked 3 Nov 2026 for the v5.3 draft (replaces the October v2 list, still in git history). This session could only use web
+Checked 3 Nov 2026 for the v5.3 draft and again on 4 Nov after the owner's edits (replaces the October v2 list, still in git history). This session could only use web
 search: direct page fetches were blocked by the network policy (berkshirehathaway.com among them), so each fact rests on two
 or more independent results where possible, and Berkshire's letters are cited through copies and press coverage. Re-open
 the links marked "check" before publishing. Riyal conversions use 3.75.
@@ -87,13 +87,16 @@ the links marked "check" before publishing. Riyal conversions use 3.75.
   Disputed share figures: 37% → 7% → 30% within a year ([CEI](https://cei.org/?p=52558)); 35% → under 8% (PBS); back to 30%,
   and to 35% by the end of 1983 ([journalism.university](https://journalism.university/?p=245078)). Safer wording:
   «أكثر من الثلث» → «أقل من 10%» → «خلال سنة… حوالي 30%». «من كل 3 مسكّنات… وحدة» is a third of the pain-reliever market.
+  Why it came back: J&J hid nothing and returned with tamper-resistant packaging, seals that show if a pack was opened
+  (Retail Brew above: the murders "ushered in tamper-resistant packaging") → «علب جديدة… فيها أقفال تبيّن لك إذا أحد
+  فتحها قبلك».
   Saudi Arabia: 32.2 million people in the 2022 census ([Asharq Al-Awsat](https://english.aawsat.com/gulf/4358341-saudi-population-32-million-51-under-30) ·
   [AGBI](https://www.agbi.com/economy/2023/06/average-age-in-saudi-is-29-as-2022-population-hits-32-2m/)); 31 ÷ 32.2 = 96% →
   «تقريبًا علبة… لكل واحد في السعودية». Khalid's car wash in Jeddah is an illustration, labelled [مثال توضيحي].
 - **Trap 2, Wells Fargo.** 31 August 2017: the bank's expanded review found 3.5 million potentially unauthorized accounts
   (2009–2016): [Wells Fargo 8-K (SEC)](https://www.sec.gov/Archives/edgar/data/0000072971/000007297117000428/wfcexhibit99108312017.htm) ·
   [Fox / AP](https://www.fox5atlanta.com/news/wells-fargo-says-3-5-million-accounts-involved-in-scandal). Hence «البنك نفسه
-  قال… يمكن انفتحت بدون إذن». Arithmetic: 3,500,000 seconds ÷ 86,400 = 40.5 days → «أكثر من 40 يوم».
+  قال… يمكن انفتحت بدون إذن».
   The scandal broke in September 2016: [Wikipedia](https://en.wikipedia.org/wiki/Wells_Fargo_cross-selling_scandal).
   February 2020: $3 billion to settle the Justice Department's and the SEC's cases; the agreed statement of facts says more than
   5,300 employees were fired between 2011 and 2015 and blames "onerous sales goals" and management pressure:

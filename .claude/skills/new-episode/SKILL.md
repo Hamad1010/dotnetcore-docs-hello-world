@@ -72,12 +72,18 @@ framework: our facts, our dialect, our structure win where they differ.
   always our own or real and documented, never copied from a course (§3.18). The Booth gets one sentence per line.
 - v5.2: no puzzle and no answer to an earlier one; the journey map's shape is set per episode (`"map"` in `episode.json`:
   `mountain` or `stairs`; EP001–EP002 keep the winding road), and case names use «سر» or «قصة», never «لغز».
+  v5.4: the mountain for every episode until the owner says otherwise.
+- **Like talking to a friend (v5.4, the owner's rule):** before the draft goes out, run the `humanizer` skill
+  (`.claude/skills/humanizer`) over the narration: cut slogans, «مو كذا… كذا» contrasts that add nothing, closing lines that
+  repeat the story, inflated words. Wording only: every fact, number, quote and story stays, and so do the owner's phrases.
+  A loop is paid off by telling it: never «اللي وعدتك فيها»، «زي ما وعدتكم» or «مثل ما قلت لكم».
 - Run `python3 06-tools/draft_length.py EP00N` (it warns below the framework's minimum) and the framework checklist (§5).
 - Send the draft to the owner and **wait for approval**. When the format or the look changes, the owner records
   part A (the first ~2 minutes) first and you render only that for approval.
 
 ## 4. After approval: `episode.json` and `publish.md`
-- The draft is now frozen. Build `episode.json` from it, one scene per part (scene types: framework §6 and
+- The draft is now frozen. Build `episode.json` from it (`"look": "watercolor"`, `"motion": "rich"`, `"map": "mountain"`
+  from EP004, framework v5.4; the sounds and the background level come from `channel.json`), one scene per part (scene types: framework §6 and
   `04-studio/src/types.ts`). If a part has no scene type yet, add it in `src/scenes/BizScenes.tsx` (cues,
   silhouettes, our palette), list it in framework §6, and type-check.
 - Give every scene its `moments` (framework §3.14): a visual on the word for each name, date, number, quote,
