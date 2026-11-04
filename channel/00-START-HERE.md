@@ -15,13 +15,13 @@ Recording Booth, and the studio links your voice and renders the video, thumbnai
 1. **Upload EP002** with `03-episodes/EP002/publish.md` (updated 28 Oct: no puzzle in the descriptions or the pinned comment;
    the video itself still asks it, as you chose): title 1 + thumbnail 1 + description 1; upload `out/subtitles.ar.srt`;
    cards at 1:23 (EP001) and 3:44 (the playlist); altered content: No.
-2. **Record EP004** in the Recording Booth (<https://claude.ai/artifact/6ygwHYvcEr24DeRoZysEgt>, now EP004's 17 parts:
-   your approved script after one humanizer pass) and send the file. Before that, **watch the new 60-second test** (sent
-   4 Nov): the same window from EP003 with the new sounds (cards, paper, books, coins) and your avatar at the top right.
-3. **Upload EP003** (rendered 28 Oct in the new look) with `03-episodes/EP003/publish.md`: the file I sent,
+2. **Upload EP003** (rendered 28 Oct in the new look) with `03-episodes/EP003/publish.md`: the file I sent,
    `EP003-upload.mp4` (355 MB; the 520 MB master stays in `out/EP003.mp4`), title 1 +
    thumbnail 1 + description 1; upload `out/subtitles.ar.srt`; cards at 3:03 (EP002) and 5:01 (the playlist); altered
    content: No. The 3 Shorts already made for EP003 wait, like all Shorts and new thumbnails, until you decide.
+3. **Upload EP004** (after EP003) with `03-episodes/EP004/publish.md`: the file I sent (`EP004-upload.mp4`; the full master stays
+   in `out/EP004.mp4`), title 1 + description 1; upload `out/subtitles.ar.srt`; cards at 3:10 (EP003) and 5:08 (the
+   playlist); altered content: No.
 4. **Send EP001's first-week numbers** (views, CTR, average view duration, and the retention export for `/yt-retention`).
 
 Then follow the week-by-week coaching plan: [`01-plan/08-coaching-roadmap.md`](01-plan/08-coaching-roadmap.md).

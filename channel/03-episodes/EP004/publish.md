@@ -47,7 +47,23 @@ from the render (each chapter over 10 seconds, the first at 0:00).
 • فخّين: تخبّي الغلط (قصة تايلينول)، وتلاحق الأرقام على حساب الثقة (قصة ويلز فارغو)
 
 الفصول:
-{{CHAPTERS}}
+0:00 القصة: مصافحة بأكثر من 50 مليون
+2:04 ليش صدّقها؟
+2:48 الثقة عملة
+3:22 خريطة الرحلة
+3:57 المحطة 1: كم تسوى الثقة؟
+5:03 المحطة 2: اختبر نفسك
+6:03 المحطة 3 · الخطوة 1: الوعد الصغير
+6:56 الخطوة 2: قل العيب… قصة «دومينوز»
+7:50 الخطوة 3: خلّ غيرك يتكلم عنك
+8:26 الخطوة 4: احمِ سمعتك… قبل أرباحك
+9:04 المحطة 4 · الفخ 1: تخبّي الغلط
+10:49 الفخ 2: تلاحق الأرقام… قصة «ويلز فارغو»
+12:15 المحطة 5: تمارين
+12:42 الوصول
+13:03 3 خطوات وسؤال الحلقة
+13:34 وقفة
+14:28 الملف الجاي
 
 وسؤال لك: وش أصغر شي سواه أحد معك… وخلاك تثق فيه؟ اكتبه في التعليقات.
 
@@ -81,7 +97,23 @@ from the render (each chapter over 10 seconds, the first at 0:00).
 • احمِ سمعتك قبل أرباحك: رسالة بافيت لمدراء شركاته
 
 الفصول:
-{{CHAPTERS}}
+0:00 القصة: مصافحة بأكثر من 50 مليون
+2:04 ليش صدّقها؟
+2:48 الثقة عملة
+3:22 خريطة الرحلة
+3:57 المحطة 1: كم تسوى الثقة؟
+5:03 المحطة 2: اختبر نفسك
+6:03 المحطة 3 · الخطوة 1: الوعد الصغير
+6:56 الخطوة 2: قل العيب… قصة «دومينوز»
+7:50 الخطوة 3: خلّ غيرك يتكلم عنك
+8:26 الخطوة 4: احمِ سمعتك… قبل أرباحك
+9:04 المحطة 4 · الفخ 1: تخبّي الغلط
+10:49 الفخ 2: تلاحق الأرقام… قصة «ويلز فارغو»
+12:15 المحطة 5: تمارين
+12:42 الوصول
+13:03 3 خطوات وسؤال الحلقة
+13:34 وقفة
+14:28 الملف الجاي
 
 وسؤال لك: وش أصغر شي سواه أحد معك… وخلاك تثق فيه؟
 
@@ -90,7 +122,28 @@ from the render (each chapter over 10 seconds, the first at 0:00).
 
 ## 4. Chapters (`/yt-chapters`)
 
-{{CHAPTER_NOTE}}
+The render's own chapter list (`out/chapters.txt`), checked against `/yt-chapters`' three rules: it starts at 0:00, has
+17 chapters, and the shortest is 21 seconds (YouTube needs 10). Each title is the promise of its part, in the episode's words.
+
+```
+0:00 القصة: مصافحة بأكثر من 50 مليون
+2:04 ليش صدّقها؟
+2:48 الثقة عملة
+3:22 خريطة الرحلة
+3:57 المحطة 1: كم تسوى الثقة؟
+5:03 المحطة 2: اختبر نفسك
+6:03 المحطة 3 · الخطوة 1: الوعد الصغير
+6:56 الخطوة 2: قل العيب… قصة «دومينوز»
+7:50 الخطوة 3: خلّ غيرك يتكلم عنك
+8:26 الخطوة 4: احمِ سمعتك… قبل أرباحك
+9:04 المحطة 4 · الفخ 1: تخبّي الغلط
+10:49 الفخ 2: تلاحق الأرقام… قصة «ويلز فارغو»
+12:15 المحطة 5: تمارين
+12:42 الوصول
+13:03 3 خطوات وسؤال الحلقة
+13:34 وقفة
+14:28 الملف الجاي
+```
 
 ## 5. Tags, pinned comment, upload settings
 
@@ -111,7 +164,7 @@ from the render (each chapter over 10 seconds, the first at 0:00).
 
 - Language and captions: Arabic; upload `out/subtitles.ar.srt`. Category: Education. Audience: «لا، المحتوى غير موجّه للأطفال».
 - Altered or synthetic content: **No** (your own voice). Paid promotion: **No**.
-- Cards: {{CARDS}}
+- Cards: at «وفي آخر الملف الثالث سألتكم…» (3:10, the callback) → EP003; at the self-check (5:08) → the playlist «ابدأ من الملف 01».
 - End screen: the dark end card leaves room for EP005 and the playlist.
 - Before publishing, open the links once (this session could not open them), and berkshirehathaway.com's 1983 and 2013
   letters if you can (`sources.md` marks them "check").
