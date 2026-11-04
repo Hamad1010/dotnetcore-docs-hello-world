@@ -1,0 +1,5 @@
+# Rendered videos/previews are big: keep them out of git (they can always be re-rendered).
+**/out/
+# Narration audio (your voice) stays out of git: privacy + size. Final videos go to YouTube, not GitHub.
+**/audio/
+_brand/launch-kit/banners/*-guides.png
