@@ -34,7 +34,7 @@ Mistakes the rules can't see (a slip like "من نفس الشركة", a half sen
 audio/cuts.json after listening to the report: {"<scene id>": ["words to cut", {"find": "اشتغل في إحدى", "cut": "في"}]}.
 A word said wrong is replaced by the same word said right elsewhere in the recording, crossfaded in:
 {"find": "أكثر من مليون مليار", "replace": "مليون", "with": "ثلاثين", "from": "أكثر من ثلاثين مليون"}.
-A word cut off mid-way ("وقب-", "سو--") is always dropped.
+A word cut off mid-way ("وقب-", "سو--") is dropped, unless it was a whole word said fast: {"keep": "بتحمي-"}.
 
 6. Checks: each finished scene is transcribed again; the report lists any script word that can't be heard any more
    (a clipped word, a cut too far) next to the words the owner said differently from the script.
@@ -218,8 +218,11 @@ def plan_cuts(group, narration, x, cuts=(), heard=()):
         return any(all(same(said[i + k], seq[k]) >= 0.75 for k in range(len(seq))) for i in range(len(said) - len(seq) + 1))
 
     keep, removed = list(group), []
-    # A word cut off half-way ("وقب-", "سو--"): the owner stopped and said it again.
-    for w in [w for w in keep if re.search(r'[-–—]+$', w['text'].rstrip('،,.؟?!:'))]:
+    # A word cut off half-way ("وقب-", "سو--"): the owner stopped and said it again. Unless audio/cuts.json says
+    # {"keep": "بتحمي-"}: a whole word said fast that the speech-to-text took for a cut-off one (EP004).
+    held = {norm(c['keep']) for c in cuts if isinstance(c, dict) and 'keep' in c}
+    cuts = [c for c in cuts if not (isinstance(c, dict) and 'keep' in c)]
+    for w in [w for w in keep if re.search(r'[-–—]+$', w['text'].rstrip('،,.؟?!:')) and norm(w['text']) not in held]:
         removed.append(('false start', w['start'], w['text']))
         keep.remove(w)
     # A word said wrong, replaced by the same word said right elsewhere (audio/cuts.json "replace"/"with"/"from").
