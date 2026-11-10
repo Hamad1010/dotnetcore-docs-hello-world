@@ -527,8 +527,8 @@ const bloom = (m: Moment) =>
     ? PIGMENT[m.kind === 'question' ? 'gold' : (m.tone ?? (m.kind === 'stamp' ? 'neg' : 'accent'))]
     : null;
 /** Cards that sit on the page as torn paper: lifted by a soft shadow; the ones that name someone are taped down. */
-const PAPER = new Set<Moment['kind']>(['date', 'profile', 'quote', 'count', 'share', 'people', 'tally', 'times', 'quiz', 'versus', 'math', 'steps', 'search', 'photo']);
-const TAPED = new Set<Moment['kind']>(['profile', 'quote', 'photo']);
+const PAPER = new Set<Moment['kind']>(['date', 'profile', 'quote', 'count', 'share', 'people', 'tally', 'times', 'quiz', 'versus', 'math', 'steps', 'search', 'photo', 'evidence']);
+const TAPED = new Set<Moment['kind']>(['profile', 'quote', 'photo', 'evidence']);
 
 const schedule = (moments: Moment[], plan: ScenePlan, narration: string, fps: number): Timed[] => {
   const inAt = moments.map((m, i) => (m.at !== undefined ? Math.round(m.at * fps) : cueAt(plan, narration, m.cue, (i + 0.5) / Math.max(1, moments.length))));
@@ -593,6 +593,8 @@ export const Moments: React.FC<{moments?: Moment[]; plan: ScenePlan; narration: 
           else if (m.kind === 'file') body = <K.CaseFile m={m} c={c} />;
           else if (m.kind === 'scripture') body = <K.Scripture m={m} c={c} plan={plan} narration={narration} />;
           else if (m.kind === 'photo') body = <K.PhotoCard m={m} c={c} />;
+          else if (m.kind === 'whatif') body = <K.WhatIfFork m={m} c={c} />;
+          else if (m.kind === 'evidence') body = <K.EvidenceCard m={m} c={c} />;
         }
         const [sx, sy] = slots[m.slot ?? 'stage'];
         const [mx, my] = m.moveTo ? slots[m.moveTo] : [sx, sy];

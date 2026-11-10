@@ -203,6 +203,31 @@ export type Moment = MomentBase &
     | {kind: 'scripture'; book: 'quran' | 'hadith'; text: string; ref: string; intro?: string; textCue?: string | string[]}
     /** the «فيه مشهد في النهاية» pop-up in the corner, from `cue` until the teaser starts (`until`) */
     | {kind: 'endscene'; text: string}
+    | {
+        /** season 2's «وش لو…؟» fork (framework v6 §2b): the usual move down a red path to what it costs, the right move
+         * down a green path to what it brings; each part appears on its word */
+        kind: 'whatif';
+        question?: string;
+        usual: string;
+        usualCue?: string;
+        cost: string;
+        costCue?: string;
+        right: string;
+        rightCue?: string;
+        result: string;
+        resultCue?: string;
+      }
+    | {
+        /** season 2's evidence card: who did the study (and in English), the year, how many people, one number */
+        kind: 'evidence';
+        who: string;
+        whoEn?: string;
+        year: string;
+        sample?: string;
+        number: string;
+        numberLabel: string;
+        numberCue?: string;
+      }
   );
 
 /** A station of the journey (or any part) told only through explainer moments, under a chip saying where we are. */
@@ -250,7 +275,7 @@ export type OverviewScene = Base & {
 
 /** The journey map's shape (framework v5.2): the winding road of EP001–EP002, a trail up a mountain to the flag on its
  * summit, or a staircase whose top step is the destination. */
-export type MapShape = 'wave' | 'mountain' | 'stairs';
+export type MapShape = 'wave' | 'mountain' | 'stairs' | 'doors';
 
 /** One stop on the journey map. `cue` = the spoken word that makes it appear. */
 export type JourneyStop = {label: string; cue?: string; mark?: 'loop' | 'puzzle'};

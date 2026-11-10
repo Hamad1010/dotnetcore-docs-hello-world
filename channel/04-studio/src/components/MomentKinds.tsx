@@ -11,14 +11,14 @@ import {feature} from 'topojson-client';
 import world from 'world-atlas/countries-110m.json';
 import {aquarelle, C, EASE_IN_OUT, FONT, NASKH_FONT, ON_STAGE, QURAN_FONT, rich, SHADOW_SOFT, watercolor} from '../theme';
 import {BrushUnderline, KineticWords} from './Motion';
-import {deckle, ink, texture} from '../look-kit';
+import {deckle, ink, LIFT, paperCard, POOLED, texture, tornBottom} from '../look-kit';
 import type {Moment} from '../types';
 import type {ScenePlan} from '../lib/plan';
 import {wordFrames} from '../scenes/common';
 import {Globe} from './Globe';
 import {Person} from './Silhouettes';
 import {Sfx} from './Sfx';
-import {blot, CARD, clamp, DEEP, LTR, numDir, PIGMENT, ramp, TONE, type Clock} from './moment-kit';
+import {blot, CARD, clamp, counted, DEEP, LTR, numDir, PIGMENT, ramp, TONE, type Clock} from './moment-kit';
 
 type K<T extends Moment['kind']> = {m: Extract<Moment, {kind: T}>; c: Clock};
 const spr = (f: number, at: number, fps: number, damping = 14, stiffness = 130) =>
@@ -505,6 +505,103 @@ export const PlaceGlobe: React.FC<K<'globe'>> = ({m, c}) => {
       <Sfx at={c.inAt} name="whoosh" />
       <Sfx at={arrive} name="pop" />
       {m.sub && m.subCue ? <Sfx at={subAt} name="tick" /> : null}
+    </div>
+  );
+};
+
+// ------------------------------------------------------------------ whatif: season 2's fork
+/** «وش لو…؟» (framework v6 §2b): the question on a gold blot, then the road forks. On the right (read first) the usual
+ * move goes down a red path to what it costs; on the left the right move goes down a green path to what it brings. Each
+ * part appears on its word; the paths are painted in with a brush. */
+export const WhatIfFork: React.FC<K<'whatif'>> = ({m, c}) => {
+  const usualAt = c.at(m.usualCue, 0.22);
+  const costAt = c.at(m.costCue, 0.42);
+  const rightAt = c.at(m.rightCue, 0.62);
+  const resultAt = c.at(m.resultCue, 0.82);
+  const q = ramp(c.f, c.inAt, 14);
+  const red = ramp(c.f, usualAt, 20);
+  const green = ramp(c.f, rightAt, 20);
+  const card = (at: number, side: 'r' | 'l', title: string, text: string, tone: string, line: string, lineAt: number, mark: string) => {
+    const p = ramp(c.f, at + 8, 12);
+    const l = ramp(c.f, lineAt, 12);
+    if (p <= 0) return null;
+    return (
+      <div style={{position: 'absolute', top: 330, [side === 'r' ? 'right' : 'left']: 0, width: 600, opacity: p, transform: `translateY(${(1 - p) * 16}px) rotate(${side === 'r' ? 1 : -1}deg)`, filter: LIFT}}>
+        <div style={{background: paperCard(), boxShadow: POOLED, borderRadius: 14, padding: '26px 34px 30px', display: 'flex', flexDirection: 'column', gap: 12, ...deckle(40)}}>
+          <div style={{alignSelf: 'flex-start', fontSize: 26, fontWeight: 700, color: '#fff', background: tone, borderRadius: 999, padding: '4px 18px'}}>{title}</div>
+          <div style={{fontSize: 40, fontWeight: 700, lineHeight: 1.35, color: C.ink}}>{text}</div>
+          {l > 0 ? (
+            <div style={{display: 'flex', alignItems: 'center', gap: 12, opacity: l, transform: `translateX(${(1 - l) * 18}px)`, borderTop: `2px dashed ${tone}55`, paddingTop: 12}}>
+              <span style={{flex: '0 0 auto', width: 44, height: 44, borderRadius: 999, background: blot(side === 'r' ? 'rose' : 'green', '220%'), color: C.ink, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 28, fontWeight: 700}}>{mark}</span>
+              <span style={{fontSize: 32, fontWeight: 600, color: tone, lineHeight: 1.35}}>{line}</span>
+            </div>
+          ) : null}
+        </div>
+      </div>
+    );
+  };
+  return (
+    <div style={{position: 'relative', width: 1560, height: 760, fontFamily: FONT, direction: 'rtl'}}>
+      {/* the paths, painted from the fork point down to each card */}
+      <svg width={1560} height={760} viewBox="0 0 1560 760" style={{position: 'absolute', inset: 0, overflow: 'visible'}}>
+        <path d="M780 150 C 780 210, 780 230, 780 250" stroke={C.ink3} strokeWidth={20} strokeLinecap="round" fill="none" opacity={0.35 * q} />
+        <path d="M780 250 C 900 260, 1150 250, 1250 330" pathLength={1} stroke={C.red} strokeWidth={26} strokeLinecap="round" fill="none" strokeDasharray={`${red} 1`} opacity={red > 0.01 ? 0.82 : 0} />
+        <path d="M780 250 C 660 260, 410 250, 310 330" pathLength={1} stroke={C.green} strokeWidth={26} strokeLinecap="round" fill="none" strokeDasharray={`${green} 1`} opacity={green > 0.01 ? 0.82 : 0} />
+      </svg>
+      {/* the question */}
+      <div style={{position: 'absolute', top: 0, left: '50%', transform: `translateX(-50%) scale(${0.85 + 0.15 * q})`, opacity: q, width: 380, height: 170, background: blot('gold', '135%'), display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 64, fontWeight: 700, color: C.ink}}>
+        {m.question ?? 'وش لو…؟'}
+      </div>
+      {card(usualAt, 'r', 'اللي يسويه أغلبنا', m.usual, C.red, m.cost, costAt, '✗')}
+      {card(rightAt, 'l', 'الحركة الصح', m.right, C.green, m.result, resultAt, '✓')}
+      <Sfx at={c.inAt} name="question" />
+      <Sfx at={usualAt} name="swish" />
+      <Sfx at={costAt} name="strike" volume={0.8} />
+      <Sfx at={rightAt} name="swish" />
+      <Sfx at={resultAt} name="ping" />
+    </div>
+  );
+};
+
+// ------------------------------------------------------------------ evidence: season 2's study card
+/** The evidence after a story (framework v6 §2b): a card with a painted band «الدليل» and the year, who did the study
+ * (and its English name), how many people, and one number counted up on its word. */
+export const EvidenceCard: React.FC<K<'evidence'>> = ({m, c}) => {
+  const numAt = c.at(m.numberCue, 0.45);
+  const p = interpolate(c.f, [numAt, numAt + 26], [0, 1], {...clamp, easing: EASE_IN_OUT});
+  const show = ramp(c.f, numAt, 10);
+  const range = /[–-]/.test(m.number.replace(/^[−-]/, ''));
+  return (
+    <div style={{...CARD, width: 860, overflow: 'hidden', paddingBottom: 34, display: 'flex', flexDirection: 'column'}}>
+      <div
+        style={{
+          background: aquarelle() ? `url("${texture('paper-tile.jpg')}") 0 0 / 512px 512px repeat, ${C.blue}` : C.blue,
+          backgroundBlendMode: aquarelle() ? 'multiply' : undefined,
+          clipPath: aquarelle() ? tornBottom(11) : undefined,
+          color: '#fff',
+          padding: '30px 44px 34px',
+          display: 'flex',
+          alignItems: 'center',
+          gap: 16,
+        }}
+      >
+        <svg width={40} height={40} viewBox="0 0 24 24">
+          <path d="M4 4h7a3 3 0 0 1 3 3v13a2.5 2.5 0 0 0-2.5-2.5H4z M20 4h-4a3 3 0 0 0-3 3" fill="none" stroke="#fff" strokeWidth={1.8} strokeLinejoin="round" />
+        </svg>
+        <div style={{fontSize: 34, fontWeight: 700}}>الدليل</div>
+        <div style={{...LTR, marginRight: 'auto', fontSize: 32, fontWeight: 700, opacity: 0.92}}>{m.year}</div>
+      </div>
+      <div style={{padding: '22px 44px 0', display: 'flex', flexDirection: 'column', gap: 6}}>
+        <div style={{fontSize: 40, fontWeight: 700, color: C.ink, lineHeight: 1.3}}>{m.who}</div>
+        {m.whoEn ? <div style={{...LTR, fontSize: 25, fontWeight: 500, color: C.ink3, textAlign: 'right'}}>{m.whoEn}</div> : null}
+        {m.sample ? <div style={{fontSize: 30, fontWeight: 500, color: C.ink2, marginTop: 4}}>{m.sample}</div> : null}
+        <div style={{display: 'flex', alignItems: 'baseline', gap: 16, marginTop: 14, color: C.blue, opacity: show}}>
+          <span style={{...numDir(m.number), fontSize: range ? 84 : 100, fontWeight: 700, lineHeight: 1, whiteSpace: 'nowrap', flex: '0 0 auto'}}>{range ? m.number : counted(m.number, p)}</span>
+          <span style={{fontSize: 32, fontWeight: 600, color: C.ink, lineHeight: 1.35, whiteSpace: 'pre-line'}}>{m.numberLabel}</span>
+        </div>
+      </div>
+      <Sfx at={c.inAt} name="paper" />
+      {Number.isFinite(numAt) ? <Sfx at={numAt} name="roll" /> : null}
     </div>
   );
 };

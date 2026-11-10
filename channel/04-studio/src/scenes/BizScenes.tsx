@@ -8,6 +8,7 @@ import type {Beat, JourneyScene, OverviewScene, StageScene, StoryHookScene} from
 import {Backdrop, Captions, Chip, CountUp, SceneFrame, fadeUp, useIn, usePop, usePortrait} from '../components/ui';
 import {Crowd, Lever, PeopleGrid, Person, Phone, Skyline} from '../components/Silhouettes';
 import {JourneyMap} from '../components/JourneyMap';
+import {DoorsCorridor} from '../components/DoorsCorridor';
 import {AnimeSky} from '../components/Watercolor';
 import {paperCard} from '../look-kit';
 import {Moments, TONE as TONES} from '../components/Moments';
@@ -393,10 +394,24 @@ export const Journey: React.FC<SceneProps<JourneyScene> & {showCaptions: boolean
     markPulse: stop.mark === 'loop' ? loopPulse : 0,
   });
   const title = useIn(0, 16);
+  // season 2: the corridor of doors is the whole scene's ground, drawn under the top bar and the title
+  const corridor =
+    props.episode.map === 'doors' && !portrait ? (
+      <DoorsCorridor
+          glow={glow}
+          reveal={reveal}
+          traveller={traveller}
+          active={walking || at > 0 ? at : 0}
+          start={{label: scene.start.label, shown: pop(startAt)}}
+          stations={scene.stations.map((s, i) => ({label: s.label, shown: pop(times[i]), ...mark(s, pop(times[i]))}))}
+          destination={{label: scene.destination.label, shown: pop(destAt)}}
+        />
+    ) : null;
   return (
     <SceneFrame frames={plan.frames}>
       <Backdrop tint={C.blue} />
-      {watercolor() ? <AnimeSky opacity={0.2 + 0.8 * mapFade} /> : null}
+      {corridor ? <div style={{position: 'absolute', inset: 0, opacity: mapFade}}>{corridor}</div> : null}
+      {watercolor() && props.episode.map !== 'doors' ? <AnimeSky opacity={0.2 + 0.8 * mapFade} /> : null}
       <TopBar episode={props.episode} brand={props.brand} />
       <div style={{position: 'absolute', top: portrait ? 250 : 150, left: 0, right: 0, display: 'flex', justifyContent: 'center', ...fadeUp(title, 16)}}>
         <div
@@ -413,9 +428,10 @@ export const Journey: React.FC<SceneProps<JourneyScene> & {showCaptions: boolean
       </div>
       <Drift frames={plan.frames}>
       <div style={{position: 'absolute', inset: 0, opacity: mapFade}}>
+      {corridor ? null : (
       <JourneyMap
         portrait={portrait}
-        shape={props.episode.map}
+        shape={props.episode.map === 'doors' ? 'wave' : props.episode.map}
         ghost={walking ? 0 : interpolate(f, [0, 12, destAt, destAt + 20], [0, 1, 1, 0], clamp)}
         glow={glow}
         reveal={reveal}
@@ -425,6 +441,7 @@ export const Journey: React.FC<SceneProps<JourneyScene> & {showCaptions: boolean
         stations={scene.stations.map((s, i) => ({label: s.label, shown: pop(times[i]), ...mark(s, pop(times[i]))}))}
         destination={{label: scene.destination.label, shown: pop(destAt), ...mark(scene.destination, pop(destAt))}}
       />
+      )}
       </div>
       <Moments moments={scene.moments} plan={plan} narration={scene.narration} />
       </Drift>
