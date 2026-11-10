@@ -51,10 +51,13 @@ export const setShadows = (shadow: string, soft: string) => {
 
 /** An episode's look (episode.json "look"): the channel's clean "material" look, or "watercolor", an experiment from
  * EP003 between watercolor and anime (look.ts). Its motion ("motion"): "plain", or "rich" (components/Motion.tsx). */
-export type LookName = 'material' | 'watercolor';
+export type LookName = 'material' | 'watercolor' | 'aquarelle';
 export type MotionName = 'plain' | 'rich';
 export const LOOK: {name: LookName; motion: MotionName} = {name: 'material', motion: 'plain'};
-export const watercolor = () => LOOK.name === 'watercolor';
+export const watercolor = () => LOOK.name === 'watercolor' || LOOK.name === 'aquarelle';
+/** The pure watercolor look (EP005 on, the owner's choice of 10 Nov 2026): watercolor with almost no anime: no ink line,
+ * no cel shadow, no speed lines; torn-paper edges, pigment pooled where it dried, soft blooms of colour. */
+export const aquarelle = () => LOOK.name === 'aquarelle';
 export const rich = () => LOOK.motion === 'rich';
 
 // Material-style motion curves

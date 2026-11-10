@@ -5,10 +5,14 @@ every run writes the same files; all our own, nothing licensed.
     python3 channel/06-tools/watercolor_textures.py
 
 Writes 03-episodes/_assets/look/: paper.jpg (the stage, 1920×1080), paper-tile.jpg (cards, 512 px, tiles seamlessly),
-wash-<pigment>.png (four washes with transparency, laid over the paper by Backdrop) and stroke-<pigment>.png (four wide
-brush strokes, the wipe between scenes when an episode's motion is "rich").
+wash-<pigment>.png (four washes with transparency, laid over the paper by Backdrop), stroke-<pigment>.png (four wide
+brush strokes, the wipe between scenes when an episode's motion is "rich") and deckle.png (the torn paper edge of the
+pure watercolor look, "aquarelle": a 9-slice mask, 96 px slices, whose edges tile).
+
+    python3 channel/06-tools/watercolor_textures.py deckle    # only deckle.png
 """
 import os
+import sys
 
 import numpy as np
 from PIL import Image
@@ -94,13 +98,52 @@ def stroke(w, h, seed, rgb):
     return Image.fromarray(out, 'RGBA')
 
 
+def edge(seed, length=512, offset=96, period=320):
+    """How far a torn edge bites into the sheet along one side, in px: periodic over the 9-slice's middle (`period`),
+    so the edge tiles when the mask repeats it, and continuous into the corners."""
+    rng = np.random.default_rng(seed)
+    x = np.arange(length) - offset
+    p = np.zeros(length)
+    for h in range(1, 60):
+        p += np.sin(2 * np.pi * h * x / period + rng.uniform(0, 2 * np.pi)) / h ** 1.15
+    p = (p - p.mean()) / p.std()
+    return np.clip(22 + 6.5 * p, 7, 40)
+
+
+def deckle(size=512, seed=300):
+    """A hand-torn sheet as a mask (white, the alpha does the work): each side bites in by its own periodic profile,
+    with a fibrous fringe a few px wide, and the corners worn round."""
+    yy, xx = np.mgrid[0:size, 0:size].astype(float)
+    fib = noise((size, size), 2, seed) * 0.32 + noise((size, size), 7, seed + 1) * 0.18
+    feather = 5.0
+    # worn corners: each side bites deeper over its last 40 px along a quarter circle, so two sides meet in a round
+    t = np.arange(size, dtype=float)
+    r = 40.0
+    arc = r - np.sqrt(np.clip(r ** 2 - np.clip(r - np.minimum(t, size - 1 - t), 0, None) ** 2, 0, None))
+    top, bottom, left, right = (edge(seed + 10 * k) + arc for k in range(4))
+    a = np.minimum.reduce([
+        (yy - top[None, :]) / feather,
+        (size - 1 - yy - bottom[None, :]) / feather,
+        (xx - left[:, None]) / feather,
+        (size - 1 - xx - right[:, None]) / feather,
+    ])
+    alpha = np.clip(a + fib, 0, 1)
+    rgba = np.dstack([np.full((size, size, 3), 255.0), alpha[..., None] * 255]).astype(np.uint8)
+    return Image.fromarray(rgba, 'RGBA')
+
+
 def main():
     os.makedirs(OUT, exist_ok=True)
+    if sys.argv[1:] == ['deckle']:
+        deckle().save(os.path.join(OUT, 'deckle.png'), optimize=True)
+        print('deckle.png', os.path.getsize(os.path.join(OUT, 'deckle.png')) // 1024, 'KB')
+        return
     paper(1080, 1920, 11, (247, 241, 230), 0.045, 0.16).save(os.path.join(OUT, 'paper.jpg'), quality=90)
     paper(512, 512, 21, (255, 252, 245), 0.03, 0).save(os.path.join(OUT, 'paper-tile.jpg'), quality=90)
     for k, (name, (rgb, gran)) in enumerate(PIGMENTS.items()):
         wash(1024, 100 + k * 10, rgb, gran).save(os.path.join(OUT, f'wash-{name}.png'), optimize=True)
         stroke(1600, 420, 200 + k * 10, rgb).save(os.path.join(OUT, f'stroke-{name}.png'), optimize=True)
+    deckle().save(os.path.join(OUT, 'deckle.png'), optimize=True)
     for f in sorted(os.listdir(OUT)):
         print(f'{f:16s} {os.path.getsize(os.path.join(OUT, f)) / 1024:7.0f} KB')
 

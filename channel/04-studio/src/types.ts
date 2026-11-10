@@ -106,12 +106,14 @@ export type Moment = MomentBase &
         /** the title types in when this word is said (until then a blank bar: the name isn't known yet) */
         titleCue?: string;
         subtitle?: string;
+        /** the name in English, under the Arabic one, for a foreign name (the owner's rule: on screen only) */
+        en?: string;
         tag?: string;
         tone?: Tone;
         fields?: {label: string; value: string; cue?: string; note?: string; noteCue?: string}[];
       }
     | {kind: 'stamp'; text: string; tone?: Tone; /** a smaller stamp, for the corner of a card */ small?: boolean}
-    | {kind: 'quote'; who: string; meta?: string; text: string; textCue?: string; original?: string}
+    | {kind: 'quote'; who: string; /** the speaker's name in English */ whoEn?: string; meta?: string; text: string; textCue?: string; original?: string}
     | {kind: 'count'; value: string; unit?: string; label?: string; tone?: Tone}
     | {kind: 'question'; text?: string}
     | {kind: 'share'; shape: 'saudi' | 'world'; part: number; whole: number; title?: string; value?: string; label: string; fillCue?: string; tone?: Tone}
@@ -178,7 +180,19 @@ export type Moment = MomentBase &
     /** a big button pressed on a word */
     | {kind: 'button'; text: string; pressCue?: string; tone?: Tone}
     /** a globe that turns from Riyadh to a place and drops a pin */
-    | {kind: 'globe'; lat: number; lon: number; label: string; sub?: string; subCue?: string}
+    | {kind: 'globe'; lat: number; lon: number; label: string; /** the place in English */ en?: string; sub?: string; subCue?: string}
+    | {
+        kind: 'photo';
+        /** a file in 03-episodes (public domain or CC0, its source in sources.md), shown in watercolor */
+        src: string;
+        caption?: string;
+        /** the caption's name in English */
+        en?: string;
+        /** the line under it: who took it and the licence */
+        credit: string;
+        /** what it shows: never a woman (the owner's rule: a watercolor avatar instead); people only when needed */
+        subject: 'place' | 'object' | 'man';
+      }
     /** a search bar typing a query, with a rising trend line */
     | {kind: 'search'; query: string; note?: string; noteCue?: string}
     /** a case file: the next episode */
@@ -298,7 +312,7 @@ export type Episode = {
    * and motes (components/Motion.tsx; the owner's request after EP003) */
   motion?: 'plain' | 'rich';
   /** the look: "material" (default) or "watercolor", between watercolor and anime (an experiment from EP003) */
-  look?: 'material' | 'watercolor';
+  look?: 'material' | 'watercolor' | 'aquarelle';
   /** the sound effects for this episode only, overriding channel.json: "foley" (paper, cards, books and coins, from
    * EP004) or "synth" (the synthesized set EP001–EP003 were made with) */
   sfx?: SfxSet;

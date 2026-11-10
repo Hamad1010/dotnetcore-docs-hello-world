@@ -6,7 +6,7 @@
 // anything else) reaches all of them.
 import {ACCENTS, C, DARK, LOOK, ON_STAGE, SHADOW, SHADOW_SOFT, setShadows, type LookName, type MotionName} from './theme';
 import {CARD, DEEP, setDeep, TONE} from './components/moment-kit';
-import {INK_DEEP, INK_SHADOW, INK_SHADOW_SOFT, paperCard} from './look-kit';
+import {AQUA_SHADOW, AQUA_SHADOW_SOFT, deckle, INK_DEEP, INK_SHADOW, INK_SHADOW_SOFT, paperCard, POOLED} from './look-kit';
 
 const MATERIAL = {...C};
 const MATERIAL_DARK = {...DARK};
@@ -40,7 +40,8 @@ export const applyLook = (name: LookName = 'material', motion: MotionName = 'pla
   LOOK.motion = motion;
   if (LOOK.name === name) return;
   LOOK.name = name;
-  const w = name === 'watercolor';
+  const w = name === 'watercolor' || name === 'aquarelle';
+  const aq = name === 'aquarelle';
   Object.assign(C, w ? WATERCOLOR : MATERIAL);
   Object.assign(DARK, w ? WATERCOLOR_DARK : MATERIAL_DARK);
   const accents: [string, string][] = [
@@ -55,7 +56,8 @@ export const applyLook = (name: LookName = 'material', motion: MotionName = 'pla
   Object.assign(TONE.pos, {main: C.green, soft: C.greenSoft});
   Object.assign(TONE.accent, {main: C.blue, soft: C.blueSoft});
   Object.assign(TONE.gold, {main: w ? '#B57F12' : MATERIAL_SHADOWS.gold, soft: C.yellowSoft});
-  setShadows(w ? INK_SHADOW : MATERIAL_SHADOWS.shadow, w ? INK_SHADOW_SOFT : MATERIAL_SHADOWS.soft);
-  setDeep(w ? INK_DEEP : MATERIAL_SHADOWS.deep);
-  Object.assign(CARD, {background: paperCard(), boxShadow: w ? INK_DEEP : MATERIAL_SHADOWS.deep, color: C.ink});
+  setShadows(aq ? AQUA_SHADOW : w ? INK_SHADOW : MATERIAL_SHADOWS.shadow, aq ? AQUA_SHADOW_SOFT : w ? INK_SHADOW_SOFT : MATERIAL_SHADOWS.soft);
+  setDeep(aq ? AQUA_SHADOW : w ? INK_DEEP : MATERIAL_SHADOWS.deep);
+  // aquarelle: torn paper edges and pooled pigment instead of an ink line (the card's own mask clips any outer shadow)
+  Object.assign(CARD, {background: paperCard(), boxShadow: aq ? POOLED : w ? INK_DEEP : MATERIAL_SHADOWS.deep, color: C.ink, WebkitMaskBoxImage: aq ? deckle(56).WebkitMaskBoxImage : undefined});
 };

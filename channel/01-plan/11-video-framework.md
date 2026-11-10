@@ -1,6 +1,6 @@
 # 11 · Video framework: how every long video is built
 
-**Current version: v5.4** (4 Nov 2026). This file is the only place where the structure of a long video is defined.
+**Current version: v5.5** (10 Nov 2026). This file is the only place where the structure of a long video is defined.
 `CLAUDE.md`, the `/new-episode` skill and the blueprint point here instead of repeating it, so a change made here
 reaches everything at once.
 
@@ -101,6 +101,9 @@ draft is short, add a story, an example or a clearer explanation, not filler.
   what it is in plain words and give 1–2 achievements with numbers ("فيسبوك… اللي كان يستخدمها وقتها أكثر من 250
   مليون إنسان"; "ياهو… من أشهر مواقع الإنترنت وقتها").
 - Fewer names, introduced well, beat many names said in passing.
+- **On screen, a foreign name is in Arabic and English (v5.5, the owner's rule).** A person, company or place whose
+  name isn't Arabic is written in Arabic with its English form under it («وارن بافيت» / Warren Buffett): `en` on a
+  profile, globe or photo moment, `whoEn` on a quote. The script and the narration stay Arabic only.
 - Company examples don't have to be famous brands. Any well-documented company works, including the world's largest
   (Forbes Global 2000, Fortune Global 500): introduce it with its rank or one big number ("مايكروسوفت… من أكبر 10
   شركات في قائمة فوربس لأكبر 2000 شركة في العالم").
@@ -221,9 +224,13 @@ The owner's rule after part A: the screen must move with the voice. Nothing may 
   `channel.json` `"sfx": "foley"`; EP001–EP003 keep `"synth"` (`npm run music -- sfx`).
 - **The channel's avatar at the top right (v5.4, the owner's request):** the avatar from the channel's YouTube page
   (`03-episodes/_assets/brand/avatar.png`) in the top bar of every scene and in the intro and end lockups.
-- **Photos (v5.4):** only public domain or CC0, never a face we have no right to, each with its source in `sources.md`.
-  None for now: the session's network policy blocks every photo library (Wikimedia Commons, Openverse, Unsplash, Pexels…);
-  they come back when the owner allows one of those domains, or sends photos they own.
+- **Photos (v5.5):** only public domain or CC0, never a face we have no right to, each with its page in `sources.md`.
+  Found on Wikimedia Commons (its API, slowly: it rate-limits this session; files from upload.wikimedia.org at a standard
+  thumbnail width such as 500, 960 or 1280 px) or Openverse. The `photo` moment lays one on the page as a watercolor
+  print (softened colours, the paper's grain, torn edges, a slow push in) with its caption in Arabic and English and its
+  credit line; a few per episode, on a place or a thing the narration names, about 3 seconds each. **Never a photo of a
+  woman (the owner's rule, Nov 2026):** a woman in a story gets the watercolor avatar (the profile card's painted
+  portrait); each photo is looked at before it is used (no women, no logos, no one we have no right to show).
 - **The background: soft hums, no instruments, never sad.** Its job is that the voice is never alone: quiet, curious,
   good for analysis, and since v5.3 a bit noticeable (the owner asked for it 5 dB louder). The owner chooses it by ear (their "Detective
   Backgrounds" hums, or beds made with `06-tools/ambient_bed.py` or `humming_bed.py`; screen each with
@@ -284,6 +291,13 @@ cleaning does the rest.
   podcast preset (`.claude/skills/audio-cleanup`) on the noise-cleaned voice: more body at 200 Hz, presence at 3 kHz,
   the hiss above 14 kHz cut, a gentle 3:1 compressor. The cuts, pauses and breaths are still decided as above, so
   nothing else changes; `--voice=studio` gives the v5 sound.
+- **A clearer voice (v5.5, proposed; the owner chooses by ear):** measured on EP004's recording, the voice stopped at
+  about 11 kHz and its low-mids sat ~15 dB over the middle, which is what sounds like an old recorder, and the podcast
+  preset made the boom heavier still. `--voice=clear` takes the boom down about 9 dB, lifts presence a little and puts
+  air back above 8 kHz (an exciter makes it from the voice's own 5–9 kHz, a shelf lifts it, the de-esser keeps س and ش
+  soft). It can't bring back what was never recorded: the real fix is the recorder's best setting (iPhone: Settings →
+  Apps → Voice Memos → Audio Quality → Lossless; Samsung Voice Recorder: Settings → Recording quality → High) and
+  sending the original file, never through WhatsApp.
 
 ### 3.18 Dialogues (new in v5.1)
 When the episode's skill happens in a conversation (asking people, offering, pricing, answering a customer, negotiating),
@@ -350,10 +364,16 @@ show it as a short dialogue of 2–6 lines: two voices, Saudi names and places, 
 | `close` | `stage` with an `endscene` moment (the «فيه مشهد في النهاية» pop-up, from the bridge's first word `until` the teaser's) and `darkCue` = the teaser's first word |
 | end card | `stage` with no narration (built): the next `file` from second 0 (`at: 0`), moved up to leave room for YouTube's end-screen elements; `dark: true` after a dark teaser |
 | every scene | `moments` on the narrator's words, each with its sound (§3.14) |
-| the episode | from EP004 (v5.4): `"look": "watercolor"`, `"motion": "rich"`, `"map": "mountain"`; the sounds and the background level come from `channel.json` |
+| the episode | from EP005 (v5.5): `"look": "aquarelle"`, `"motion": "rich"`, `"map": "mountain"` (EP004 keeps `"watercolor"`); the sounds and the background level come from `channel.json` |
 
 ## 7. Changelog
 
+- **v5.5 · 10 Nov 2026.** From the owner after EP004: the whole video in watercolor with minimal anime, the
+  `"aquarelle"` look from EP005 (§6): cards of torn paper lifted off the page, some taped down with washi tape, pigment
+  blooming behind the big reveals in place of impact lines, sparkles and focus lines, painted avatars and badges, a
+  soft pencil line in place of the ink outline, soft clouds; the motion stays rich. Foreign names on screen in Arabic and
+  English (§3.4). Photos back (public domain or CC0, as a `photo` moment) and never a photo of a woman (§3.14). A clearer
+  voice proposed for the owner's ear (§3.17). Tested on EP004's first 48 seconds (rule 9).
 - **v5.4 · 4 Nov 2026.** From the owner after EP004's draft: every script goes through the `humanizer` skill so it reads
   like talking to a friend, and a loop is paid off by telling it, never with «اللي وعدتك فيها» (§3.1, §3.5, §5); the
   mountain map for every episode until they say otherwise (§1); new sound effects, the «foley» set from Kenney's CC0

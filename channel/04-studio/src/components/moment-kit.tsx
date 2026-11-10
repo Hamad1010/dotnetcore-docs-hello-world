@@ -1,7 +1,8 @@
 // Shared pieces of the explainer moments (Moments.tsx, MomentKinds.tsx): tones, the card look, timing helpers.
 import React from 'react';
 import {interpolate} from 'remotion';
-import {C, EASE_OUT, FONT} from '../theme';
+import {aquarelle, C, EASE_OUT, FONT} from '../theme';
+import {texture} from '../look-kit';
 import type {Tone} from '../types';
 import {Person} from './Silhouettes';
 
@@ -11,6 +12,39 @@ export const TONE: Record<Tone, {main: string; soft: string}> = {
   accent: {main: C.blue, soft: C.blueSoft},
   gold: {main: '#C98A00', soft: C.yellowSoft},
 };
+/** Each tone's watercolor pigment (the washes and strokes in _assets/look/). */
+export type Pigment = 'blue' | 'gold' | 'green' | 'rose';
+export const PIGMENT: Record<Tone, Pigment> = {neg: 'rose', pos: 'green', accent: 'blue', gold: 'gold'};
+const RGB: Record<Pigment, string> = {gold: '232,170,53', rose: '222,91,71', blue: '58,120,194', green: '62,154,98'};
+/** A pigment blot (a wash from _assets/look/) as a background, twice over so it reads as paint and not a tint. */
+export const blot = (pigment: Pigment, size = '118%') => {
+  const w = `url("${texture(`wash-${pigment}.png`)}") center / ${size} no-repeat`;
+  return `${w}, ${w}`;
+};
+
+/** A strip of washi tape holding a card on the page (the pure watercolor look): see-through pigment, torn ends. */
+export const Tape: React.FC<{seed: number}> = ({seed}) => {
+  const pig = (['gold', 'rose', 'blue', 'green'] as const)[seed % 4];
+  const rot = ((seed * 37) % 7) - 3 || 2.5;
+  return (
+    <div
+      style={{
+        position: 'absolute',
+        top: -22,
+        left: '50%',
+        width: 176,
+        height: 46,
+        marginLeft: -88 + ((seed * 53) % 60) - 30,
+        transform: `rotate(${rot}deg)`,
+        background: `linear-gradient(180deg, rgba(${RGB[pig]},0.46), rgba(${RGB[pig]},0.34))`,
+        clipPath: 'polygon(2% 0, 98% 0, 96% 18%, 100% 36%, 97% 55%, 100% 74%, 96% 100%, 3% 100%, 0 82%, 4% 63%, 0 44%, 3% 25%)',
+        zIndex: 4,
+        pointerEvents: 'none',
+      }}
+    />
+  );
+};
+
 export const clamp = {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'} as const;
 export let DEEP = '0 2px 6px rgba(28,35,51,0.08), 0 30px 60px rgba(28,35,51,0.18)';
 /** Set by applyLook (look.ts), with CARD and TONE, which are changed in place. */
@@ -36,9 +70,24 @@ export const counted = (value: string, p: number) => {
 /** Left-to-right only for a bare number ("+2000", "−75%"); a number with Arabic words ("745 ألف") reads right-to-left. */
 export const numDir = (value: string): React.CSSProperties => (/[\u0600-\u06FF]/.test(value) ? {} : LTR);
 
-export const Avatar: React.FC<{icon: 'person' | 'pair' | 'building' | 'chat' | 'camera'; size: number; tone: {main: string; soft: string}}> = ({icon, size, tone}) => (
-  <div style={{width: size, height: size, borderRadius: 999, background: tone.soft, display: 'flex', alignItems: 'flex-end', justifyContent: 'center', overflow: 'hidden', flex: `0 0 ${size}px`}}>
-    {icon === 'person' ? <Person size={size * 0.86} color={C.ink} /> : null}
+/** A round portrait. In the pure watercolor look the circle is a pigment blot and the figure is painted over it in
+ * soft ink: this is the watercolor avatar that stands in for any woman (no photos of women: the owner's rule). */
+export const Avatar: React.FC<{icon: 'person' | 'pair' | 'building' | 'chat' | 'camera'; size: number; tone: {main: string; soft: string}; pigment?: Pigment}> = ({icon, size, tone, pigment = 'blue'}) => (
+  <div
+    style={{
+      width: size,
+      height: size,
+      borderRadius: 999,
+      background: aquarelle() ? `${blot(pigment, '190%')}, ${tone.soft}` : tone.soft,
+      boxShadow: aquarelle() ? 'inset 0 0 0 2px rgba(255,255,255,0.5), inset 0 0 20px rgba(120,90,50,0.2)' : undefined,
+      display: 'flex',
+      alignItems: 'flex-end',
+      justifyContent: 'center',
+      overflow: 'hidden',
+      flex: `0 0 ${size}px`,
+    }}
+  >
+    {icon === 'person' ? <Person size={size * 0.86} color={aquarelle() ? '#3A3557' : C.ink} opacity={aquarelle() ? 0.86 : 1} /> : null}
     {icon === 'pair' ? (
       <div style={{display: 'flex', alignItems: 'flex-end', marginBottom: -2}}>
         <Person size={size * 0.62} color={C.ink} />

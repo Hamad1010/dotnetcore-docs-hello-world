@@ -27,7 +27,15 @@ Turns `../03-episodes/<EP>/episode.json` into a finished video. You edit **text*
 - `src/look.ts`: an episode's look (`episode.json` → `"look"`). `material` is the default; `watercolor` (an experiment
   from EP003) moves it between watercolor and anime: paper and pigment washes (`06-tools/watercolor_textures.py` →
   `03-episodes/_assets/look/`), an ink line and a cel shadow on every card, an anime sky over the journey map, sparkles on
-  the big reveals and focus lines behind a question (`src/components/Watercolor.tsx`).
+  the big reveals and focus lines behind a question (`src/components/Watercolor.tsx`). `aquarelle` (from EP005, the
+  owner's choice of 10 Nov 2026) is the same paper with almost no anime: cards torn from paper (`deckle.png`, a 9-slice
+  mask from `06-tools/watercolor_textures.py`) lifted by a soft shadow, washi tape on the cards that name someone, pigment
+  blooming behind the big reveals (`PaintBloom`), painted avatars and badges (`blot()`), a sepia pencil line instead of
+  the ink (`ink()` follows the look), soft clouds, no sparkles, focus lines, squash or shake.
+- Bilingual names: `en` on `profile`, `globe` and `photo` moments, `whoEn` on `quote`, shows a foreign name's English form
+  under the Arabic one. The `photo` moment (`MomentKinds.tsx` → `PhotoCard`) lays a public-domain or CC0 photo
+  (`src`, a file in `03-episodes`) on the page as a watercolor print, with `caption`, `en`, `credit` and `subject`
+  (`place`, `object` or `man`: never a woman, the owner's rule).
 - `src/components/Sfx.tsx`: the sound effects. `channel.json` `"sfx"` picks the set: `"foley"` (`03-episodes/_assets/sfx-foley/`,
   cards, paper, books, wood and coins from Kenney's CC0 packs, made by `python3 ../06-tools/sfx_foley.py <kenney assets>`,
   the channel's set from EP004) or `"synth"` (`_assets/sfx/`, `npm run music -- sfx`, kept by EP001–EP003's episode.json).

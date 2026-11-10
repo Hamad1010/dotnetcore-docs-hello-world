@@ -1,23 +1,24 @@
 // More explainer moments (see Moments.tsx for the layer that places and times them): a headline, a wrench that
 // turns, a 24-hour day, many copies of a shape, a self-check, a side-by-side comparison, a phone chat, a sum built
 // term by term, numbered steps, a phone's emergency alert, a button pressed, a globe flying to a place, a search
-// trend, the next case file, a verse or a hadith (no sound: framework v5 §3.15) and the «فيه مشهد في النهاية» pop-up.
+// trend, the next case file, a verse or a hadith (no sound: framework v5 §3.15), the «فيه مشهد في النهاية» pop-up and a
+// public-domain photo painted into the page.
 // Plain shapes in our palette; each one has its sound.
 import React from 'react';
-import {interpolate, spring, useVideoConfig} from 'remotion';
+import {Img, interpolate, spring, staticFile, useVideoConfig} from 'remotion';
 import {geoMercator, geoPath, type GeoPermissibleObjects} from 'd3-geo';
 import {feature} from 'topojson-client';
 import world from 'world-atlas/countries-110m.json';
-import {C, EASE_IN_OUT, FONT, NASKH_FONT, ON_STAGE, QURAN_FONT, rich, watercolor} from '../theme';
+import {aquarelle, C, EASE_IN_OUT, FONT, NASKH_FONT, ON_STAGE, QURAN_FONT, rich, SHADOW_SOFT, watercolor} from '../theme';
 import {BrushUnderline, KineticWords} from './Motion';
-import {ink, INK_SHADOW_SOFT} from '../look-kit';
+import {deckle, ink, texture} from '../look-kit';
 import type {Moment} from '../types';
 import type {ScenePlan} from '../lib/plan';
 import {wordFrames} from '../scenes/common';
 import {Globe} from './Globe';
 import {Person} from './Silhouettes';
 import {Sfx} from './Sfx';
-import {CARD, clamp, DEEP, LTR, numDir, ramp, TONE, type Clock} from './moment-kit';
+import {blot, CARD, clamp, DEEP, LTR, numDir, PIGMENT, ramp, TONE, type Clock} from './moment-kit';
 
 type K<T extends Moment['kind']> = {m: Extract<Moment, {kind: T}>; c: Clock};
 const spr = (f: number, at: number, fps: number, damping = 14, stiffness = 130) =>
@@ -33,7 +34,7 @@ export const Headline: React.FC<K<'headline'>> = ({m, c}) => {
     <div style={{width: 1560, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 20, direction: 'rtl', fontFamily: FONT, textAlign: 'center'}}>
       <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 30}}>
         {m.badge ? (
-          <div style={{flex: '0 0 auto', width: 120, height: 120, borderRadius: 999, background: tone.main, color: '#fff', fontSize: 68, fontWeight: 700, display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: watercolor() ? INK_SHADOW_SOFT : `0 16px 34px ${tone.main}55`}}>
+          <div style={{flex: '0 0 auto', width: aquarelle() ? 150 : 120, height: aquarelle() ? 150 : 120, borderRadius: 999, background: aquarelle() ? blot(PIGMENT[m.tone ?? 'accent'], '125%') : tone.main, color: aquarelle() ? C.ink : '#fff', fontSize: 68, fontWeight: 700, display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: watercolor() ? SHADOW_SOFT : `0 16px 34px ${tone.main}55`}}>
             <span style={LTR}>{m.badge}</span>
           </div>
         ) : null}
@@ -293,7 +294,7 @@ export const Versus: React.FC<K<'versus'>> = ({m, c}) => {
   return (
     <div style={{position: 'relative'}}>
       {m.title ? (
-        <div style={{position: 'absolute', bottom: '100%', left: '50%', transform: 'translateX(-50%)', marginBottom: 26, whiteSpace: 'nowrap', fontFamily: FONT, direction: 'rtl', fontSize: 46, fontWeight: 700, color: C.ink, background: C.yellow, borderRadius: 999, padding: '10px 40px', boxShadow: watercolor() ? INK_SHADOW_SOFT : '0 14px 30px rgba(201,138,0,0.3)'}}>
+        <div style={{position: 'absolute', bottom: '100%', left: '50%', transform: 'translateX(-50%)', marginBottom: 26, whiteSpace: 'nowrap', fontFamily: FONT, direction: 'rtl', fontSize: 46, fontWeight: 700, color: C.ink, background: C.yellow, borderRadius: 999, padding: '10px 40px', boxShadow: watercolor() ? SHADOW_SOFT : '0 14px 30px rgba(201,138,0,0.3)'}}>
           {m.title}
           <Sfx at={c.inAt} name="question" />
         </div>
@@ -474,7 +475,7 @@ export const PressButton: React.FC<K<'button'>> = ({m, c}) => {
   const ring = interpolate(c.f, [pressAt, pressAt + 18], [0, 1], clamp);
   const down = c.f >= pressAt ? 1 - press : 0;
   // the watercolor look: an ink line and a hard cel shadow that the press flattens
-  const shadow = watercolor() ? `0 0 0 3px ${ink(0.9)}, ${-10 + 7 * down}px ${12 - 8 * down}px 0 3px ${ink(0.2)}` : `0 ${18 - 12 * down}px 36px ${tone.main}66`;
+  const shadow = aquarelle() ? `0 ${12 - 8 * down}px ${26 - 12 * down}px rgba(90,70,40,${0.22 - 0.1 * down})` : watercolor() ? `0 0 0 3px ${ink(0.9)}, ${-10 + 7 * down}px ${12 - 8 * down}px 0 3px ${ink(0.2)}` : `0 ${18 - 12 * down}px 36px ${tone.main}66`;
   return (
     <div style={{position: 'relative', fontFamily: FONT, direction: 'rtl', padding: 40}}>
       {ring > 0 && ring < 1 ? <div style={{position: 'absolute', inset: 40 - 30 * ring, borderRadius: 999, border: `6px solid ${tone.main}`, opacity: 1 - ring}} /> : null}
@@ -498,11 +499,40 @@ export const PlaceGlobe: React.FC<K<'globe'>> = ({m, c}) => {
       <Globe size={460} accent={C.red} keys={[{at: c.inAt - 1, pos: {lat: 24.71, lon: 46.68}}, {at: arrive, pos: {lat: m.lat, lon: m.lon}}]} pin={{lat: m.lat, lon: m.lon, at: arrive}} />
       <div style={{textAlign: 'center', opacity: label, transform: `translateY(${(1 - label) * 14}px)`}}>
         <div style={{fontSize: 46, fontWeight: 700, color: ON_STAGE.ink}}>{m.label}</div>
+        {m.en ? <div style={{...LTR, fontSize: 30, fontWeight: 500, color: ON_STAGE.ink2, letterSpacing: 0.4}}>{m.en}</div> : null}
         {m.sub ? <div style={{fontSize: 32, fontWeight: 500, color: ON_STAGE.ink2, marginTop: 4, opacity: sub}}>{m.sub}</div> : null}
       </div>
       <Sfx at={c.inAt} name="whoosh" />
       <Sfx at={arrive} name="pop" />
       {m.sub && m.subCue ? <Sfx at={subAt} name="tick" /> : null}
+    </div>
+  );
+};
+
+// ------------------------------------------------------------------ photo: a public-domain photo, painted
+/** A public-domain or CC0 photo (its page in sources.md) laid on the page as a watercolor print: colours softened, the
+ * paper's grain through it, torn edges, a slow push in. Never a woman (the owner's rule): a watercolor avatar instead. */
+export const PhotoCard: React.FC<K<'photo'>> = ({m, c}) => {
+  const zoom = 1.03 + 0.07 * interpolate(c.f - c.inAt, [0, 300], [0, 1], clamp);
+  const cap = ramp(c.f, c.inAt + 14, 14);
+  return (
+    <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 14, fontFamily: FONT, direction: 'rtl'}}>
+      <div style={{...CARD, width: 1000, padding: 24, borderRadius: 18}}>
+        <div style={{position: 'relative', height: 540, overflow: 'hidden', borderRadius: 6, ...deckle(40)}}>
+          <Img src={staticFile(m.src)} style={{width: '100%', height: '100%', objectFit: 'cover', transform: `scale(${zoom})`, filter: 'saturate(0.7) contrast(0.92) sepia(0.16) brightness(1.05)'}} />
+          {/* the paper's grain through the print, and its light pooling toward the edges as a wash does */}
+          <Img src={texture('paper.jpg')} style={{position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', mixBlendMode: 'multiply', opacity: 0.6}} />
+          <div style={{position: 'absolute', inset: 0, background: 'radial-gradient(ellipse 75% 70% at 50% 50%, rgba(255,252,245,0) 55%, rgba(255,252,245,0.5) 100%)'}} />
+        </div>
+      </div>
+      {m.caption ? (
+        <div style={{textAlign: 'center', opacity: cap, transform: `translateY(${(1 - cap) * 10}px)`}}>
+          <div style={{fontSize: 40, fontWeight: 700, color: ON_STAGE.ink}}>{m.caption}</div>
+          {m.en ? <div style={{...LTR, fontSize: 28, fontWeight: 500, color: ON_STAGE.ink2}}>{m.en}</div> : null}
+        </div>
+      ) : null}
+      <div style={{...LTR, fontSize: 19, color: ON_STAGE.ink3, opacity: cap}}>{m.credit}</div>
+      <Sfx at={c.inAt} name="paper" />
     </div>
   );
 };

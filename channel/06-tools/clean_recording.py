@@ -5,6 +5,7 @@
     python3 channel/06-tools/clean_recording.py EP001 --marks     (only re-align the words, after a small text change)
     … --reuse-stt     a re-run after a change to the sound only: scenes of the same length keep their transcripts (no cost)
     … --voice=studio  the v5 studio sound (EP001–EP003) instead of the podcast voice
+    … --voice=clear   the clearer voice (proposed for EP005, 10 Nov 2026): less boom, the missing top put back
 
 1. Listens: transcribes the recording with word times (ElevenLabs speech-to-text. In a cloud session the key is
    the environment's network secret; on a computer, set ELEVENLABS_API_KEY).
@@ -80,6 +81,15 @@ CHAIN = ('highpass=f=90:poles=2,highpass=f=90:poles=2,{denoise}'
          'equalizer=f=110:t=q:w=1.0:g=-5,equalizer=f=250:t=q:w=1.0:g=-1.5,equalizer=f=450:t=q:w=1.2:g=-2.5,'
          'equalizer=f=3500:t=q:w=1.0:g=4,highshelf=f=9500:g=2.5,deesser=i=0.45,'
          'acompressor=threshold=-24dB:ratio=3:attack=6:release=150:makeup=4dB:knee=4,' + GATE)
+# The clearer voice (--voice=clear): measured on EP004's phone recording (10 Nov 2026), the source has almost nothing
+# above 11 kHz and 120–500 Hz sits ~15 dB over 1–2 kHz, which is what sounds like an old recorder; the podcast preset
+# made the low end heavier still (+21 dB) and cut the top at 14 kHz. This chain takes the boom down (~9 dB at 120–500
+# Hz), lifts presence a little, and puts air back above 8 kHz: an exciter makes harmonics of the 5–9 kHz band (it
+# cannot recover what was never recorded: a lossless recording does that), a shelf lifts them, the de-esser keeps the
+# س and ش soft.
+CLEAR = ('lowshelf=f=200:g=-3,equalizer=f=150:t=q:w=1.0:g=-5,equalizer=f=320:t=q:w=1.0:g=-4,equalizer=f=650:t=q:w=1.2:g=-2.5,'
+         'equalizer=f=2800:t=q:w=1.0:g=2,equalizer=f=4800:t=q:w=1.2:g=2.5,aexciter=amount=4.5:drive=8:blend=0:freq=5000:ceil=18000,'
+         'highshelf=f=7000:g=6,deesser=i=0.55,acompressor=threshold=-22dB:ratio=2.5:attack=8:release=120:makeup=3dB:knee=4,' + GATE)
 PODCAST = os.path.join(os.path.dirname(ROOT), '.claude', 'skills', 'audio-cleanup', 'scripts', 'clean_audio.py')
 MARK = re.compile(r'\{([^|{}]*)\|([^{}]*)\}')
 AR = str.maketrans({'أ': 'ا', 'إ': 'ا', 'آ': 'ا', 'ى': 'ي', 'ة': 'ه', 'ؤ': 'و', 'ئ': 'ي'})
@@ -325,6 +335,18 @@ def lag_behind(ref, y, hop=SR // 1000):
         if scores:
             lags.append(max(scores)[1])
     return int(np.median(lags)) * hop if lags else 0
+
+
+def clear_voice(source, denoise, work, studio_x):
+    """The clearer voice (--voice=clear): the high-passed, RNNoise-cleaned voice through CLEAR, lined up with the studio
+    chain the same way as the podcast voice."""
+    voice = os.path.join(work, 'clear.wav')
+    ffmpeg('-i', source, '-af', f'highpass=f=80:poles=2,highpass=f=80:poles=2,{denoise}{CLEAR}', '-ac', '1', '-ar', str(SR),
+           '-c:a', 'pcm_s16le', voice)
+    y = read_wav(voice)
+    lag = lag_behind(studio_x, y)
+    y = np.concatenate([y[lag:], np.zeros(lag, np.float32)]) if lag > 0 else np.concatenate([np.zeros(-lag, np.float32), y[:len(y) + lag]])
+    return np.pad(y, (0, max(0, len(studio_x) - len(y))))[:len(studio_x)]
 
 
 def podcast_voice(source, denoise, work, studio_x):
@@ -669,8 +691,10 @@ def main():
     ffmpeg('-i', source, '-af', CHAIN.format(denoise=denoise), '-ac', '1', '-ar', str(SR), '-c:a', 'pcm_s16le', studio)
     x = read_wav(studio)
     x0 = read_wav(raw)  # the unprocessed voice: what the voicing and the speech check listen to
-    # what the viewer hears: the podcast voice (default) or the studio chain itself (--voice=studio, EP001–EP003)
-    heard_voice = x if '--voice=studio' in sys.argv else podcast_voice(source, denoise, work, x)
+    # what the viewer hears: the podcast voice (default), the clearer voice (--voice=clear) or the studio chain itself
+    # (--voice=studio, EP001–EP003)
+    heard_voice = (x if '--voice=studio' in sys.argv else clear_voice(source, denoise, work, x) if '--voice=clear' in sys.argv
+                   else podcast_voice(source, denoise, work, x))
 
     timings, report = {}, []
     old_file = os.path.join(audio, 'timings.json')

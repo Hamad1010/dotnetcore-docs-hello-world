@@ -3,7 +3,7 @@
 // Textures from 06-tools/watercolor_textures.py; everything else drawn here from plain shapes.
 import React from 'react';
 import {AbsoluteFill, Img, interpolate, useCurrentFrame} from 'remotion';
-import {C, rich} from '../theme';
+import {aquarelle, C, rich} from '../theme';
 import {ink, texture} from '../look-kit';
 import {useFrameSize} from './frame';
 import {Atmosphere} from './Motion';
@@ -49,7 +49,7 @@ export const WashBackdrop: React.FC = () => {
 /** Preloads the look's textures, so no frame is drawn before the paper is there. */
 export const WashTextures: React.FC = () => (
   <>
-    {(['paper.jpg', 'paper-tile.jpg', 'wash-blue.png', 'wash-gold.png', 'wash-green.png', 'wash-rose.png'] as const).map((n) => (
+    {(['paper.jpg', 'paper-tile.jpg', 'deckle.png', 'wash-blue.png', 'wash-gold.png', 'wash-green.png', 'wash-rose.png'] as const).map((n) => (
       <Img key={n} src={texture(n)} style={{display: 'none'}} />
     ))}
     {rich() ? (['blue', 'gold', 'green', 'rose'] as const).map((n) => <Img key={n} src={texture(`stroke-${n}.png`)} style={{display: 'none'}} />) : null}
@@ -138,6 +138,23 @@ const CLOUDS = [
 /** One cumulus as anime paints it: white where the light (top right) reaches, a crisp lavender shade underneath. */
 const Cloud: React.FC<{id: string; puffs: Puff[]; x: number; y: number; s: number}> = ({id, puffs, x, y, s}) => {
   const bottom = Math.max(...puffs.map(([, cy]) => cy)) + 26;
+  if (aquarelle()) {
+    // the pure watercolor look: no cel line, the white going softly to a blue-grey wash underneath
+    const top = Math.min(...puffs.map(([, cy, r]) => cy - r));
+    const low = Math.max(...puffs.map(([, cy, r]) => cy + r));
+    return (
+      <g transform={`translate(${x} ${y}) scale(${s})`} opacity={0.9}>
+        <defs>
+          <linearGradient id={`${id}-wash`} gradientUnits="userSpaceOnUse" x1="0" y1={top} x2="0" y2={low}>
+            <stop offset="0" stopColor="#FFFFFF" />
+            <stop offset="0.55" stopColor="#F5F7FB" />
+            <stop offset="1" stopColor="#C9D4EB" />
+          </linearGradient>
+        </defs>
+        {puffs.map(([cx, cy, r], k) => <circle key={k} cx={cx} cy={cy} r={r} fill={`url(#${id}-wash)`} />)}
+      </g>
+    );
+  }
   return (
     <g transform={`translate(${x} ${y}) scale(${s})`}>
       <defs>

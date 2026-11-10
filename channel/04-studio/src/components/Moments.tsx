@@ -6,17 +6,17 @@ import {interpolate, spring, useCurrentFrame, useVideoConfig} from 'remotion';
 import {geoContains, geoEqualEarth, geoMercator, geoPath, type GeoPermissibleObjects} from 'd3-geo';
 import {feature} from 'topojson-client';
 import world from 'world-atlas/countries-110m.json';
-import {C, EASE_IN_OUT, EASE_OUT, FONT, ON_STAGE, rich, watercolor} from '../theme';
+import {aquarelle, C, EASE_IN_OUT, EASE_OUT, FONT, ON_STAGE, rich, SHADOW, watercolor} from '../theme';
 import {FocusLines, Sparkles} from './Watercolor';
-import {ImpactBurst, InkSplatter, punch, shake, squash} from './Motion';
-import {INK_SHADOW} from '../look-kit';
+import {ImpactBurst, InkSplatter, PaintBloom, punch, shake, squash} from './Motion';
+import {deckle, LIFT, paperCard, POOLED, texture, tornBottom} from '../look-kit';
 import type {Moment, MomentSlot} from '../types';
 import type {ScenePlan} from '../lib/plan';
 import {cueAt, wordFrames} from '../scenes/common';
 import {usePortrait} from './ui';
 import {PeopleGrid} from './Silhouettes';
 import {Sfx, type SfxName} from './Sfx';
-import {Avatar, CARD, clamp, counted, DEEP, LTR, numDir, ramp, TONE, type Clock} from './moment-kit';
+import {Avatar, blot, CARD, clamp, counted, DEEP, LTR, numDir, PIGMENT, ramp, Tape, TONE, type Clock} from './moment-kit';
 import * as K from './MomentKinds';
 
 export {TONE};
@@ -66,7 +66,22 @@ const DateCard: React.FC<{m: Extract<Moment, {kind: 'date'}>; c: Clock}> = ({m, 
   return (
     <div style={{position: 'relative'}}>
       <div style={{...CARD, width: 360, overflow: 'hidden', borderRadius: 34}}>
-        <div style={{background: done ? C.green : C.red, color: '#fff', fontSize: 48, fontWeight: 700, padding: '24px 0 18px', textAlign: 'center', position: 'relative'}}>
+        <div
+          style={{
+            // the pure watercolor look: the band is paint on the paper's grain, its bottom edge torn
+            background: aquarelle() ? `url("${texture('paper-tile.jpg')}") 0 0 / 512px 512px repeat, ${done ? C.green : C.red}` : done ? C.green : C.red,
+            backgroundBlendMode: aquarelle() ? 'multiply' : undefined,
+            clipPath: aquarelle() ? tornBottom(from) : undefined,
+            color: '#fff',
+            fontSize: 48,
+            fontWeight: 700,
+            padding: aquarelle() ? '30px 0 24px' : '24px 0 18px',
+            minHeight: aquarelle() ? 84 : undefined,
+            boxSizing: 'border-box',
+            textAlign: 'center',
+            position: 'relative',
+          }}
+        >
           {[0, 1].map((r) => (
             <div key={r} style={{position: 'absolute', top: -10, [r ? 'left' : 'right']: 76, width: 18, height: 38, borderRadius: 9, background: C.ink, opacity: 0.8}} />
           ))}
@@ -98,12 +113,13 @@ const ProfileCard: React.FC<{m: Extract<Moment, {kind: 'profile'}>; c: Clock}> =
   return (
     <div style={{...CARD, width: compact ? 640 : 600, padding: compact ? '26px 32px' : '32px 36px', display: 'flex', flexDirection: 'column', gap: 18}}>
       <div style={{display: 'flex', alignItems: 'center', gap: 24}}>
-        <Avatar icon={m.icon ?? 'person'} size={compact ? 104 : 120} tone={tone} />
+        <Avatar icon={m.icon ?? 'person'} size={compact ? 104 : 120} tone={tone} pigment={PIGMENT[m.tone ?? 'accent']} />
         <div style={{display: 'flex', flexDirection: 'column', gap: 6, minWidth: 0}}>
           {m.tag ? <div style={{alignSelf: 'flex-start', fontSize: 24, fontWeight: 600, color: tone.main, background: tone.soft, borderRadius: 999, padding: '4px 16px'}}>{m.tag}</div> : null}
           <div style={{fontSize: 48, fontWeight: 700, lineHeight: 1.2, minHeight: 58, position: 'relative'}}>
             {typed > 0 ? m.title.slice(0, typed) : <div style={{width: 230, height: 30, marginTop: 14, borderRadius: 12, background: C.line}} />}
           </div>
+          {m.en ? <div style={{...LTR, fontSize: 27, fontWeight: 500, color: C.ink3, letterSpacing: 0.3, textAlign: 'right', opacity: ramp(c.f, titleAt + 12, 12)}}>{m.en}</div> : null}
           {m.subtitle ? <div style={{fontSize: 30, fontWeight: 500, color: C.ink2}}>{m.subtitle}</div> : null}
         </div>
       </div>
@@ -144,7 +160,7 @@ const StampMark: React.FC<{m: Extract<Moment, {kind: 'stamp'}>; c: Clock}> = ({m
   const tone = TONE[m.tone ?? 'neg'];
   // rich motion: the hit throws ink and shakes the stamp
   return (
-    <div style={{position: 'relative', transform: rich() ? shake(c.f, c.inAt + 3) : undefined}}>
+    <div style={{position: 'relative', transform: rich() && !aquarelle() ? shake(c.f, c.inAt + 3) : undefined}}>
     {rich() ? <InkSplatter at={c.inAt + 3} color={tone.main} /> : null}
     <div
       style={{
@@ -183,6 +199,7 @@ const QuoteCard: React.FC<{m: Extract<Moment, {kind: 'quote'}>; c: Clock; plan: 
         <Avatar icon="person" size={78} tone={TONE.accent} />
         <div style={{display: 'flex', flexDirection: 'column'}}>
           <div style={{fontSize: 34, fontWeight: 700}}>{m.who}</div>
+          {m.whoEn ? <div style={{...LTR, fontSize: 22, fontWeight: 500, color: C.ink3, textAlign: 'right'}}>{m.whoEn}</div> : null}
           {m.meta ? <div style={{fontSize: 24, color: C.ink3}}>{m.meta}</div> : null}
         </div>
       </div>
@@ -219,7 +236,7 @@ const CountCard: React.FC<{m: Extract<Moment, {kind: 'count'}>; c: Clock}> = ({m
   const land = c.inAt + 26;
   return (
     <div style={{position: 'relative'}}>
-    {rich() ? <ImpactBurst at={land} color={tone.main} /> : null}
+    {rich() && !aquarelle() ? <ImpactBurst at={land} color={tone.main} /> : null}
     <div style={{...CARD, padding: '28px 44px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6}}>
       <div style={{display: 'flex', alignItems: 'baseline', gap: 14, color: tone.main, transform: rich() ? `scale(${1 + 0.14 * punch(c.f, land)})` : undefined}}>
         <span style={{...numDir(m.value), fontSize: 110, fontWeight: 700, lineHeight: 1}}>{counted(m.value, p)}</span>
@@ -238,10 +255,14 @@ const QuestionMark: React.FC<{m: Extract<Moment, {kind: 'question'}>; c: Clock}>
   const pulse = 1 + 0.06 * Math.sin((c.f - c.inAt) / 5);
   return (
     <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 16, fontFamily: FONT}}>
-      <div style={{width: 210, height: 210, borderRadius: 999, background: C.yellow, color: C.ink, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 150, fontWeight: 700, transform: `scale(${pulse})`, boxShadow: watercolor() ? INK_SHADOW : '0 20px 50px rgba(201,138,0,0.35)'}}>
+      <div style={{width: 210, height: 210, borderRadius: 999, background: aquarelle() ? blot('gold', '150%') : C.yellow, color: C.ink, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 150, fontWeight: 700, transform: `scale(${pulse})`, boxShadow: aquarelle() ? 'none' : watercolor() ? SHADOW : '0 20px 50px rgba(201,138,0,0.35)'}}>
         ؟
       </div>
-      {m.text ? <div style={{fontSize: 48, fontWeight: 700, color: C.ink, background: C.surface, borderRadius: 999, padding: '8px 34px', boxShadow: DEEP, textAlign: 'center', textWrap: 'balance'}}>{m.text}</div> : null}
+      {m.text ? (
+        <div style={{filter: aquarelle() ? LIFT : undefined}}>
+          <div style={{fontSize: 48, fontWeight: 700, color: C.ink, background: aquarelle() ? paperCard() : C.surface, borderRadius: aquarelle() ? 16 : 999, padding: aquarelle() ? '14px 44px' : '8px 34px', boxShadow: aquarelle() ? POOLED : DEEP, textAlign: 'center', textWrap: 'balance', ...deckle(30)}}>{m.text}</div>
+        </div>
+      ) : null}
       <Sfx at={c.inAt} name="question" />
     </div>
   );
@@ -318,11 +339,13 @@ const ChipRow: React.FC<{m: Extract<Moment, {kind: 'chips'}>; c: Clock}> = ({m, 
       const p = interpolate(c.f, [at, at + 10], [0, 1], {...clamp, easing: EASE_OUT});
       const cross = it.crossed ? interpolate(c.f, [at + 8, at + 16], [0, 1], {...clamp, easing: EASE_OUT}) : 0;
       return (
-        <div key={i} style={{position: 'relative', fontSize: m.big ? 54 : 38, fontWeight: 700, color: cross > 0.5 ? C.ink3 : C.ink, background: C.surface, borderRadius: 999, padding: m.big ? '16px 46px' : '10px 32px', boxShadow: DEEP, whiteSpace: 'nowrap', opacity: p, transform: `scale(${0.8 + 0.2 * p})`}}>
+        <div key={i} style={{filter: aquarelle() ? LIFT : undefined, opacity: p, transform: `scale(${0.8 + 0.2 * p}) rotate(${aquarelle() ? (i % 2 ? 1.2 : -1.2) * (2 - p) : 0}deg)`}}>
+        <div style={{position: 'relative', fontSize: m.big ? 54 : 38, fontWeight: 700, color: cross > 0.5 ? C.ink3 : C.ink, background: aquarelle() ? paperCard() : C.surface, borderRadius: aquarelle() ? 14 : 999, padding: m.big ? '18px 50px' : '12px 36px', boxShadow: aquarelle() ? POOLED : DEEP, whiteSpace: 'nowrap', ...deckle(30)}}>
           {it.text}
           {cross > 0 ? <div style={{position: 'absolute', right: 14, top: '52%', height: 7, width: `calc(${cross} * (100% - 28px))`, background: C.red, borderRadius: 4, transform: 'rotate(-6deg)'}} /> : null}
           <Sfx at={at} name="tick" />
           {it.crossed ? <Sfx at={at + 8} name="strike" /> : null}
+        </div>
         </div>
       );
     })}
@@ -496,7 +519,16 @@ const MysteryHand: React.FC<{m: Extract<Moment, {kind: 'mystery'}>; c: Clock}> =
 type Timed = {m: Moment; inAt: number; outAt: number; moveAt: number};
 
 /** The watercolor look's anime sparkles go on the big reveals: a number, a headline, a winning stamp. */
-const sparkles = (m: Moment) => watercolor() && (m.kind === 'count' || m.kind === 'headline' || (m.kind === 'stamp' && (m.tone === 'pos' || m.tone === 'gold')));
+const sparkles = (m: Moment) => watercolor() && !aquarelle() && (m.kind === 'count' || m.kind === 'headline' || (m.kind === 'stamp' && (m.tone === 'pos' || m.tone === 'gold')));
+
+/** The pure watercolor look's reveals: the same big moments, with a bloom of their tone's pigment behind them. */
+const bloom = (m: Moment) =>
+  aquarelle() && rich() && (m.kind === 'count' || m.kind === 'headline' || m.kind === 'question' || (m.kind === 'stamp' && (m.tone === 'pos' || m.tone === 'gold')))
+    ? PIGMENT[m.kind === 'question' ? 'gold' : (m.tone ?? (m.kind === 'stamp' ? 'neg' : 'accent'))]
+    : null;
+/** Cards that sit on the page as torn paper: lifted by a soft shadow; the ones that name someone are taped down. */
+const PAPER = new Set<Moment['kind']>(['date', 'profile', 'quote', 'count', 'share', 'people', 'tally', 'times', 'quiz', 'versus', 'math', 'steps', 'search', 'photo']);
+const TAPED = new Set<Moment['kind']>(['profile', 'quote', 'photo']);
 
 const schedule = (moments: Moment[], plan: ScenePlan, narration: string, fps: number): Timed[] => {
   const inAt = moments.map((m, i) => (m.at !== undefined ? Math.round(m.at * fps) : cueAt(plan, narration, m.cue, (i + 0.5) / Math.max(1, moments.length))));
@@ -560,6 +592,7 @@ export const Moments: React.FC<{moments?: Moment[]; plan: ScenePlan; narration: 
           else if (m.kind === 'search') body = <K.SearchTrend m={m} c={c} />;
           else if (m.kind === 'file') body = <K.CaseFile m={m} c={c} />;
           else if (m.kind === 'scripture') body = <K.Scripture m={m} c={c} plan={plan} narration={narration} />;
+          else if (m.kind === 'photo') body = <K.PhotoCard m={m} c={c} />;
         }
         const [sx, sy] = slots[m.slot ?? 'stage'];
         const [mx, my] = m.moveTo ? slots[m.moveTo] : [sx, sy];
@@ -567,7 +600,11 @@ export const Moments: React.FC<{moments?: Moment[]; plan: ScenePlan; narration: 
         const [dx, dy] = m.nudge ?? [0, 0];
         const enter = m.kind === 'stamp' ? 1 : spring({frame: f - inAt, fps, config: {damping: 15, stiffness: 150, mass: 0.7}});
         const exit = interpolate(f, [outAt, outAt + 12], [0, 1], {...clamp, easing: EASE_OUT});
-        const [qx, qy] = rich() && m.kind !== 'stamp' ? squash(f, inAt, fps) : [1, 1];
+        const [qx, qy] = rich() && !aquarelle() && m.kind !== 'stamp' ? squash(f, inAt, fps) : [1, 1];
+        // the pure watercolor look: a card is laid on the page like a sheet of paper, turning flat as it settles
+        const settle = aquarelle() && m.kind !== 'stamp' ? ` rotate(${((i % 2 ? 1 : -1) * 2.4 * (1 - enter)).toFixed(2)}deg)` : '';
+        const pigment = bloom(m);
+        const paper = aquarelle() && PAPER.has(m.kind);
         return (
           <React.Fragment key={i}>
             {shown ? (
@@ -576,16 +613,24 @@ export const Moments: React.FC<{moments?: Moment[]; plan: ScenePlan; narration: 
                   position: 'absolute',
                   left: sx + (mx - sx) * mv + dx,
                   top: sy + (my - sy) * mv + dy,
-                  transform: `translate(-50%, -50%) translateY(${(1 - enter) * 40 - exit * 30}px) scale(${qx * (0.86 + 0.14 * enter) * (1 - 0.18 * mv) * (1 - 0.06 * exit)}, ${qy * (0.86 + 0.14 * enter) * (1 - 0.18 * mv) * (1 - 0.06 * exit)})`,
+                  transform: `translate(-50%, -50%) translateY(${(1 - enter) * 40 - exit * 30}px) scale(${qx * (0.86 + 0.14 * enter) * (1 - 0.18 * mv) * (1 - 0.06 * exit)}, ${qy * (0.86 + 0.14 * enter) * (1 - 0.18 * mv) * (1 - 0.06 * exit)})${settle}`,
                   opacity: Math.min(1, enter * 1.3) * (1 - exit),
                   zIndex: m.over ? 6 : 2,
                 }}
               >
-                {watercolor() && m.kind === 'question' ? <FocusLines at={inAt} /> : null}
-                {body}
+                {watercolor() && !aquarelle() && m.kind === 'question' ? <FocusLines at={inAt} /> : null}
+                {pigment ? <PaintBloom at={inAt} pigment={pigment} size={m.kind === 'headline' ? 1500 : 1000} /> : null}
+                {paper ? (
+                  <div style={{filter: LIFT}}>
+                    {body}
+                    {TAPED.has(m.kind) ? <Tape seed={i} /> : null}
+                  </div>
+                ) : (
+                  body
+                )}
                 {sparkles(m) ? <Sparkles at={inAt} /> : null}
                 {m.illustration ? (
-                  <div style={{position: 'absolute', ...(m.kind === 'chat' ? {bottom: -22, left: '50%', transform: 'translateX(-50%)'} : {top: -22, left: 18}), fontFamily: FONT, fontSize: 24, fontWeight: 700, color: '#8A5E00', background: C.yellowSoft, border: `2px solid ${C.yellow}`, borderRadius: 999, padding: '4px 16px', whiteSpace: 'nowrap'}}>
+                  <div style={{position: 'absolute', ...(m.kind === 'chat' ? {bottom: -22, left: '50%', transform: 'translateX(-50%)'} : {top: -22, left: 18}), fontFamily: FONT, fontSize: 24, fontWeight: 700, color: '#8A5E00', background: aquarelle() ? `${blot('gold', '260%')}, ${C.yellowSoft}` : C.yellowSoft, border: aquarelle() ? 'none' : `2px solid ${C.yellow}`, borderRadius: 999, padding: aquarelle() ? '6px 20px' : '4px 16px', whiteSpace: 'nowrap', zIndex: 5}}>
                     مثال توضيحي
                   </div>
                 ) : null}

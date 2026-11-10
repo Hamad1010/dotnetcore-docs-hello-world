@@ -82,8 +82,9 @@ framework: our facts, our dialect, our structure win where they differ.
   part A (the first ~2 minutes) first and you render only that for approval.
 
 ## 4. After approval: `episode.json` and `publish.md`
-- The draft is now frozen. Build `episode.json` from it (`"look": "watercolor"`, `"motion": "rich"`, `"map": "mountain"`
-  from EP004, framework v5.4; the sounds and the background level come from `channel.json`), one scene per part (scene types: framework §6 and
+- The draft is now frozen. Build `episode.json` from it (`"look": "aquarelle"`, `"motion": "rich"`, `"map": "mountain"`
+  from EP005, framework v5.5; a foreign name gets its English form (`en`, `whoEn`); a few public-domain photos as `photo`
+  moments, never of a woman; the sounds and the background level come from `channel.json`), one scene per part (scene types: framework §6 and
   `04-studio/src/types.ts`). If a part has no scene type yet, add it in `src/scenes/BizScenes.tsx` (cues,
   silhouettes, our palette), list it in framework §6, and type-check.
 - Give every scene its `moments` (framework §3.14): a visual on the word for each name, date, number, quote,

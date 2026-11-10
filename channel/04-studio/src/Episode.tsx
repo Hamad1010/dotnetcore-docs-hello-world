@@ -61,7 +61,7 @@ export const EpisodeVideo: React.FC<EpisodeProps> = ({episodeId, showCaptions, d
   return (
     <SfxOn.Provider value={sfx}>
     <AbsoluteFill style={{background: frame >= darkFrom ? DARK.bg : C.bg}}>
-      {episode.look === 'watercolor' ? <WashTextures /> : null}
+      {episode.look === 'watercolor' || episode.look === 'aquarelle' ? <WashTextures /> : null}
       {episode.scenes.map((scene, i) => {
         const sp = plan.scenes[i];
         let storyIndex = 0;

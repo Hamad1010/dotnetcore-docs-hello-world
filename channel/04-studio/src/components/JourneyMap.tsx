@@ -4,8 +4,8 @@
 // top step is the destination. Shorts (portrait) always use the winding road.
 import React from 'react';
 import {useCurrentFrame} from 'remotion';
-import {C, FONT, watercolor} from '../theme';
-import {ink, INK_SHADOW_SOFT, paperCard} from '../look-kit';
+import {C, FONT, SHADOW_SOFT, watercolor} from '../theme';
+import {ink, paperCard} from '../look-kit';
 import {WashMountain} from './Watercolor';
 import type {MapShape} from '../types';
 import {Person} from './Silhouettes';
@@ -139,11 +139,11 @@ const StairBody: React.FC<{pts: Pt[]; h: number}> = ({pts, h}) => {
 
 const Badge: React.FC<{kind: 'loop' | 'puzzle'; size: number}> = ({kind, size}) =>
   kind === 'loop' ? (
-    <div style={{width: size, height: size, borderRadius: 99, background: C.yellow, color: C.ink, fontSize: size * 0.62, fontWeight: 700, display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: watercolor() ? INK_SHADOW_SOFT : '0 6px 16px rgba(201,138,0,0.35)'}}>
+    <div style={{width: size, height: size, borderRadius: 99, background: C.yellow, color: C.ink, fontSize: size * 0.62, fontWeight: 700, display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: watercolor() ? SHADOW_SOFT : '0 6px 16px rgba(201,138,0,0.35)'}}>
       ؟
     </div>
   ) : (
-    <div style={{width: size, height: size, borderRadius: 99, background: C.ink, display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: watercolor() ? INK_SHADOW_SOFT : '0 6px 16px rgba(28,35,51,0.35)'}}>
+    <div style={{width: size, height: size, borderRadius: 99, background: C.ink, display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: watercolor() ? SHADOW_SOFT : '0 6px 16px rgba(28,35,51,0.35)'}}>
       <svg width={size * 0.56} height={size * 0.56} viewBox="0 0 24 24">
         <circle cx="10" cy="10" r="6.5" fill="none" stroke="#fff" strokeWidth="2.6" />
         <path d="M15 15l6 6" stroke="#fff" strokeWidth="2.8" strokeLinecap="round" />
@@ -281,7 +281,7 @@ export const JourneyMap: React.FC<{
                 background: wc ? paperCard() : '#fff',
                 padding: '10px 22px',
                 borderRadius: s.label.includes('\n') ? 26 : 999,
-                boxShadow: wc ? INK_SHADOW_SOFT : '0 2px 6px rgba(28,35,51,0.08), 0 10px 24px rgba(28,35,51,0.10)',
+                boxShadow: wc ? SHADOW_SOFT : '0 2px 6px rgba(28,35,51,0.08), 0 10px 24px rgba(28,35,51,0.10)',
                 opacity: Math.min(1, s.shown * 1.4),
               }}
             >

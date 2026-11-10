@@ -130,6 +130,22 @@ export const ImpactBurst: React.FC<{at: number; color?: string}> = ({at, color =
   );
 };
 
+/** The pure watercolor look's reveal, in place of the anime impact: a drop of pigment touching wet paper behind the
+ * card, blooming out, then drying back to a pale stain that stays while the card does. */
+export const PaintBloom: React.FC<{at: number; pigment: 'blue' | 'gold' | 'green' | 'rose'; size?: number}> = ({at, pigment, size = 1000}) => {
+  const f = useCurrentFrame();
+  const t = f - at;
+  if (t < 0) return null;
+  const grow = interpolate(t, [0, 28], [0.42, 1], {...clamp, easing: EASE_OUT});
+  const o = interpolate(t, [0, 5, 36], [0, 0.75, 0.32], clamp);
+  return (
+    <Img
+      src={texture(`wash-${pigment}.png`)}
+      style={{position: 'absolute', left: '50%', top: '50%', width: size, height: size, marginLeft: -size / 2, marginTop: -size / 2, transform: `scale(${grow}) rotate(${(at * 47) % 360}deg)`, opacity: o, pointerEvents: 'none', zIndex: -1}}
+    />
+  );
+};
+
 /** How much a number swells as it lands: 0 → 1 → 0 over a third of a second from `at`. */
 export const punch = (f: number, at: number) => interpolate(f - at, [0, 3, 11], [0, 1, 0], clamp);
 

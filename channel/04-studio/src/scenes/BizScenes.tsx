@@ -1,7 +1,7 @@
 // Scenes for the business format («غرفة الفرص»): the "stop scrolling" story, the smart transition and the journey map.
 import React from 'react';
 import {AbsoluteFill, interpolate, interpolateColors, useCurrentFrame} from 'remotion';
-import {C, DARK, EASE_IN_OUT, EASE_OUT, watercolor} from '../theme';
+import {C, DARK, EASE_IN_OUT, EASE_OUT, SHADOW_SOFT, watercolor} from '../theme';
 import {Img} from 'remotion';
 import {texture} from '../look-kit';
 import type {Beat, JourneyScene, OverviewScene, StageScene, StoryHookScene} from '../types';
@@ -9,7 +9,7 @@ import {Backdrop, Captions, Chip, CountUp, SceneFrame, fadeUp, useIn, usePop, us
 import {Crowd, Lever, PeopleGrid, Person, Phone, Skyline} from '../components/Silhouettes';
 import {JourneyMap} from '../components/JourneyMap';
 import {AnimeSky} from '../components/Watercolor';
-import {INK_SHADOW_SOFT, paperCard} from '../look-kit';
+import {paperCard} from '../look-kit';
 import {Moments, TONE as TONES} from '../components/Moments';
 import {ramp} from '../components/moment-kit';
 import {Sfx} from '../components/Sfx';
@@ -405,7 +405,7 @@ export const Journey: React.FC<SceneProps<JourneyScene> & {showCaptions: boolean
             fontWeight: 700,
             color: C.ink,
             // over the watercolor look's sky: a paper label with an ink line
-            ...(watercolor() ? {background: paperCard(), boxShadow: INK_SHADOW_SOFT, borderRadius: 999, padding: '6px 40px 10px'} : {}),
+            ...(watercolor() ? {background: paperCard(), boxShadow: SHADOW_SOFT, borderRadius: 999, padding: '6px 40px 10px'} : {}),
           }}
         >
           {scene.title ?? 'خريطة الرحلة'}
