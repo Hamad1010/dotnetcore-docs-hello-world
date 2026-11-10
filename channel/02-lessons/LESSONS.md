@@ -30,11 +30,11 @@
 
 | # | الدرس | Lesson | Core idea | Business angle | Status |
 |---|---|---|---|---|---|
-| L021 | السؤال: الجملة اللي تفتح الباب | The question: the line that opens the door | Most people pitch or stay silent; a sincere question and asking for advice make people above you want to help | A good question turns a stranger into a mentor, a client or a sponsor | todo · EP006 |
-| L022 | الانطباع: أول خمس دقايق | The impression: the first five minutes | People judge warmth before competence, in seconds; attention, preparation and their name change the first minutes | The first minutes with a decision-maker decide the job, the meeting or the deal | todo · EP007 |
-| L023 | التفاوض: المحادثة اللي تصنع الصفقة | Negotiation: the conversation that makes the deal | The first number anchors the deal, a reason makes a request easier to accept, and what you ask for can be worth more than money | Better terms, fees and rights from the same conversation | todo · EP008 |
-| L024 | الوصل: كن الجسر | The bridge: connect people | People who connect separate groups get better ideas and more opportunities; an introduction done well pays both sides and you | Being the bridge makes you the person opportunities pass through | todo · EP009 |
-| L025 | الطلب الكبير: اطلبها | The big ask: ask for it | People underestimate how often others say yes; a clear, prepared ask for the position, partnership or investment beats waiting | The job, partner or investment comes to the person who asks clearly | todo · EP010 |
+| L021 | السؤال: الجملة اللي تفتح الباب | The question: the line that opens the door | Most people pitch or stay silent; a sincere question and asking for advice make people above you want to help | A good question turns a stranger into a mentor, a client or a sponsor | draft · EP006 |
+| L022 | الانطباع: أول خمس دقايق | The impression: the first five minutes | People judge warmth before competence, in seconds; attention, preparation and their name change the first minutes | The first minutes with a decision-maker decide the job, the meeting or the deal | draft · EP007 |
+| L023 | التفاوض: المحادثة اللي تصنع الصفقة | Negotiation: the conversation that makes the deal | The first number anchors the deal, a reason makes a request easier to accept, and what you ask for can be worth more than money | Better terms, fees and rights from the same conversation | draft · EP008 |
+| L024 | الوصل: كن الجسر | The bridge: connect people | People who connect separate groups get better ideas and more opportunities; an introduction done well pays both sides and you | Being the bridge makes you the person opportunities pass through | draft · EP009 |
+| L025 | الطلب الكبير: اطلبها | The big ask: ask for it | People underestimate how often others say yes; a clear, prepared ask for the position, partnership or investment beats waiting | The job, partner or investment comes to the person who asks clearly | draft · EP010 |
 
 ## Season 3: من الموهبة إلى دخل
 *Turn talent into income*
