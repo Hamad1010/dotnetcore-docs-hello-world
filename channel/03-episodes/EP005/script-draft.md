@@ -1,10 +1,12 @@
 # EP005 · الملف 05: سر الشراكة · شبكتك ثروتك: العلاقة اللي تثمر بعد سنين
 
-> **Draft for the owner's review (10 Nov 2026).** Framework v5.4, the last file of season 1. Sources, links and the arithmetic
+> **Approved by the owner on 10 Nov 2026, with their own edits:** the hook's first line dropped (the video opens on 1955),
+> «صحراء… وغبار» dropped, two «طيب» added. After it, only a leftover dot removed and the opening «وفي 1955» made «في 1955».
+> Framework v5.5 (look `aquarelle`, foreign names in Arabic and English on screen), the last file of season 1. Sources, links and the arithmetic
 > behind every number: [sources.md](sources.md). Written after `/yt-script`, then one `humanizer` pass (no «وعدتك» callbacks).
 > **The hook, from the YouTube agent:** five openings scored with `hookscore.py` on faithful English renderings, then
-> sharpened twice. The two strongest:
-> - **72 · STRONG** («The Question»), used below: «ممكن تخسر فرصتك الجاية… لواحد أرسل رسالة وحدة. وفي 1955… تاجر من
+> sharpened twice. The owner kept the opening from «في 1955» on. The two strongest:
+> - **72 · STRONG** («The Question»), the draft's choice: «ممكن تخسر فرصتك الجاية… لواحد أرسل رسالة وحدة. وفي 1955… تاجر من
 >   جدة… بنى شراكة… عاشت 70 سنة. كيف؟»
 > - **71 · WORKABLE** («The Question»): «إذا ما تتواصل مع الناس إلا لما تحتاجهم… تخسرهم. وفي 1955… تاجر من جدة سوّى
 >   العكس…». Not used: «سوّى العكس» says more about him than the sources do.
@@ -29,14 +31,13 @@
 
 > Booth part 1 «القصة»
 
-ممكن تخسر فرصتك الجاية… لواحد أرسل رسالة وحدة.
-وفي 1955… تاجر من جدة… بنى شراكة… عاشت 70 سنة. كيف؟
+في 1955… تاجر من جدة… بنى شراكة… عاشت 70 سنة. كيف؟
 خلني أحكيها لك… من أولها.
 في 1945… في جدة… رجل اسمه عبداللطيف جميل… فتح محطة بنزين صغيرة… على طريق مكة القديم.
 وبعد عشر سنين… عجبته سيارة يابانية جديدة: تويوتا… لاندكروزر.
-والفلوس؟ على قدها. فطلب… أربع سيارات بس.
+طيب والفلوس؟ على قدها. فطلب… أربع سيارات بس.
 وفي أكتوبر 1955… صار الوكيل الوحيد لتويوتا… في السعودية كلها.
-والسيارة؟ كانت على مقاس طرقنا وقتها: صحراء… وغبار.
+طيب والسيارة؟ كانت على مقاس طرقنا وقتها.
 طيب… أربع سيارات… ووكالة. وش سوّا بعدها؟
 كثير من الناس وقتها… ما عندهم قيمة السيارة كاملة.
 فصار من أوائل اللي بدوا البيع بالتقسيط في السعودية… عشان اللي ما عنده المبلغ كامل… يقدر يشتري.

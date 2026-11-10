@@ -36,7 +36,7 @@ Shorts views **don't** count toward watch hours, but Shorts bring the subscriber
 | Phase | Goal | Cadence | Focus | Exit when |
 |---|---|---|---|---|
 | **0 · Launch prep** (2 weeks) | 4 episodes finished before going public; name, art, trailer | — | Voice, format, quality | Buffer of 4 episodes ready |
-| **1 · Find the fit** (months 1–4) | 1,000 subs; learn which topics win | 2 long/week + 1 Short/day | Season 1 (20 strongest lessons across topics) | 3+ videos clearly above channel average |
+| **1 · Find the fit** (months 1–4) | 1,000 subs; learn which topics win | 2 long/week + 1 Short/day | Season 1 (5 essentials), then season 2 (conversations that open doors) | 3+ videos clearly above channel average |
 | **2 · Double down** (months 4–12) | 8,000 hours → monetization | 2–3 long/week + Shorts series | Seasons on winning topics, compilations, monthly live | YPP approved |
 | **3 · Scale** (year 2) | 100k subs; diversified income | 3 long/week + daily Shorts on 3 platforms | Freelance editor/researcher, English dub track, products, sponsors | Income covers a part-time team |
 

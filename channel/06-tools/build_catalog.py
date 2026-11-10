@@ -15,8 +15,8 @@ LESSONS_DIR = os.path.join(ROOT, '02-lessons')
 
 # (season no, Arabic title, English title, niche fit) — business channel «غرفة الفرص»
 SEASONS = [
-    (1, 'البداية: أقوى 20 فكرة', 'The start: the 20 strongest ideas', 'core'),
-    (2, 'موهبتك المخفية', 'Find your hidden talent', 'core'),
+    (1, 'البداية: 5 أساسيات', 'The start: 5 essentials', 'core'),
+    (2, 'المحادثات اللي تفتح الأبواب', 'Conversations that open doors', 'core'),
     (3, 'من الموهبة إلى دخل', 'Turn talent into income', 'core'),
     (4, 'تموضعك وعلامتك', 'Positioning & personal brand', 'core'),
     (5, 'الثقة عملة', 'Trust: emotional intelligence for business', 'core'),

@@ -90,7 +90,7 @@ differences and the YouTube rules: [`10-voice-guide.md`](10-voice-guide.md).
 
 ## 9. Series (seasons)
 
-Season 1 is **the 20 strongest lessons across all topics**. It tests which themes the audience loves, then we
+Season 1 was planned as **the 20 strongest lessons across all topics**; it closed at five essentials (10 Nov 2026), and season 2 is the conversations that open doors (`15-seasons.md`). It tests which themes the audience loves, then we
 double down. Seasons 2–15 go deep by theme (charisma, understanding people, smart replies, emotions,
 self-worth, presence, persuasion, fear and healing, habits, mindset, work, career, family, bonus). Full list: [`../02-lessons/LESSONS.md`](../02-lessons/LESSONS.md).
 

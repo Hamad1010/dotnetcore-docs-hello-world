@@ -1,7 +1,9 @@
 # 15 · Seasons: closing season 1, planning season 2
 
-Written 10 Nov 2026 from the owner's notes. The owner decides; nothing here changes the framework until they approve it.
-When they do, season 2's structure becomes framework v6 (`11-video-framework.md`), the only place structure is defined.
+Written 10 Nov 2026 from the owner's notes. **Decided the same day:** season 1 closes at five files and is now «البداية: 5
+أساسيات» (L006 moved to season 11); season 2's structure is framework v6 (`11-video-framework.md` §2b, the only place
+structure is defined), with the corridor of doors as its map and the «وش لو…؟» fork on screen; the five scripts are
+EP006–EP010 (L021–L025).
 
 ## 1. Close season 1 at five episodes? Yes.
 
@@ -26,8 +28,7 @@ Why it works:
 What to watch:
 - **YouTube does not reward seasons, it rewards a steady rhythm.** Keep the gap between EP005 and S2E1 to one or two
   weeks at most; in the gap, post on the Community tab (the season's five lessons as one image).
-- **The tracker:** season 1's title «البداية: أقوى 20 فكرة» becomes «البداية: 5 أساسيات»; L006 (1% يوميًا) moves to a
-  later season. I make that change when you say yes.
+- **The tracker:** season 1 is now «البداية: 5 أساسيات»; L006 (1% يوميًا) moved to season 11 (done 10 Nov 2026).
 
 ## 2. Season 2: «المحادثات اللي تفتح الأبواب» (working title)
 
@@ -66,8 +67,8 @@ from research, labelled «مثال توضيحي» on screen and never told as tr
 | 8 | «وقفة» | 1 min |
 | 9 | Close + dark teaser | 0:45 |
 
-**The map:** the mountain stays until you say otherwise. For season 2 I suggest a corridor of **doors**: each story opens one,
-and the last opens onto the room the episode promised. That fits «غرفة الفرص» exactly. Your choice; I can show both in stills.
+**The map (chosen 10 Nov 2026):** a corridor of **doors**: each story opens one, and the last opens onto the room the
+episode promised. That fits «غرفة الفرص» exactly.
 
 **New on screen:** a «وش لو…؟» fork (the usual answer on a red path, the right one on a green path), and an evidence card
 (the study, its year, how many people, one number).

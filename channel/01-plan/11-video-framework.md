@@ -1,6 +1,7 @@
 # 11 · Video framework: how every long video is built
 
-**Current version: v5.5** (10 Nov 2026). This file is the only place where the structure of a long video is defined.
+**Current version: v6** (10 Nov 2026): season 2 (EP006 on) is built as in §2b; season 1 (EP001–EP005) keeps v5.5.
+This file is the only place where the structure of a long video is defined.
 `CLAUDE.md`, the `/new-episode` skill and the blueprint point here instead of repeating it, so a change made here
 reaches everything at once.
 
@@ -34,6 +35,9 @@ and destination; the station names are plain words, not part numbers.
   summit, or a staircase whose top step is the destination; EP001–EP002 keep their winding road. `episode.json` →
   `"map": "mountain" | "stairs" | "wave"`; Shorts always use the winding road. **v5.4: the mountain, every episode,
   until the owner says otherwise** (their choice, 4 Nov 2026).
+- **Season 2 (v6): a corridor of doors** (the owner's choice, 10 Nov 2026). The viewer walks down a corridor; every
+  story is a door that opens as it starts, and the last door opens onto the room the episode promised («غرفة الفرص»).
+  `"map": "doors"`; the stations are the stories.
 
 ## 2. The parts, in order (v3, part 10 added in v5)
 
@@ -50,6 +54,55 @@ and destination; the station names are plain words, not part numbers.
 | 9 | 3 خطوات | `actions` | ~30 s | At most 3 actions (today / this week / this month), then one question the viewer answers in the comments from their own life (§3.11) |
 | 10 | وقفة · the faith pause (v5) | `faith` | 45–75 s | One verse and/or authentic hadith tied to the lesson, what it means, the link to the lesson and its effect on how we work, and a real story from the same sources when one fits (§3.15) |
 | 11 | الحلقة المقفلة · closing loop | `close` | ~35 s | A 10–15 s bridge (a question that leads to the next file) with the «فيه مشهد في النهاية» pop-up, then the cliffhanger teaser on a dark screen (§3.16) |
+
+## 2b. Season 2: the conversations that open doors (v6)
+
+Season 2 (EP006–EP010) keeps everything the viewer knows from season 1: the owner's voice, the `aquarelle` look, the
+techniques of §3 (a story told step by step, touchable numbers, every name introduced and shown in Arabic and English,
+quotes with credentials, every sentence seen), the «وقفة», the dark teaser, no hype and no promises. **What changes is
+the structure:** each episode is one kind of conversation, told through 4 to 8 stories.
+
+**Who it is for:** teachers, content creators, technicians, book authors and coordinators (of projects or anything
+else), who start with almost no network and no money. Every episode gives each of the five at least one story or
+example that is theirs (real or a labelled illustration), and says their names in part 2.
+
+**The five episodes:** EP006 «السؤال» (asking the right question, asking for advice) · EP007 «الانطباع» (the first
+minutes with someone above you) · EP008 «التفاوض» (the conversation that makes the deal) · EP009 «الوصل» (introducing
+people, being the bridge) · EP010 «الطلب الكبير» (asking for the position, the partnership, the investment).
+
+| # | Part | id | Time | What it does |
+|---|---|---|---|---|
+| 1 | الباب الأول · the hook | `hook` | ~0:40 | The most surprising moment of the strongest story, told as a scene, stopping on a question |
+| 2 | الممر · door, map, loop | `bridge` | ~0:50 | The callback to the last episode's question; what this episode opens and for whom (the five audiences by name); the case file («الملف 06»); the corridor of doors; the opening loop |
+| 3 | القصص · stories 1…N | `story1`…`storyN` | 10–13 min | 4–8 stories, each behind its own door, each in the six beats below; at least half real and documented |
+| 4 | النمط · the pattern | `pattern` | ~1:00 | The one principle under all the stories, in a sentence people repeat, and when it does not work |
+| 5 | جرّبها · practice | `practice` | 1–2 min | Two scenarios to try this week, each with its «وش لو…؟» fork |
+| 6 | 3 خطوات + سؤال الحلقة | `actions` | ~0:40 | Today / this week / this month, then one question for the comments from the viewer's own life |
+| 7 | الدليل · the guide | `guide` | ~0:20 | One honest sentence on what the PDF guide adds and where it is; no pressure, no countdown, no "limited" |
+| 8 | وقفة | `faith` | 45–75 s | As §3.15 |
+| 9 | الحلقة المقفلة | `close` | ~0:40 | As §3.16: a bridge with the pop-up, then the dark teaser of the next file |
+
+**Length:** 14–18 minutes, about 9,500–12,200 spoken characters (`draft_length.py`). Never pad: a short draft gets
+another story, not filler.
+
+**Every story in six beats:**
+1. **الشخص · the person:** who, and what they lacked (no network, no money, a normal job), in one line the viewer
+   recognises themselves in.
+2. **اللحظة · the moment:** the one conversation (a meeting, a call, a message, a chance encounter) told as a scene:
+   when, where, what was at stake, with dialogue (§3.18).
+3. **«وش لو…؟» · what if:** a pause before the move: what most people would say there, played out to what it costs (a
+   "no", silence, a deal lost). It must be what a reasonable person would really do, never a straw man. On screen: the
+   fork's red path.
+4. **الحركة الصح · the right move:** what was actually said or done, step by step (the fork's green path).
+5. **ليش تشتغل · why it works:** the psychology in plain words, one idea per story.
+6. **الدليل · the evidence:** right after the story, one or two studies, surveys or statistics, each with who did it,
+   where, when, how many people and one touchable number (the evidence card), and the business result: a position, a
+   deal, a partner, a customer.
+
+**Real and imagined:** a real story uses only documented facts, and a real person's words only when they are on record
+(otherwise «سأله… وش تشتغل؟ وكيف؟» as a paraphrase); an imagined story is built from the research, labelled «مثال
+توضيحي» on screen, and its person has a first name, a job and a Saudi city. Between the stories, the corridor moves to
+the next door («الباب الثاني…»). Vary countries and industries, and put an Arab or Gulf story in when a verified one exists.
 
 **Length: at least 8:00**, target 9–12 min, about 6,100–8,100 spoken characters at the owner's real pace (11.3
 characters per second including pauses, measured on the second take of EP001's part A; the first take was 9.6).
@@ -291,7 +344,7 @@ cleaning does the rest.
   podcast preset (`.claude/skills/audio-cleanup`) on the noise-cleaned voice: more body at 200 Hz, presence at 3 kHz,
   the hiss above 14 kHz cut, a gentle 3:1 compressor. The cuts, pauses and breaths are still decided as above, so
   nothing else changes; `--voice=studio` gives the v5 sound.
-- **A clearer voice (v5.5, proposed; the owner chooses by ear):** measured on EP004's recording, the voice stopped at
+- **A clearer voice (v5.5; the owner compared it on 10 Nov 2026 and kept the podcast voice, sample A):** measured on EP004's recording, the voice stopped at
   about 11 kHz and its low-mids sat ~15 dB over the middle, which is what sounds like an old recorder, and the podcast
   preset made the boom heavier still. `--voice=clear` takes the boom down about 9 dB, lifts presence a little and puts
   air back above 8 kHz (an exciter makes it from the voice's own 5–9 kHz, a shelf lifts it, the de-esser keeps س and ش
@@ -351,6 +404,10 @@ show it as a short dialogue of 2–6 lines: two voices, Saudi names and places, 
   at least once; a dialogue where the skill is a conversation (§3.18).
 - [ ] Nothing from private sources (`CLAUDE.md` rule 2).
 
+- [ ] Season 2 (v6): every story in the six beats; at least half real; every «وش لو…؟» fair; every study checked
+  (authors, year, where, how many people) and on an evidence card; the five audiences each have a story; the guide line
+  honest (§2b).
+
 ## 6. Parts → video scenes (for the studio)
 
 | Part | Scene type in `04-studio/src/types.ts` |
@@ -360,6 +417,7 @@ show it as a short dialogue of 2–6 lines: two voices, Saudi names and places, 
 | every station start | `journey` with `at` = the station (built); the episode's `map` picks the shape (`wave`, `mountain`, `stairs`) |
 | `problem`, `check`, `tools`, `risks`, `practice`, `actions`, `close` | `stage` (built): an empty stage with the station chip, filled by its `moments` (the self-check is a `quiz`) |
 | `recap` | `journey` at the destination (built): the road lights up from `glowCue` to `glowEndCue`, then fades at `focusCue` for its moments |
+| season 2 (v6) | `"map": "doors"`: the corridor of doors at the bridge and at the start of every story (`journey` with `at` = the door); each story is a `stage` scene with a `whatif` moment (the fork) and an `evidence` moment (the study card) |
 | `faith` | `stage` with `quiet: true` (no sound effects, the background fades out) and `scripture` moments: the verse or hadith typed as it is read, with its reference |
 | `close` | `stage` with an `endscene` moment (the «فيه مشهد في النهاية» pop-up, from the bridge's first word `until` the teaser's) and `darkCue` = the teaser's first word |
 | end card | `stage` with no narration (built): the next `file` from second 0 (`at: 0`), moved up to leave room for YouTube's end-screen elements; `dark: true` after a dark teaser |
@@ -368,6 +426,10 @@ show it as a short dialogue of 2–6 lines: two voices, Saudi names and places, 
 
 ## 7. Changelog
 
+- **v6 · 10 Nov 2026.** Season 2's structure (§2b), approved by the owner with the corridor of doors as its map (§1)
+  and the «وش لو…؟» fork on screen: 4–8 stories in six beats, the evidence after each story, the five audiences, the
+  guide line. Season 1 keeps v5.5. The owner approved the `aquarelle` look and kept the podcast voice (sample A) over
+  the clearer chain (§3.17).
 - **v5.5 · 10 Nov 2026.** From the owner after EP004: the whole video in watercolor with minimal anime, the
   `"aquarelle"` look from EP005 (§6): cards of torn paper lifted off the page, some taped down with washi tape, pigment
   blooming behind the big reveals in place of impact lines, sparkles and focus lines, painted avatars and badges, a
