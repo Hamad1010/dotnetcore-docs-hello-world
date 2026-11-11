@@ -46,11 +46,15 @@ Then follow the week-by-week coaching plan: [`01-plan/08-coaching-roadmap.md`](0
 | 01 | [`01-plan/12-launch-and-monetization.md`](01-plan/12-launch-and-monetization.md) | After the render: the launch-day and first-week checklist, and the legal path to monetization in Saudi Arabia |
 | 01 | [`01-plan/13-audience-words-and-trends.md`](01-plan/13-audience-words-and-trends.md) | The words viewers use now, the evidence and its limits, what's trending, and how to check it in Studio |
 | 01 | [`01-plan/14-brand-kit.md`](01-plan/14-brand-kit.md) | The avatars and banners (specs, picks, the Google-like look done safely, how to upload) |
+| 01 | [`01-plan/15-seasons.md`](01-plan/15-seasons.md) | The seasons: season 1 closed at five files, season 2's conversations and its corridor of doors |
+| 01 | [`01-plan/16-digital-products.md`](01-plan/16-digital-products.md) | The paid guide for each season-2 episode: what's in it, the price, the legal side, launches |
+| 01 | [`01-plan/17-gumroad-store.md`](01-plan/17-gumroad-store.md) | The Gumroad store, step by step from the account to the first sale and the payout |
 | 02 | [`02-lessons/LESSONS.md`](02-lessons/LESSONS.md) | The business lesson catalog in publishing order (the earlier catalog is in `02-lessons/_archive-ei/`) |
 | 02 | [`02-lessons/lessons.csv`](02-lessons/lessons.csv) | The tracker (open in Excel/Google Sheets) |
-| 03 | [`03-episodes/EP001/`](03-episodes/EP001/) … `EP005/` | Lessons 1–5: `script-draft.md` (for your approval) and `sources.md`; EP001 also has the 30-second test |
+| 03 | [`03-episodes/EP001/`](03-episodes/EP001/) … `EP010/` | One folder per file: `script-draft.md` (for your approval) and `sources.md`, then the build and publish kit |
 | 04 | [`04-studio/`](04-studio/) | The video engine (Remotion). You rarely need to open it |
 | 05 | [`05-templates/`](05-templates/) | Checklists + episode template |
+| 07 | [`07-products/`](07-products/) | The paid guides: their tools, product pages and emails (the guides themselves stay out of git) |
 
 ## The weekly rhythm
 

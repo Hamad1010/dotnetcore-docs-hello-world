@@ -18,7 +18,8 @@ Read [`channel/00-START-HERE.md`](channel/00-START-HERE.md) first. It is the map
 | `channel/03-episodes/EPxxx/` | One folder per video: `script-draft.md` (what the owner approves), then `episode.json` (the single source of truth after approval), `script.md`, `sources.md`, the publish kit (`publish.md`, `thumbs.json`), `audio/` and `out/` (both git-ignored) |
 | `channel/04-studio/` | Remotion project that turns `episode.json` into the video, thumbnail, subtitles and chapters |
 | `channel/05-templates/` | Templates and checklists |
-| `channel/06-tools/` | Scripts: catalog builder, draft length check, transcript tools |
+| `channel/06-tools/` | Scripts: catalog builder, draft length check, transcript tools, the guide and store builders |
+| `channel/07-products/` | The paid PDF guides (one per season-2 episode): sources and PDFs git-ignored (the repo is public); product pages and launch emails in `store/` |
 
 ## Non-negotiable rules
 
