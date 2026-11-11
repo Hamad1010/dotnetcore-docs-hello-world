@@ -51,15 +51,19 @@ const SLOTS_PORTRAIT: Record<MomentSlot, [number, number]> = {
 
 // ------------------------------------------------------------------ date: a calendar page (and years flipping)
 const STEP = 7; // frames per year when the years flip
+const FLIP_MAX = 48; // a long range (1955 → 2025) counts up within this many frames: at 7 a year, 70 years took 16 s
 
 const DateCard: React.FC<{m: Extract<Moment, {kind: 'date'}>; c: Clock}> = ({m, c}) => {
   const from = parseInt(m.year, 10);
   const to = m.to ? parseInt(m.to, 10) : from;
   const toAt = m.to ? c.at(m.toCue, 0.5) : Infinity;
   const steps = Math.abs(to - from);
-  const k = c.f < toAt ? 0 : Math.min(steps, Math.floor((c.f - toAt) / STEP) + 1);
+  // frames per year: 7 for a few years; a long range flips faster (no slide per year) and lands within FLIP_MAX frames
+  const per = steps > 0 ? Math.min(STEP, FLIP_MAX / steps) : STEP;
+  const k = c.f < toAt ? 0 : Math.min(steps, Math.floor((c.f - toAt) / per) + 1);
   const year = from + Math.sign(to - from) * k;
-  const slide = c.f < toAt || (k === steps && c.f > toAt + steps * STEP) ? 1 : interpolate((c.f - toAt) % STEP, [0, STEP * 0.7], [0, 1], clamp);
+  const slide = c.f < toAt || per < 3 || (k === steps && c.f > toAt + steps * per) ? 1 : interpolate((c.f - toAt) % per, [0, per * 0.7], [0, 1], clamp);
+  const every = Math.max(1, Math.ceil(steps / 8)); // a tick a year; a long range ticks about 8 times
   const noteAt = m.note ? c.at(m.noteCue, 0.8) : Infinity;
   const note = ramp(c.f, noteAt, 12);
   const done = k === steps && steps > 0;
@@ -97,7 +101,9 @@ const DateCard: React.FC<{m: Extract<Moment, {kind: 'date'}>; c: Clock}> = ({m, 
         </div>
       ) : null}
       <Sfx at={c.inAt} name="paper" />
-      {Array.from({length: steps}, (_, s) => <Sfx key={s} at={toAt + s * STEP} name="tick" volume={0.8} />)}
+      {Array.from({length: steps}, (_, s) => s)
+        .filter((s) => s % every === 0 || s === steps - 1)
+        .map((s) => <Sfx key={s} at={Math.round(toAt + s * per)} name="tick" volume={0.8} />)}
       {Number.isFinite(noteAt) ? <Sfx at={noteAt} name="pop" /> : null}
     </div>
   );

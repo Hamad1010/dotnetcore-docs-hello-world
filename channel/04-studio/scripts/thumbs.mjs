@@ -17,7 +17,7 @@ const specs = JSON.parse(fs.readFileSync(path.join(episodes, episodeId, 'thumbs.
 const outDir = path.join(episodes, episodeId, 'out');
 fs.mkdirSync(outDir, {recursive: true});
 const browserExecutable = process.env.REMOTION_BROWSER || null;
-const serveUrl = await bundle({entryPoint: path.join(studio, 'src/index.ts'), publicDir: episodes});
+const serveUrl = await bundle({entryPoint: path.join(studio, 'src/index.ts'), publicDir: episodes, symlinkPublicDir: true});
 // the bundle is a ~1 GB temporary copy of the studio: delete it however the script ends
 process.on('exit', () => fs.rmSync(serveUrl, {recursive: true, force: true}));
 

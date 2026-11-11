@@ -36,6 +36,9 @@ audio/cuts.json after listening to the report: {"<scene id>": ["words to cut", {
 A word said wrong is replaced by the same word said right elsewhere in the recording, crossfaded in:
 {"find": "أكثر من مليون مليار", "replace": "مليون", "with": "ثلاثين", "from": "أكثر من ثلاثين مليون"}.
 A word cut off mid-way ("وقب-", "سو--") is dropped, unless it was a whole word said fast: {"keep": "بتحمي-"}.
+A sound the speech-to-text didn't write down as a word (a half word inside the next word's time, "رج-- رجل" heard as
+one «رجل»), cut by its time in the recording, in seconds: {"drop": [770.21, 770.98]}. Find the times on the
+loudness of work/raw.wav (10 ms steps): cut in a quiet stretch, and leave a natural pause.
 
 6. Checks: each finished scene is transcribed again; the report lists any script word that can't be heard any more
    (a clipped word, a cut too far) next to the words the owner said differently from the script.
@@ -231,7 +234,8 @@ def plan_cuts(group, narration, x, cuts=(), heard=()):
     # A word cut off half-way ("وقب-", "سو--"): the owner stopped and said it again. Unless audio/cuts.json says
     # {"keep": "بتحمي-"}: a whole word said fast that the speech-to-text took for a cut-off one (EP004).
     held = {norm(c['keep']) for c in cuts if isinstance(c, dict) and 'keep' in c}
-    cuts = [c for c in cuts if not (isinstance(c, dict) and 'keep' in c)]
+    drops = [c['drop'] for c in cuts if isinstance(c, dict) and 'drop' in c and group[0]['start'] <= c['drop'][0] <= group[-1]['end']]
+    cuts = [c for c in cuts if not (isinstance(c, dict) and ('keep' in c or 'drop' in c))]
     for w in [w for w in keep if re.search(r'[-–—]+$', w['text'].rstrip('،,.؟?!:')) and norm(w['text']) not in held]:
         removed.append(('false start', w['start'], w['text']))
         keep.remove(w)
@@ -312,6 +316,10 @@ def plan_cuts(group, narration, x, cuts=(), heard=()):
         else:
             spans[-1][1] = cur['end']
     spans[-1][1] += TAIL
+    for a, b in drops:  # cut by time (audio/cuts.json "drop"): the spans lose [a, b], with the usual 8 ms fades
+        spans = [p for s in spans for p in ([s] if s[1] <= a or s[0] >= b else
+                                            ([[s[0], a, *s[2:]]] if s[0] < a else []) + ([[b, s[1]]] if s[1] > b else []))]
+        removed.append(('drop', a, f'{b - a:.2f}s'))
     return spans, removed, items
 
 

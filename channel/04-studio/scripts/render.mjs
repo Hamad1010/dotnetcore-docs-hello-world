@@ -48,8 +48,9 @@ fs.mkdirSync(outDir, {recursive: true});
 const browserExecutable = process.env.REMOTION_BROWSER || null;
 const inputProps = bgArg ? {episodeId, background: bgArg.split('=')[1]} : {episodeId};
 console.log('Bundling…');
-const serveUrl = await bundle({entryPoint: path.join(studio, 'src/index.ts'), publicDir: episodes});
-// the bundle is a ~1 GB temporary copy of the studio: delete it however the script ends
+const serveUrl = await bundle({entryPoint: path.join(studio, 'src/index.ts'), publicDir: episodes, symlinkPublicDir: true});
+// the bundle links 03-episodes instead of copying it (a copy was 1–2 GB, and a crash left it in /tmp): delete the
+// small rest however the script ends (removing the bundle removes the link, never the episodes)
 process.on('exit', () => fs.rmSync(serveUrl, {recursive: true, force: true}));
 
 // Thumbnail
