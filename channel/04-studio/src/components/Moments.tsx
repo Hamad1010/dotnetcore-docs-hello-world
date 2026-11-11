@@ -51,7 +51,7 @@ const SLOTS_PORTRAIT: Record<MomentSlot, [number, number]> = {
 
 // ------------------------------------------------------------------ date: a calendar page (and years flipping)
 const STEP = 7; // frames per year when the years flip
-const FLIP_MAX = 48; // a long range (1955 → 2025) counts up within this many frames: at 7 a year, 70 years took 16 s
+const FLIP_MAX = 30; // a long range (1955 → 2025) counts up within this many frames: at 7 a year, 70 years took 16 s
 
 const DateCard: React.FC<{m: Extract<Moment, {kind: 'date'}>; c: Clock}> = ({m, c}) => {
   const from = parseInt(m.year, 10);
