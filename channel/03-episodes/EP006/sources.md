@@ -64,6 +64,9 @@ Checked 10 Nov 2026 for the v6 draft. Web search only (this session cannot open 
   [Library of Congress](https://www.loc.gov/collections/wilbur-and-orville-wright-papers/articles-and-essays/the-belief-that-flight-is-possible-to-man/) ·
   [The Henry Ford, the letter](https://www.thehenryford.org/collections/explore/artifact/107323).
   First powered flight, 17 December 1903, 12 seconds; the Wright Company, 1909 (check).
+- **Photo (door 5):** the first flight, 17 December 1903, taken by John T. Daniels; public domain (Library of Congress),
+  via Wikimedia Commons, [File:First flight2.jpg](https://commons.wikimedia.org/wiki/File:First_flight2.jpg) → `first-flight.jpg`
+  (960 px). It shows men only (CLAUDE.md rule 7).
 - **Evidence:** Flynn (Stanford) and Lake [Bohns], "If You Need Help, Just Ask: Underestimating Compliance With Direct Requests
   for Help", *JPSP*, 2008: people underestimated by as much as 50% how often strangers would agree:
   [Stanford GSB](https://www.gsb.stanford.edu/faculty-research/publications/if-you-need-help-just-ask-underestimating-compliance-direct-requests) ·

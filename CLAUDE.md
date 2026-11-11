@@ -57,6 +57,7 @@ npm install                                # first time only
 python3 ../06-tools/draft_length.py EP00N    # length of each part
 # 1) after approval: build channel/03-episodes/EP00N/episode.json from the draft (scenes: framework §6, src/types.ts)
 npm run script -- EP00N                    # readable script.md for the owner to record
+python3 ../06-tools/check_cues.py EP00N    # every moment's word is in the narration (run again after any script change)
 npm run preview -- EP00N                   # still frames in out/preview/ → look at them
 # 2) owner records in the Booth and sends the file (one file for all parts is fine)
 python3 ../06-tools/clean_recording.py EP00N <recording>  # cuts, cleans, levels and syncs it word by word
