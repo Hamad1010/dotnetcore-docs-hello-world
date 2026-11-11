@@ -1,0 +1,37 @@
+{
+  "name": "channel-studio",
+  "private": true,
+  "description": "Remotion studio that turns an episode.json into a finished YouTube video",
+  "type": "module",
+  "scripts": {
+    "studio": "remotion studio",
+    "music": "node scripts/music.mjs",
+    "voice": "node scripts/voice.mjs",
+    "preview": "node scripts/preview.mjs",
+    "render": "node scripts/render.mjs",
+    "check": "tsc --noEmit",
+    "script": "node scripts/script-md.mjs",
+    "thumbs": "node scripts/thumbs.mjs",
+    "brandkit": "node scripts/brandkit.mjs",
+    "launchkit": "node scripts/launchkit.mjs"
+  },
+  "dependencies": {
+    "@fontsource/amiri": "5.3.0",
+    "@fontsource/amiri-quran": "5.3.0",
+    "@fontsource/readex-pro": "5.3.0",
+    "@remotion/cli": "4.0.535",
+    "@remotion/media-utils": "4.0.535",
+    "d3-geo": "3.1.1",
+    "react": "19.2.0",
+    "react-dom": "19.2.0",
+    "remotion": "4.0.535",
+    "topojson-client": "3.1.0",
+    "world-atlas": "2.0.2"
+  },
+  "devDependencies": {
+    "@types/d3-geo": "3.1.0",
+    "@types/react": "19.2.2",
+    "@types/topojson-client": "3.1.5",
+    "typescript": "5.9.3"
+  }
+}
