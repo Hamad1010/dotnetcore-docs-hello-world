@@ -22,7 +22,10 @@ Recording Booth, and the studio links your voice and renders the video, thumbnai
 3. **Upload EP004** (after EP003) with `03-episodes/EP004/publish.md`: the file I sent (`EP004-upload.mp4`; the full master stays
    in `out/EP004.mp4`), title 1 + description 1; upload `out/subtitles.ar.srt`; cards at 3:10 (EP003) and 5:08 (the
    playlist); altered content: No.
-4. **Send EP001's first-week numbers** (views, CTR, average view duration, and the retention export for `/yt-retention`).
+4. **Watch EP005** (`EP005-upload.mp4`, rendered 11 Nov with your voice) and decide: record the 600,000-jobs line again or
+   leave it out (3:25), keep or cut the soap study (8:28), and listen to 7:27, 8:49 and 11:04. Then I write its publish kit.
+5. **EP006:** your script edits (the full render without voice is `EP006-upload.mp4`), then record it in the Booth.
+6. **Send EP001's first-week numbers** (views, CTR, average view duration, and the retention export for `/yt-retention`).
 
 Then follow the week-by-week coaching plan: [`01-plan/08-coaching-roadmap.md`](01-plan/08-coaching-roadmap.md).
 
