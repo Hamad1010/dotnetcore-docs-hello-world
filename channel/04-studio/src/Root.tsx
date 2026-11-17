@@ -7,6 +7,7 @@ import {Thumbnail, type ThumbProps} from './Thumbnail';
 import {LogoSheet, LogoSingle} from './Brandkit';
 import {AvatarStill} from './Avatars';
 import {BannerStill} from './Banners';
+import {PresenterSheet, type PresenterSheetProps} from './PresenterSheet';
 import {ThumbVariant, thumbVariantMeta, type ThumbVariantProps} from './ThumbVariants';
 import {ensureFonts} from './fonts';
 import type {Brand, Episode} from './types';
@@ -111,5 +112,7 @@ export const Root: React.FC = () => (
     {/* The launch kit (scripts/launchkit.mjs): channel avatars and banners */}
     <Still id="Avatar" component={AvatarStill} width={800} height={800} defaultProps={{id: 'host-01'}} />
     <Still id="Banner" component={BannerStill} width={2560} height={1440} defaultProps={{n: 1, guides: false}} />
+    {/* The presenter's five options in the «sketchbook» look (framework v7; scripts/presenters.mjs) */}
+    <Still id="PresenterSheet" component={PresenterSheet} width={1920} height={1080} defaultProps={{option: 0} as PresenterSheetProps} />
   </>
 );

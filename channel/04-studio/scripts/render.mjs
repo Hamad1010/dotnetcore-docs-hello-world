@@ -1,12 +1,15 @@
 // Renders an episode and everything needed to publish it, into 03-episodes/<EP>/out/:
 //   <EP>.mp4            the video (1080p, or 720p with --preview), mastered to -14 LUFS
-//   thumbnail.png/.jpg  YouTube thumbnail (1280×720, jpg < 2 MB)
+//   thumbnail.png/.jpg  only with --thumb or --thumb-only: the studio's own thumbnail (1280×720). Thumbnails are made
+//                       from the publish kit's image prompts now (CLAUDE.md rule 13), so a render no longer makes one.
 //   subtitles.ar.srt    Arabic captions to upload to YouTube (better SEO + accessibility)
 //   chapters.txt        timestamps to paste into the description
 //
 //   node scripts/render.mjs EP001              full quality
 //   node scripts/render.mjs EP001 --preview    fast 720p check
 //   node scripts/render.mjs EP001 --thumb-only
+//   node scripts/render.mjs EP005 --captions   only subtitles.ar.srt + chapters.txt (seconds; from audio/timings.json,
+//                                              or sync/timings.json when the audio folder is gone)
 //   node scripts/render.mjs EP001 --shorts     vertical Shorts listed in episode.json "shorts" → out/short-N.mp4
 //   node scripts/render.mjs EP001 --short=2    only Short number 2
 //   node scripts/render.mjs EP001 --audio      only the soundtrack → out/<EP>.wav (fast: to compare backgrounds)
@@ -32,6 +35,8 @@ const args = process.argv.slice(2);
 const episodeId = args.find((a) => !a.startsWith('--')) || 'EP001';
 const preview = args.includes('--preview');
 const thumbOnly = args.includes('--thumb-only');
+const withThumb = thumbOnly || args.includes('--thumb');
+const captionsOnly = args.includes('--captions');
 const shortArg = args.find((a) => a.startsWith('--short='));
 const onlyShort = shortArg ? Number(shortArg.split('=')[1]) : null;
 const shortsOnly = args.includes('--shorts') || onlyShort !== null;
@@ -47,23 +52,35 @@ fs.mkdirSync(outDir, {recursive: true});
 
 const browserExecutable = process.env.REMOTION_BROWSER || null;
 const inputProps = bgArg ? {episodeId, background: bgArg.split('=')[1]} : {episodeId};
+// --captions after a reset of the session's machine: the voice (audio/, git-ignored) is gone, but sync/timings.json
+// (committed by clean_recording.py) still has the timing plan; lend it to audio/ for this run only
+const audioTimings = path.join(episodes, episodeId, 'audio', 'timings.json');
+const syncTimings = path.join(episodes, episodeId, 'sync', 'timings.json');
+if (captionsOnly && !fs.existsSync(audioTimings) && fs.existsSync(syncTimings)) {
+  fs.mkdirSync(path.dirname(audioTimings), {recursive: true});
+  fs.copyFileSync(syncTimings, audioTimings);
+  process.on('exit', () => fs.rmSync(audioTimings, {force: true}));
+  console.log('timings from sync/timings.json');
+}
 console.log('Bundling…');
 const serveUrl = await bundle({entryPoint: path.join(studio, 'src/index.ts'), publicDir: episodes, symlinkPublicDir: true});
 // the bundle links 03-episodes instead of copying it (a copy was 1–2 GB, and a crash left it in /tmp): delete the
 // small rest however the script ends (removing the bundle removes the link, never the episodes)
 process.on('exit', () => fs.rmSync(serveUrl, {recursive: true, force: true}));
 
-// Thumbnail
-const thumb = await selectComposition({serveUrl, id: 'Thumbnail', inputProps, browserExecutable});
-const thumbPng = path.join(outDir, 'thumbnail.png');
-await renderStill({composition: thumb, serveUrl, output: thumbPng, inputProps, browserExecutable});
-try {
-  execFileSync('ffmpeg', ['-y', '-loglevel', 'error', '-i', thumbPng, '-q:v', '3', path.join(outDir, 'thumbnail.jpg')]);
-} catch {
-  execFileSync('npx', ['remotion', 'ffmpeg', '-y', '-loglevel', 'error', '-i', thumbPng, '-q:v', '3', path.join(outDir, 'thumbnail.jpg')], {cwd: studio});
+// Thumbnail: only when asked for (rule 13: thumbnails come from the publish kit's image prompts)
+if (withThumb) {
+  const thumb = await selectComposition({serveUrl, id: 'Thumbnail', inputProps, browserExecutable});
+  const thumbPng = path.join(outDir, 'thumbnail.png');
+  await renderStill({composition: thumb, serveUrl, output: thumbPng, inputProps, browserExecutable});
+  try {
+    execFileSync('ffmpeg', ['-y', '-loglevel', 'error', '-i', thumbPng, '-q:v', '3', path.join(outDir, 'thumbnail.jpg')]);
+  } catch {
+    execFileSync('npx', ['remotion', 'ffmpeg', '-y', '-loglevel', 'error', '-i', thumbPng, '-q:v', '3', path.join(outDir, 'thumbnail.jpg')], {cwd: studio});
+  }
+  console.log('✓ thumbnail');
+  if (thumbOnly) process.exit(0);
 }
-console.log('✓ thumbnail');
-if (thumbOnly) process.exit(0);
 
 // ffmpeg from the system, else the one that ships with Remotion.
 const ffmpeg = (args) => {
@@ -165,6 +182,7 @@ if (audioOnly) {
 fs.writeFileSync(path.join(outDir, 'subtitles.ar.srt'), toSrt(plan));
 fs.writeFileSync(path.join(outDir, 'chapters.txt'), toChapters(episode, plan) + '\n');
 console.log('✓ subtitles.ar.srt + chapters.txt');
+if (captionsOnly) process.exit(0);
 
 // The sound first, in parts of about 3 minutes cut where a scene starts, joined into one WAV: Remotion mixes all of a
 // render's sounds through full-length temporary files (about 10 GB at once for a 15-minute episode), more than a cloud

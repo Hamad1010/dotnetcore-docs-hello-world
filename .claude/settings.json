@@ -5,9 +5,16 @@
         "source": "github",
         "repo": "Jakeschincariol/youtube-agent-skill"
       }
+    },
+    "lemolab": {
+      "source": {
+        "source": "github",
+        "repo": "lemomo-ai/lemo-opuscar"
+      }
     }
   },
   "enabledPlugins": {
-    "youtube-agent@youtube-agent-skill": true
+    "youtube-agent@youtube-agent-skill": true,
+    "lemo-opuscar@lemolab": true
   }
 }

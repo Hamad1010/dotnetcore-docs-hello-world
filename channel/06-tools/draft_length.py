@@ -1,7 +1,8 @@
 """Length check for script drafts (03-episodes/EP00N/script-draft.md).
 
 Counts the spoken characters of each part (each `## ` heading) and estimates when it starts. Lines that start
-with `>` (notes), `|` or `#` and text in [brackets] are not spoken. Digits are counted as the words they become.
+with `>` (notes), `|` or `#`, screen notes ⟪…⟫ and text in [brackets] are not spoken. Digits are counted as the words
+they become. The owner's own additions while recording (framework v7 §3.21) come on top of this estimate.
 
 Run:  python3 channel/06-tools/draft_length.py EP002     (no argument = every draft)
 """
@@ -19,6 +20,7 @@ MIN_SECONDS = 8 * 60  # keep in step with the framework's minimum length (11-vid
 
 def spoken(line):
     line = re.sub(r'\[[^\]]*\]', '', line)
+    line = re.sub(r'⟪[^⟫]*⟫', '', line)  # screen notes, and the owner's ⟪مساحتك⟫ slots
     line = re.sub(r'[*«»﴿﴾]', '', line)
     line = re.sub(r'[ً-ٰٟۖ-ۭ]', '', line).strip()  # tashkeel and Quran marks take no time
     digits = sum(len(d) for d in re.findall(r'\d', line))

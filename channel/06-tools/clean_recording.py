@@ -43,7 +43,10 @@ loudness of work/raw.wav (10 ms steps): cut in a quiet stretch, and leave a natu
 6. Checks: each finished scene is transcribed again; the report lists any script word that can't be heard any more
    (a clipped word, a cut too far) next to the words the owner said differently from the script.
 
-Everything stays in the git-ignored audio/ folder: the owner's voice is never committed.
+Everything stays in the git-ignored audio/ folder: the owner's voice is never committed. Only the edit is: audio/timings.json
+and audio/cuts.json are copied to <episode>/sync/ (no sound in them), so after a reset of the session's machine the
+captions and chapters come back with `npm run render -- EP00N --captions`, and the owner's recording, sent again, gives
+the same cut with the same cuts.json.
 """
 import json
 import os
@@ -645,6 +648,17 @@ def marks_for(narration, words, duration):
     return [round(t, 3) for t in times]
 
 
+def keep_edit(ep_dir):
+    """Copy the edit (timings and cuts, no sound) to the committed sync/ folder."""
+    sync = os.path.join(ep_dir, 'sync')
+    os.makedirs(sync, exist_ok=True)
+    for name in ('timings.json', 'cuts.json'):
+        src = os.path.join(ep_dir, 'audio', name)
+        if os.path.exists(src):
+            with open(src, encoding='utf-8') as f, open(os.path.join(sync, name), 'w', encoding='utf-8') as g:
+                g.write(f.read())
+
+
 def remark(episode_id):
     """Recompute only the word marks from the saved transcripts (after a small change to a scene's narration)."""
     ep_dir = os.path.join(ROOT, '03-episodes', episode_id)
@@ -656,6 +670,7 @@ def remark(episode_id):
             t = timings[scene['id']]
             t['marks'] = marks_for(scene['narration'], json.load(open(stt)), t['duration'])
     json.dump(timings, open(os.path.join(audio, 'timings.json'), 'w'), indent=2)
+    keep_edit(ep_dir)
     print('marks updated')
 
 
@@ -747,6 +762,7 @@ def main():
         if lost:
             report.append(f"  check {scene['id']}: not heard in the finished audio: " + ' · '.join(f'«{w}»' for w in lost))
     json.dump(timings, open(os.path.join(audio, 'timings.json'), 'w'), indent=2)
+    keep_edit(ep_dir)
     print('\n'.join(report))
     total = sum(t['duration'] for t in timings.values())
     chars = sum(len(' '.join(spoken_words(s['narration']))) for s in scenes)

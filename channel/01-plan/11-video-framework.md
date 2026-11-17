@@ -1,6 +1,8 @@
 # 11 · Video framework: how every long video is built
 
-**Current version: v6** (10 Nov 2026): season 2 (EP006 on) is built as in §2b; season 1 (EP001–EP005) keeps v5.5.
+**Current version: v7** (17 Nov 2026): season 2 (EP006 on) is built as in §2b and told as in §3.19–§3.21 (the delivery of
+the owner's favourite creators, the presenter on screen, the owner's own words kept), in the `sketchbook` look (§6); its
+publish kit has 30 titles and 3 thumbnail prompts (§3.13). Season 1 (EP001–EP005) keeps v5.5.
 This file is the only place where the structure of a long video is defined.
 `CLAUDE.md`, the `/new-episode` skill and the blueprint point here instead of repeating it, so a change made here
 reaches everything at once.
@@ -57,7 +59,8 @@ and destination; the station names are plain words, not part numbers.
 
 ## 2b. Season 2: the conversations that open doors (v6)
 
-Season 2 (EP006–EP010) keeps everything the viewer knows from season 1: the owner's voice, the `aquarelle` look, the
+Season 2 (EP006–EP010) keeps everything the viewer knows from season 1 (from v7 the look is `sketchbook` and a presenter
+stands beside the page: §3.20, §6): the owner's voice, the
 techniques of §3 (a story told step by step, touchable numbers, every name introduced and shown in Arabic and English,
 quotes with credentials, every sentence seen), the «وقفة», the dark teaser, no hype and no promises. **What changes is
 the structure:** each episode is one kind of conversation, told through 4 to 8 stories.
@@ -226,9 +229,14 @@ Each trap goes through five steps, so it is clear and not just a warning:
 - A near-real example is marked **[مثال توضيحي]** in the script and labelled on screen.
 
 ### 3.13 The publish kit (new in v4)
-**v5.3: no thumbnails and no Shorts until the owner decides** (their rule, Nov 2026). The kit is `publish.md`: titles
-(through `/yt-package`), descriptions (through `/yt-seo`), tags, chapters (through `/yt-chapters`), the pinned comment.
-What follows about thumbnails waits until then.
+**v7 (the owner's brief, 17 Nov 2026), every episode from EP006:** `publish.md` opens with **30 story-driven titles in 4–5
+groups and 3 image-generation prompts for thumbnails**, as [`05-templates/titles-and-thumbnails.md`](../05-templates/titles-and-thumbnails.md)
+says (the formula, the words never to use, the owner's golden examples, the prompt's exact form: watercolour and anime,
+no face and no head, a sleeve for a Saudi character, 2–4 Arabic words). It is written once the script is approved;
+descriptions (`/yt-seo`), tags and chapters (`/yt-chapters`) follow the recording. Shorts stay paused (v5.3). The studio's
+own thumbnail (`thumbs.json`, `npm run thumbs`) is retired: the owner makes thumbnails from the prompts.
+*Before v7 (v5.3–v6): no thumbnails; the kit was titles, descriptions, tags, chapters and the pinned comment. What
+follows is the earlier guidance; it still holds where the template doesn't say otherwise.*
 Every full script comes with `publish.md` and three thumbnail images, so the owner judges the whole package:
 - **3 video titles, told as a story (v5):** the owner's model is the Saudi storytelling title: a person, what happened
   to them, the turn, and what it leaves open («…وبعد سبع سنين صار اللي ما توقعه أحد»), so the viewer wants to know what
@@ -367,6 +375,45 @@ show it as a short dialogue of 2–6 lines: two voices, Saudi names and places, 
 - A made-up dialogue carries [مثال توضيحي]; on screen it plays as a `chat` moment, each bubble on its words. The owner reads
   both voices.
 
+### 3.19 Tell it the way the owner's favourite creators do (new in v7)
+The owner sent three transcripts of creators whose delivery they love (two Arabic book-and-science talks, one veteran
+mechanic's car reviews; kept on the owner's side, never committed or quoted). What they do, in our own words, and how we
+use it. Their content, lines and catchphrases are never copied (rule 2's spirit applies to them too).
+- **A friend's name for the viewer**, used a few times, not in every line: «يا صاحبي» unless the owner picks another.
+- **Start from the viewer's own feeling**, as a real question before the story («صار لك… إنك سكتّ؟»), then promise
+  what this file changes for the next time.
+- **The honest detour:** when a famous claim in the topic turns out to have no source, say so on air, briefly, with
+  what the trace really shows. It is our rule 1 told out loud, and it makes every other fact more believable.
+- **Act the lines out:** dialogue in the voices of the people in it (a short ⟪المقدّم يمثّل…⟫ note in the draft).
+- **Touch it with the viewer's own things:** after each finding, one line in riyals, minutes or people they know
+  («من كل مية ريال… يترك قرابة عشرين»); after each story, one sentence that brings it to the viewer's week.
+- **Plain verdicts:** «وأقولها لك بصراحة…» once or twice an episode, on a mistake the viewer can avoid; never on a person.
+- **Show it live:** at least once an episode, the presenter does the thing on the page (writes the two messages, crosses
+  out the bad one), the way a mechanic plugs in the scanner instead of describing it.
+- **Light asides and admitted limits:** a self-aware line now and then («وأنا أعترف لك…»), and «ما أقول لك إن…» where the
+  lesson stops working.
+- **A short thank-you before the teaser**, the same few words each time («ووقتك غالي… شكرًا إنك قضيت جزء منه هنا»). Never a
+  request to subscribe or like (rule 6).
+- **Room for the owner's own story:** two or three ⟪مساحتك⟫ slots in each draft (§3.21).
+
+### 3.20 The presenter (new in v7)
+A drawn stand-in for the owner stands beside the page for most of the video and explains with his hands: he points at
+what is being said, counts the steps on his fingers, acts out a line, writes on the page, stands still in the «وقفة».
+He keeps the channel avatar's identity (a young man, the swept-up quiff, round gold glasses, no face drawn) in one of
+five drawings the owner chooses from (`04-studio/src/components/Presenter.tsx`, `npm run presenters`): الظل (watercolour
+silhouette), القلم (tablet sketch), العود (stick figure), المذكرة (sketchnote cartoon), الثوب (thobe and shemagh). Until
+the owner chooses, EP006 waits. His moves are designed on the recording, like the moments (§3.14): a pose per sentence
+at most, changing on a word, and he leaves the frame for full-screen moments (a photo, the verse, the dark teaser).
+
+### 3.21 The owner's own words (new in v7)
+The script is the backbone; the owner talks more than it when he records, and that is welcome. The cleaner keeps his
+extra words in the audio; `06-tools/adopt_extras.py EP00N --write` then adds every passage of 3+ words to its scene's
+narration (so it is captioned and timed), `clean_recording.py EP00N --marks` gives its words their marks, and each
+passage gets its own moment, designed like any other (§3.14). Every added passage is read first: his own stories need no
+source; a new fact, number or name is checked like any other (rule 1), and one that can't be checked is cut in
+`audio/cuts.json` with his agreement. Drafts mark two or three ⟪مساحتك⟫ places where a story of his fits; he may skip
+them or talk anywhere else.
+
 ## 4. From draft to video
 
 1. Claude runs `/yt-script` (five hooks for part 1, scored) and writes `03-episodes/EP00N/script-draft.md` (this
@@ -426,8 +473,15 @@ show it as a short dialogue of 2–6 lines: two voices, Saudi names and places, 
 | end card | `stage` with no narration (built): the next `file` from second 0 (`at: 0`), moved up to leave room for YouTube's end-screen elements; `dark: true` after a dark teaser |
 | every scene | `moments` on the narrator's words, each with its sound (§3.14) |
 | the episode | from EP005 (v5.5): `"look": "aquarelle"`, `"motion": "rich"`, `"map": "mountain"` (EP004 keeps `"watercolor"`); the sounds and the background level come from `channel.json` |
+| the episode, v7 | from EP006: `"look": "sketchbook"` (`04-studio/src/components/Sketchbook.tsx`: cream paper with a faint dot grid; graphite lines with a little wobble and grain; watercolour washes under the line, shifted off it, with pooled edges; stick people with round heads and no faces; sketchnote banners, fat arrows and numbered boxes; coral for the explaining marks and one yellow marker for the thing that matters; hand lettering in Marhey and Aref Ruqaa, English names in Caveat) and `"presenter": "<option>"` (§3.20). Being built: the moment kinds are drawn again in this look before EP006's 30-second test (rule 9). The Lemo-Opuscar library (the `lemo-opuscar` plugin) is the reference: its code is MIT, its written guides CC BY-NC, so we read and follow them and never commit them or a copy of them |
 
 ## 7. Changelog
+
+- **v7 · 17 Nov 2026.** From the owner after approving EP005: season 2 told the way three creators they love tell things
+  (§3.19); a presenter on screen, five drawings to choose from (§3.20); the owner's extra words kept, captioned and drawn
+  (§3.21, `adopt_extras.py`); a new look, `sketchbook`, blending four styles the owner picked from the Lemo-Opuscar
+  library (Watercolor Brush, Tablet Sketch Explainer, Stick-figure Explainer, Sketchnote) (§6); thumbnails come back as
+  three image prompts with 30 titles in the publish kit (§3.13). EP006's draft v2 is the first script in v7.
 
 - **v6 · 10 Nov 2026.** Season 2's structure (§2b), approved by the owner with the corridor of doors as its map (§1)
   and the «وش لو…؟» fork on screen: 4–8 stories in six beats, the evidence after each story, the five audiences, the

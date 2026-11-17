@@ -28,13 +28,21 @@ Read [`channel/00-START-HERE.md`](channel/00-START-HERE.md) first. It is the map
 3. **Language and delivery:** simple Saudi white dialect a 12-year-old understands, written for the owner to say *to people in front of them* with conviction (إبهار): short punchy sentences, real questions, pauses (…), concrete numbers. No academic words without an instant simple explanation. Numbers in narration use `{display|spoken}` (e.g. `{2009|ألفين وتسعة}`) so captions show digits and the voice reads words. How to tell it (step by step, with questions to the viewer, touchable numbers): the video framework, rule 5.
    Talk like you're talking to a friend: every draft goes through the `humanizer` skill (`.claude/skills/humanizer`)
    before the owner sees it, wording only, every fact kept; and a loop is paid off by telling it, never with «اللي
-   وعدتك فيها / زي ما وعدتكم» (the owner's rule, Nov 2026; framework v5.4).
+   وعدتك فيها / زي ما وعدتكم» (the owner's rule, Nov 2026; framework v5.4). From EP006 the telling follows the
+   creators the owner loves (framework v7 §3.19: a friend's name for the viewer, the viewer's own feeling first, the
+   honest detour, acted lines, plain verdicts, a live demonstration, a short thank-you), never copying their content;
+   and what the owner says beyond the script is kept, captioned and drawn (§3.21, `06-tools/adopt_extras.py`).
 4. **One lesson per video, always tied to business.** Every point ends in a business result. Include at least one "small move, big impact" detail (a word, a habit, a gesture people overlook). Where it fits, use the owner's favourite angles: leverage (10x, 25x), scaling and alignment with other people and things, comparing people or things to find golden opportunities, connections that pay off years later, and the 1% a day that compounds.
 5. **Format: the video framework.** Every long video follows the current version of [`channel/01-plan/11-video-framework.md`](channel/01-plan/11-video-framework.md): the parts and their order, how to tell the story, touchable numbers, opening and closing loops, quotes with credentials, risks and mitigations. It is the only place the structure is defined (versioned, with a changelog): read it before writing a script, and change the structure only there. **Length** is set there too (at least 8:00 since v3: YouTube allows mid-roll ads from 8 minutes). The lesson order can change as well: lesson ids stay, episode numbers follow publication order (framework §0). Stories depend on the topic (no fixed count); vary countries and industries, and include an Arab/Gulf example when a verified one exists.
 6. **No cringe, no fluff, no hype.** Never ask viewers to subscribe or like (the owner will say when). No guaranteed-income or get-rich promises, no investment, trading or stock tips: numbers are examples, never promises (YouTube policy and Saudi financial-promotion rules). No politics or sectarian topics. Stress/mental-health points get a gentle "if it's heavy, talk to a specialist" line.
 7. **Design:** our palette and font in `04-studio/src/theme.ts`. Depth comes from our own silhouettes ("shadows") of places, people and things (`src/components/Silhouettes.tsx`): no stock photos without a license, no other brands' logos (company names as text are fine). The channel's own avatar (`03-episodes/_assets/brand/avatar.png`)
    sits at the top right of every video. From EP005 the look is `aquarelle`: watercolor with minimal anime (torn paper,
-   paint blooms, no ink lines; approved by the owner, 10 Nov 2026). Season 2's map is a corridor of doors (framework v6). A foreign name or place shows on screen in Arabic and
+   paint blooms, no ink lines; approved by the owner, 10 Nov 2026). Season 2's map is a corridor of doors (framework v6).
+   **From EP006 the look is `sketchbook`** (the owner's blend of four styles of the `lemo-opuscar` plugin, 17 Nov 2026:
+   Watercolor Brush, Tablet Sketch Explainer, Stick-figure Explainer, Sketchnote; `src/components/Sketchbook.tsx`) **and a
+   presenter**, the owner's drawn stand-in, stands beside the page and explains (framework v7 §3.20; five options in
+   `src/components/Presenter.tsx`, the owner chooses one). The plugin's code is MIT but its written guides are CC BY-NC:
+   read and follow them, never commit them or a copy (the repo is public). A foreign name or place shows on screen in Arabic and
    English; the script stays Arabic. Photos only when public domain or CC0 (Wikimedia Commons, Openverse), as a `photo`
    moment with the source in `sources.md`, and **never a photo of a woman**: she gets the watercolor avatar. **Every sentence is seen:** names, dates, numbers, quotes and comparisons get an explainer moment on the word that says them, each with a short non-melodic sound (the «foley» set from EP004: cards, paper, books, wood and coins from Kenney's CC0
    packs, `06-tools/sfx_foley.py`; EP001–EP003 keep the synthesized set); nothing sits still for more than ~4 seconds
@@ -45,7 +53,10 @@ Read [`channel/00-START-HERE.md`](channel/00-START-HERE.md) first. It is the map
 10. **Keep the tracker true:** update `channel/02-lessons/lessons.csv` (`status`, `episode`, dates, results) whenever an episode changes state.
 11. **Cost discipline:** no paid API calls unless the owner configured a key. Preview with `npm run preview` before a full render.
 12. **The YouTube agent, from the script to the publish (the owner's rule, Nov 2026):** the `youtube-agent` plugin (`.claude/settings.json`; skills `/yt-*`) runs at every stage of every episode: `/yt-script` scores the hooks before a script is written, `/yt-package` the titles, `/yt-edit` the recording's transcript, `/yt-chapters` and `/yt-seo` the publish kit, `/yt-comment`, `/yt-retention` and `/yt-audit` after the upload (how, step by step: the `/new-episode` skill, §2b). Its voice file is `channel/01-plan/14-youtube-voice.md` (copy it to `~/.claude/youtube/voice.md`). Where it differs from these rules, these rules win.
-13. **No Shorts and no thumbnails** until the owner decides (Nov 2026): don't design, render or plan them.
+13. **No Shorts** until the owner decides (Nov 2026): don't design, render or plan them. **Thumbnails came back on 17 Nov
+    2026 as image prompts:** every publish kit from EP006 has 30 story-driven titles and 3 image-generation prompts for
+    the owner's image generator, as `channel/05-templates/titles-and-thumbnails.md` says (no face or head, ever). The
+    studio no longer renders a thumbnail (`npm run render` makes one only with `--thumb`).
 
 ## Producing an episode (the `/new-episode` skill automates this)
 
@@ -59,14 +70,19 @@ python3 ../06-tools/draft_length.py EP00N    # length of each part
 npm run script -- EP00N                    # readable script.md for the owner to record
 python3 ../06-tools/check_cues.py EP00N    # every moment's word is in the narration (run again after any script change)
 npm run preview -- EP00N                   # still frames in out/preview/ → look at them
+#    and the publish kit's 30 titles + 3 thumbnail prompts (05-templates/titles-and-thumbnails.md)
 # 2) owner records in the Booth and sends the file (one file for all parts is fine)
-python3 ../06-tools/clean_recording.py EP00N <recording>  # cuts, cleans, levels and syncs it word by word
-npm run render -- EP00N                    # mp4 + thumbnail + subtitles.ar.srt + chapters.txt
+python3 ../06-tools/clean_recording.py EP00N <recording>  # cuts, cleans, levels and syncs it word by word (keeps sync/)
+python3 ../06-tools/adopt_extras.py EP00N --write         # what the owner said beyond the script → the narration
+python3 ../06-tools/clean_recording.py EP00N --marks      # marks for those words too; then design their moments
+npm run render -- EP00N                    # mp4 + subtitles.ar.srt + chapters.txt
+npm run render -- EP00N --captions         # only the captions and chapters (works from sync/ after a reset)
 npm run render -- EP00N --from=420 --until=480   # a 60-second window, to test a change (rule 9)
 ```
 
-In a cloud session set `REMOTION_BROWSER=/opt/pw-browsers/chromium_headless_shell-1194/chrome-linux/headless_shell`
-(or whatever `find /opt/pw-browsers -name headless_shell` returns) before rendering.
+In a cloud session set `REMOTION_BROWSER=$(find /opt/pw-browsers \( -name headless_shell -o -name chrome-headless-shell \) -type f | head -1)`
+before rendering. A cloud session's machine can be reset: the owner's audio and `out/` (git-ignored) go with it, the
+edit stays in each episode's committed `sync/` (timings and cuts, no sound).
 
 ## Remotion rules used here
 

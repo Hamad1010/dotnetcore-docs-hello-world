@@ -45,8 +45,10 @@ framework: our facts, our dialect, our structure win where they differ.
 - **Before the script:** `/yt-script`: five hooks for part 1 off its 21 formulas, scored with `hookscore.py`. The
   tool reads English words only, so score a faithful English rendering of each Arabic hook and show both; show the
   owner the top two with their panels and the formula each uses. Mark `[ON SCREEN: …]` on every beat of the draft.
-- **Titles:** `/yt-package`: ten titles run through `title.py` (the 60/40-character cuts), the top three shown.
-  The thumbnail half is skipped while thumbnails are paused.
+- **Titles and thumbnails (v7, from EP006):** 30 story-driven titles in 4–5 groups and 3 image-generation prompts, as
+  `channel/05-templates/titles-and-thumbnails.md` says; every title through `title.py` (report its characters; the
+  tool's English-only warnings don't apply), then the three pairings to test first (a title and a prompt that share no
+  word). Example: `03-episodes/EP006/publish.md`.
 - **After the recording:** `/yt-edit`: `deadair.py` on the cleaned scenes' transcript as a second check on dead air,
   fillers and retakes the cleaner missed.
 - **Before the upload:** `/yt-chapters` (its three rules on our chapter list) and `/yt-seo` (the description's first
@@ -61,9 +63,11 @@ framework: our facts, our dialect, our structure win where they differ.
 - Narration: simple Saudi white dialect, told as a story to people in front of you, with conviction; short
   sentences; no fluff, no hype, no promises of money. Each point ends in a business result, with one "small move,
   big impact". Every step has a first move that costs nothing.
-- Write the publish kit with the draft (framework §3.13): `publish.md` (titles told as stories, every word true, run
-  through `/yt-package`; 2–3 descriptions; tags; the pinned comment with the episode's question). **No thumbnails and
-  no Shorts until the owner decides** (their rule, Nov 2026): no `thumbs.json`, no `npm run thumbs`, no `--shorts`.
+- Write the publish kit with the draft (framework §3.13): `publish.md` opens with the 30 titles and the 3 thumbnail
+  prompts (the template above); descriptions, tags and the pinned comment follow. **No Shorts** until the owner decides
+  (no `--shorts`); no studio thumbnail (`thumbs.json`, `npm run thumbs` are retired).
+- From EP006 (framework v7): tell it the way the owner's favourite creators do (§3.19), with ⟪المقدّم…⟫ notes for the
+  presenter (§3.20) and two or three ⟪مساحتك⟫ slots for the owner's own story (§3.21). The look is `sketchbook`.
 - Framework v5 parts to remember: Saudi stories and numbers first (none that hurts anyone, none a later episode plans),
   the «وقفة» before the close (Quran and Sahih al-Bukhari / Muslim only, exact texts checked twice, §3.15), and a close
   with a 10–15 s bridge for the «فيه مشهد في النهاية» pop-up, then the teaser on a dark screen (§3.16).
@@ -93,13 +97,13 @@ framework: our facts, our dialect, our structure win where they differ.
   those words.
 - Numbers: `{display|spoken}` e.g. `{2009|ألفين وتسعة}`, `{55|خمسة وخمسين}`, `{10%|عشرة بالمية}`.
 - Finish the publish kit: real chapter times from `out/chapters.txt` (checked with `/yt-chapters`), the description
-  through `/yt-seo`, an X thread, a WhatsApp card. No Shorts or thumbnails until the owner decides. Altered content:
+  through `/yt-seo`, an X thread, a WhatsApp card. No Shorts until the owner decides. Altered content:
   **No** (the owner's real voice).
 
 ## 5. Build and check
 ```bash
 cd channel/04-studio && (test -d node_modules || npm install)
-export REMOTION_BROWSER=${REMOTION_BROWSER:-$(find /opt/pw-browsers -name headless_shell -type f 2>/dev/null | head -1)}
+export REMOTION_BROWSER=${REMOTION_BROWSER:-$(find /opt/pw-browsers \( -name headless_shell -o -name chrome-headless-shell \) -type f 2>/dev/null | head -1)}
 npm run script -- EP00N
 npm run preview -- EP00N      # then LOOK at 3–4 frames: the hook cards, the comparison, a stats scene
 ```
@@ -112,7 +116,13 @@ Fix any overflow/wrapping by shortening text (not by shrinking fonts).
   tightens long pauses, cleans and levels the sound (-16 LUFS) and writes word marks so cues and subtitles land on
   the word. The sound is the podcast voice (the owner's request, Nov 2026): the `audio-cleanup` skill's podcast preset
   (`.claude/skills/audio-cleanup`) inside the cleaner; `--voice=studio` gives EP001–EP003's sound. Read its report,
-  run `/yt-edit` on the scenes' transcript, then `npm run render -- EP00N`.
+  run `/yt-edit` on the scenes' transcript.
+- The owner talks beyond the script (framework v7 §3.21): `python3 06-tools/adopt_extras.py EP00N` lists what he
+  added; read it (his stories are his; a new fact, number or name is checked, rule 1), then `--write` adds each passage
+  of 3+ words to its scene's narration, and `clean_recording.py EP00N --marks` times their words. Design a moment for
+  each added passage, run `check_cues.py`, then `npm run render -- EP00N`.
+- The cleaner copies the edit (timings, cuts; no sound) to the episode's committed `sync/`: commit it. After a reset
+  of the session's machine, `npm run render -- EP00N --captions` still gives the subtitles and chapters.
 
 ## 7. Bookkeeping
 - `lessons.csv`: `status` → `draft` (sent for approval) / `scripted` (episode.json built) / `voiced` / `rendered`,

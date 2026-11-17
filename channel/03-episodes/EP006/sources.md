@@ -3,6 +3,14 @@
 Checked 10 Nov 2026 for the v6 draft. Web search only (this session cannot open Wikipedia pages directly); links marked
 "check" should be opened once before publishing.
 
+## Part 2 · The "55 minutes" saying (added 17 Nov 2026, draft v2)
+- "If I had an hour to solve a problem… I would spend 55 minutes…" is widely credited to Albert Einstein; Quote Investigator
+  found no substantive evidence that he said it. Its earliest trace is a 1966 piece by an employee of the Stainless
+  Processing Company, crediting an unnamed Yale professor, with the hour split 40 and 20 minutes (not 55 and 5):
+  [Quote Investigator, 22 May 2014](https://quoteinvestigator.com/2014/05/22/solve/) ·
+  [Barry Popik](https://barrypopik.com/blog/if_i_had_an_hour_to_solve_a_problem). The script says «ما لقيت أي دليل…
+  أقدم أثر لها مقال في 1966… نسبها لأستاذ في جامعة ييل… ما ذكر اسمه… 40 دقيقة و20».
+
 ## Door 1 · Chris Gardner and the red Ferrari (early 1980s)
 - Gardner met Bob Bridges, a stockbroker driving a red Ferrari, outside San Francisco General Hospital; he asked what he did
   and how he did it ("What do you do?" / "How do you do that?"); Bridges arranged meetings with branch managers at brokerage
@@ -14,6 +22,7 @@ Checked 10 Nov 2026 for the v6 draft. Web search only (this session cannot open 
   [NPR](https://www.npr.org/transcripts/5443651) · Wikipedia "Chris Gardner" (check).
   Disputed and left out: whether the training paid, Bridges' income, the exact year («في بداية الثمانينات»).
   The film: *The Pursuit of Happyness* (2006) → «فيلم مشهور في 2006».
+- «من كل مية ريال… يترك قرابة عشرين» (draft v2) makes 17%–25% touchable: 17 to 25 of every 100.
 - **Evidence:** Tamir and Mitchell (Harvard), "Disclosing information about the self is intrinsically rewarding", *PNAS*
   109(21), 2012: people gave up 17% to 25% of potential earnings to talk about themselves; self-disclosure activated the
   mesolimbic dopamine (reward) system: [PMC](https://pmc.ncbi.nlm.nih.gov/articles/PMC3361411/) ·
