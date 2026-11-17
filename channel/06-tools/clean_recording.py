@@ -723,6 +723,11 @@ def main():
     old_file = os.path.join(audio, 'timings.json')
     old = json.load(open(old_file)) if os.path.exists(old_file) else {}
     cuts_file = os.path.join(audio, 'cuts.json')
+    kept_cuts = os.path.join(ep_dir, 'sync', 'cuts.json')
+    if not os.path.exists(cuts_file) and os.path.exists(kept_cuts):  # after a reset: the cuts chosen last time
+        with open(kept_cuts, encoding='utf-8') as f, open(cuts_file, 'w', encoding='utf-8') as g:
+            g.write(f.read())
+        print('cuts from sync/cuts.json')
     cuts = json.load(open(cuts_file, encoding='utf-8')) if os.path.exists(cuts_file) else {}
     check = SpeechCheck(x0) if '--keep-breaths' not in sys.argv else None
     breaths = {}

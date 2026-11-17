@@ -19,12 +19,14 @@ Recording Booth, and the studio links your voice and renders the video, thumbnai
    `EP003-upload.mp4` (355 MB; the 520 MB master stays in `out/EP003.mp4`), title 1 +
    thumbnail 1 + description 1; upload `out/subtitles.ar.srt`; cards at 3:03 (EP002) and 5:01 (the playlist); altered
    content: No. The 3 Shorts already made for EP003 wait, like all Shorts and new thumbnails, until you decide.
-3. **Upload EP004** (after EP003) with `03-episodes/EP004/publish.md`: the file I sent (`EP004-upload.mp4`; the full master stays
-   in `out/EP004.mp4`), title 1 + description 1; upload `out/subtitles.ar.srt`; cards at 3:10 (EP003) and 5:08 (the
-   playlist); altered content: No.
-4. **Watch EP005** (`EP005-upload.mp4`, rendered 11 Nov with your voice) and decide: record the 600,000-jobs line again or
-   leave it out (3:25), keep or cut the soap study (8:28), and listen to 7:27, 8:49 and 11:04. Then I write its publish kit.
-5. **EP006:** your script edits (the full render without voice is `EP006-upload.mp4`), then record it in the Booth.
+3. **EP004: send your 4 recorded takes again** (the session's machine was reset on 17 Nov and the cleaned voice went
+   with it): I render it with the fixed year counter in the teaser, then upload it with `03-episodes/EP004/publish.md`
+   (title 1 + description 1; `out/subtitles.ar.srt`; cards at 3:10 and 5:08; altered content: No).
+4. **Upload EP005 (approved)** after EP004 with `03-episodes/EP005/publish.md`: `EP005-upload.mp4`, title 1, thumbnail from
+   prompt 1, description 1, the pinned comment; captions by YouTube's Auto-sync with `transcript.ar.txt`, or send
+   `EP05.mp3` again for the exact file.
+5. **EP006:** choose the presenter (1–5, the pictures I sent), read script draft v2, then record it in the Booth: talk
+   beyond the script as much as you like (framework v7 §3.21).
 6. **Send EP001's first-week numbers** (views, CTR, average view duration, and the retention export for `/yt-retention`).
 
 Then follow the week-by-week coaching plan: [`01-plan/08-coaching-roadmap.md`](01-plan/08-coaching-roadmap.md).
