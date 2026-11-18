@@ -16,15 +16,14 @@ Recording Booth, and the studio links your voice and renders the video, thumbnai
    the video itself still asks it, as you chose): title 1 + thumbnail 1 + description 1; upload `out/subtitles.ar.srt`;
    cards at 1:23 (EP001) and 3:44 (the playlist); altered content: No.
 2. **Upload EP003** (rendered 28 Oct in the new look) with `03-episodes/EP003/publish.md`: the file I sent,
-   `EP003-upload.mp4` (355 MB; the 520 MB master stays in `out/EP003.mp4`), title 1 +
-   thumbnail 1 + description 1; upload `out/subtitles.ar.srt`; cards at 3:03 (EP002) and 5:01 (the playlist); altered
-   content: No. The 3 Shorts already made for EP003 wait, like all Shorts and new thumbnails, until you decide.
+   `EP003-upload.mp4` (355 MB), pairing A of §0 (a title and a thumbnail from prompt 1), description 1; cards at 3:03 (EP002)
+   and 5:01 (the playlist); altered content: No. Captions: the `subtitles.ar.srt` I sent with the video if you kept it;
+   otherwise YouTube's Auto-sync with `03-episodes/EP003/transcript.ar.txt`, or send EP003's recording again for the exact file.
 3. **Upload EP004** (re-rendered 18 Nov from the recording you sent again, with the year counter fixed) with
    `03-episodes/EP004/publish.md`: `EP004-upload.mp4`, pairing A of §0 (title + thumbnail from prompt 1), description 1;
-   upload `out/subtitles.ar.srt` (the file I sent); cards and settings as the kit says; altered content: No.
+   upload `03-episodes/EP004/subtitles.ar.srt` (the file I sent); cards at 3:13 and 5:10; altered content: No.
 4. **Upload EP005 (approved)** after EP004 with `03-episodes/EP005/publish.md`: `EP005-upload.mp4`, pairing A of §2,
    description 1, the pinned comment, and `03-episodes/EP005/subtitles.ar.srt` (the exact captions, rebuilt 18 Nov).
-   EP003 too, whenever you choose: its kit has the same 30 titles and 3 prompts (§0).
 5. **EP006:** read script draft v2, then record it in the Booth: talk beyond the script as much as you like (framework v7
    §3.21). **EP007–EP010:** read drafts v2, written in the same style.
 6. **Send EP001's first-week numbers** (views, CTR, average view duration, and the retention export for `/yt-retention`).
