@@ -1,0 +1,9 @@
+The sounds in this folder are made from Kenney's audio packs (Casino Audio, Interface Sounds, Impact Sounds, RPG Audio):
+
+    Created/distributed by Kenney (www.kenney.nl)
+    License: Creative Commons Zero, CC0 (http://creativecommons.org/publicdomain/zero/1.0/)
+    "This content is free to use in personal, educational and commercial projects.
+     Support us by crediting Kenney or www.kenney.nl (this is not mandatory)."
+
+They were trimmed, mixed (stamp, impact), levelled and encoded by channel/06-tools/sfx_foley.py, which lists the source
+file behind each name. Thank you, Kenney.

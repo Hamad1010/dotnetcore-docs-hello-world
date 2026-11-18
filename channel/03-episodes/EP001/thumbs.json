@@ -1,0 +1,12 @@
+[
+  {"layout": "design", "design": "story", "lines": ["رفضوه…", "ثم اشتروا شركته"], "tag": "19 مليار $", "extra": "مرفوض"},
+  {"layout": "design", "design": "scale", "lines": ["55 موظف", "450 مليون"], "tag": "مستخدم"},
+  {"layout": "design", "design": "time", "lines": ["ساعاتك", "ما تكفي"], "tag": "24 ساعة… للكل"},
+  {"layout": "design", "design": "income", "lines": ["تشتغل أكثر…", "ودخلك", "ثابت؟"], "tag": "ساعات الشغل", "tag2": "دخلك"},
+  {"layout": "design", "design": "phone", "lines": ["جوالك", "يشتغل عنك"], "tag": "ذكاء اصطناعي", "tag2": "بدون رأس مال"},
+  {"layout": "design", "design": "repeat", "lines": ["نفس السؤال", "40 مرة؟"], "tag": "ردّ واحد يكفي"},
+  {"layout": "design", "design": "versus", "lines": ["13 موظف", "مليار دولار"], "tag": "كوداك: كانت 140 ألف… وأفلست"},
+  {"layout": "design", "design": "trap", "lines": ["غلطة وحدة…", "38 دقيقة"], "tag": "بدون مراجعة"},
+  {"layout": "design", "design": "platform", "lines": ["بيتك على", "أرض غيرك"], "extra": "قفل"},
+  {"layout": "design", "design": "puzzle", "lines": ["كم يطلع الرقم؟"], "tag": "لغز الملف 01"}
+]
