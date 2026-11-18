@@ -1,7 +1,7 @@
 # 11 · Video framework: how every long video is built
 
 **Current version: v7** (17 Nov 2026): season 2 (EP006 on) is built as in §2b and told as in §3.19–§3.21 (the delivery of
-the owner's favourite creators, the presenter on screen, the owner's own words kept), in the `sketchbook` look (§6); its
+the owner's favourite creators, the owner's own words kept; no presenter: §3.20 is parked), in the `sketchbook` look (§6); its
 publish kit has 30 titles and 3 thumbnail prompts (§3.13). Season 1 (EP001–EP005) keeps v5.5.
 This file is the only place where the structure of a long video is defined.
 `CLAUDE.md`, the `/new-episode` skill and the blueprint point here instead of repeating it, so a change made here
@@ -59,8 +59,7 @@ and destination; the station names are plain words, not part numbers.
 
 ## 2b. Season 2: the conversations that open doors (v6)
 
-Season 2 (EP006–EP010) keeps everything the viewer knows from season 1 (from v7 the look is `sketchbook` and a presenter
-stands beside the page: §3.20, §6): the owner's voice, the
+Season 2 (EP006–EP010) keeps everything the viewer knows from season 1 (from v7 the look is `sketchbook`, §6): the owner's voice, the
 techniques of §3 (a story told step by step, touchable numbers, every name introduced and shown in Arabic and English,
 quotes with credentials, every sentence seen), the «وقفة», the dark teaser, no hype and no promises. **What changes is
 the structure:** each episode is one kind of conversation, told through 4 to 8 stories.
@@ -384,26 +383,22 @@ use it. Their content, lines and catchphrases are never copied (rule 2's spirit 
   what this file changes for the next time.
 - **The honest detour:** when a famous claim in the topic turns out to have no source, say so on air, briefly, with
   what the trace really shows. It is our rule 1 told out loud, and it makes every other fact more believable.
-- **Act the lines out:** dialogue in the voices of the people in it (a short ⟪المقدّم يمثّل…⟫ note in the draft).
+- **Act the lines out:** dialogue in the voices of the people in it (a short ⟪بصوت…⟫ note in the draft).
 - **Touch it with the viewer's own things:** after each finding, one line in riyals, minutes or people they know
   («من كل مية ريال… يترك قرابة عشرين»); after each story, one sentence that brings it to the viewer's week.
 - **Plain verdicts:** «وأقولها لك بصراحة…» once or twice an episode, on a mistake the viewer can avoid; never on a person.
-- **Show it live:** at least once an episode, the presenter does the thing on the page (writes the two messages, crosses
-  out the bad one), the way a mechanic plugs in the scanner instead of describing it.
+- **Show it live:** at least once an episode, the page shows the thing being done while the owner says it (the two
+  messages written, the bad one crossed out), the way a mechanic plugs in the scanner instead of describing it.
 - **Light asides and admitted limits:** a self-aware line now and then («وأنا أعترف لك…»), and «ما أقول لك إن…» where the
   lesson stops working.
 - **A short thank-you before the teaser**, the same few words each time («ووقتك غالي… شكرًا إنك قضيت جزء منه هنا»). Never a
   request to subscribe or like (rule 6).
 - **Room for the owner's own story:** two or three ⟪مساحتك⟫ slots in each draft (§3.21).
 
-### 3.20 The presenter (new in v7)
-A drawn stand-in for the owner stands beside the page for most of the video and explains with his hands: he points at
-what is being said, counts the steps on his fingers, acts out a line, writes on the page, stands still in the «وقفة».
-He keeps the channel avatar's identity (a young man, the swept-up quiff, round gold glasses, no face drawn) in one of
-five drawings the owner chooses from (`04-studio/src/components/Presenter.tsx`, `npm run presenters`): الظل (watercolour
-silhouette), القلم (tablet sketch), العود (stick figure), المذكرة (sketchnote cartoon), الثوب (thobe and shemagh). Until
-the owner chooses, EP006 waits. His moves are designed on the recording, like the moments (§3.14): a pose per sentence
-at most, changing on a word, and he leaves the frame for full-screen moments (a photo, the verse, the dark teaser).
+### 3.20 The presenter (v7, parked on 18 Nov 2026)
+The owner saw five drawings of a presenter standing beside the page (17 Nov) and turned the idea down "for now". No
+episode has a presenter, and drafts carry no presenter notes. The drawings stay in the studio (`Presenter.tsx`,
+`npm run presenters`) only in case the owner asks for them again; don't propose them.
 
 ### 3.21 The owner's own words (new in v7)
 The script is the backbone; the owner talks more than it when he records, and that is welcome. The cleaner keeps his
@@ -473,9 +468,13 @@ them or talk anywhere else.
 | end card | `stage` with no narration (built): the next `file` from second 0 (`at: 0`), moved up to leave room for YouTube's end-screen elements; `dark: true` after a dark teaser |
 | every scene | `moments` on the narrator's words, each with its sound (§3.14) |
 | the episode | from EP005 (v5.5): `"look": "aquarelle"`, `"motion": "rich"`, `"map": "mountain"` (EP004 keeps `"watercolor"`); the sounds and the background level come from `channel.json` |
-| the episode, v7 | from EP006: `"look": "sketchbook"` (`04-studio/src/components/Sketchbook.tsx`: cream paper with a faint dot grid; graphite lines with a little wobble and grain; watercolour washes under the line, shifted off it, with pooled edges; stick people with round heads and no faces; sketchnote banners, fat arrows and numbered boxes; coral for the explaining marks and one yellow marker for the thing that matters; hand lettering in Marhey and Aref Ruqaa, English names in Caveat) and `"presenter": "<option>"` (§3.20). Being built: the moment kinds are drawn again in this look before EP006's 30-second test (rule 9). The Lemo-Opuscar library (the `lemo-opuscar` plugin) is the reference: its code is MIT, its written guides CC BY-NC, so we read and follow them and never commit them or a copy of them |
+| the episode, v7 | from EP006: `"look": "sketchbook"` (`04-studio/src/components/Sketchbook.tsx`: cream paper with a faint dot grid; graphite lines with a little wobble and grain; watercolour washes under the line, shifted off it, with pooled edges; stick people with round heads and no faces; sketchnote banners, fat arrows and numbered boxes; coral for the explaining marks and one yellow marker for the thing that matters; hand lettering in Marhey and Aref Ruqaa, English names in Caveat). Being built: the moment kinds are drawn again in this look before EP006's 30-second test (rule 9). The Lemo-Opuscar library (the `lemo-opuscar` plugin) is the reference: its code is MIT, its written guides CC BY-NC, so we read and follow them and never commit them or a copy of them |
 
 ## 7. Changelog
+
+- **v7.1 · 18 Nov 2026.** The owner turned the presenter down for now (§3.20 parked; the live demonstration is drawn on
+  the page instead, §3.19). EP007–EP010 rewritten in v7; EP003–EP005 get the v7 publish kit (§3.13) since none is
+  uploaded yet.
 
 - **v7 · 17 Nov 2026.** From the owner after approving EP005: season 2 told the way three creators they love tell things
   (§3.19); a presenter on screen, five drawings to choose from (§3.20); the owner's extra words kept, captioned and drawn

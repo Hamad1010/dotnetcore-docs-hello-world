@@ -5,8 +5,77 @@
 > the pinned comment carries the episode's question. Thumbnails: `npm run thumbs -- EP003` → `out/thumb-1.png … thumb-3.png`.
 > Want more options, like EP002's 20? Say so.
 
+## 0. The v7 kit (18 Nov 2026): 30 titles and 3 thumbnail prompts
+
+> Not uploaded yet, so this file gets the owner's brief of 17 Nov (`05-templates/titles-and-thumbnails.md`): 30
+> story-driven titles in 5 groups, linted with `/yt-package` (`title.py`, characters in brackets; desktop search cuts
+> near 60), and 3 image prompts for the owner's image generator. The studio thumbnails further down are retired (rule 13).
+
+### The three pairings to test first (a title and a prompt that share no word)
+
+| # | Title (characters) | Thumbnail |
+|---|---|---|
+| A | بدأت مع اثنين في دبي.. وبعد 7 سنين اشترتها أوبر بـ3.1 مليار! (60) | prompt 1 |
+| B | شابين سعوديين خدموا المطاعم بس.. ومر على نظامهم أكثر من 5 مليار طلب (67) | prompt 2 |
+| C | مهندس في فولفو طلّع اختراع ينقذ الأرواح.. وعطاه المنافسين ببلاش! (64) | prompt 3 |
+
+### من الصفر · The underdog story
+1. بدأت مع اثنين في دبي.. وبعد 7 سنين اشترتها أوبر بـ3.1 مليار! (60)
+2. أوبر دخلت عليهم السوق من ثاني سنة.. وبعدها اشترتهم بـ3.1 مليار دولار (68)
+3. شابين سعوديين خدموا المطاعم بس.. ومر على نظامهم أكثر من 5 مليار طلب (67)
+4. بدأوا بمنيو إلكتروني للمطاعم.. وجمعوا 170 مليون دولار في جولة وحدة (66)
+5. فلوس أوبر أكثر منهم بـ150 مرة.. وفي الأخير أوبر هي اللي اشترت! (62)
+6. "جنب المسجد لف يمين".. مشكلة صغيرة حلّتها كريم بنفسها (53)
+7. مهندس في فولفو طلّع اختراع ينقذ الأرواح.. وعطاه المنافسين ببلاش! (64)
+
+### الوجع اليومي · The pain point
+8. فيه غيرك كثير يسوون نفس شغلك؟ هذي أول خطوة عشان يختارونك أنت (60)
+9. كل زبون يسألك "كم آخر سعر؟".. المشكلة مو في السعر (49)
+10. تقول "أسوي كل شي لكل أحد"؟ عشان كذا ما أحد يتذكرك (49)
+11. أحد يسألك "وش تسوي هالأيام؟" وتحتار؟ جملة وحدة تجيب لك زبون (59)
+12. 42% من الشركات الناشئة فشلت لنفس السبب.. قدّموا شي ما أحد محتاجه (64)
+13. تنزّل سعرك كل مرة عشان يختارك الزبون؟ فيه طريقة ثانية (53)
+
+### بدون رأس مال · Actionable, zero capital
+14. ربع ساعة على خريطة قوقل.. ممكن تطلع لك منها فكرة مشروع كامل (59)
+15. اقرأ أسوأ 20 تقييم عند منافسينك.. وبتعرف وش الناس تبي (53)
+16. جملة أقل من 10 كلمات.. تخلي الناس يعرفون وش تسوي (48)
+17. "أساعد مين.. على وش.. بدون وش": القالب اللي يخليهم يتذكرونك (59)
+18. اسأل 3 يعرفونك سؤال واحد.. وبتعرف وين مكانك (43)
+19. كلمة وحدة يقولونها عنك وأنت مو موجود.. وش هي؟ (45)
+
+### فخاخ تقفل الباب · Business traps
+20. قوقل بكل فلوسها قلّدت فيسبوك.. وبعد 8 سنين قفلتها (49)
+21. 9 من كل 10 زيارات أقل من 5 ثواني.. نهاية تقليد قوقل لفيسبوك (59)
+22. "ديزل نظيف".. الكلمة اللي كلّفت فولكس فاغن أكثر من 30 مليار دولار (65)
+23. تفتح جنب المشهور بنفس المنيو وأرخص بريالين؟ فكّر مرتين (54)
+24. تكتب "طبيعي 100%" وأنت مو كذا؟ هنا تنقلب عليك الكلمة (52)
+25. تقلّد أشهر واحد في مجالك بس أرخص؟ حتى قوقل ما زبطت معها (55)
+
+### الرقم اللي يفاجئك · The surprising number
+26. 3.1 مليار دولار لشركة فكرتها: نلقى مشكلة محلية ونحلها (53)
+27. أكثر من مليون إنسان.. تقدّر فولفو إن حزامها أنقذهم (50)
+28. 430 ألف وثيقة عمل حر في السعودية.. ليش يختارك الزبون أنت؟ (57)
+29. 5 مليار طلب على نظام سعودي.. لأنهم قالوا: للمطاعم بس (52)
+30. أكثر من 60 سنة وفولفو ماسكة كلمة وحدة.. عشان كذا تتذكرها (56)
+
+**Checked against `sources.md`:** «بعد 7 سنين» = 2012 → 2019; «3.1 مليار» = Uber's 2019 agreement; «150 مرة» = the giant's money against Careem's (the script's line); «5 مليار طلب» and «170 مليون دولار» = Foodics (2022 round led by Sanabil); «42%» = CB Insights, 101 failed startups; «8 سنين» = Google+ 2011 → 2019; «9 من كل 10… أقل من 5 ثواني» = Google, 2018; «أكثر من 30 مليار دولار» = Volkswagen's cost; «430 ألف وثيقة» = freelance permits, 2025; «أكثر من مليون إنسان» = Volvo's own estimate; «أكثر من 60 سنة» = since 1959. The illustrations (عبدالله، فيصل، ماجد، لمى) appear only as «أنت» situations, never by name.
+
+### 3 thumbnail prompts (for an image generator)
+
+**Prompt 1 · the taxi («جنب المسجد»)**
+> Aspect ratio 16:9. First-person point of view from the back seat of a taxi at night in a Gulf city, looking down at the passenger's own hands in traditional white thobe sleeves, no head or face anywhere in the frame: one hand holds a smartphone showing a glowing map pin (no app names or logos), the other a few folded paper banknotes. Through the windscreen, softly blurred: a lit mosque minaret and a small corner grocery with warm lights. Blend of soft watercolor painting and anime illustration style, warm and cozy lighting. With bold Arabic text: 'جنب المسجد'. Render only the text listed. Do not add any other placeholder fields.
+
+**Prompt 2 · the café counter («ضيّق… تكسب»)**
+> Aspect ratio 16:9. Over-the-shoulder close-up behind a café cashier, the frame cut at the shoulder line so no head or face is in it: a traditional white thobe sleeve, one finger tapping an order on a tablet standing on a wooden counter, its screen bright and its letters soft and unreadable, no logos. Background: a busy specialty coffee shop in Riyadh, a barista's hands pouring latte art, warm pendant lights, cups and a pastry display out of focus. Blend of soft watercolor painting and anime illustration style, warm and cozy lighting. With bold Arabic text: 'ضيّق… تكسب'. Render only the text listed. Do not add any other placeholder fields.
+
+**Prompt 3 · the seat belt («حزام 1959»)**
+> Aspect ratio 16:9. Close-up torso shot of a driver in a vintage late-1950s car, framed from the chest down so no head or face is in the frame: a man's hands in a light suit buckling a three-point seat belt across his chest, the metal buckle catching the light. Background: the car's cream dashboard and steering wheel with no logos or badges, a quiet Swedish country road with pine trees through the windscreen in soft morning light. Blend of soft watercolor painting and anime illustration style, warm and cozy lighting. With bold Arabic text: 'حزام 1959'. Render only the text listed. Do not add any other placeholder fields.
+
 ## 1. Start here: the package I would publish
 
+- **Now (v7, 18 Nov): pairing A of §0**, a title and a thumbnail from prompt 1. Test B and C with Test & compare.
+  What follows is the 28 Oct kit; its descriptions, tags, chapters and cards still hold.
 - **Title 1 + thumbnail 1.** The first 30 seconds deliver exactly that: the giant agreed to pay $3.1 billion for the small company it
   came to compete with.
 - If **Test & compare** is on, test thumbnails **1, 2 and 3** (the giant · the numbers · «جنب المسجد»: three different reasons to

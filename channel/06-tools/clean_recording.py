@@ -18,6 +18,9 @@
    the room) except each word's own sound: its voice and what belongs to it (a final س ف ه going on, a stop's release,
    a س ش ص or ف ح خ ه leading into the next word); YAMNet listens to each stretch first, and one that sounds like
    speech stays and is reported. `--keep-breaths` turns this off.
+   Words the speech-to-text misses (since Nov 2026 it writes nothing for Quran recitation: EP004's «وقفة» lost its verse
+   and hadith in a re-clean on 18 Nov) are kept: when script words fall between two heard words, that whole stretch is
+   speech, never tightened and never silenced ("kept: words the transcript missed" in the report).
 4. Studio sound (framework v5 §3.17, tuned on EP001's recording): a steep high-pass at 90 Hz, RNNoise noise removal,
    EQ (the boom at 110 Hz and the boxiness at 450 Hz down, presence at 3.5 kHz and air up), de-esser, compressor, a
    gate that makes the pauses silent, then loudness -16 LUFS with true peak -1.5 dB (two-pass, so the voice keeps its
@@ -279,6 +282,22 @@ def plan_cuts(group, narration, x, cuts=(), heard=()):
             else:
                 i += 1
     kept = {id(w) for w in keep}
+    # Words the speech-to-text didn't write down at all (a verse recited, a hadith: since Nov 2026 it skips Quran
+    # recitation): the script expects them between two heard words, so that stretch is speech, not a pause. It is kept
+    # whole: never tightened, never silenced as a breath (EP004's «وقفة» lost its verse and hadith before this, 18 Nov).
+    script, tails = spoken_words(narration), number_tails(narration)
+    hit = align(script, group, heard_forms(narration))
+    protect = []
+    for k, j in enumerate(hit):
+        if j is not None or not norm(script[k]) or tails[k]:
+            continue
+        before = max((hit[q] for q in range(k) if hit[q] is not None), default=None)
+        after = min((hit[q] for q in range(k + 1, len(hit)) if hit[q] is not None), default=None)
+        a = group[before]['end'] if before is not None else group[0]['start']
+        b = group[after]['start'] if after is not None else group[-1]['end']
+        if b - a > PAUSE_CAP['end'] and (a, b) not in protect:
+            protect.append((a, b))
+            removed.append(('kept: words the transcript missed', a, f'{b - a:.2f}s'))
     # Each kept word, with the stretch of audio removed just before it (dropped words, or the first half of a stutter).
     items, pending = [], None
     for w in group:
@@ -312,7 +331,7 @@ def plan_cuts(group, narration, x, cuts=(), heard=()):
             spans.append([cur['start'] - after, cur['end']])
             continue
         gap = cur['start'] - prev['end']
-        if gap > cap:
+        if gap > cap and not any(a - 0.05 <= prev['end'] and cur['start'] <= b + 0.05 for a, b in protect):
             spans[-1][1] = max(spans[-1][0], prev['end'] + cap / 2)
             spans.append([cur['start'] - cap / 2, cur['end']])
             removed.append(('pause', prev['end'], round(gap - cap, 2)))
@@ -323,7 +342,7 @@ def plan_cuts(group, narration, x, cuts=(), heard=()):
         spans = [p for s in spans for p in ([s] if s[1] <= a or s[0] >= b else
                                             ([[s[0], a, *s[2:]]] if s[0] < a else []) + ([[b, s[1]]] if s[1] > b else []))]
         removed.append(('drop', a, f'{b - a:.2f}s'))
-    return spans, removed, items
+    return spans, removed, items, protect
 
 
 def lag_behind(ref, y, hop=SR // 1000):
@@ -732,9 +751,11 @@ def main():
     check = SpeechCheck(x0) if '--keep-breaths' not in sys.argv else None
     breaths = {}
     for scene, group in zip(scenes, split_parts(words, scenes)):
-        spans, removed, items = plan_cuts(group, scene['narration'], x, cuts.get(scene['id'], []), words)
+        spans, removed, items, protect = plan_cuts(group, scene['narration'], x, cuts.get(scene['id'], []), words)
         quiet = []
         for a, b in breath_gaps(x0, items, spans[0][0], spans[-1][1]) if check else []:
+            if any(a < pb and b > pa for pa, pb in protect):
+                continue  # words the transcript missed are in there: never silenced
             seg = x[int(a * SR):int(b * SR)]
             if len(seg) and np.sqrt(np.mean(seg ** 2)) > 10 ** (-55 / 20) and (sp := check(a, b)) >= 0.5:
                 removed.append(('kept: sounds like speech', a, f'{b - a:.2f}s, speech {sp:.2f}'))

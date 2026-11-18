@@ -1,7 +1,7 @@
 # EP006 · الملف 06: سر السؤال · السؤال اللي يفتح الباب
 
 > **Draft v2 for the owner's review (17 Nov 2026).** Framework v7: season 2's structure (§2b) told the way the owner's
-> favourite creators tell things (§3.19), with the presenter on screen (§3.20) and room for the owner's own words (§3.21).
+> favourite creators tell things (§3.19), with room for the owner's own words (§3.21). No presenter (18 Nov: the owner's call).
 > The stories, numbers and sources are v1's (10 Nov), all in [sources.md](sources.md); one fact is new: where the
 > "55 minutes" saying really comes from (Quote Investigator). Then one `humanizer` pass.
 > **What changed from v1:** a greeting and a question about the viewer's own silence open part 2; an honest detour (the
@@ -11,7 +11,6 @@
 > **Your nickname for the viewer:** «يا صاحبي» (3 times). Say another one if it is more you («يا الغالي»…), and I change it everywhere.
 > **Your space ⟪مساحتك⟫:** three places where a story of your own fits. Say it in your words, or skip it; anything else you
 > add while recording is kept too, and gets its own drawing on screen (§3.21).
-> **The presenter ⟪المقدّم⟫:** a few directions only; his full moves are designed on your recording.
 > **The corridor:** 5 doors. 1 كريس جاردنر و«الفيراري الحمراء» (real) · 2 [مثال توضيحي] نوف، معلّمة في الرياض · 3 ديل كارنيجي
 > وعشا نيويورك (real) · 4 براندون ستانتون والغريب اللي في الشارع (real) · 5 الأخوين رايت ورسالة من محل دراجات (real).
 > **The five audiences:** a teacher who becomes a coordinator (door 2), an author and teacher (door 3), a content creator
@@ -26,7 +25,7 @@
 ## 1 · الباب الأول
 
 > Booth part 1 «الباب الأول»
-> ⟪المقدّم واقف جنب الصفحة… والقلم يرسم فيراري حمراء⟫
+> ⟪القلم يرسم فيراري حمراء على الصفحة⟫
 
 في الملف اللي فات… وقفنا عند فيراري حمراء… وسؤالين.
 خلني أرجع فيك… لبداية الثمانينات… في سان فرانسيسكو.
@@ -69,7 +68,7 @@
 ## 3 · الباب الأول: فيراري حمراء
 
 > Booth part 3 «الباب الأول: فيراري حمراء»
-> ⟪المقدّم يأشر على الباب الأول… وينفتح⟫
+> ⟪الباب الأول ينفتح⟫
 
 نرجع لكريس.
 يبيع أجهزة طبية للمستشفيات… والبيع ضعيف… والفلوس ما توصل لآخر الشهر.
@@ -82,7 +81,7 @@
 أو: «عندكم وظيفة؟»… والجواب تعرفه: «ارسل سيرتك».
 والسيارة تمشي… والفرصة تمشي معها.
 كريس سأله سؤالين:
-⟪المقدّم يمثّل صوت كريس… بأدب⟫
+⟪بصوت كريس… بأدب⟫
 «وش تشتغل؟»
 «وكيف تسويها؟»
 الرجل اسمه بوب بريدجز… وسيط في سوق الأسهم.
@@ -153,7 +152,7 @@
 سأله عن شغله… وعن النباتات اللي يدرسها… وكل جواب… يطلع منه سؤال ثاني.
 وجلس يسمع… طول السهرة.
 وآخر الليل… عالم النبات راح لصاحب البيت… وقال عن كارنيجي:
-⟪المقدّم يمثّل صوت عالم النبات… متحمس⟫
+⟪بصوت عالم النبات… متحمس⟫
 «هذا… من أمتع اللي تكلمت معهم!»
 والرجل… تقريبًا ما قال شي! ولا كلمة عن النبات… لأنه أصلًا ما يعرف فيه.
 ⟪the evidence card⟫
@@ -230,7 +229,7 @@
 ## 9 · جرّبها
 
 > Booth part 9 «جرّبها»
-> ⟪المقدّم يكتب على الصفحة رسالتين… ويشطب الأولى⟫
+> ⟪على الصفحة: تنكتب رسالتين… والأولى تنشطب⟫
 
 قبل الموقفين… خلني أوريك شي.
 هذي الرسالة اللي أغلبنا يرسلها… لشخص سبقنا في المجال:
@@ -254,7 +253,7 @@
 ## 10 · 3 خطوات + سؤال الحلقة
 
 > Booth part 10 «3 خطوات»
-> ⟪المقدّم يعد على أصابعه: 1… 2… 3⟫
+> ⟪على الصفحة: 1… 2… 3⟫
 
 ثلاث خطوات:
 اليوم: اكتب أسماء ثلاثة أشخاص… سبقوك في المجال اللي تبيه.
@@ -274,7 +273,7 @@
 ## 12 · وقفة
 
 > Booth part 12 «وقفة» · read calmly. On screen: the verse and the hadith as written, each with its reference; no sound effects,
-> and the hum fades out under them. ⟪المقدّم واقف بهدوء… يديه قدامه⟫
+> and the hum fades out under them.
 
 وقبل ما نختم…
 ربنا سبحانه يقول في سورة النحل:

@@ -2,6 +2,18 @@
 
 Checked 10 Nov 2026 for the v6 draft. Web search only; links marked "check" should be opened once before publishing.
 
+## Part 2 · The "7-38-55" rule (added 18 Nov 2026, draft v2)
+- The rule ("7% words, 38% tone of voice, 55% body language") comes from two 1967 studies by Albert Mehrabian (with
+  Wiener; with Ferris), in which people judged the feeling behind single words said in different tones and with different
+  faces. Mehrabian combined them into 7:38:55 for **feelings and attitudes only**; his own note, quoted widely: "Unless a
+  communicator is talking about their feelings or attitudes, these equations are not applicable":
+  [Wikipedia, Albert Mehrabian](https://en.wikipedia.org/wiki/Albert_Mehrabian) ·
+  [Big Think](https://bigthink.com/the-learning-curve/the-7-38-55-rule-debunking-the-golden-ratio-of-conversation) ·
+  [Mind Tools](https://www.mindtools.com/ao9kek8/mehrabians-communication-model). (Mehrabian's own page: check once.)
+- «عُشر ثانية… تقريبًا قد رمشة عين»: a single blink lasts 0.1–0.4 s ([BioNumbers, Harvard Medical School, ID 100706](https://bionumbers.hms.harvard.edu/bionumber.aspx?id=100706),
+  from Schiffman, *Sensation and Perception*, 2001), so a tenth of a second is about the shortest blink.
+- «عشرة أضعاف» = $40 ÷ $4.
+
 ## Door 1 · Jack Ma's six minutes with Masayoshi Son (2000)
 - Jack Ma failed the university entrance exam twice before passing (check); taught English from 1988 to 1993 at what is now
   Hangzhou Dianzi University for about $12 a month; applied for many jobs, including KFC, where 23 of 24 applicants were hired

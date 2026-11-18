@@ -66,8 +66,8 @@ framework: our facts, our dialect, our structure win where they differ.
 - Write the publish kit with the draft (framework §3.13): `publish.md` opens with the 30 titles and the 3 thumbnail
   prompts (the template above); descriptions, tags and the pinned comment follow. **No Shorts** until the owner decides
   (no `--shorts`); no studio thumbnail (`thumbs.json`, `npm run thumbs` are retired).
-- From EP006 (framework v7): tell it the way the owner's favourite creators do (§3.19), with ⟪المقدّم…⟫ notes for the
-  presenter (§3.20) and two or three ⟪مساحتك⟫ slots for the owner's own story (§3.21). The look is `sketchbook`.
+- From EP006 (framework v7): tell it the way the owner's favourite creators do (§3.19), with two or three ⟪مساحتك⟫
+  slots for the owner's own story (§3.21). The look is `sketchbook`. No presenter (§3.20, the owner's call).
 - Framework v5 parts to remember: Saudi stories and numbers first (none that hurts anyone, none a later episode plans),
   the «وقفة» before the close (Quran and Sahih al-Bukhari / Muslim only, exact texts checked twice, §3.15), and a close
   with a 10–15 s bridge for the «فيه مشهد في النهاية» pop-up, then the teaser on a dark screen (§3.16).

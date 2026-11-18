@@ -4,7 +4,77 @@
 > `/yt-seo` (the first two lines, the three searches it must win), the chapters through `/yt-chapters` (`chapters.py` on the
 > render's real times). No thumbnail and no Shorts: paused by the owner. Every number here matches `sources.md`.
 
+## 0. The v7 kit (18 Nov 2026): 30 titles and 3 thumbnail prompts
+
+> Not uploaded yet, so this file gets the owner's brief of 17 Nov (`05-templates/titles-and-thumbnails.md`): 30
+> story-driven titles in 5 groups, linted with `/yt-package` (`title.py`, characters in brackets; desktop search cuts
+> near 60), and 3 image prompts for the owner's image generator. The studio thumbnails further down are retired (rule 13).
+
+### The three pairings to test first (a title and a prompt that share no word)
+
+| # | Title (characters) | Thumbnail |
+|---|---|---|
+| A | بدت بـ500 دولار سلفة من أخوها.. وانباع أغلب محلها بأكثر من 50 مليون (67) | prompt 1 |
+| B | زبونك يشتري مرة وما يرجع؟ يمكن المشكلة في وعد صغير (50) | prompt 2 |
+| C | 62% من السعوديين يشوفون التقييمات قبل ما يشترون.. وأنت؟ (55) | prompt 3 |
+
+### من الصفر · The underdog story
+1. وصلت أمريكا ما تعرف كلمة إنجليزي.. وبعد سنين اشترى بافيت أغلب محلها بمصافحة! (76)
+2. بدت بـ500 دولار سلفة من أخوها.. وانباع أغلب محلها بأكثر من 50 مليون (67)
+3. عمرها 23 وقطعت سيبيريا والصين واليابان.. وصار محلها صفقة بأكثر من 50 مليون (74)
+4. اشتغلت في محلها لين عمرها 103.. وبافيت قال: أفضّل أصارع دببة ولا أنافسها (72)
+5. محل أثاث صغير في قبو.. صار صفقة بأكثر من 50 مليون دولار (55)
+6. أخذت 500 دولار من أخوها.. وبعد 46 سنة صافحت بافيت على صفقة العمر (64)
+7. ما دقق دفاترها ولا سأل محاسب.. سؤالين بس وتصافحوا بأكثر من 50 مليون (67)
+
+### الوجع اليومي · The pain point
+8. ليش يصدقك زبون ما يعرفك؟ قصة مصافحة بأكثر من 50 مليون (53)
+9. تقول "بكرة أرسله" ويصير بعد بكرة؟ هنا تخسر الزبون (49)
+10. زبونك يشتري مرة وما يرجع؟ يمكن المشكلة في وعد صغير (50)
+11. تتأخر على رسايل الزباين يوم كامل؟ جرّب قاعدة الساعة (51)
+12. تخاف تقول عيب منتجك؟ دومينوز قالته في إعلان.. ومبيعاتها زادت 14.3% (66)
+13. تبرّر قبل ما تعتذر؟ هذا اللي يضيّع ثقة سنين (43)
+
+### بدون رأس مال · Actionable, zero capital
+14. قل موعد التسليم وسلّم قبله بيوم.. حركة ما تكلّف ريال (52)
+15. اطلب جملة وحدة من 3 زباين راضين.. تبيع عنك وأنت نايم (52)
+16. أفضل وقت تطلب فيه تقييم: لحظة الفرحة (36)
+17. سجل الوعود: 7 أيام وبتتفاجأ كم وعد صغير يضيع منك (48)
+18. 3 خطوات تبني فيها ثقة تبيع عنك.. بدون ولا ريال (46)
+19. منتج عليه 5 تقييمات.. احتمال يشترونه أعلى بـ270% (48)
+
+### فخاخ تقفل الباب · Business traps
+20. بنك أمريكي دفع 3 مليار دولار.. بسبب أرقام موظفينه (49)
+21. فصل أكثر من 5300 موظف ودفع 3 مليار.. عشان أرقام مبيعات (54)
+22. 7 ماتوا والغلط مو منها.. ومع كذا سحبت 31 مليون علبة (51)
+23. حصتها طاحت من الثلث لأقل من 10%.. ورجعت خلال سنة! (49)
+24. تخبّي غلطك عن الزبون؟ هنا الثقة تروح وما ترجع (45)
+25. تقييم 5 كاملة يخوّف الزبون؟ الناس يشترون الـ4.5 أكثر (52)
+
+### الرقم اللي يفاجئك · The surprising number
+26. 81% من 16 ألف شخص: ما أشتري إلا من شركة أثق فيها (48)
+27. 62% من السعوديين يشوفون التقييمات قبل ما يشترون.. وأنت؟ (55)
+28. 46 سنة على شعار واحد: بيع رخيص وقل الصدق ولا تغش أحد (52)
+29. أكثر من 25 سنة ورسالة بافيت لمدرائه ما تتغير: نخسر فلوس ولا نخسر سمعة (69)
+30. زادت مبيعاتها 14.3%.. بعد ما اعترفت إن عجينتها زي الكرتون! (58)
+
+**Checked against `sources.md`:** «أكثر من 50 مليون» = 1983, for most of the store; «500 دولار» = 1937, from her brother; «23» = 1917; «103» = she worked until 103; «46 سنة» = 1937 → 1983; «14.3%» = Domino's same-store sales, first quarter of 2010; «270%» = Northwestern, 5 reviews or more; «3 مليار دولار» and «أكثر من 5300 موظف» = Wells Fargo (2020, 2016); «7» and «31 مليون علبة» = Tylenol, 1982; «من الثلث لأقل من 10%… خلال سنة» = its market share; «81% من 16 ألف» = Edelman, 8 countries; «62%» = PwC 2024, consumers in Saudi Arabia; «4.5» = the 4.2–4.5 ratings that sell more than 5.0; «أكثر من 25 سنة» = Buffett's memo to his managers. The illustrations (نورة، سلطان) appear only as «أنت» situations.
+
+### 3 thumbnail prompts (for an image generator)
+
+**Prompt 1 · the desk («بدون تدقيق»)**
+> Aspect ratio 16:9. Close-up torso shot across an old wooden desk in a 1983 American furniture store, framed from the chest down so no head or face is in the frame: a man's hand in a grey business suit sleeve lays a fountain pen beside a single handwritten page, a closed accountant's ledger pushed aside. Background: rows of sofas and lamps with paper price tags, warm late-afternoon light through tall shop windows, softly out of focus. Blend of soft watercolor painting and anime illustration style, warm and cozy lighting. With bold Arabic text: 'بدون تدقيق'. Render only the text listed. Do not add any other placeholder fields.
+
+**Prompt 2 · the doorstep («يوصل قبل!»)**
+> Aspect ratio 16:9. Close-up of two pairs of hands at a front door, seen from the chest down so no head or face is in the frame: hands in a modest black abaya sleeve hand a wrapped gift box with a satin ribbon to hands in a traditional white thobe sleeve; the small card on the box is blank. Background: a Riyadh villa entrance with a carved wooden door and a potted bougainvillea, warm morning light. Blend of soft watercolor painting and anime illustration style, warm and cozy lighting. With bold Arabic text: 'يوصل قبل!'. Render only the text listed. Do not add any other placeholder fields.
+
+**Prompt 3 · the reviews («الزبون يصدّق زبون»)**
+> Aspect ratio 16:9. First-person point of view looking down at the viewer's own two hands holding a smartphone, a traditional white thobe sleeve at each wrist, no head or face anywhere in the frame. The screen shows a list of customer reviews with bright gold stars, their text soft and unreadable, no logos. Background: a cozy Saudi shop counter at night, warm lamp light, small boxed products on a shelf, gently out of focus. Blend of soft watercolor painting and anime illustration style, warm and cozy lighting. With bold Arabic text: 'الزبون يصدّق زبون'. Render only the text listed. Do not add any other placeholder fields.
+
 ## 1. Start here: the package I would publish
+
+**Now (v7, 18 Nov): pairing A of §0**, a title and a thumbnail from prompt 1, with description 1 below; test B and C
+with Test & compare. The rest of this kit (descriptions, chapters, cards, settings) still holds.
 
 **Title 1 + description 1**, the subtitles file `out/subtitles.ar.srt`, the cards and settings in §5. Altered content: **No**.
 

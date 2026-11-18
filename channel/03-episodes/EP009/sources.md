@@ -2,6 +2,18 @@
 
 Checked 10 Nov 2026 for the v6 draft. Web search only; links marked "check" should be opened once before publishing.
 
+## Part 2 · "Six degrees" (added 18 Nov 2026, draft v2)
+- Stanley Milgram's small-world experiments (1960s, published 1967) asked people in the Midwest to get a letter to a target
+  in the Boston area through people they knew by first name; the chains that arrived took about five to six steps on
+  average. In one study, 232 of the 296 letters never reached the target (people did not pass them on). Milgram did not use
+  the phrase "six degrees of separation"; it spread with John Guare's 1990 play of that name:
+  [Wikipedia, Small-world experiment](https://en.wikipedia.org/wiki/Small-world_experiment) ·
+  [Wikipedia, Six degrees of separation](https://en.wikipedia.org/wiki/Six_degrees_of_separation) ·
+  [Columbia Magazine, the 2003 e-mail follow-up](https://magazine.columbia.edu/print/pdf/node/4806) ·
+  [Gizmodo, Milgram's chain-letter experiment](https://gizmodo.com/stanley-milgrams-chain-letter-experiment-1586778899).
+  232 of 296 = the Nebraska study (Travers and Milgram, *Sociometry*, 1969): 64 letters arrived (about 22%).
+- «من كل 10… قرابة 9» = Nielsen's 88%.
+
 ## Door 1 · David Cheriton's porch (1998)
 - In August 1998 Stanford professor David Cheriton suggested that Larry Page and Sergey Brin meet Andy Bechtolsheim (a Sun
   Microsystems co-founder); they met on Cheriton's front porch in Palo Alto; Bechtolsheim wrote a $100,000 cheque to "Google

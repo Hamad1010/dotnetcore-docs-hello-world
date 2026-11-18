@@ -2,6 +2,16 @@
 
 Checked 10 Nov 2026 for the v6 draft. Web search only; links marked "check" should be opened once before publishing.
 
+## Part 2 · The follow-up statistics (added 18 Nov 2026, draft v2)
+- "80% of sales are made after the fifth follow-up" and "44% of salespeople give up after one" are credited to a
+  "National Sales Executive Association" but come with no published study. VentureBeat called them made up (2014); Sales
+  & Marketing Executives International (SMEI, the association's successor) says such statistics must be verified before
+  they are shared: [VentureBeat](https://venturebeat.com/business/these-incredible-sales-stats-everyone-cites-are-actually-completely-false) ·
+  [SMEI, sales statistics](https://smei.org/sales-statistics/). The script says only that no published study turned up,
+  that VentureBeat found no origin, and that the association asks for verification.
+- «من 10 وجهًا لوجه… قرابة 7… وبالإيميل… قرابة واحد» = the 70% and 10% below; «أقل من 4 من كل 10… طلبوا… قرابة 7 أخذوا» =
+  PayScale's 37% and about 70%.
+
 ## Door 1 · Warren Buffett and Benjamin Graham (1951–1954)
 - After Graham's class at Columbia, Buffett offered to work at Graham-Newman for nothing (1951); Graham turned him down
   ("overvalued", in Buffett's own telling); Buffett kept sending him securities ideas between 1951 and 1954; in 1954 Graham

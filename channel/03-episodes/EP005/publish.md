@@ -7,27 +7,62 @@
 
 ## 1. Start here: the package I would publish
 
-The file I sent, `EP005-upload.mp4` (13:12) · **title 1 + prompt 1 + description 1** · the captions (§6) · cards at 1:45
+The file I sent, `EP005-upload.mp4` (13:12) · **pairing A of §2 (title 1 + prompt 1) + description 1** · the captions file `subtitles.ar.srt` (§6) · cards at 1:45
 (EP004, «من الثقة… للعلاقة») and 2:01 (the playlist) · end screen on the last 20 seconds (the dark teaser, then the card).
 
-## 2. Titles (`/yt-package`)
+## 2. Titles (`/yt-package`): 30 in 5 groups (v7, 18 Nov)
 
-Ten written, every word true and said in the video. `title.py` checks the 60-character desktop cut; its English-only
-warnings (mobile, "no name") are left out. The top three, each with the prompt it goes with (they share no word):
+Every word true and said in the video; `title.py` checks the 60-character desktop cut (characters in brackets).
 
-1. **طلب 4 سيارات بس… وصارت شراكة عمرها 70 سنة** · 41 characters · prompt 1. My pick: it is the first sentence of
-   the video, and the whole title survives a phone's cut.
-2. **أكثر من 8 من كل 10 لقوا وظايفهم عن طريق ناس نادر يشوفونهم** · 57 · prompt 3. The surprising number.
-3. **تاجر من جدة باع سيارة كل دقيقتين… وبدأ بأربع** · 44 · prompt 2.
+### The three pairings to test first (a title and a prompt that share no word)
 
-The other seven: «من محطة بنزين في جدة… لشراكة 70 سنة مع تويوتا» (45) · «"أنا ما أعرف أحد"… دراسة على 20 مليون شخص
-تقول غير كذا» (54) · «عمره 12 سنة اتصل على مؤسس شركة كبيرة… وطلع بوظيفة صيف» (53; Steve Jobs, step 4, not the main
-story) · «شركة جمعت أسماء كبيرة ووصلت 9 مليار دولار… وانهارت» (50; the trap) · «70 سنة شراكة… بدأت بطلب صغير من تاجر في
-جدة» (43) · «ليش عاشت شراكة عبداللطيف جميل وتويوتا 70 سنة؟» (45) · «بدأ بأربع سيارات وكبّر شريكه… فكبر معه» (38).
+| # | Title (characters) | Thumbnail |
+|---|---|---|
+| A | طلب 4 سيارات بس… وصارت شراكة عمرها 70 سنة (41) | prompt 1 |
+| B | أكثر من 8 من كل 10 لقوا وظايفهم عن طريق ناس نادر يشوفونهم (57) | prompt 3 |
+| C | تاجر من جدة باع سيارة كل دقيقتين… وبدأ بأربع (44) | prompt 2 |
 
-**Checked:** «أكثر من 8 من كل 10» = Granovetter's 83% who saw their contact "occasionally" or "rarely"; «كل دقيقتين» =
-250,000 cars a year ÷ 525,600 minutes ≈ one every 2.1 minutes; «20 مليون» = the LinkedIn study (Science, 2022);
-«9 مليار دولار» = Theranos' value in 2015 (AP); «70 سنة» = 1955 → 2025.
+### من الصفر · The underdog story
+1. طلب 4 سيارات بس… وصارت شراكة عمرها 70 سنة (41)
+2. من محطة بنزين في جدة… لشراكة 70 سنة مع تويوتا (45)
+3. تاجر من جدة باع سيارة كل دقيقتين… وبدأ بأربع (44)
+4. بدأ بأربع سيارات وكبّر شريكه… فكبر معه (38)
+5. محطة بنزين صغيرة على طريق مكة القديم.. بداية شراكة 70 سنة (57)
+6. طفل فتح دليل الهاتف واتصل على مؤسس "إتش بي".. وطلع بوظيفة صيف! (62)
+7. مبرمج اختارته فورتشن أفضل شخص في بناء العلاقات.. وقاعدته 5 دقايق (64)
+
+### الوجع اليومي · The pain point
+8. تقول "أنا ما أعرف أحد"؟ غالبًا تعرف.. بس ما تتواصل (50)
+9. ما تتواصل مع الناس إلا لما تحتاجهم؟ هنا تقل فرصك (48)
+10. تعرفت على شخص مهم ونسيته؟ رسالة وحدة خلال 24 ساعة (49)
+11. تستحي تكلم زميل قديم ما كلمته من سنين؟ دراسة تقول: كلّمه (56)
+12. تحس إنهم ما حبوك في أول لقاء؟ غالبًا حبوك أكثر من ما تتوقع (58)
+13. لو وقف شغلك بكرة.. تدري مين تكلم؟ (33)
+
+### بدون رأس مال · Actionable, zero capital
+14. رسالة شكر لشخص ساعدك قبل سنين.. تفرّحه أكثر من ما تتخيل (55)
+15. خدمة 5 دقايق بدون ما تطلب شي.. القاعدة اللي تبني علاقات تعيش (60)
+16. "احفر بيرك قبل ما تعطش".. وش يعني هذا لشغلك؟ (44)
+17. صحّ علاقة نايمة واسأله عن رأيه.. خطوة واحدة هالأسبوع (52)
+18. أرسل "سعدت بمعرفتك وأعجبني كلامك عن كذا".. قبل ما يمر يوم (57)
+19. 3 خطوات تبني فيها شبكة علاقات.. بدون ولا ريال (45)
+
+### فخاخ تقفل الباب · Business traps
+20. شركة جمعت أسماء كبيرة ووصلت 9 مليار دولار… وانهارت (50)
+21. وزيرين خارجية ووزير دفاع في مجلس إدارتها.. والجهاز ما يشتغل (59)
+22. تحط صورك مع مشاهير في إعلانك؟ إذا الشغل ضعيف ما تنفعك (53)
+23. ترسل للكل "تعرفون أحد يبي…" بعد 10 سنين غياب؟ لا تتوقع رد (57)
+24. يبنون علاقات عشان المصلحة بس.. ويحسون إنهم "مو نظيفين"! (55)
+
+### الرقم اللي يفاجئك · The surprising number
+25. أكثر من 8 من كل 10 لقوا وظايفهم عن طريق ناس نادر يشوفونهم (57)
+26. "أنا ما أعرف أحد"… دراسة على 20 مليون شخص تقول غير كذا (54)
+27. عطاه علبة مشروب بدون ما يطلب شي.. فاشترى منه ضعف التذاكر! (57)
+28. 250 ألف سيارة في السنة.. من تاجر بدأ بطلب 4 سيارات (50)
+29. قرابة 2 مليار علاقة جديدة درسوها.. واللي ساعدوا أكثر معارف متوسطين (66)
+30. 70 سنة شراكة… بدأت بطلب صغير من تاجر في جدة (43)
+
+**Checked against `sources.md`:** «70 سنة» = 1955 → 2025; «كل دقيقتين» = 250,000 cars a year ÷ 525,600 minutes ≈ one every 2.1 minutes; «أكثر من 8 من كل 10» = Granovetter's 83% who saw their contact "occasionally" or "rarely"; «20 مليون» and «قرابة 2 مليار علاقة» = the LinkedIn study (Science, 2022); «أفضل شخص في بناء العلاقات» = Fortune on Adam Rifkin, 2011; «ضعف التذاكر» = Regan, 1971; «9 مليار دولار» = Theranos in 2015 (AP); «وزيرين خارجية ووزير دفاع» = its board; «مو نظيفين» = Harvard, Toronto and Northwestern, 2014. The illustrations (فهد، نايف، ماجد، سعد) appear only as «أنت» situations.
 
 ## 3. Thumbnail prompts (for an image generator)
 
@@ -109,10 +144,8 @@ sleeve for a Saudi character, 2–4 Arabic words, no logos.
 
 ## 6. Captions
 
-The exact captions file (`subtitles.ar.srt`) was lost with the session's machine (11 → 17 Nov). Two ways back:
-1. **The same file as before:** send the recording again (`EP05.mp3`); I clean it with the same cuts (`sync/cuts.json`)
-   and `npm run render -- EP005 --captions` writes `subtitles.ar.srt` (no new video needed).
-2. **Today, without me:** YouTube Studio → Subtitles → Add → **Auto-sync**, and paste `transcript.ar.txt` (this folder):
-   YouTube times the words itself.
+`subtitles.ar.srt` (this folder): the exact captions, rebuilt on 18 Nov from the recording you sent again with the same
+cuts; its 17 chapters match the approved render to the second. YouTube Studio → Subtitles → Add → **Upload file** → With
+timing. (`transcript.ar.txt` stays as a fallback for Auto-sync.)
 
 *Ship it, or change it?*

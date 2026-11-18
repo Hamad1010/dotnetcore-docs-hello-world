@@ -39,9 +39,9 @@ Read [`channel/00-START-HERE.md`](channel/00-START-HERE.md) first. It is the map
    sits at the top right of every video. From EP005 the look is `aquarelle`: watercolor with minimal anime (torn paper,
    paint blooms, no ink lines; approved by the owner, 10 Nov 2026). Season 2's map is a corridor of doors (framework v6).
    **From EP006 the look is `sketchbook`** (the owner's blend of four styles of the `lemo-opuscar` plugin, 17 Nov 2026:
-   Watercolor Brush, Tablet Sketch Explainer, Stick-figure Explainer, Sketchnote; `src/components/Sketchbook.tsx`) **and a
-   presenter**, the owner's drawn stand-in, stands beside the page and explains (framework v7 §3.20; five options in
-   `src/components/Presenter.tsx`, the owner chooses one). The plugin's code is MIT but its written guides are CC BY-NC:
+   Watercolor Brush, Tablet Sketch Explainer, Stick-figure Explainer, Sketchnote; `src/components/Sketchbook.tsx`). **No
+   presenter on screen:** the owner turned the idea down on 18 Nov 2026 (framework v7 §3.20 is parked; don't propose it
+   again unless they ask). The plugin's code is MIT but its written guides are CC BY-NC:
    read and follow them, never commit them or a copy (the repo is public). A foreign name or place shows on screen in Arabic and
    English; the script stays Arabic. Photos only when public domain or CC0 (Wikimedia Commons, Openverse), as a `photo`
    moment with the source in `sources.md`, and **never a photo of a woman**: she gets the watercolor avatar. **Every sentence is seen:** names, dates, numbers, quotes and comparisons get an explainer moment on the word that says them, each with a short non-melodic sound (the «foley» set from EP004: cards, paper, books, wood and coins from Kenney's CC0
